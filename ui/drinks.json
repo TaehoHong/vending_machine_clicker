@@ -1,0 +1,83 @@
+[
+  {
+    "key": "Water",
+    "name": "물",
+    "asset": "res://images/drinks/water_pop.tres",
+    "color": "#77CEE5",
+    "cost": 0,
+    "parent": -1,
+    "effect": "물 3개마다 수색 클릭 -1"
+  },
+  {
+    "key": "Tea",
+    "name": "녹차",
+    "asset": "res://images/drinks/green_tea_pop.tres",
+    "color": "#B4D581",
+    "cost": 0,
+    "parent": -1,
+    "effect": "마실 때마다 발견 금액 +1 Gold"
+  },
+  {
+    "key": "Ion",
+    "name": "이온음료",
+    "asset": "res://images/drinks/ion_drink_pop.tres",
+    "color": "#B7B9FF",
+    "cost": 5,
+    "parent": -1,
+    "effect": "마실 때마다 발견 금액 +2 Gold"
+  },
+  {
+    "key": "Vitamin",
+    "name": "비타민 음료",
+    "asset": "res://images/drinks/vitamin_pop.tres",
+    "color": "#FFE475",
+    "cost": 8,
+    "parent": 2,
+    "effect": "꽝 확률 -0.5%p (최소 2%)"
+  },
+  {
+    "key": "Apple",
+    "name": "사과 주스",
+    "asset": "res://images/drinks/apple_juice_pop.tres",
+    "color": "#F09589",
+    "cost": 8,
+    "parent": 2,
+    "effect": "마실 때마다 발견 금액 +3 Gold"
+  },
+  {
+    "key": "Orange",
+    "name": "오렌지 주스",
+    "asset": "res://images/drinks/orange_juice_pop.tres",
+    "color": "#FFBF70",
+    "cost": 12,
+    "parent": 3,
+    "effect": "마실 때마다 최종 발견 금액 +1%"
+  },
+  {
+    "key": "Cola",
+    "name": "콜라",
+    "asset": "res://images/drinks/cola_pop.tres",
+    "color": "#EF858D",
+    "cost": 12,
+    "parent": 4,
+    "effect": "마실 때마다 발견 금액 +5 Gold"
+  },
+  {
+    "key": "Fanta",
+    "name": "환타",
+    "asset": "res://images/drinks/fanta_pop.tres",
+    "color": "#D3A4FF",
+    "cost": 18,
+    "parent": 5,
+    "effect": "마실 때마다 최종 발견 금액 +2%"
+  },
+  {
+    "key": "Sprite",
+    "name": "스프라이트",
+    "asset": "res://images/drinks/sprite_pop.tres",
+    "color": "#92E7AE",
+    "cost": 18,
+    "parent": 6,
+    "effect": "4개마다 수색 클릭 -1 (최소 3회)"
+  }
+]

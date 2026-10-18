@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dkq1f7krtwqnj"]
+
+[sub_resource type="Shader" id="Shader"]
+code = "shader_type canvas_item;
+render_mode blend_add, unshaded;
+"
+
+[resource]
+shader = SubResource("Shader")
