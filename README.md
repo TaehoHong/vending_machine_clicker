@@ -3,6 +3,8 @@
 Godot 4.7 프로젝트입니다. `project.godot`를 열고 실행하세요.
 기획 기준과 문서 링크는 `AGENTS.md`에 있습니다.
 
+기획·디자인 파일 위치, Notion·Penpot 링크와 접속 방법은 [자료·접속 안내](design/README.md)를 참고하세요. 확정 제품 규칙은 [PRODUCT.md](PRODUCT.md), 현재 디자인 수정본은 [DESIGN.md](DESIGN.md)에 있습니다.
+
 ## Penpot UI 적용
 
 Penpot의 메인·플레이·물/녹차 획득·ESC 메뉴 시안을 실제 Godot Control 노드에 적용했습니다.

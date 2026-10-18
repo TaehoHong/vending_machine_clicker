@@ -1,0 +1,329 @@
+{
+  "page": "e28ede4c-b451-80ef-8008-cdbf66419fb9",
+  "pages": [
+    {
+      "id": "cd444aaf-0d8c-801b-8008-cda246e18651",
+      "name": "자판기 클릭커 · 시안 v1"
+    },
+    {
+      "id": "41f85999-5a26-807c-8008-cda64dc5f284",
+      "name": "실제 게임 화면 · v2"
+    },
+    {
+      "id": "311487d5-89f3-8074-8008-cda65b4d2bec",
+      "name": "Backstreet UI · 메인·플레이·획득·ESC"
+    },
+    {
+      "id": "469fc32a-9a9d-800d-8008-cdb900d3f532",
+      "name": "Godot 최신 화면 · 2026-10-17"
+    },
+    {
+      "id": "e28ede4c-b451-80ef-8008-cdbf66419fb9",
+      "name": "게임 UI · v3 · 화면 설계"
+    }
+  ],
+  "boards": [
+    {
+      "key": "02-main-play",
+      "id": "def906f0-0911-8055-8008-cdc23d5f4bdf",
+      "name": "02 · 메인 플레이",
+      "shapes": 553,
+      "texts": 51,
+      "links": 18,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "03-vending-purchase",
+      "id": "def906f0-0911-8055-8008-cdc2900e3f80",
+      "name": "03 · 자판기 구매",
+      "shapes": 569,
+      "texts": 54,
+      "links": 13,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "05-collection",
+      "id": "def906f0-0911-8055-8008-cdc2924d2e82",
+      "name": "05 · 수집함",
+      "shapes": 597,
+      "texts": 63,
+      "links": 13,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "06-upgrades",
+      "id": "def906f0-0911-8055-8008-cdc295e3a290",
+      "name": "06 · 능력 강화",
+      "shapes": 574,
+      "texts": 54,
+      "links": 13,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "04-item-result",
+      "id": "def906f0-0911-8055-8008-cdc2b5f475bf",
+      "name": "04 · 물품 획득",
+      "shapes": 604,
+      "texts": 62,
+      "links": 14,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "04b-miss-result",
+      "id": "def906f0-0911-8055-8008-cdc2ba6d7bcf",
+      "name": "04b · 꽝 결과",
+      "shapes": 586,
+      "texts": 61,
+      "links": 7,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "07-automation",
+      "id": "def906f0-0911-8055-8008-cdc2bea505f4",
+      "name": "07 · 자동화 설치",
+      "shapes": 683,
+      "texts": 51,
+      "links": 13,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "08-pause",
+      "id": "def906f0-0911-8055-8008-cdc2c8137e44",
+      "name": "08 · 일시정지",
+      "shapes": 555,
+      "texts": 49,
+      "links": 7,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "01-title",
+      "id": "def906f0-0911-8055-8008-cdc2cb63ef43",
+      "name": "01 · 시작",
+      "shapes": 203,
+      "texts": 11,
+      "links": 9,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "09-motion-storyboard",
+      "id": "def906f0-0911-8055-8008-cdc2d83cc61e",
+      "name": "09 · 모션 순서",
+      "shapes": 874,
+      "texts": 31,
+      "links": 0,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "10-mobile-play",
+      "id": "def906f0-0911-8055-8008-cdc33b529665",
+      "name": "10 · 모바일 메인",
+      "shapes": 337,
+      "texts": 20,
+      "links": 0,
+      "width": 390,
+      "height": 844
+    },
+    {
+      "key": "11-after-use",
+      "id": "def906f0-0911-8055-8008-cdc3e20e4abe",
+      "name": "11 · 콜라 사용 후",
+      "shapes": 552,
+      "texts": 51,
+      "links": 12,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "12-purchased-use",
+      "id": "def906f0-0911-8055-8008-cdc3e3aa8c3e",
+      "name": "12 · 획득 음료 사용 후",
+      "shapes": 551,
+      "texts": 51,
+      "links": 11,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "13-stored",
+      "id": "def906f0-0911-8055-8008-cdc3e4290fd0",
+      "name": "13 · 획득 음료 보관 후",
+      "shapes": 552,
+      "texts": 51,
+      "links": 11,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "key": "14-upgraded",
+      "id": "def906f0-0911-8055-8008-cdc3e4d8eca1",
+      "name": "14 · 클릭 능력 강화 후",
+      "shapes": 551,
+      "texts": 51,
+      "links": 11,
+      "width": 1600,
+      "height": 900
+    }
+  ],
+  "stateChecks": [
+    {
+      "key": "02-main-play",
+      "values": [
+        {
+          "text": "12,480 G",
+          "x": 453,
+          "y": 42
+        },
+        {
+          "text": "36",
+          "x": 792,
+          "y": 43
+        },
+        {
+          "text": "×3",
+          "x": 194,
+          "y": 814
+        },
+        {
+          "text": "×2",
+          "x": 324,
+          "y": 814
+        },
+        {
+          "text": "4회마다 동전 발견",
+          "x": 1334,
+          "y": 633
+        }
+      ]
+    },
+    {
+      "key": "11-after-use",
+      "values": [
+        {
+          "text": "12,480 G",
+          "x": 453,
+          "y": 42
+        },
+        {
+          "text": "37",
+          "x": 792,
+          "y": 43
+        },
+        {
+          "text": "×2",
+          "x": 194,
+          "y": 814
+        },
+        {
+          "text": "×2",
+          "x": 324,
+          "y": 814
+        },
+        {
+          "text": "3회마다 동전 발견",
+          "x": 1334,
+          "y": 633
+        }
+      ]
+    },
+    {
+      "key": "12-purchased-use",
+      "values": [
+        {
+          "text": "12,130 G",
+          "x": 453,
+          "y": 42
+        },
+        {
+          "text": "37",
+          "x": 792,
+          "y": 43
+        },
+        {
+          "text": "×3",
+          "x": 194,
+          "y": 814
+        },
+        {
+          "text": "×2",
+          "x": 324,
+          "y": 814
+        },
+        {
+          "text": "3회마다 동전 발견",
+          "x": 1334,
+          "y": 633
+        }
+      ]
+    },
+    {
+      "key": "13-stored",
+      "values": [
+        {
+          "text": "12,130 G",
+          "x": 453,
+          "y": 42
+        },
+        {
+          "text": "36",
+          "x": 792,
+          "y": 43
+        },
+        {
+          "text": "×4",
+          "x": 194,
+          "y": 814
+        },
+        {
+          "text": "×2",
+          "x": 324,
+          "y": 814
+        },
+        {
+          "text": "4회마다 동전 발견",
+          "x": 1334,
+          "y": 633
+        }
+      ]
+    },
+    {
+      "key": "14-upgraded",
+      "values": [
+        {
+          "text": "12,480 G",
+          "x": 453,
+          "y": 42
+        },
+        {
+          "text": "12",
+          "x": 792,
+          "y": 43
+        },
+        {
+          "text": "×3",
+          "x": 194,
+          "y": 814
+        },
+        {
+          "text": "×2",
+          "x": 324,
+          "y": 814
+        },
+        {
+          "text": "3회마다 동전 발견",
+          "x": 1334,
+          "y": 633
+        }
+      ]
+    }
+  ]
+}

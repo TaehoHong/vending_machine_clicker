@@ -1,0 +1,1 @@
+storage.v4Image=await penpot.uploadMediaData('Original pixel vending machine',Uint8Array.from(atob(storage.v4B64),c=>c.charCodeAt(0)),'image/png');delete storage.v4B64;return {uploaded:true};

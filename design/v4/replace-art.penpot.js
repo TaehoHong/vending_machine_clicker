@@ -1,0 +1,14 @@
+const page=penpot.currentFile.pages.find(p=>p.id==='55aeaacb-aa46-80be-8008-cdca4fa29ef0');
+await penpot.openPage(page);
+const board=page.getShapeById('55aeaacb-aa46-80be-8008-cdca500ac9c3');
+const children=[...board.children];
+const background=children[1];
+const sprites=children.filter(s=>s.name==='Sprite / 자동 자판기'||s.name==='Sprite / 수동 자판기');
+const firstSpriteIndex=children.findIndex(s=>s.name==='Sprite / 자동 자판기');
+const oldField=background.name==='Background / 일본풍 골목길'?[]:children.slice(2,firstSpriteIndex);
+background.fills=[{fillOpacity:1,fillImage:storage.v4Alley}];
+background.name='Background / 일본풍 골목길';
+for(const sprite of sprites)sprite.fills=[{fillOpacity:1,fillImage:storage.v4Image}];
+for(const shape of oldField)shape.remove();
+penpot.selection=[board];penpot.viewport.zoomIntoView([board]);
+return {page:page.id,board:board.id,frontFacingMachines:sprites.length,removedFieldTiles:oldField.length,remainingShapes:board.children.length};

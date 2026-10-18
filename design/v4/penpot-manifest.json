@@ -1,0 +1,15 @@
+{
+  "page": "55aeaacb-aa46-80be-8008-cdca4fa29ef0",
+  "board": "55aeaacb-aa46-80be-8008-cdca500ac9c3",
+  "width": 1600,
+  "height": 900,
+  "largeSidePanel": false,
+  "separateUseAction": false,
+  "reference": "https://store.steampowered.com/app/3946950/Click_the_Button/",
+  "export": "../review/v4/main-front-alley-penpot.png",
+  "sprite": "vending-machine-front-web.png",
+  "spriteView": "front",
+  "background": "japanese-alley-web.png",
+  "prompt": "front-alley-prompts.txt",
+  "imageMode": "built-in image_gen"
+}
