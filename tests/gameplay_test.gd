@@ -40,7 +40,8 @@ func run_checks() -> void:
 	check(committed.load(game.save_path) == OK and committed.get_value("progress", "money") == 200 and committed.get_value("progress", "water_count") == 1, "Charge and reward persist together before animation completes")
 	game._on_shop_button_pressed()
 	check(game.money == 200 and game.drinks == 1, "Repeated clicks during animation do not charge twice")
-	await create_timer(0.65).timeout
+	await game.coin_tween.finished
+	await process_frame
 	check(game.result_overlay.visible and not game.coin_token.visible, "Result opens after animation")
 	check(game.result_title.text == "물 획득!" and game.result_art.texture != null, "Water result has correct name and illustration")
 	check(game.result_effect.text.contains("수색 숙련도 +1"), "Water result explains its effect")
@@ -52,13 +53,15 @@ func run_checks() -> void:
 	game.shop_button.pressed.emit()
 	check(game.money == 100 and game.green_tea_count == 1 and game.drinks == 2 and game.cans == 2, "Green tea costs exactly 100 yen")
 	check(game.coin_bonus() == 1, "Green tea increases discovered coin value")
-	await create_timer(0.65).timeout
+	await game.coin_tween.finished
+	await process_frame
 	check(game.result_title.text == "녹차 획득!" and game.result_effect.text.contains("+1 Gold"), "Tea result explains its own effect")
 	game.close_button.pressed.emit()
 	game.forced_drink = 0
 	game.shop_button.pressed.emit()
 	check(game.money == 0, "Exact 100 yen balance can buy a drink")
-	await create_timer(0.65).timeout
+	await game.coin_tween.finished
+	await process_frame
 	game.close_button.pressed.emit()
 	game._on_shop_button_pressed()
 	check(game.money == 0 and game.drinks == 3 and not game.inserting_coin, "Zero balance cannot buy")

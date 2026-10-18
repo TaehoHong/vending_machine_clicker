@@ -3,7 +3,12 @@
 [sub_resource type="Shader" id="Shader"]
 code = "shader_type canvas_item;
 render_mode blend_add, unshaded;
+uniform float strength = 3.0;
+void fragment() {
+	COLOR.rgb *= strength;
+}
 "
 
 [resource]
 shader = SubResource("Shader")
+shader_parameter/strength = 3.0

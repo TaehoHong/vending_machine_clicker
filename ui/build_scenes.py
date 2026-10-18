@@ -50,9 +50,9 @@ class Scene:
  def write(self,file): (R/file).write_text(self.s,encoding='utf-8')
 FULL='layout_mode = 1\nanchors_preset = 15\nanchor_right = 1.0\nanchor_bottom = 1.0\ngrow_horizontal = 2\ngrow_vertical = 2\n'
 RIGHT='anchor_left = 1.0\nanchor_right = 1.0\ngrow_horizontal = 0\n'
-def base(sc,name):
+def base(sc,name,nearest=False):
  sc.node(name,'Control',props=FULL+'theme = ExtResource("theme")\nscript = ExtResource("1")')
- sc.node('BackgroundImage' if name=='Main' else 'TextureRect','TextureRect','.',props=FULL+'texture = ExtResource("2")\nmouse_filter = 2\nexpand_mode = 1\nstretch_mode = 6')
+ sc.node('BackgroundImage' if name=='Main' else 'TextureRect','TextureRect','.',props=FULL+('texture_filter = 1\n' if nearest else '')+'texture = ExtResource("2")\nmouse_filter = 2\nexpand_mode = 1\nstretch_mode = 6')
 def gradient(sc,menu=False):
  # A native GradientTexture2D keeps the foreground readable as in Penpot.
  g='MenuShade' if menu else 'GameShade'
@@ -78,32 +78,63 @@ m.label('Footer','.',(64,588,450,26),'拾う。飲む。育てる。',12,C['mute
 for src,method in [('NewGameButton','_on_new_game_button_pressed'),('LoadGameButton','_on_load_game_button_pressed'),('ExitButton','_on_exit_button_pressed')]:m.connect('MenuBox/'+src,method)
 m.write('main.tscn')
 
-g=Scene('uid://76phghpoy71h','game.gd','2847210d-a3b0-4e7a-964a-049414535f65.png');g.s+='\n[ext_resource type="Script" path="res://pause_menu.gd" id="pause"]\n[ext_resource type="Texture2D" path="res://ui/reward_halo.svg" id="halo"]\n[ext_resource type="Texture2D" path="res://ui/search_glow.svg" id="search_glow"]\n[ext_resource type="Texture2D" path="res://ui/can_icon.svg" id="can_icon"]\n[ext_resource type="Texture2D" path="res://images/drinks/water_pop.tres" id="water_art"]\n[ext_resource type="Texture2D" path="res://images/drinks/green_tea_pop.tres" id="tea_art"]\n[ext_resource type="Texture2D" path="res://images/drinks/ion_drink_pop.tres" id="ion_art"]\n[ext_resource type="Script" path="res://ui/skill_tree.gd" id="skill_tree"]\n[ext_resource type="ShaderMaterial" path="res://ui/search_glow.tres" id="glow_material"]\n';base(g,'Game');gradient(g)
-g.label('Brand','.',(32,22,400,26),'BACKSTREET / CLICKER',13,C['gold'])
-g.button('MenuButton','.',(-132,18,104,32),'ESC  메뉴',extra=RIGHT+'flat = true\ntheme_override_font_sizes/font_size = 13')
-g.node('WalletPanel','Panel','.',(28,64,246,132))
-g.label('WalletCaption','WalletPanel',(20,14,140,24),'보유 금액',13,C['muted'])
-g.label('Currency','WalletPanel',(164,56,60,24),'Gold',17,C['gold'], 'horizontal_alignment = 2')
-g.label('MoneyLabel','.',(48,98,210,48),'0',32)
-g.node('CanIcon','TextureRect','WalletPanel',(20,94,22,26),'texture = ExtResource("can_icon")\nexpand_mode = 1\nstretch_mode = 5\nmouse_filter = 2')
-g.label('CanCount','WalletPanel',(52,91,170,30),'0',18,C['muted'])
-g.node('Navigation','Control','.',(28,-78,246,50),'anchor_top = 1.0\nanchor_bottom = 1.0')
-g.button('AbilityButton','Navigation',(0,0,117,50),'능력')
-g.button('SkillButton','Navigation',(129,0,117,50),'스킬')
-g.node('QuestPanel','Panel','.',(-290,64,262,154),RIGHT)
-g.label('QuestTitle','QuestPanel',(20,14,230,28),'첫 수집 목표',17)
-g.label('QuestText','QuestPanel',(20,48,230,24),'동전 10번 발견하기',14,C['muted'])
-g.node('QuestBar','ProgressBar','QuestPanel',(20,76,222,5),'show_percentage = false\nmax_value = 10.0\nmouse_filter = 2')
-g.label('QuestProgress','QuestPanel',(20,84,94,24),'0 / 10',13,C['gold'])
-g.label('RewardHint','QuestPanel',(132,84,110,24),'보상 ¥5000',13,C['muted'],'horizontal_alignment = 2')
-g.button('QuestCompleteButton','QuestPanel',(20,108,222,34),'보상 받기 · ¥5000',True,'theme_override_font_sizes/font_size = 13')
-g.button('CoinSlotButton','.',(640,289,36,74),'',extra='accessibility_name = "자판기 동전 투입구 · 물품 구매"')
-g.node('SlotHint','Panel','.',(699,302,190,44),'mouse_filter = 2')
-g.label('Price','SlotHint',(16,9,160,24),'100 Gold 투입',16,C['gold'])
+g=Scene('uid://76phghpoy71h','game.gd','alley_arcade_penpot.png');g.s+='\n[ext_resource type="Script" path="res://pause_menu.gd" id="pause"]\n[ext_resource type="Texture2D" path="res://ui/reward_halo.svg" id="halo"]\n[ext_resource type="Texture2D" path="res://ui/search_glow.svg" id="search_glow"]\n[ext_resource type="Texture2D" path="res://ui/can_icon.svg" id="can_icon"]\n[ext_resource type="Texture2D" path="res://images/drinks/water_pop.tres" id="water_art"]\n[ext_resource type="Texture2D" path="res://images/drinks/green_tea_pop.tres" id="tea_art"]\n[ext_resource type="Texture2D" path="res://images/drinks/ion_drink_pop.tres" id="ion_art"]\n[ext_resource type="Script" path="res://ui/skill_tree.gd" id="skill_tree"]\n[ext_resource type="ShaderMaterial" path="res://ui/search_glow.tres" id="glow_material"]\n';g.s+='[ext_resource type="Texture2D" path="res://images/vending_approved_15.png" id="vending_machine"]\n'
+g.s+='[ext_resource type="Script" path="res://ui/search_light.gd" id="search_light"]\n'
+g.s+='[ext_resource type="Material" path="res://ui/vending_display.tres" id="vending_display"]\n'
+g.s+='[ext_resource type="FontFile" path="res://ui/fonts/DoHyeon-Regular.ttf" id="pixel_font"]\n'
+for asset in ['hud','purchase','ability','drinks']:
+ g.s+=f'[ext_resource type="StyleBoxTexture" path="res://ui/pixel/{asset}_style.tres" id="pixel_{asset}"]\n'
+for asset in ['ability','drinks']:
+ for state in ['hover','pressed','disabled']:
+  g.s+=f'[ext_resource type="StyleBoxTexture" path="res://ui/pixel/{asset}_{state}.tres" id="pixel_{asset}_{state}"]\n'
+g.s+='[ext_resource type="StyleBoxFlat" path="res://ui/pixel/focus.tres" id="pixel_focus"]\n'
+PIXEL_LABEL='theme_override_fonts/font = ExtResource("pixel_font")\ntheme_override_colors/font_color = Color(1,1,1,1)\ntheme_override_colors/font_outline_color = Color(0.07059,0.07059,0.11373,1)\ntheme_override_constants/outline_size = 3\n'
+def pixel_button(asset):
+ return PIXEL_LABEL+'texture_filter = 1\ntheme_override_font_sizes/font_size = 26\n'+''.join(f'theme_override_styles/{state} = ExtResource("pixel_{asset}{"" if state=="normal" else "_"+state}")\n' for state in ['normal','hover','pressed','disabled'])+'theme_override_styles/focus = ExtResource("pixel_focus")\n'
+g.s+='[ext_resource type="StyleBoxTexture" path="res://ui/pixel/quest_style.tres" id="pixel_quest"]\n'
+for state in ['style','hover','pressed','disabled']:
+ g.s+=f'[ext_resource type="StyleBoxFlat" path="res://ui/pixel/quest_claim_{state}.tres" id="quest_claim_{state}"]\n'
+for state in ['background','fill']:
+ g.s+=f'[ext_resource type="StyleBoxFlat" path="res://ui/pixel/quest_bar_{state}.tres" id="quest_bar_{state}"]\n'
+base(g,'Game',nearest=True);gradient(g)
+g.node('VendingMachine','TextureRect','.',(437.76,79.2,276.48,414.72),'material = ExtResource("vending_display")\ntexture_filter = 1\ntexture = ExtResource("vending_machine")\nexpand_mode = 1\nstretch_mode = 5\nmouse_filter = 2')
+g.button('MenuButton','.',(-410,24,104,32),'ESC  메뉴',extra=RIGHT+'flat = true\ntheme_override_font_sizes/font_size = 13')
+g.node('WalletPanel','Panel','.',(28,24,243,125),'texture_filter = 1\ntheme_override_styles/panel = ExtResource("pixel_hud")')
+g.label('WalletCaption','WalletPanel',(20,14,140,24),'보유 금액',13,C['muted'],'visible = false')
+g.label('Currency','WalletPanel',(164,56,60,24),'Gold',17,C['gold'], 'horizontal_alignment = 2\nvisible = false')
+g.node('MoneyLabel','Label','.',(96,35,158,44),PIXEL_LABEL+'theme_override_font_sizes/font_size = 28\ntext = "0 Gold"\nvertical_alignment = 1\nmouse_filter = 2')
+g.node('CanIcon','TextureRect','WalletPanel',(20,94,22,26),'visible = false\ntexture = ExtResource("can_icon")\nexpand_mode = 1\nstretch_mode = 5\nmouse_filter = 2')
+g.label('CanCount','WalletPanel',(68,65,160,43),'빈캔 0',26,None,PIXEL_LABEL+'vertical_alignment = 1\n')
+g.node('Navigation','Control','.',(28,-92,386,64),'anchor_top = 1.0\nanchor_bottom = 1.0')
+g.button('AbilityButton','Navigation',(0,0,170,64),'능력',extra=pixel_button('ability'))
+g.button('SkillButton','Navigation',(186,0,200,64),'음료수 추가',extra=pixel_button('drinks'))
+g.node('QuestPanel','Panel','.',(-290,24,262,178),RIGHT+'texture_filter = 1\ntheme_override_styles/panel = ExtResource("pixel_quest")')
+g.label('QuestTitle','QuestPanel',(18,12,226,30),'첫 수집 목표',23)
+g.node('Divider','ColorRect','QuestPanel',(18,43,226,3),'mouse_filter = 2\ncolor = Color(0.15686,0.33725,0.49804,1)')
+g.label('QuestText','QuestPanel',(18,48,226,24),'동전 10번 발견하기',18)
+g.node('QuestBar','ProgressBar','QuestPanel',(18,76,226,8),'show_percentage = false\nmax_value = 10.0\nmouse_filter = 2\ntheme_override_styles/background = ExtResource("quest_bar_background")\ntheme_override_styles/fill = ExtResource("quest_bar_fill")')
+g.label('QuestProgress','QuestPanel',(18,87,80,23),'0 / 10',17,C['gold'])
+g.label('RewardHint','QuestPanel',(102,87,142,23),'보상 ¥5000',17,extra='horizontal_alignment = 2')
+claim_style=PIXEL_LABEL+'texture_filter = 1\ntheme_override_font_sizes/font_size = 18\n'+''.join(f'theme_override_styles/{state} = ExtResource("quest_claim_{"style" if state=="normal" else state}")\n' for state in ['normal','hover','pressed','disabled'])+'theme_override_styles/focus = ExtResource("pixel_focus")\n'
+g.button('QuestCompleteButton','QuestPanel',(18,111,226,32),'보상 받기 · ¥5000',extra=claim_style)
+# Apply the exported HUD typeface and outline without duplicating label properties.
+for name in ['QuestTitle','QuestText','QuestProgress','RewardHint']:
+ node_start=g.s.index(f'[node name="{name}"')
+ node_end=g.s.find('\n[node ',node_start+1)
+ if node_end<0: node_end=len(g.s)
+ block=g.s[node_start:node_end]
+ block=block.replace('ExtResource("bold")','ExtResource("pixel_font")')
+ if 'theme_override_fonts/font' not in block: block+='theme_override_fonts/font = ExtResource("pixel_font")\n'
+ block+='theme_override_colors/font_outline_color = Color(0.07059,0.07059,0.11373,1)\ntheme_override_constants/outline_size = 2\n'
+ g.s=g.s[:node_start]+block+g.s[node_end:]
+
+g.button('CoinSlotButton','.',(468,111,216,270),'',extra='accessibility_name = "자판기 전면 · 음료 구매"')
+g.node('SlotHint','Panel','.',(699,302,168,76),'texture_filter = 1\nmouse_filter = 2\ntheme_override_styles/panel = ExtResource("pixel_purchase")')
+g.node('Price','Label','SlotHint',(35,5,118,56),PIXEL_LABEL.replace('Color(1,1,1,1)','Color(1,0.88627,0.5098,1)')+'theme_override_font_sizes/font_size = 28\ntext = "100G"\nhorizontal_alignment = 1\nvertical_alignment = 1\nmouse_filter = 2')
 g.node('CoinToken','Panel','.',(0,0,42,42),'visible = false\nz_index = 10\nmouse_filter = 2')
 g.label('Symbol','CoinToken',(0,0,42,42),'¥',25,'#593305','horizontal_alignment = 1\nvertical_alignment = 1')
 g.label('FeedbackLabel','.',(28,-90,1096,40),'',14,C['gold'],'anchor_top = 1.0\nanchor_bottom = 1.0\nanchor_right = 1.0\noffset_right = -28.0\nhorizontal_alignment = 1\nautowrap_mode = 2')
-g.node('SearchGlow','TextureRect','.',(420,445,310,125),'mouse_filter = 2\ntexture = ExtResource("search_glow")\nmaterial = ExtResource("glow_material")\nexpand_mode = 1\nmodulate = Color(1,1,1,0)')
+g.node('SearchGlow','TextureRect','.',(420,445,310,125),'mouse_filter = 2\nscript = ExtResource("search_light")\nmaterial = ExtResource("glow_material")\nexpand_mode = 1\nmodulate = Color(1,1,1,0)')
 g.button('EarnButton','.',(458,448,230,110),'',extra='flat = true\nfocus_mode = 0\naccessibility_name = "자판기 밑 수색"')
 g.node('ResultOverlay','ColorRect','.',props=FULL+'visible = false\ncolor = Color(0.043,0.067,0.094,0.84)')
 g.node('Card','PanelContainer','ResultOverlay',(-240,-284,480,568),'anchor_left = 0.5\nanchor_right = 0.5\nanchor_top = 0.5\nanchor_bottom = 0.5')
@@ -158,4 +189,6 @@ g.connect('InfoOverlay/Card/CloseButton','_on_info_close_pressed')
 g.s+='\n[connection signal="unlock_requested" from="InfoOverlay/Card/SkillTree" to="." method="_on_unlock_drink_requested"]\n'
 g.write('Game.tscn')
 print('Generated native Godot scenes and shared theme from Penpot tokens.')
+
+
 

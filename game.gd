@@ -34,7 +34,13 @@ var cans: int = 0
 var machine_level: int = 0
 var inserting_coin: bool = false
 var coin_tween: Tween
+var coin_insert_fx: Control
 var search_glow_tween: Tween
+var search_hint: Control
+var search_fever_fx: Control
+var search_fever_remaining: float = 0.0
+var search_fever_total: float = 10.0
+var search_fever_pending: bool = false
 
 @onready var money_label: Label = $MoneyLabel
 @onready var earn_button: Button = $EarnButton
@@ -60,17 +66,50 @@ func _ready() -> void:
 		_save_progress()
 	else:
 		_load_progress()
+	_setup_drink_catalog()
+	search_hint = preload("res://ui/search_hint.gd").new()
+	search_hint.name = "SearchHint"
+	add_child(search_hint)
+	move_child(search_hint, result_overlay.get_index())
+	search_fever_fx = preload("res://ui/search_fever.gd").new()
+	search_fever_fx.name = "SearchFeverFX"
+	add_child(search_fever_fx)
+	move_child(search_fever_fx, result_overlay.get_index())
 	_setup_coin_slot()
 	_setup_search_area()
 	resized.connect(_position_coin_slot)
 	_refresh_ui()
 
+func _process(delta: float) -> void:
+	var blocked: bool = inserting_coin or result_overlay.visible or info_overlay.visible
+	search_hint.set("blocked", blocked or search_fever_remaining > 0)
+	if search_fever_remaining > 0 and not blocked:
+		search_fever_remaining = maxf(0, search_fever_remaining - delta)
+		if search_fever_remaining == 0:
+			_refresh_ui()
+	search_fever_fx.call("update_state", search_fever_remaining, search_fever_total, blocked)
+
+func search_fever_duration() -> float:
+	return 10.0 + mini(drink_count(12), 10)
+
+func _start_search_fever() -> void:
+	search_fever_total = search_fever_duration()
+	search_fever_remaining = search_fever_total
+	_refresh_ui()
+
 func clicks_required() -> int:
-	return maxi(3, CLICKS_PER_REWARD - water_count / 3 - drink_count(8) / 4)
+	var normal: int = maxi(3, CLICKS_PER_REWARD - water_count / 3 - drink_count(8) / 4)
+	return maxi(1, normal - 5) if search_fever_remaining > 0 else normal
 
 func _on_earn_button_pressed() -> void:
 	if get_tree().paused or inserting_coin or result_overlay.visible or info_overlay.visible:
 		return
+	search_hint.call("notify_search_click")
+	if search_fever_remaining > 0:
+		var point := get_local_mouse_position()
+		if not earn_button.get_rect().has_point(point):
+			point = earn_button.position + earn_button.size * Vector2(0.5, 0.35)
+		search_fever_fx.call("add_click", point)
 	click_stack = mini(click_stack + 1, clicks_required())
 	if click_stack < clicks_required():
 		_refresh_ui()
@@ -93,6 +132,7 @@ func _on_earn_button_pressed() -> void:
 
 func _show_coin_reward(amount: int) -> void:
 	_clear_search_popups("empty_search_popups")
+	_show_search_coin(amount)
 	var popup := Label.new()
 	popup.name = "CoinRewardPopup"
 	popup.text = "+%d" % amount
@@ -106,6 +146,7 @@ func _show_coin_reward(amount: int) -> void:
 
 func _show_empty_search() -> void:
 	_clear_search_popups("coin_reward_popups")
+	_clear_search_popups("search_coin_effects")
 	var popup := TextureRect.new()
 	popup.name = "EmptySearchPopup"
 	popup.texture = preload("res://ui/crying_icon.svg")
@@ -113,6 +154,44 @@ func _show_empty_search() -> void:
 	popup.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	popup.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	_animate_search_popup(popup, "empty_search_popups")
+
+func _show_search_coin(amount: int) -> void:
+	_clear_search_popups("search_coin_effects")
+	var counts: Array[int] = preload("res://ui/search_coin.gd").breakdown(amount)
+	var total: int = counts[0] + counts[1] + counts[2] + counts[3]
+	var index: int = 0
+	for tier in range(counts.size() - 1, -1, -1):
+		for _i in range(counts[tier]):
+			_spawn_search_coin(tier, index, total)
+			index += 1
+
+func _spawn_search_coin(tier: int, index: int, total: int) -> void:
+	var coin: Control = preload("res://ui/search_coin.gd").new()
+	coin.set("tier", tier)
+	coin.name = "FoundCoin"
+	coin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	coin.size = Vector2(26, 26)
+	coin.pivot_offset = coin.size * 0.5
+	coin.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	add_child(coin)
+	move_child(coin, result_overlay.get_index())
+	coin.add_to_group("search_coin_effects")
+	var lane := float(index) / maxf(1.0, total - 1.0)
+	var start := search_glow.position + Vector2(search_glow.size.x * lerpf(0.25, 0.75, lane), 0) - coin.size * 0.5
+	coin.position = start
+	var direction := -1.0 if index % 2 == 0 else 1.0
+	var height := randf_range(22, 48)
+	var distance := randf_range(45, 90)
+	var motion := coin.create_tween()
+	motion.tween_property(coin, "position", start + Vector2(direction * 12, -height), 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	motion.tween_property(coin, "position", start + Vector2(direction * 28, 18), 0.22).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	motion.tween_property(coin, "position", start + Vector2(direction * distance, 22), 0.38).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	motion.tween_callback(coin.queue_free)
+	var spin := coin.create_tween()
+	spin.tween_property(coin, "rotation", direction * TAU, 0.76)
+	var fade := coin.create_tween()
+	fade.tween_interval(0.48)
+	fade.tween_property(coin, "modulate:a", 0.0, 0.28)
 
 func _clear_search_popups(popup_group: String) -> void:
 	for popup in get_tree().get_nodes_in_group(popup_group):
@@ -151,15 +230,21 @@ func _search_is_empty() -> bool:
 	return randf() < miss_chance()
 
 func _setup_search_area() -> void:
+	# 본체와 다리가 빛을 가려, 자판기 안쪽 틈에서 새어 나오도록 배치한다.
+	move_child(search_glow, $VendingMachine.get_index())
 	# 모든 버튼 상태를 투명하게 두어 배경 위에 클릭 영역만 남긴다.
 	for state in ["normal", "hover", "pressed", "focus", "disabled"]:
 		earn_button.add_theme_stylebox_override(state, StyleBoxEmpty.new())
 	search_glow.modulate.a = clampf(float(click_stack) / clicks_required(), 0.0, 1.0)
+	search_glow.call("set_progress", search_glow.modulate.a)
 
 func _refresh_search_glow() -> void:
 	if search_glow_tween and search_glow_tween.is_valid():
 		search_glow_tween.kill()
 	var brightness: float = clampf(float(click_stack) / clicks_required(), 0.0, 1.0)
+	if search_fever_remaining > 0:
+		brightness = maxf(0.35, brightness)
+	search_glow.call("set_progress", brightness)
 	search_glow_tween = create_tween()
 	search_glow_tween.tween_property(search_glow, "modulate:a", brightness, 0.18)
 
@@ -183,52 +268,66 @@ func _setup_coin_slot() -> void:
 	# 비활성화 상태에도 기본 테마의 사각형이 나타나지 않도록 모두 투명 처리.
 	for state in ["normal", "hover", "pressed", "focus", "disabled", "hover_pressed"]:
 		shop_button.add_theme_stylebox_override(state, StyleBoxEmpty.new())
-	var coin_style := StyleBoxFlat.new()
-	coin_style.bg_color = Color("edbd53")
-	coin_style.border_color = Color("fff0b3")
-	coin_style.set_border_width_all(3)
-	coin_style.set_corner_radius_all(24)
-	coin_token.add_theme_stylebox_override("panel", coin_style)
+	coin_token.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	coin_token.get_node("Symbol").hide()
+	coin_insert_fx = preload("res://ui/coin_insert_fx.gd").new()
+	coin_insert_fx.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	coin_token.add_child(coin_insert_fx)
 	_position_coin_slot()
 
 func _position_coin_slot() -> void:
-	# KEEP_ASPECT_COVER 배경의 확대 및 중앙 크롭과 같은 좌표 변환.
+	# 배경의 KEEP_ASPECT_COVER 변환에 맞춰 독립 자판기를 배치한다.
 	var image_size: Vector2 = $TextureRect.texture.get_size()
 	var factor: float = maxf(size.x / image_size.x, size.y / image_size.y)
 	var origin: Vector2 = (size - image_size * factor) * 0.5
-	shop_button.position = origin + Vector2(936, 420) * factor
-	shop_button.size = Vector2(50, 108) * factor
-	earn_button.position = origin + Vector2(665, 650) * factor
-	earn_button.size = Vector2(335, 160) * factor
-	search_glow.position = origin + Vector2(610, 650) * factor
-	search_glow.size = Vector2(440, 180) * factor
-	$SlotHint.position = shop_button.position + Vector2(shop_button.size.x + 24, 13)
-	$SlotHint.position.x = minf($SlotHint.position.x, size.x - 218)
+	var machine: TextureRect = $VendingMachine
+	machine.position = origin + Vector2(608, 110) * factor
+	machine.size = Vector2(384, 576) * factor
+	# 첨부 이미지 512×768의 투입구와 발밑에 클릭 영역을 맞춘다.
+	var machine_scale: float = machine.size.x / 512.0
+	# 구매 영역은 실제 본체의 상단부터 음료 배출구 바로 위까지만 포함한다.
+	shop_button.position = machine.position + Vector2(56, 60) * machine_scale
+	shop_button.size = Vector2(400, 500) * machine_scale
+	earn_button.position = machine.position + Vector2(50, 690) * machine_scale
+	earn_button.size = Vector2(412, 120) * machine_scale
+	search_glow.position = machine.position + Vector2(40, 690) * machine_scale
+	search_glow.size = Vector2(432, 110) * machine_scale
+	search_hint.position = Vector2(earn_button.position.x + earn_button.size.x * 0.5 - search_hint.size.x * 0.5, earn_button.position.y + earn_button.size.y * 0.5)
+	search_fever_fx.size = size
+	search_fever_fx.set("source", earn_button.position + earn_button.size * Vector2(0.5, 0.43))
+	var slot_target := coin_insertion_target()
+	if is_instance_valid(coin_insert_fx):
+		coin_insert_fx.set("target", slot_target)
+	$SlotHint.position = slot_target + Vector2(61, -29)
+	$SlotHint.position.x = minf($SlotHint.position.x, size.x - $SlotHint.size.x - 12)
+
+func coin_insertion_target() -> Vector2:
+	var machine: TextureRect = $VendingMachine
+	return machine.position + Vector2(855, 648) * (machine.size.x / 1024.0)
 
 func _on_shop_button_pressed() -> void:
 	if get_tree().paused or inserting_coin or result_overlay.visible or info_overlay.visible:
 		return
 	if money < DRAW_PRICE:
-		feedback_label.text = "음료 뽑기에는 ¥100이 필요합니다. (¥%d 부족)" % (DRAW_PRICE - money)
+		feedback_label.text = "음료 뽑기에는 %d Gold가 필요합니다. (%d Gold 부족)" % [DRAW_PRICE, DRAW_PRICE - money]
 		return
 	inserting_coin = true
 	money -= DRAW_PRICE
 	last_drink = _roll_drink()
 	_apply_drink(last_drink)
+	search_fever_pending = last_drink == 6
 	_update_result()
 	# 차감과 획득을 함께 즉시 저장해 애니메이션 중 종료해도 음료를 잃지 않는다.
-	_finish_action("¥100 투입! 음료가 나오고 있습니다…")
+	_finish_action("%d Gold 투입! 음료가 나오고 있습니다…" % DRAW_PRICE)
 	shop_button.disabled = true
-	var target: Vector2 = shop_button.position + shop_button.size * Vector2(0.38, 0.72)
-	coin_token.position = target + Vector2(35, 70)
+	coin_token.position = Vector2.ZERO
 	coin_token.scale = Vector2.ONE
 	coin_token.modulate = Color.WHITE
+	coin_insert_fx.set("target", coin_insertion_target())
+	coin_insert_fx.call("advance", 0.0)
 	coin_token.show()
 	coin_tween = create_tween()
-	coin_tween.set_parallel(true)
-	coin_tween.tween_property(coin_token, "position", target, 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-	coin_tween.tween_property(coin_token, "scale", Vector2(0.12, 0.6), 0.45)
-	coin_tween.tween_property(coin_token, "modulate:a", 0.0, 0.15).set_delay(0.35)
+	coin_tween.tween_method(Callable(coin_insert_fx, "advance"), 0.0, 1.02, 1.02)
 	await coin_tween.finished
 	coin_token.hide()
 	inserting_coin = false
@@ -237,11 +336,35 @@ func _on_shop_button_pressed() -> void:
 	close_button.grab_focus()
 
 func _roll_drink() -> int:
-	var pool: Array[int] = [0,1]
-	for index in range(2,DRINK_DATA.size()):
+	var pool := purchasable_drinks()
+	return pool[randi_range(0,pool.size()-1)]
+
+func purchasable_drinks() -> Array[int]:
+	var pool: Array[int] = []
+	for index in range(DRINK_DATA.size()):
 		if drink_unlocked(index):
 			pool.append(index)
-	return pool[randi_range(0,pool.size()-1)]
+	return pool
+
+func _refresh_vending_display() -> void:
+	var slots: int = 0
+	for index in purchasable_drinks():
+		slots |= 1 << int(DRINK_DATA[index].display_slot)
+	($VendingMachine.material as ShaderMaterial).set_shader_parameter("unlocked_slots", slots)
+
+func _setup_drink_catalog() -> void:
+	var rows: VBoxContainer = $InfoOverlay/Card/Catalog/Rows
+	var template: Panel = rows.get_node("Water")
+	for data in DRINK_DATA:
+		var row: Panel = rows.get_node_or_null(data.key)
+		if row == null:
+			row = template.duplicate()
+			row.name = data.key
+			rows.add_child(row)
+		row.get_node("Art").texture = load(data.asset)
+		row.get_node("Name").text = data.name
+		row.get_node("Name").add_theme_color_override("font_color", Color(data.color))
+		row.get_node("Rule").text = data.effect
 
 func _apply_drink(drink_index: int) -> void:
 	drinks += 1
@@ -269,7 +392,7 @@ func drink_count(index: int) -> int:
 	return int(extra_counts.get(index,0))
 
 func drink_unlocked(index: int) -> bool:
-	return index < 2 or (ion_unlocked if index == 2 else unlocked_drinks.has(index))
+	return index >= 0 and index < DRINK_DATA.size() and (index < 2 or (ion_unlocked if index == 2 else unlocked_drinks.has(index)))
 
 func miss_chance() -> float:
 	return maxf(0.02,0.15-drink_count(3)*0.005)
@@ -278,7 +401,8 @@ func reward_multiplier() -> float:
 	return 1.0+drink_count(5)*0.01+drink_count(7)*0.02
 
 func calculate_reward(base_amount: int) -> int:
-	return maxi(1,floori((base_amount+coin_bonus())*reward_multiplier()))
+	var normal: int = maxi(1,floori((base_amount+coin_bonus())*reward_multiplier()))
+	return normal * 2 if search_fever_remaining > 0 else normal
 
 func _update_result() -> void:
 	var data: Dictionary = DRINK_DATA[last_drink]
@@ -286,18 +410,25 @@ func _update_result() -> void:
 	result_art.texture = load(data.asset)
 	$ResultOverlay/Card/Margin/Contents/Halo.modulate = Color(data.color)
 	var effects: Array[String] = ["수색 숙련도 +1", "동전 발견 금액 +1 Gold", "동전 발견 금액 +2 Gold", "꽝 확률 -0.5%p", "동전 발견 금액 +3 Gold", "최종 발견 금액 +1%", "동전 발견 금액 +5 Gold", "최종 발견 금액 +2%", "수색 숙련도 +1"]
-	result_effect.text = "[center][font_size=21][color=%s]%s[/color][/font_size]\n[color=#A6B3BF]%s\n빈캔 +1 · 획득 즉시 능력치에 적용[/color][/center]" % [data.color,effects[last_drink],data.effect]
+	if last_drink == 6:
+		effects[6] = "수색 피버! 창을 닫으면 시작"
+	var headline: String = effects[last_drink] if last_drink < effects.size() else "새 음료 수집 · 빈캔 +1"
+	result_effect.text = "[center][font_size=21][color=%s]%s[/color][/font_size]\n[color=#A6B3BF]%s\n빈캔 +1[/color][/center]" % [data.color,headline,data.effect]
 
 func _on_result_close_pressed() -> void:
 	result_overlay.hide()
+	if search_fever_pending:
+		search_fever_pending = false
+		_start_search_fever()
 	_refresh_ui()
 	shop_button.grab_focus()
 
 func _refresh_ui() -> void:
-	money_label.text = _format_amount(money)
+	_refresh_vending_display()
+	money_label.text = _format_amount(money) + " Gold"
 	earn_button.text = ""
 	_refresh_search_glow()
-	can_count_label.text = _format_amount(cans)
+	can_count_label.text = "빈캔 " + _format_amount(cans)
 	_refresh_quest_panel()
 	shop_button.disabled = inserting_coin or result_overlay.visible or info_overlay.visible
 	earn_button.disabled = inserting_coin or result_overlay.visible or info_overlay.visible
@@ -330,20 +461,25 @@ func _refresh_quest_panel() -> void:
 	quest_progress.text = "%d / %d" % [progress, target]
 	quest_complete_button.disabled = minimized or progress < target
 	quest_complete_button.text = "보상 받기 · ¥%d" % reward
+	$QuestPanel/Divider.visible = not minimized
 	$QuestPanel/QuestText.visible = not minimized
 	$QuestPanel/QuestBar.visible = not minimized
 	$QuestPanel/RewardHint.visible = not minimized and progress < target
 	quest_progress.visible = not minimized
 	quest_complete_button.visible = not minimized and progress >= target
 	quest_title.text = "퀘스트 모두 완료 ✓" if minimized else ("빈캔 수집" if can_quest else "첫 수집 목표")
-	quest_panel.offset_left = -246.0 if minimized else -290.0
-	quest_panel.offset_bottom = 108.0 if minimized else 218.0
-	quest_title.position.y = 8.0 if minimized else 14.0
+	var completed_width := maxf(234.0, quest_title.get_minimum_size().x + 36.0)
+	var completed_height := maxf(64.0, quest_title.get_minimum_size().y + 32.0)
+	quest_panel.offset_left = -28.0 - completed_width if minimized else -290.0
+	quest_panel.offset_top = $WalletPanel.offset_top
+	quest_panel.offset_bottom = quest_panel.offset_top + (completed_height if minimized else 178.0)
+	quest_title.position.y = 12.0
+	quest_title.size.x = quest_panel.size.x - 36.0
 
 func _on_ability_button_pressed() -> void:
 	if get_tree().paused or inserting_coin or result_overlay.visible:
 		return
-	$InfoOverlay/Card/Title.text = "능력 · 캔 수집"
+	$InfoOverlay/Card/Title.text = "능력"
 	$InfoOverlay/Card/Catalog.show()
 	$InfoOverlay/Card/SkillTree.hide()
 	$InfoOverlay/Card/Summary.show()
@@ -359,7 +495,7 @@ func _on_ability_button_pressed() -> void:
 func _on_skill_button_pressed() -> void:
 	if get_tree().paused or inserting_coin or result_overlay.visible:
 		return
-	$InfoOverlay/Card/Title.text = "스킬 트리"
+	$InfoOverlay/Card/Title.text = "음료수 추가"
 	$InfoOverlay/Card/Catalog.hide()
 	$InfoOverlay/Card/Summary.hide()
 	$InfoOverlay/Card/SkillTree.show()

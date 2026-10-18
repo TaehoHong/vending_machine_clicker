@@ -6,11 +6,12 @@ var canvas: Control
 var balance: Label
 var buttons: Dictionary = {}
 var links: Dictionary = {}
+const ORDER: Array[int] = [2, 9, 4, 10, 11, 8, 12, 5, 3, 13, 6, 14, 7]
 
 func _ready() -> void:
 	canvas = Control.new()
 	canvas.name = "Canvas"
-	canvas.custom_minimum_size = Vector2(484, 790)
+	canvas.custom_minimum_size = Vector2(484, 258 + ceili(float(ORDER.size() - 1) / 2.0) * 190)
 	add_child(canvas)
 	balance = _label(canvas, Rect2(0,0,484,26), "", 13, Color("f2bd62"))
 	balance.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -57,7 +58,8 @@ func _ready() -> void:
 func _position(index: int) -> Vector2:
 	if index == 2:
 		return Vector2(102,86)
-	return Vector2(0 if index % 2 == 1 else 250, 258 + ((index-3)/2)*190)
+	var order: int = ORDER.find(index) - 1
+	return Vector2(0 if order % 2 == 0 else 250, 258 + (order / 2)*190)
 
 func _panel(node_name: String, bounds: Rect2) -> Panel:
 	var panel := Panel.new()
