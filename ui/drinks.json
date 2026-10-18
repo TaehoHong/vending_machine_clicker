@@ -56,7 +56,7 @@
     "color": "#FFBF70",
     "cost": 15,
     "parent": 8,
-    "effect": "마실 때마다 최종 발견 금액 +1%",
+    "effect": "최종 발견 금액 +1% · 펀치 피버 +1초 (최대 15초)",
     "display_slot": 9
   },
   {
@@ -147,6 +147,6 @@
     "cost": 25,
     "parent": 6,
     "display_slot": 14,
-    "effect": "획득 시 빈캔 +1"
+    "effect": "획득 시 펀치 피버 발동 · 타격 보상 수색 골드의 3배"
   }
 ]

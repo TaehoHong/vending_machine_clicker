@@ -70,8 +70,8 @@ func run_checks() -> void:
 	await create_timer(0.7).timeout
 	check(game.inserting_coin and not game.result_overlay.visible, "Coin animation stays paused under ESC menu")
 	press_escape()
-	await create_timer(0.7).timeout
-	check(not paused and game.result_overlay.visible, "ESC resumes paused animation and shows result")
+	await game.coin_tween.finished
+	check(not paused and not game.inserting_coin and not game.result_overlay.visible, "ESC resumes dispensing and completes without a popup")
 	press_escape()
 	await process_frame
 	check(paused and game.pause_menu.overlay.visible, "Pause also works over drink result")

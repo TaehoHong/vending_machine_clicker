@@ -42,27 +42,20 @@ func run_checks() -> void:
 	check(game.money == 200 and game.drinks == 1, "Repeated clicks during animation do not charge twice")
 	await game.coin_tween.finished
 	await process_frame
-	check(game.result_overlay.visible and not game.coin_token.visible, "Result opens after animation")
-	check(game.result_title.text == "물 획득!" and game.result_art.texture != null, "Water result has correct name and illustration")
-	check(game.result_effect.text.contains("수색 숙련도 +1"), "Water result explains its effect")
-	game._on_shop_button_pressed()
-	check(game.money == 200 and game.drinks == 1, "Open result blocks additional purchases")
-	game.close_button.pressed.emit()
-	check(not game.result_overlay.visible and not game.shop_button.disabled and game.money == 200, "Close button dismisses result without another charge")
+	check(not game.result_overlay.visible and not game.coin_token.visible and not game.drink_dispense_fx.visible, "Purchase completes without a popup")
+	check(not game.shop_button.disabled and game.ability_toast.title.text.contains("물"), "Drink reaches ability button and its effect is shown")
 	game.forced_drink = 1
 	game.shop_button.pressed.emit()
 	check(game.money == 100 and game.green_tea_count == 1 and game.drinks == 2 and game.cans == 2, "Green tea costs exactly 100 yen")
 	check(game.coin_bonus() == 1, "Green tea increases discovered coin value")
 	await game.coin_tween.finished
 	await process_frame
-	check(game.result_title.text == "녹차 획득!" and game.result_effect.text.contains("+1 Gold"), "Tea result explains its own effect")
-	game.close_button.pressed.emit()
+	check(not game.result_overlay.visible and game.ability_toast.title.text.contains("녹차"), "Tea arrives and its effect is shown")
 	game.forced_drink = 0
 	game.shop_button.pressed.emit()
 	check(game.money == 0, "Exact 100 yen balance can buy a drink")
 	await game.coin_tween.finished
 	await process_frame
-	game.close_button.pressed.emit()
 	game._on_shop_button_pressed()
 	check(game.money == 0 and game.drinks == 3 and not game.inserting_coin, "Zero balance cannot buy")
 	game._apply_drink(0)

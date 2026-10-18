@@ -30,6 +30,27 @@ func run_checks() -> void:
 	for coin in get_nodes_in_group("search_coin_effects"):
 		counts[coin.tier] += 1
 	assert(counts == [4, 2, 0, 0], "245 Gold must spawn four bronze and two silver coins")
+	for coin in get_nodes_in_group("search_coin_effects"):
+		assert(coin.scale == Vector2.ONE, "Normal search coin size must stay unchanged")
+	game._clear_search_popups("search_coin_effects")
+	game._start_search_fever()
+	game._show_search_coin(245)
+	var burst := get_nodes_in_group("search_coin_effects")
+	assert(burst.size() == 6)
+	for coin in burst:
+		assert(coin.scale == Vector2.ONE * 2.5, "Fever coins must be 2.5 times normal size")
+	game._show_search_coin(245)
+	assert(get_nodes_in_group("search_coin_effects").size() == 12, "Consecutive fever bursts must finish their flight")
+	await create_timer(0.45).timeout
+	var left := INF
+	var right := -INF
+	for coin in burst:
+		left = minf(left, coin.position.x)
+		right = maxf(right, coin.position.x)
+	assert(right - left > 200, "Fever coins must scatter broadly")
+	await create_timer(0.85).timeout
+	assert(get_nodes_in_group("search_coin_effects").is_empty(), "Fever bursts must clean themselves up")
+	game._show_search_coin(245)
 	game._show_empty_search()
 	assert(get_nodes_in_group("search_coin_effects").is_empty())
 	assert(get_nodes_in_group("empty_search_popups").size() == 1)

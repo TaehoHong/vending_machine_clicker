@@ -62,12 +62,9 @@ func run_checks() -> void:
 	await capture("ability_bottom")
 	game._on_info_close_pressed()
 	for i in range(3,15):
-		game.last_drink = i
-		game._update_result()
-		check(game.result_title.text.contains(game.DRINK_DATA[i].name) and game.result_art.texture != null, "Every new drink has an acquisition result and illustration")
-	game.result_overlay.show()
-	await capture("sprite_result")
-	game._on_result_close_pressed()
+		game.drink_dispense_fx.call("begin", load(game.DRINK_DATA[i].asset), Color(game.DRINK_DATA[i].color))
+		check(game.drink_dispense_fx.art.texture != null, "Every drink has its own dispensing illustration")
+	game.drink_dispense_fx.hide()
 	var saved_cans: int = game.cans
 	game._save_progress()
 	var path: String = game.save_path

@@ -3,6 +3,8 @@ extends Node
 const CURSOR = preload("res://ui/pixel/cursor.svg")
 const PRESSED_CURSOR = preload("res://ui/pixel/cursor_press.svg")
 const REBOUND_CURSOR = preload("res://ui/pixel/cursor_rebound.svg")
+const FIST_CURSOR = preload("res://ui/pixel/cursor_fist.svg")
+const FIST_PRESSED_CURSOR = preload("res://ui/pixel/cursor_fist_press.svg")
 const HOTSPOT = Vector2(12, 3)
 const MINIMUM_PRESS_TIME = 0.09
 const REBOUND_TIME = 0.055
@@ -11,6 +13,13 @@ var current_texture: Texture2D
 var held: bool = false
 var press_remaining: float = 0.0
 var rebound_remaining: float = 0.0
+var punch_mode: bool = false
+
+func set_punch_mode(enabled: bool) -> void:
+	if punch_mode == enabled:
+		return
+	punch_mode = enabled
+	_apply_cursor(FIST_CURSOR if enabled and not get_tree().paused else CURSOR)
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -22,10 +31,15 @@ func _input(event: InputEvent) -> void:
 		if held:
 			press_remaining = MINIMUM_PRESS_TIME
 			rebound_remaining = REBOUND_TIME
-			_apply_cursor(PRESSED_CURSOR)
+			_apply_cursor(FIST_PRESSED_CURSOR if punch_mode and not get_tree().paused else PRESSED_CURSOR)
 
 func _process(delta: float) -> void:
+	if punch_mode and not get_tree().paused:
+		_apply_cursor(FIST_PRESSED_CURSOR if held or press_remaining > 0 else FIST_CURSOR)
+		press_remaining = maxf(0, press_remaining - delta)
+		return
 	if held:
+		_apply_cursor(PRESSED_CURSOR)
 		press_remaining = maxf(0.0, press_remaining - delta)
 	elif press_remaining > 0.0:
 		press_remaining = maxf(0.0, press_remaining - delta)

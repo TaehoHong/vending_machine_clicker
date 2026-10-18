@@ -18,7 +18,7 @@ func run_checks() -> void:
 	game._on_shop_button_pressed()
 	assert(game.search_fever_pending and game.search_fever_remaining == 0)
 	await game.coin_tween.finished
-	game._on_result_close_pressed()
+	assert(not game.result_overlay.visible and not game.search_fever_pending)
 	assert(game.search_fever_remaining == 10 and game.clicks_required() == 5)
 	assert(game.calculate_reward(10) == floori((10 + game.coin_bonus()) * game.reward_multiplier()) * 2)
 	game._process(0.5)

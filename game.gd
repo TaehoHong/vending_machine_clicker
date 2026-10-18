@@ -12,6 +12,7 @@ const ION_UNLOCK_COST: int = 5
 const DRINK_DATA = preload("res://ui/drink_catalog.gd").DATA
 const CANS_PER_BONUS: int = 5
 const MAX_MACHINE_LEVEL: int = 4
+const FEVER_COIN_SCALE: float = 2.5
 const COINS: Array[int] = [1, 5, 10, 50, 100, 500, 1000, 5000]
 var save_path: String = "user://progress.cfg"
 var start_new_game: bool = false
@@ -35,12 +36,24 @@ var machine_level: int = 0
 var inserting_coin: bool = false
 var coin_tween: Tween
 var coin_insert_fx: Control
+var drink_dispense_fx: Control
+var ability_toast: Control
+var ability_receipt_tween: Tween
 var search_glow_tween: Tween
 var search_hint: Control
 var search_fever_fx: Control
 var search_fever_remaining: float = 0.0
 var search_fever_total: float = 10.0
 var search_fever_pending: bool = false
+var punch_fever_remaining: float = 0.0
+var punch_fever_total: float = 5.0
+var punch_fever_pending: bool = false
+var punch_fever_fx: Control
+var punch_button: Button
+var machine_home := Vector2.ZERO
+var machine_hit_tween: Tween
+var last_punch_point := Vector2.ZERO
+var punch_coin_phase: float = 0.0
 
 @onready var money_label: Label = $MoneyLabel
 @onready var earn_button: Button = $EarnButton
@@ -67,6 +80,14 @@ func _ready() -> void:
 	else:
 		_load_progress()
 	_setup_drink_catalog()
+	ability_toast = preload("res://ui/ability_toast.gd").new()
+	ability_toast.name = "AbilityToast"
+	add_child(ability_toast)
+	move_child(ability_toast, result_overlay.get_index())
+	drink_dispense_fx = preload("res://ui/drink_dispense_fx.gd").new()
+	drink_dispense_fx.name = "DrinkDispenseFX"
+	add_child(drink_dispense_fx)
+	move_child(drink_dispense_fx, result_overlay.get_index())
 	search_hint = preload("res://ui/search_hint.gd").new()
 	search_hint.name = "SearchHint"
 	add_child(search_hint)
@@ -75,6 +96,24 @@ func _ready() -> void:
 	search_fever_fx.name = "SearchFeverFX"
 	add_child(search_fever_fx)
 	move_child(search_fever_fx, result_overlay.get_index())
+	punch_fever_fx = preload("res://ui/punch_fever.gd").new()
+	punch_fever_fx.name = "PunchFeverFX"
+	add_child(punch_fever_fx)
+	move_child(punch_fever_fx, result_overlay.get_index())
+	punch_button = Button.new()
+	punch_button.name = "PunchButton"
+	punch_button.focus_mode = Control.FOCUS_NONE
+	punch_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	for state in ["normal", "hover", "pressed", "focus", "disabled"]:
+		punch_button.add_theme_stylebox_override(state, StyleBoxEmpty.new())
+	add_child(punch_button)
+	move_child(punch_button, result_overlay.get_index())
+	punch_button.pressed.connect(_on_punch_button_pressed)
+	punch_button.gui_input.connect(func(event: InputEvent) -> void:
+		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			last_punch_point = punch_button.position + event.position
+	)
+	punch_button.hide()
 	_setup_coin_slot()
 	_setup_search_area()
 	resized.connect(_position_coin_slot)
@@ -82,12 +121,62 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	var blocked: bool = inserting_coin or result_overlay.visible or info_overlay.visible
-	search_hint.set("blocked", blocked or search_fever_remaining > 0)
+	search_hint.set("blocked", blocked or search_fever_remaining > 0 or punch_fever_remaining > 0)
 	if search_fever_remaining > 0 and not blocked:
 		search_fever_remaining = maxf(0, search_fever_remaining - delta)
 		if search_fever_remaining == 0:
 			_refresh_ui()
-	search_fever_fx.call("update_state", search_fever_remaining, search_fever_total, blocked)
+	if punch_fever_remaining > 0 and not blocked:
+		punch_fever_remaining = maxf(0, punch_fever_remaining - delta)
+		if punch_fever_remaining == 0:
+			_restore_machine_position()
+	search_fever_fx.call("update_state", search_fever_remaining, search_fever_total, blocked or punch_fever_remaining > 0)
+	punch_fever_fx.call("update_state", punch_fever_remaining, punch_fever_total, blocked)
+	punch_button.visible = punch_fever_remaining > 0 and not blocked
+	get_node("/root/CursorTheme").call("set_punch_mode", punch_fever_remaining > 0 and not blocked)
+
+func punch_fever_duration() -> float:
+	return 5.0 + mini(drink_count(5), 10)
+
+func _start_punch_fever() -> void:
+	punch_fever_total = punch_fever_duration()
+	punch_fever_remaining = punch_fever_total
+	_process(0)
+	_refresh_ui()
+
+func _restore_machine_position() -> void:
+	if is_instance_valid(machine_hit_tween):
+		machine_hit_tween.kill()
+	$VendingMachine.position = machine_home
+	$VendingMachine.modulate = Color.WHITE
+
+func _on_punch_button_pressed() -> void:
+	if get_tree().paused or inserting_coin or result_overlay.visible or info_overlay.visible or punch_fever_remaining <= 0:
+		return
+	if not punch_button.get_rect().has_point(last_punch_point):
+		last_punch_point = get_local_mouse_position()
+		if not punch_button.get_rect().has_point(last_punch_point):
+			last_punch_point = punch_button.get_rect().get_center()
+	punch_fever_fx.call("add_hit", last_punch_point)
+	_restore_machine_position()
+	machine_hit_tween = $VendingMachine.create_tween()
+	machine_hit_tween.tween_property($VendingMachine, "position", machine_home + Vector2(randf_range(-7, 7), -4), 0.035)
+	machine_hit_tween.parallel().tween_property($VendingMachine, "modulate", Color(1.45, 1.3, 1.2), 0.035)
+	machine_hit_tween.tween_property($VendingMachine, "position", machine_home + Vector2(randf_range(-4, 4), 2), 0.045)
+	machine_hit_tween.tween_property($VendingMachine, "position", machine_home, 0.08)
+	machine_hit_tween.parallel().tween_property($VendingMachine, "modulate", Color.WHITE, 0.08)
+	if _search_is_empty():
+		_show_empty_search()
+		_finish_action("")
+		return
+	var coin_index: int = 0
+	while coin_index < 3 + machine_level and randf() < 0.22:
+		coin_index += 1
+	var earned: int = calculate_reward(COINS[coin_index]) * 3
+	money += earned
+	quest_clicks = mini(quest_clicks + 1, QUEST_TARGET)
+	_show_coin_reward(earned)
+	_finish_action("")
 
 func search_fever_duration() -> float:
 	return 10.0 + mini(drink_count(12), 10)
@@ -102,6 +191,9 @@ func clicks_required() -> int:
 	return maxi(1, normal - 5) if search_fever_remaining > 0 else normal
 
 func _on_earn_button_pressed() -> void:
+	if punch_fever_remaining > 0:
+		_on_punch_button_pressed()
+		return
 	if get_tree().paused or inserting_coin or result_overlay.visible or info_overlay.visible:
 		return
 	search_hint.call("notify_search_click")
@@ -156,7 +248,9 @@ func _show_empty_search() -> void:
 	_animate_search_popup(popup, "empty_search_popups")
 
 func _show_search_coin(amount: int) -> void:
-	_clear_search_popups("search_coin_effects")
+	if search_fever_remaining <= 0 and punch_fever_remaining <= 0:
+		_clear_search_popups("search_coin_effects")
+	punch_coin_phase = randf()
 	var counts: Array[int] = preload("res://ui/search_coin.gd").breakdown(amount)
 	var total: int = counts[0] + counts[1] + counts[2] + counts[3]
 	var index: int = 0
@@ -176,9 +270,19 @@ func _spawn_search_coin(tier: int, index: int, total: int) -> void:
 	add_child(coin)
 	move_child(coin, result_overlay.get_index())
 	coin.add_to_group("search_coin_effects")
+	if punch_fever_remaining > 0:
+		move_child(coin, punch_fever_fx.get_index())
 	var lane := float(index) / maxf(1.0, total - 1.0)
 	var start := search_glow.position + Vector2(search_glow.size.x * lerpf(0.25, 0.75, lane), 0) - coin.size * 0.5
+	if punch_fever_remaining > 0:
+		start = _punch_coin_origin(index, total) - coin.size * 0.5
 	coin.position = start
+	if punch_fever_remaining > 0:
+		_animate_punch_coin(coin, start)
+		return
+	if search_fever_remaining > 0:
+		_animate_fever_coin(coin, start, index, total)
+		return
 	var direction := -1.0 if index % 2 == 0 else 1.0
 	var height := randf_range(22, 48)
 	var distance := randf_range(45, 90)
@@ -192,6 +296,58 @@ func _spawn_search_coin(tier: int, index: int, total: int) -> void:
 	var fade := coin.create_tween()
 	fade.tween_interval(0.48)
 	fade.tween_property(coin, "modulate:a", 0.0, 0.28)
+
+func _animate_fever_coin(coin: Control, start: Vector2, index: int, total: int) -> void:
+	coin.scale = Vector2.ONE * FEVER_COIN_SCALE
+	# 여러 동전은 부채꼴로 분산하고, 한 개일 때도 매번 다른 방향으로 튀긴다.
+	var lane := float(index) / float(total - 1) if total > 1 else randf()
+	var spread := lerpf(-310.0, 310.0, lane) + randf_range(-35, 35)
+	var landing := start + Vector2(spread, randf_range(-90, 45))
+	landing.x = clampf(landing.x, 70, maxf(70, size.x - 96))
+	landing.y = clampf(landing.y, 100, maxf(100, size.y - 100))
+	var height := randf_range(135, 230)
+	var lifetime := randf_range(0.95, 1.15)
+	var direction := -1.0 if spread < 0 else 1.0
+	var motion := coin.create_tween()
+	motion.tween_method(func(t: float) -> void:
+		coin.position = start.lerp(landing, t) + Vector2(0, -4.0 * height * t * (1.0 - t))
+	, 0.0, 1.0, lifetime)
+	motion.tween_callback(coin.queue_free)
+	var spin := coin.create_tween()
+	spin.tween_property(coin, "rotation", direction * TAU * randf_range(1.0, 1.5), lifetime)
+	var fade := coin.create_tween()
+	fade.tween_interval(lifetime * 0.65)
+	fade.tween_property(coin, "modulate:a", 0.0, lifetime * 0.35)
+
+func _punch_coin_origin(index: int, total: int) -> Vector2:
+	var rect := punch_button.get_rect().grow(-8)
+	var edge := fposmod(punch_coin_phase + float(index) / maxi(1, total), 1.0) * 4
+	if edge < 1:
+		return rect.position + Vector2(rect.size.x * edge, 0)
+	if edge < 2:
+		return rect.position + Vector2(rect.size.x, rect.size.y * (edge - 1))
+	if edge < 3:
+		return rect.end - Vector2(rect.size.x * (edge - 2), 0)
+	return rect.position + Vector2(0, rect.size.y * (4 - edge))
+
+func _animate_punch_coin(coin: Control, start: Vector2) -> void:
+	coin.scale = Vector2.ONE * FEVER_COIN_SCALE
+	var direction := (start + coin.size * 0.5 - punch_button.get_rect().get_center()).normalized().rotated(randf_range(-0.25, 0.25))
+	var end := start + direction * randf_range(160, 290) + Vector2(0, 55)
+	end.x = clampf(end.x, 35, maxf(35, size.x - 61))
+	end.y = clampf(end.y, 110, maxf(110, size.y - 55))
+	var lifetime := randf_range(0.75, 1.0)
+	var arc := randf_range(25, 65)
+	var motion := coin.create_tween()
+	motion.tween_method(func(t: float) -> void:
+		coin.position = start.lerp(end, t) + Vector2(0, -sin(t * PI) * arc)
+	, 0.0, 1.0, lifetime)
+	motion.tween_callback(coin.queue_free)
+	var spin := coin.create_tween()
+	spin.tween_property(coin, "rotation", randf_range(-TAU * 2, TAU * 2), lifetime)
+	var fade := coin.create_tween()
+	fade.tween_interval(lifetime * 0.6)
+	fade.tween_property(coin, "modulate:a", 0.0, lifetime * 0.4)
 
 func _clear_search_popups(popup_group: String) -> void:
 	for popup in get_tree().get_nodes_in_group(popup_group):
@@ -208,7 +364,9 @@ func _animate_search_popup(popup: Control, popup_group: String) -> void:
 	popup.size = popup.get_minimum_size()
 	popup.pivot_offset = popup.size * 0.5
 	var origin: Vector2 = get_local_mouse_position()
-	if not earn_button.get_rect().has_point(origin):
+	if punch_fever_remaining > 0:
+		origin = last_punch_point
+	elif not earn_button.get_rect().has_point(origin):
 		origin = earn_button.position + earn_button.size * 0.5
 	popup.position = origin + Vector2(randf_range(-36, 36), -randf_range(28, 48)) - popup.size * 0.5
 	popup.position.x = clampf(popup.position.x, 8, maxf(8, size.x - popup.size.x - 8))
@@ -283,8 +441,12 @@ func _position_coin_slot() -> void:
 	var machine: TextureRect = $VendingMachine
 	machine.position = origin + Vector2(608, 110) * factor
 	machine.size = Vector2(384, 576) * factor
+	machine_home = machine.position
 	# 첨부 이미지 512×768의 투입구와 발밑에 클릭 영역을 맞춘다.
 	var machine_scale: float = machine.size.x / 512.0
+	punch_button.position = machine.position + Vector2(56, 60) * machine_scale
+	punch_button.size = Vector2(400, 670) * machine_scale
+	punch_fever_fx.size = size
 	# 구매 영역은 실제 본체의 상단부터 음료 배출구 바로 위까지만 포함한다.
 	shop_button.position = machine.position + Vector2(56, 60) * machine_scale
 	shop_button.size = Vector2(400, 500) * machine_scale
@@ -300,12 +462,32 @@ func _position_coin_slot() -> void:
 		coin_insert_fx.set("target", slot_target)
 	$SlotHint.position = slot_target + Vector2(61, -29)
 	$SlotHint.position.x = minf($SlotHint.position.x, size.x - $SlotHint.size.x - 12)
+	ability_toast.position = Vector2((size.x - ability_toast.size.x) * 0.5, 100)
+	drink_dispense_fx.set("outlet", machine.position + Vector2(490, 1210) * (machine.size.x / 1024.0))
+	drink_dispense_fx.set("destination", ability_receipt_position())
+
+func ability_receipt_position() -> Vector2:
+	var button: Button = $Navigation/AbilityButton
+	return get_global_transform().affine_inverse() * (button.get_global_transform() * (button.size * 0.5))
+
+func _show_acquired_ability() -> void:
+	var data: Dictionary = DRINK_DATA[last_drink]
+	ability_toast.call("present", data.name, data.effect, Color(data.color))
+	var button: Button = $Navigation/AbilityButton
+	if is_instance_valid(ability_receipt_tween):
+		ability_receipt_tween.kill()
+	button.modulate = Color(1.5, 1.5, 1.5)
+	ability_receipt_tween = button.create_tween()
+	ability_receipt_tween.tween_property(button, "modulate", Color.WHITE, 0.35)
 
 func coin_insertion_target() -> Vector2:
 	var machine: TextureRect = $VendingMachine
 	return machine.position + Vector2(855, 648) * (machine.size.x / 1024.0)
 
 func _on_shop_button_pressed() -> void:
+	if punch_fever_remaining > 0:
+		_on_punch_button_pressed()
+		return
 	if get_tree().paused or inserting_coin or result_overlay.visible or info_overlay.visible:
 		return
 	if money < DRAW_PRICE:
@@ -316,9 +498,9 @@ func _on_shop_button_pressed() -> void:
 	last_drink = _roll_drink()
 	_apply_drink(last_drink)
 	search_fever_pending = last_drink == 6
-	_update_result()
+	punch_fever_pending = last_drink == 14
 	# 차감과 획득을 함께 즉시 저장해 애니메이션 중 종료해도 음료를 잃지 않는다.
-	_finish_action("%d Gold 투입! 음료가 나오고 있습니다…" % DRAW_PRICE)
+	_finish_action("")
 	shop_button.disabled = true
 	coin_token.position = Vector2.ZERO
 	coin_token.scale = Vector2.ONE
@@ -328,12 +510,25 @@ func _on_shop_button_pressed() -> void:
 	coin_token.show()
 	coin_tween = create_tween()
 	coin_tween.tween_method(Callable(coin_insert_fx, "advance"), 0.0, 1.02, 1.02)
+	coin_tween.tween_callback(coin_token.hide)
+	coin_tween.tween_callback(func() -> void:
+		drink_dispense_fx.call("begin", load(DRINK_DATA[last_drink].asset), Color(DRINK_DATA[last_drink].color))
+	)
+	coin_tween.tween_method(Callable(drink_dispense_fx, "advance"), 0.0, 1.32, 1.32)
+	coin_tween.tween_callback(func() -> void:
+		drink_dispense_fx.hide()
+		_show_acquired_ability()
+	)
 	await coin_tween.finished
-	coin_token.hide()
 	inserting_coin = false
-	result_overlay.show()
+	if search_fever_pending:
+		search_fever_pending = false
+		_start_search_fever()
+	if punch_fever_pending:
+		punch_fever_pending = false
+		_start_punch_fever()
+	feedback_label.text = ""
 	_refresh_ui()
-	close_button.grab_focus()
 
 func _roll_drink() -> int:
 	var pool := purchasable_drinks()
@@ -605,3 +800,8 @@ func _on_pause_quit_requested() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED:
 		_save_progress()
+
+func _exit_tree() -> void:
+	var cursor := get_node_or_null("/root/CursorTheme")
+	if cursor != null:
+		cursor.call("set_punch_mode", false)

@@ -35,8 +35,7 @@ func run_checks() -> void:
 		assert(not game.coin_token.get_node("Symbol").visible)
 		assert(game.coin_insert_fx.get_child_count() == 0)
 		await game.coin_tween.finished
-		assert(game.result_overlay.visible)
-		game._on_result_close_pressed()
+		assert(not game.result_overlay.visible and not game.inserting_coin)
 	var before: int = game.drinks
 	await tap(machine.position + Vector2(500, 1200) * factor)
 	assert(game.drinks == before and not game.inserting_coin, "The dispensing tray must not purchase")
