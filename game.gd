@@ -80,6 +80,7 @@ func _ready() -> void:
 	else:
 		_load_progress()
 	_setup_drink_catalog()
+	$InfoOverlay/Card/SkillTree.close_requested.connect(_on_info_close_pressed)
 	ability_toast = preload("res://ui/ability_toast.gd").new()
 	ability_toast.name = "AbilityToast"
 	add_child(ability_toast)
@@ -674,6 +675,7 @@ func _refresh_quest_panel() -> void:
 func _on_ability_button_pressed() -> void:
 	if get_tree().paused or inserting_coin or result_overlay.visible:
 		return
+	_set_info_layout(false)
 	$InfoOverlay/Card/Title.text = "능력"
 	$InfoOverlay/Card/Catalog.show()
 	$InfoOverlay/Card/SkillTree.hide()
@@ -690,6 +692,7 @@ func _on_ability_button_pressed() -> void:
 func _on_skill_button_pressed() -> void:
 	if get_tree().paused or inserting_coin or result_overlay.visible:
 		return
+	_set_info_layout(true)
 	$InfoOverlay/Card/Title.text = "음료수 추가"
 	$InfoOverlay/Card/Catalog.hide()
 	$InfoOverlay/Card/Summary.hide()
@@ -699,10 +702,28 @@ func _on_skill_button_pressed() -> void:
 
 func _refresh_skill_tree() -> void:
 	var active: Array[int] = []
+	var collected: Dictionary = {}
+	for i in range(DRINK_DATA.size()):
+		collected[i] = drink_count(i)
 	for i in range(2,DRINK_DATA.size()):
 		if drink_unlocked(i):
 			active.append(i)
-	$InfoOverlay/Card/SkillTree.update_state(cans,active)
+	$InfoOverlay/Card/SkillTree.update_state(cans,active,collected)
+
+func _set_info_layout(skill_mode: bool) -> void:
+	var card: Panel = $InfoOverlay/Card
+	info_overlay.color = Color(16.0/255,27.0/255,41.0/255,0.53) if skill_mode else Color(0.043,0.067,0.094,0.84)
+	$InfoOverlay/Card/Title.visible = not skill_mode
+	$InfoOverlay/Card/CloseButton.visible = not skill_mode
+	if skill_mode:
+		card.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		card.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+		$InfoOverlay/Card/SkillTree.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	else:
+		card.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+		card.position = (info_overlay.size - Vector2(560,560)) * 0.5
+		card.size = Vector2(560,560)
+		card.remove_theme_stylebox_override("panel")
 
 func _on_unlock_ion_pressed() -> void:
 	_on_unlock_drink_requested(2)
@@ -725,7 +746,10 @@ func _on_unlock_drink_requested(index: int) -> void:
 func _open_info() -> void:
 	info_overlay.show()
 	_refresh_ui()
-	$InfoOverlay/Card/CloseButton.grab_focus()
+	if $InfoOverlay/Card/SkillTree.visible:
+		$InfoOverlay/Card/SkillTree.close_button.grab_focus()
+	else:
+		$InfoOverlay/Card/CloseButton.grab_focus()
 
 func _on_info_close_pressed() -> void:
 	info_overlay.hide()

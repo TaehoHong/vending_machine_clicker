@@ -30,8 +30,8 @@ func run_checks() -> void:
 		game._on_unlock_drink_requested(i)
 		check(game.cans == before - game.DRINK_DATA[i].cost, "Duplicate unlock does not consume cans")
 	await capture("tree_top")
-	tree.scroll_vertical = 1000
-	await capture("tree_bottom")
+	tree.select_drink(14)
+	await capture("energy_selection")
 	game._on_info_close_pressed()
 	var seen: Dictionary = {}
 	seed(20261017)

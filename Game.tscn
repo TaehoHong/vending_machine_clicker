@@ -961,14 +961,13 @@ theme_override_colors/font_color = Color(0.65098, 0.70196, 0.74902, 1)
 theme_override_font_sizes/font_size = 12
 text = "4개마다 수색 클릭 -1 (최소 3회)"
 
-[node name="SkillTree" type="ScrollContainer" parent="InfoOverlay/Card" unique_id=893319740]
+[node name="SkillTree" type="Control" parent="InfoOverlay/Card" unique_id=893319740]
 visible = false
 layout_mode = 0
 offset_left = 28.0
 offset_top = 82.0
 offset_right = 532.0
 offset_bottom = 472.0
-horizontal_scroll_mode = 0
 script = ExtResource("skill_tree")
 
 [node name="Summary" type="RichTextLabel" parent="InfoOverlay/Card" unique_id=2020264220]

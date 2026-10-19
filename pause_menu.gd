@@ -10,6 +10,11 @@ var previous_focus: Control
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
+		var game := get_parent()
+		if not overlay.visible and game.has_method("_on_info_close_pressed") and game.get_node("InfoOverlay").visible:
+			game.call("_on_info_close_pressed")
+			get_viewport().set_input_as_handled()
+			return
 		set_open(not overlay.visible)
 		get_viewport().set_input_as_handled()
 
