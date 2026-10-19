@@ -28,7 +28,7 @@ func run_checks() -> void:
 	for i in range(4):
 		game._apply_drink(0)
 	game._refresh_ui()
-	game.get_node("Navigation/SkillButton").pressed.emit()
+	game.get_node("Navigation/AbilityButton").pressed.emit()
 	game._on_unlock_ion_pressed()
 	check(not game.ion_unlocked and game.cans == 4, "Insufficient cans cannot unlock")
 	game._on_info_close_pressed()

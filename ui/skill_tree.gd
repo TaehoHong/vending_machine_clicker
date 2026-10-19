@@ -3,121 +3,153 @@ extends Control
 signal unlock_requested(drink_index: int)
 signal close_requested
 const DATA = preload("res://ui/drink_catalog.gd").DATA
-const ORDER: Array[int] = [2, 9, 4, 10, 11, 8, 12, 5, 3, 13, 6, 14, 7]
-const DESIGN_SIZE = Vector2(1600, 900)
-const MACHINE_POS = Vector2(456, -80)
-const MACHINE_SCALE = 688.0 / 1024.0
-const FONT = preload("res://ui/fonts/DoHyeon-Regular.ttf")
+const ORDER: Array[int] = [2,9,4,10,11,8,12,5,3,13,6,14,7]
+const DESIGN_SIZE = Vector2(1200,760)
+const MACHINE_POS = Vector2(408,135)
+const MACHINE_SIZE = Vector2(384,576)
+const MACHINE_SCALE = 384.0 / 1024.0
+const FONT = preload("res://ui/fonts/Cafe24PROUP.ttf")
+const PLAY_PANEL = preload("res://ui/pixel/quest_style.tres")
+const PLAY_BUTTONS = {
+	"normal": preload("res://ui/pixel/ability_style.tres"),
+	"hover": preload("res://ui/pixel/ability_hover.tres"),
+	"pressed": preload("res://ui/pixel/ability_pressed.tres"),
+	"disabled": preload("res://ui/pixel/ability_disabled.tres")
+}
+const PLAY_ACTIONS = {
+	"normal": preload("res://ui/pixel/quest_claim_style.tres"),
+	"hover": preload("res://ui/pixel/quest_claim_hover.tres"),
+	"pressed": preload("res://ui/pixel/quest_claim_pressed.tres"),
+	"disabled": preload("res://ui/pixel/quest_claim_disabled.tres")
+}
 var canvas: Control
 var balance: Label
 var close_button: Button
-var buttons: Dictionary = {}
-var products: Dictionary = {}
-var badges: Dictionary = {}
-var locks: Dictionary = {}
-var readout: Label
+var summary_button: Button
+var detail_panel: Panel
+var summary_panel: Panel
+var summary_label: Label
 var detail_title: Label
 var detail_effect: Label
 var detail_status: Label
-var selected_index: int = 2
+var detail_count: Label
+var buttons: Dictionary = {}
+var products: Dictionary = {}
+var selected_index: int = -1
 var current_cans: int = 0
 var unlocked_indices: Array[int] = []
 var counts: Dictionary = {}
+var cumulative_effects: Dictionary = {}
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	var backdrop: TextureRect = get_node("../../../TextureRect").duplicate()
+	var backdrop := TextureRect.new()
 	backdrop.name = "Backdrop"
+	backdrop.texture = preload("res://images/alley_arcade_penpot.png")
+	backdrop.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	backdrop.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(backdrop)
 	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var dim := ColorRect.new()
 	dim.name = "Dim"
-	dim.color = Color(16.0/255,27.0/255,41.0/255,0.53)
+	dim.color = Color(0.063,0.106,0.161,0.35)
 	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(dim)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	canvas = Control.new()
 	canvas.name = "Canvas"
-	canvas.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	canvas.size = DESIGN_SIZE
+	canvas.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(canvas)
 	var machine := TextureRect.new()
-	machine.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	machine.name = "Machine"
 	machine.texture = preload("res://images/vending_approved_15.png")
+	machine.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	machine.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	machine.position = MACHINE_POS
-	machine.size = Vector2(688, 1032)
+	machine.size = MACHINE_SIZE
 	machine.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	machine.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	canvas.add_child(machine)
-	_label(canvas, Rect2(44,32,360,50), "음료수 추가", 34, Color.WHITE)
-	balance = _label(canvas, Rect2(94,91,280,46), "", 24, Color("ffe8b0"))
+	_label(canvas,Rect2(30,24,320,50),"음료와 능력",30,Color("fff4dc"))
+	var balance_panel := _panel(Rect2(30,86,210,64),"CanBalance")
 	var can := TextureRect.new()
-	can.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	can.texture = preload("res://ui/can_icon.svg")
-	can.position = Vector2(46,94)
-	can.size = Vector2(32,40)
+	can.position = Vector2(20,16)
+	can.size = Vector2(22,30)
+	can.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	can.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	can.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	canvas.add_child(can)
-	var hint := _label(canvas, Rect2(44,155,350,90), "추가할 음료를 선택하세요\n해금한 음료는 자판기에서 나옵니다", 21, Color("c3d1dd"))
-	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	close_button = _button(canvas, Rect2(1340,28,220,58), "ESC  돌아가기")
+	balance_panel.add_child(can)
+	balance = _label(balance_panel,Rect2(55,14,135,34),"",22,Color.WHITE)
+	balance.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	summary_button = _button(canvas,Rect2(900,24,150,60),"능력 요약")
+	summary_button.pressed.connect(_toggle_summary)
+	close_button = _button(canvas,Rect2(1062,24,114,60),"ESC 닫기")
 	close_button.pressed.connect(func() -> void: close_requested.emit())
-	readout = _label(canvas, Rect2(MACHINE_POS + Vector2(827,642) * MACHINE_SCALE, Vector2(56,30)), "", 20, Color("72ff96"))
-	readout.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	for i in range(DATA.size()):
+	for i in DATA.size():
 		var slot: int = DATA[i].display_slot
-		var col := slot % 5
-		var row := slot / 5
-		var tops := [269.0, 507.0, 766.0]
-		var bottoms := [468.0, 721.0, 955.0]
+		var col: int = slot % 5
+		var row: int = slot / 5
+		var tops := [269.0,507.0,766.0]
+		var bottoms := [468.0,721.0,955.0]
 		var lefts := [185.0,302.0,422.0,541.0,660.0]
-		var bounds := Rect2(MACHINE_POS + Vector2(lefts[col],tops[row]) * MACHINE_SCALE, Vector2(111,bottoms[row]-tops[row]) * MACHINE_SCALE)
 		var product := Button.new()
 		product.name = DATA[i].key + "Product"
-		product.position = bounds.position
-		product.size = bounds.size
+		product.position = MACHINE_POS + Vector2(lefts[col],tops[row]) * MACHINE_SCALE
+		product.size = Vector2(111,bottoms[row]-tops[row]) * MACHINE_SCALE
 		product.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		product.focus_mode = Control.FOCUS_NONE
 		product.pressed.connect(func() -> void: select_drink(i))
 		canvas.add_child(product)
 		products[i] = product
-		var badge := _label(product, Rect2(0,bounds.size.y-22,bounds.size.x,22), "", 13, Color.WHITE)
-		badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		badges[i] = badge
-		if i >= 2:
-			var lock: Control = preload("res://ui/drink_lock.gd").new()
-			lock.position = Vector2(bounds.size.x-18,3)
-			product.add_child(lock)
-			locks[i] = lock
-			var unlock := _button(canvas, Rect2(585,721,390,54), "")
-			unlock.name = DATA[i].key + "UnlockButton"
-			unlock.pressed.connect(func() -> void: unlock_requested.emit(i))
-			buttons[i] = unlock
-	# 상품 아래의 본체 표시창에 선택 정보와 조건을 모은다.
-	var panel := Panel.new()
-	panel.position = Vector2(577,578)
-	panel.size = Vector2(406,103)
-	var panel_style := StyleBoxFlat.new()
-	panel_style.bg_color = Color("152733")
-	panel_style.border_color = Color("78959f")
-	panel_style.set_border_width_all(2)
-	panel.add_theme_stylebox_override("panel",panel_style)
-	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	canvas.add_child(panel)
-	detail_title = _label(panel, Rect2(9,3,388,27), "", 21, Color("ffe8b0"))
-	detail_effect = _label(panel, Rect2(9,30,388,42), "", 16, Color.WHITE)
+	detail_panel = _panel(Rect2(862,241,306,278),"DrinkDetail")
+	detail_title = _label(detail_panel,Rect2(18,14,222,34),"",24,Color.WHITE)
+	var dismiss := _button(detail_panel,Rect2(244,8,54,44),"×")
+	for state in PLAY_BUTTONS:
+		var compact: StyleBox = PLAY_BUTTONS[state].duplicate()
+		compact.content_margin_left = 6
+		compact.content_margin_right = 6
+		compact.content_margin_top = 4
+		compact.content_margin_bottom = 8
+		dismiss.add_theme_stylebox_override(state,compact)
+	dismiss.add_theme_font_size_override("font_size",18)
+	dismiss.pressed.connect(dismiss_details)
+	detail_count = _label(detail_panel,Rect2(18,53,270,25),"",16,Color("e4eff4"))
+	detail_effect = _label(detail_panel,Rect2(18,92,270,77),"",18,Color("f4eedf"))
 	detail_effect.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	detail_status = _label(panel, Rect2(9,74,388,24), "", 16, Color("a9c1ce"))
+	detail_status = _label(detail_panel,Rect2(18,174,270,43),"",15,Color("dcebf2"))
+	detail_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	for i in range(2,DATA.size()):
+		var unlock := _button(detail_panel,Rect2(18,225,270,38),"")
+		unlock.name = DATA[i].key + "UnlockButton"
+		unlock.icon = preload("res://ui/can_icon.svg")
+		unlock.expand_icon = true
+		unlock.add_theme_constant_override("icon_max_width",18)
+		for state in PLAY_ACTIONS:
+			unlock.add_theme_stylebox_override(state,PLAY_ACTIONS[state])
+		unlock.pressed.connect(func() -> void: unlock_requested.emit(i))
+		buttons[i] = unlock
+	summary_panel = _panel(Rect2(840,88,328,252),"AbilitySummary")
+	_label(summary_panel,Rect2(18,14,290,35),"현재 적용된 능력",23,Color("fff0bd"))
+	summary_label = _label(summary_panel,Rect2(18,61,290,170),"",18,Color("dae4ea"))
+	summary_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	resized.connect(_layout)
 	_layout()
 	update_state(0,[])
+	reset_selection()
 
-func _layout() -> void:
-	if not is_instance_valid(canvas): return
-	var factor := minf(size.x / DESIGN_SIZE.x,size.y / DESIGN_SIZE.y)
-	canvas.scale = Vector2.ONE * factor
-	canvas.position = (size - DESIGN_SIZE * factor) * 0.5
+func _panel(bounds: Rect2, title: String) -> Panel:
+	var panel := Panel.new()
+	panel.name = title
+	panel.position = bounds.position
+	panel.size = bounds.size
+	panel.add_theme_stylebox_override("panel",PLAY_PANEL)
+	panel.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	canvas.add_child(panel)
+	return panel
 
 func _label(parent: Node, bounds: Rect2, value: String, font_size: int, color: Color) -> Label:
 	var label := Label.new()
@@ -138,70 +170,89 @@ func _button(parent: Node, bounds: Rect2, value: String) -> Button:
 	button.position = bounds.position
 	button.size = bounds.size
 	button.text = value
+	button.focus_mode = Control.FOCUS_NONE
 	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	button.add_theme_font_override("font", FONT)
-	button.add_theme_font_size_override("font_size",22)
-	for state in ["normal","hover","pressed","disabled","focus"]:
-		var style := StyleBoxFlat.new()
-		style.bg_color = Color("4c98bb") if state == "hover" else Color("28536a")
-		if state == "disabled": style.bg_color = Color("26323c")
-		style.border_color = Color("12121d")
-		style.set_border_width_all(4)
-		style.shadow_color = Color(0.02,0.03,0.05,0.7)
-		style.shadow_size = 2
-		style.shadow_offset = Vector2(3,4)
-		button.add_theme_stylebox_override(state,style)
+	button.add_theme_font_override("font",FONT)
+	button.add_theme_font_size_override("font_size",18)
+	button.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	for state in PLAY_BUTTONS:
+		button.add_theme_stylebox_override(state,PLAY_BUTTONS[state])
+	button.add_theme_color_override("font_color",Color.WHITE)
+	button.add_theme_color_override("font_outline_color",Color("12121d"))
+	button.add_theme_constant_override("outline_size",2)
+	button.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
 	parent.add_child(button)
 	return button
 
-func select_drink(index: int) -> void:
-	selected_index = index
+func _layout() -> void:
+	if not is_instance_valid(canvas): return
+	var factor := minf(size.x / DESIGN_SIZE.x,size.y / DESIGN_SIZE.y)
+	canvas.scale = Vector2.ONE * factor
+	canvas.position = (size - DESIGN_SIZE * factor) * 0.5
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		reset_selection()
+
+func reset_selection() -> void:
+	selected_index = -1
+	if is_instance_valid(summary_panel): summary_panel.hide()
 	_refresh_selection()
 
-func update_state(cans: int, unlocked: Array[int], collected: Dictionary = {}) -> void:
+func dismiss_details() -> void:
+	selected_index = -1
+	_refresh_selection()
+
+func _toggle_summary() -> void:
+	dismiss_details()
+	summary_panel.visible = not summary_panel.visible
+
+func select_drink(index: int) -> void:
+	if index < 0 or index >= DATA.size(): return
+	selected_index = index
+	summary_panel.hide()
+	_refresh_selection()
+
+func update_state(cans: int, unlocked: Array[int], collected: Dictionary = {}, summary: String = "", effects: Dictionary = {}) -> void:
 	current_cans = cans
 	unlocked_indices = unlocked.duplicate()
 	counts = collected.duplicate()
-	balance.text = "보유 빈캔  %d개" % cans
-	readout.text = "%d/15" % (2 + unlocked.size())
+	cumulative_effects = effects.duplicate()
+	balance.text = "빈캔 %d" % cans
+	summary_label.text = summary
 	_refresh_selection()
 
 func _refresh_selection() -> void:
 	for i in products:
-		var acquired: bool = i < 2 or unlocked_indices.has(i)
-		var parent: int = DATA[i].parent
-		var available: bool = parent < 0 or unlocked_indices.has(parent)
-		var chosen: bool = selected_index == i
 		for state in ["normal","hover","pressed","focus"]:
+			# Hover never opens or selects an item.
 			var style := StyleBoxFlat.new()
-			style.bg_color = Color(0.04,0.07,0.1,0.0 if acquired else (0.18 if available else 0.48))
-			style.border_color = Color("8ef6dc") if chosen else (Color("68c8b8") if acquired else Color(0,0,0,0))
-			style.set_border_width_all(3 if chosen else 1)
+			style.bg_color = Color.TRANSPARENT
+			style.border_color = Color("67ddea") if selected_index == i else Color.TRANSPARENT
+			style.set_border_width_all(2 if selected_index == i else 0)
 			products[i].add_theme_stylebox_override(state,style)
-		badges[i].text = "추가됨" if acquired else ("해금 가능" if available else "잠김")
-		badges[i].add_theme_color_override("font_color",Color("99ffe0" if acquired else ("ffe78c" if available else "c1cad2")))
-		products[i].tooltip_text = DATA[i].name
-		if i >= 2:
-			locks[i].visible = not acquired
-			locks[i].set("available", available)
-			locks[i].queue_redraw()
-			var button: Button = buttons[i]
-			button.visible = chosen
-			button.disabled = acquired or not available or current_cans < DATA[i].cost
-			button.text = "자판기에 추가됨" if acquired else ("선행 음료 해금 필요" if not available else "빈캔 %d개로 추가" % DATA[i].cost)
+	for i in buttons:
+		var acquired: bool = unlocked_indices.has(i)
+		var parent: int = DATA[i].parent
+		var available: bool = parent < 2 or unlocked_indices.has(parent)
+		buttons[i].visible = selected_index == i and not acquired
+		buttons[i].disabled = acquired or not available or current_cans < DATA[i].cost
+		buttons[i].text = "%d개로 추가" % DATA[i].cost
+	detail_panel.visible = selected_index >= 0
+	if selected_index < 0: return
 	var data: Dictionary = DATA[selected_index]
 	var acquired: bool = selected_index < 2 or unlocked_indices.has(selected_index)
 	var parent: int = data.parent
-	var available: bool = parent < 0 or unlocked_indices.has(parent)
 	detail_title.text = data.name
-	detail_title.add_theme_color_override("font_color",Color(data.color))
+	detail_title.add_theme_font_size_override("font_size",20 if data.name.length() > 10 else 24)
+	detail_count.text = "해금 완료 · 획득 %d개" % int(counts.get(selected_index,0)) if acquired else "미해금"
 	detail_effect.text = data.effect
 	if acquired:
-		detail_status.text = "해금 완료 · 획득 %d개" % int(counts.get(selected_index,0))
-	elif not available:
+		detail_status.text = str(cumulative_effects.get(selected_index,"획득한 음료의 능력이 적용됩니다"))
+	elif parent >= 2 and not unlocked_indices.has(parent):
 		detail_status.text = "먼저 %s 해금" % DATA[parent].name
 	else:
-		detail_status.text = "필요 빈캔 %d개 · 보유 %d개" % [data.cost,current_cans]
+		detail_status.text = "해금 후 자판기에서 등장"
 
 func get_unlock_button(index: int) -> Button:
 	return buttons[index]

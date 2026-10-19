@@ -16,7 +16,7 @@ func _ready() -> void:
 func _label(font_size: int, origin: Vector2, dimensions: Vector2) -> Label:
 	var label := Label.new()
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	label.add_theme_font_override("font", preload("res://ui/fonts/DoHyeon-Regular.ttf"))
+	label.add_theme_font_override("font", preload("res://ui/fonts/Cafe24PROUP.ttf"))
 	label.add_theme_font_size_override("font_size", font_size)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER

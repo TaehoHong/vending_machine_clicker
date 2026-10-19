@@ -44,7 +44,7 @@ func run_checks() -> void:
 	await capture("ability")
 	game.get_node("InfoOverlay/Card/CloseButton").pressed.emit()
 	check(not game.info_overlay.visible and not game.earn_button.disabled, "Closing ability restores input")
-	game.get_node("Navigation/SkillButton").pressed.emit()
+	game.get_node("Navigation/AbilityButton").pressed.emit()
 	check(game.info_overlay.visible and not game.get_node("InfoOverlay/Card/Catalog").visible, "Skill button opens separate placeholder")
 	await capture("skill")
 	game.get_node("InfoOverlay/Card/CloseButton").pressed.emit()

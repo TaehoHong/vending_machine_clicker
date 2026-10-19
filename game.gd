@@ -24,6 +24,7 @@ var quest_clicks: int = 0
 var quest_reward_claimed: bool = false
 var can_quest_reward_claimed: bool = false
 var drinks: int = 0
+var purchase_count: int = 0
 var water_count: int = 0
 var green_tea_count: int = 0
 var ion_count: int = 0
@@ -230,7 +231,7 @@ func _show_coin_reward(amount: int) -> void:
 	popup.name = "CoinRewardPopup"
 	popup.text = "+%d" % amount
 	popup.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	popup.add_theme_font_override("font", preload("res://ui/bold_font.tres"))
+	popup.add_theme_font_override("font", preload("res://ui/fonts/Cafe24PROUP.ttf"))
 	popup.add_theme_font_size_override("font_size", 28)
 	popup.add_theme_color_override("font_color", Color("f2bd62"))
 	popup.add_theme_color_override("font_outline_color", Color(0.03, 0.04, 0.06, 0.95))
@@ -491,11 +492,13 @@ func _on_shop_button_pressed() -> void:
 		return
 	if get_tree().paused or inserting_coin or result_overlay.visible or info_overlay.visible:
 		return
-	if money < DRAW_PRICE:
-		feedback_label.text = "음료 뽑기에는 %d Gold가 필요합니다. (%d Gold 부족)" % [DRAW_PRICE, DRAW_PRICE - money]
+	var price: int = current_draw_price()
+	if money < price:
+		feedback_label.text = "음료 뽑기에는 %s Gold가 필요합니다. (%s Gold 부족)" % [_format_amount(price), _format_amount(price - money)]
 		return
 	inserting_coin = true
-	money -= DRAW_PRICE
+	money -= price
+	purchase_count += 1
 	last_drink = _roll_drink()
 	_apply_drink(last_drink)
 	search_fever_pending = last_drink == 6
@@ -534,6 +537,13 @@ func _on_shop_button_pressed() -> void:
 func _roll_drink() -> int:
 	var pool := purchasable_drinks()
 	return pool[randi_range(0,pool.size()-1)]
+
+func current_draw_price() -> int:
+	# 원래 가격에 복리를 적용하고 결제 금액만 올림해 반올림 오차의 누적을 피한다.
+	var price: float = DRAW_PRICE * pow(1.05, purchase_count)
+	if not is_finite(price) or price >= 9.0e18:
+		return 9000000000000000000
+	return ceili(price - 0.00000001)
 
 func purchasable_drinks() -> Array[int]:
 	var pool: Array[int] = []
@@ -621,7 +631,20 @@ func _on_result_close_pressed() -> void:
 
 func _refresh_ui() -> void:
 	_refresh_vending_display()
-	money_label.text = _format_amount(money) + " Gold"
+	money_label.text = _format_gold(money) + " Gold"
+	money_label.tooltip_text = "보유 골드: %s Gold" % _format_amount(money)
+	var font: Font = money_label.get_theme_font("font")
+	var font_size: int = 28
+	while font_size > 18 and font.get_string_size(money_label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x + 6 > 158:
+		font_size -= 1
+	money_label.add_theme_font_size_override("font_size", font_size)
+	var price_label: Label = $SlotHint/Price
+	price_label.text = _format_gold(current_draw_price()) + "G"
+	var price_font: Font = price_label.get_theme_font("font")
+	var price_font_size: int = 28
+	while price_font_size > 18 and price_font.get_string_size(price_label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, price_font_size).x + 6 > price_label.size.x:
+		price_font_size -= 1
+	price_label.add_theme_font_size_override("font_size", price_font_size)
 	earn_button.text = ""
 	_refresh_search_glow()
 	can_count_label.text = "빈캔 " + _format_amount(cans)
@@ -629,7 +652,6 @@ func _refresh_ui() -> void:
 	shop_button.disabled = inserting_coin or result_overlay.visible or info_overlay.visible
 	earn_button.disabled = inserting_coin or result_overlay.visible or info_overlay.visible
 	$Navigation/AbilityButton.disabled = inserting_coin or result_overlay.visible
-	$Navigation/SkillButton.disabled = inserting_coin or result_overlay.visible
 	shop_button.tooltip_text = ""
 
 func _format_amount(amount: int) -> String:
@@ -640,6 +662,21 @@ func _format_amount(amount: int) -> String:
 			formatted += ","
 		formatted += digits[i]
 	return formatted
+
+func _format_gold(amount: int) -> String:
+	if amount < 10000:
+		return _format_amount(amount)
+	var divisor: int = 1000
+	var suffix: String = "K"
+	if amount >= 1000000000:
+		divisor = 1000000000
+		suffix = "B"
+	elif amount >= 1000000:
+		divisor = 1000000
+		suffix = "M"
+	# 표시만 줄이고 잔액은 그대로 둔다. 반올림으로 잔액을 높여 보이지 않는다.
+	var tenths: int = amount / (divisor / 10)
+	return "%d.%d%s" % [tenths / 10, tenths % 10, suffix]
 
 func _on_menu_button_pressed() -> void:
 	pause_menu.set_open(true)
@@ -673,21 +710,7 @@ func _refresh_quest_panel() -> void:
 	quest_title.size.x = quest_panel.size.x - 36.0
 
 func _on_ability_button_pressed() -> void:
-	if get_tree().paused or inserting_coin or result_overlay.visible:
-		return
-	_set_info_layout(false)
-	$InfoOverlay/Card/Title.text = "능력"
-	$InfoOverlay/Card/Catalog.show()
-	$InfoOverlay/Card/SkillTree.hide()
-	$InfoOverlay/Card/Summary.show()
-	$InfoOverlay/Card/Summary.position.y = 360
-	$InfoOverlay/Card/Summary.size.y = 120
-	for i in range(DRINK_DATA.size()):
-		var row: Control = $InfoOverlay/Card/Catalog/Rows.get_node(DRINK_DATA[i].key)
-		row.visible = drink_unlocked(i)
-		row.get_node("Count").text = "획득 %s개" % _format_amount(drink_count(i))
-	$InfoOverlay/Card/Summary.text = "[font_size=14][color=#F2BD62]현재 적용된 능력[/color]\n수색 %d회 · 꽝 확률 %.1f%%\n기본 발견 보너스 +%d Gold\n최종 발견 금액 +%.0f%%\n보유 빈캔 %d개 / 누적 수집 %d개[/font_size]" % [clicks_required(),miss_chance()*100,coin_bonus(),(reward_multiplier()-1)*100,cans,collected_cans()]
-	_open_info()
+	_on_skill_button_pressed()
 
 func _on_skill_button_pressed() -> void:
 	if get_tree().paused or inserting_coin or result_overlay.visible:
@@ -697,18 +720,38 @@ func _on_skill_button_pressed() -> void:
 	$InfoOverlay/Card/Catalog.hide()
 	$InfoOverlay/Card/Summary.hide()
 	$InfoOverlay/Card/SkillTree.show()
+	$InfoOverlay/Card/SkillTree.reset_selection()
 	_refresh_skill_tree()
 	_open_info()
 
 func _refresh_skill_tree() -> void:
 	var active: Array[int] = []
 	var collected: Dictionary = {}
+	var effects: Dictionary = {}
 	for i in range(DRINK_DATA.size()):
 		collected[i] = drink_count(i)
+		effects[i] = _drink_cumulative_text(i)
 	for i in range(2,DRINK_DATA.size()):
 		if drink_unlocked(i):
 			active.append(i)
-	$InfoOverlay/Card/SkillTree.update_state(cans,active,collected)
+	var summary := "수색 %d회 · 꽝 %.1f%%\n발견 보너스 +%d Gold\n최종 발견 금액 +%.0f%%\n수색 피버 %.0f초\n펀치 피버 %.0f초" % [clicks_required(),miss_chance()*100,coin_bonus(),(reward_multiplier()-1)*100,search_fever_duration(),punch_fever_duration()]
+	$InfoOverlay/Card/SkillTree.update_state(cans,active,collected,summary,effects)
+
+func _drink_cumulative_text(index: int) -> String:
+	var count := drink_count(index)
+	match index:
+		0: return "누적 수색 클릭 감소 -%d회 (최소 3회)" % (count / 3)
+		1: return "누적 발견 보너스 +%d Gold" % count
+		2: return "누적 발견 보너스 +%d Gold" % (count * 2)
+		3: return "꽝 확률 감소 최대 %.1f%%p 적용" % minf(count * 0.5,13.0)
+		4: return "누적 발견 보너스 +%d Gold" % (count * 3)
+		5: return "최종 금액 +%d%% · 펀치 피버 +%d초" % [count,mini(count,10)]
+		6: return "발견 보너스 +%d Gold · 획득 시 피버" % (count * 5)
+		7: return "누적 최종 발견 금액 +%d%%" % (count * 2)
+		8: return "누적 수색 클릭 감소 -%d회 (최소 3회)" % (count / 4)
+		12: return "수색 피버 시간 +%d초" % mini(count,10)
+		14: return "획득 시 펀치 피버 · 현재 지속 %.0f초" % punch_fever_duration()
+	return "누적 획득 %d개 · 빈캔은 공통 재화" % count
 
 func _set_info_layout(skill_mode: bool) -> void:
 	var card: Panel = $InfoOverlay/Card
@@ -747,7 +790,7 @@ func _open_info() -> void:
 	info_overlay.show()
 	_refresh_ui()
 	if $InfoOverlay/Card/SkillTree.visible:
-		$InfoOverlay/Card/SkillTree.close_button.grab_focus()
+		return
 	else:
 		$InfoOverlay/Card/CloseButton.grab_focus()
 
@@ -763,7 +806,7 @@ func _finish_action(message: String) -> void:
 
 func _save_progress() -> void:
 	var save := ConfigFile.new()
-	for key in ["money", "click_stack", "quest_clicks", "quest_reward_claimed", "can_quest_reward_claimed", "drinks", "cans", "machine_level", "water_count", "green_tea_count", "ion_count", "ion_unlocked", "extra_counts", "unlocked_drinks"]:
+	for key in ["money", "purchase_count", "click_stack", "quest_clicks", "quest_reward_claimed", "can_quest_reward_claimed", "drinks", "cans", "machine_level", "water_count", "green_tea_count", "ion_count", "ion_unlocked", "extra_counts", "unlocked_drinks"]:
 		save.set_value("progress", key, get(key))
 	last_save_error = save.save(save_path)
 	if last_save_error != OK:
@@ -801,6 +844,9 @@ func _load_progress() -> void:
 	drinks = water_count + green_tea_count + ion_count
 	for count in extra_counts.values():
 		drinks += int(count)
+	# 이전 저장은 누적 음료 획득 수를 구매 횟수로 이어받는다.
+	var saved_purchases: Variant = save.get_value("progress", "purchase_count", drinks)
+	purchase_count = clampi(saved_purchases, 0, 1000000000) if saved_purchases is int else drinks
 	machine_level = mini(machine_level, MAX_MACHINE_LEVEL)
 	quest_clicks = mini(quest_clicks, QUEST_TARGET)
 	click_stack = mini(click_stack, clicks_required())

@@ -31,29 +31,29 @@ func run_checks() -> void:
 	game.money = 99
 	game.shop_button.pressed.emit()
 	check(game.money == 99 and game.drinks == 0 and not game.inserting_coin, "Insufficient funds never charge or grant drinks")
-	game.money = 300
+	game.money = 316
 	game._refresh_ui()
 	game.shop_button.pressed.emit()
-	check(game.money == 200 and game.water_count == 1 and game.cans == 1, "Click immediately charges 100 yen and grants water")
+	check(game.money == 216 and game.water_count == 1 and game.cans == 1, "Click immediately charges 100 yen and grants water")
 	check(game.inserting_coin and game.coin_token.visible and not game.result_overlay.visible, "Coin animation precedes result")
 	var committed := ConfigFile.new()
-	check(committed.load(game.save_path) == OK and committed.get_value("progress", "money") == 200 and committed.get_value("progress", "water_count") == 1, "Charge and reward persist together before animation completes")
+	check(committed.load(game.save_path) == OK and committed.get_value("progress", "money") == 216 and committed.get_value("progress", "water_count") == 1, "Charge and reward persist together before animation completes")
 	game._on_shop_button_pressed()
-	check(game.money == 200 and game.drinks == 1, "Repeated clicks during animation do not charge twice")
+	check(game.money == 216 and game.drinks == 1, "Repeated clicks during animation do not charge twice")
 	await game.coin_tween.finished
 	await process_frame
 	check(not game.result_overlay.visible and not game.coin_token.visible and not game.drink_dispense_fx.visible, "Purchase completes without a popup")
 	check(not game.shop_button.disabled and game.ability_toast.title.text.contains("물"), "Drink reaches ability button and its effect is shown")
 	game.forced_drink = 1
 	game.shop_button.pressed.emit()
-	check(game.money == 100 and game.green_tea_count == 1 and game.drinks == 2 and game.cans == 2, "Green tea costs exactly 100 yen")
+	check(game.money == 111 and game.green_tea_count == 1 and game.drinks == 2 and game.cans == 2, "Second drink costs 105 Gold")
 	check(game.coin_bonus() == 1, "Green tea increases discovered coin value")
 	await game.coin_tween.finished
 	await process_frame
 	check(not game.result_overlay.visible and game.ability_toast.title.text.contains("녹차"), "Tea arrives and its effect is shown")
 	game.forced_drink = 0
 	game.shop_button.pressed.emit()
-	check(game.money == 0, "Exact 100 yen balance can buy a drink")
+	check(game.money == 0, "Exact 111 Gold balance can buy the third drink")
 	await game.coin_tween.finished
 	await process_frame
 	game._on_shop_button_pressed()

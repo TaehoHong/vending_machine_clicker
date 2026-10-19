@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ch5cd5h4pkguo" path="res://game.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dp2jas34f7l3j" path="res://images/alley_arcade_penpot.png" id="2"]
-[ext_resource type="SystemFont" path="res://ui/bold_font.tres" id="bold"]
+[ext_resource type="FontFile" path="res://ui/fonts/Cafe24PROUP.ttf" id="bold"]
 [ext_resource type="Texture2D" uid="uid://dvlu518bsw0km" path="res://ui/can_icon.svg" id="can_icon"]
 [ext_resource type="Texture2D" path="res://images/drinks/water_pop.tres" id="drink_0"]
 [ext_resource type="Texture2D" path="res://images/drinks/green_tea_pop.tres" id="drink_1"]
@@ -25,7 +25,7 @@
 [ext_resource type="StyleBox" path="res://ui/pixel/drinks_hover.tres" id="pixel_drinks_hover"]
 [ext_resource type="StyleBox" path="res://ui/pixel/drinks_pressed.tres" id="pixel_drinks_pressed"]
 [ext_resource type="StyleBox" path="res://ui/pixel/focus.tres" id="pixel_focus"]
-[ext_resource type="FontFile" uid="uid://cn5puug011rpp" path="res://ui/fonts/DoHyeon-Regular.ttf" id="pixel_font"]
+[ext_resource type="FontFile" path="res://ui/fonts/Cafe24PROUP.ttf" id="pixel_font"]
 [ext_resource type="StyleBox" path="res://ui/pixel/hud_style.tres" id="pixel_hud"]
 [ext_resource type="StyleBox" path="res://ui/pixel/purchase_style.tres" id="pixel_purchase"]
 [ext_resource type="StyleBox" path="res://ui/pixel/quest_style.tres" id="pixel_quest"]
@@ -37,7 +37,7 @@
 [ext_resource type="StyleBox" path="res://ui/pixel/quest_claim_style.tres" id="quest_claim_style"]
 [ext_resource type="Script" uid="uid://72ffvwipwq6y" path="res://ui/search_light.gd" id="search_light"]
 [ext_resource type="Script" uid="uid://ds4ipgc0lew3c" path="res://ui/skill_tree.gd" id="skill_tree"]
-[ext_resource type="Theme" uid="uid://cdk5wh4166tr7" path="res://ui/backstreet_theme.tres" id="theme"]
+[ext_resource type="Theme" path="res://ui/play_theme.tres" id="theme"]
 [ext_resource type="Material" path="res://ui/vending_display.tres" id="vending_display"]
 [ext_resource type="Texture2D" uid="uid://d0205kjb2uqwr" path="res://images/vending_approved_15.png" id="vending_machine"]
 
@@ -189,7 +189,7 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 28.0
 offset_top = -92.0
-offset_right = 414.0
+offset_right = 198.0
 offset_bottom = -28.0
 
 [node name="AbilityButton" type="Button" parent="Navigation" unique_id=644699128]
@@ -209,25 +209,6 @@ theme_override_styles/hover = ExtResource("pixel_ability_hover")
 theme_override_styles/disabled = ExtResource("pixel_ability_disabled")
 theme_override_styles/focus = ExtResource("pixel_focus")
 text = "능력"
-
-[node name="SkillButton" type="Button" parent="Navigation" unique_id=1361950523]
-texture_filter = 1
-layout_mode = 0
-offset_left = 186.0
-offset_right = 386.0
-offset_bottom = 64.0
-mouse_default_cursor_shape = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.07059, 0.07059, 0.11373, 1)
-theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("pixel_font")
-theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = ExtResource("pixel_drinks")
-theme_override_styles/pressed = ExtResource("pixel_drinks_pressed")
-theme_override_styles/hover = ExtResource("pixel_drinks_hover")
-theme_override_styles/disabled = ExtResource("pixel_drinks_disabled")
-theme_override_styles/focus = ExtResource("pixel_focus")
-text = "음료수 추가"
 
 [node name="QuestPanel" type="Panel" parent="." unique_id=1437057916]
 texture_filter = 1
@@ -1104,7 +1085,6 @@ horizontal_alignment = 1
 
 [connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Navigation/AbilityButton" to="." method="_on_ability_button_pressed"]
-[connection signal="pressed" from="Navigation/SkillButton" to="." method="_on_skill_button_pressed"]
 [connection signal="pressed" from="QuestPanel/QuestCompleteButton" to="." method="_on_quest_complete_button_pressed"]
 [connection signal="pressed" from="CoinSlotButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="EarnButton" to="." method="_on_earn_button_pressed"]

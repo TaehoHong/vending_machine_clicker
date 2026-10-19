@@ -1,6 +1,6 @@
 extends Control
 
-const FONT = preload("res://ui/fonts/DoHyeon-Regular.ttf")
+const FONT = preload("res://ui/fonts/Cafe24PROUP.ttf")
 const GOLD = Color("ffe476")
 const ORANGE = Color("ff8b24")
 const INK = Color("12121d")

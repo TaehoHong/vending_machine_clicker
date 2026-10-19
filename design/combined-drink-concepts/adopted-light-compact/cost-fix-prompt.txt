@@ -1,0 +1,1 @@
+Make ONE TINY TEXT CORRECTION ONLY. On LEFT vending machine TOP ROW FOURTH drink 이온음료, change silver-can-icon cost 8 to 5. Neighboring barley and apple costs stay 8. Right unlock button stays 5. Preserve canvas, compact card geometry, all other text, art, and positions exactly.
