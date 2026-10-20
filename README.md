@@ -3,7 +3,7 @@
 Godot 4.7 프로젝트입니다. `project.godot`를 열고 실행하세요.
 기획 기준과 문서 링크는 `AGENTS.md`에 있습니다.
 
-기획·디자인 파일 위치, Notion·Penpot 링크와 접속 방법은 [자료·접속 안내](design/README.md)를 참고하세요. 확정 제품 규칙은 [PRODUCT.md](PRODUCT.md), 현재 디자인 수정본은 [DESIGN.md](DESIGN.md)에 있습니다.
+기획 SSOT는 Notion, 디자인 SSOT는 Penpot입니다. 원본 링크·접속 방법은 [자료·접속 안내](design/README.md)를, 로컬 요약·적용 기록은 [PRODUCT.md](PRODUCT.md)와 [DESIGN.md](DESIGN.md)를 참고하세요. PAVE 문서·코드 탐색·검증 안내는 [프로젝트 안내](docs/00-overview.md)에서 시작합니다.
 
 ## Penpot UI 적용
 
