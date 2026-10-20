@@ -234,7 +234,7 @@
   "method": "computer-use",
   "systemPageId": "490e660f-738c-80e7-8008-d0f0d410a6b5",
   "mainBoardId": "d9c1a69c-6a27-809e-8008-d107e6137aa4",
-  "commonBoardId": "d9c1a69c-6a27-809e-8008-d107e619a122",
+  "commonBoardId": "d9c1a69c-6a27-809e-8008-d107e6137aa4",
   "masters": [
     {
       "name": "Clicker / UI / Pixel A / HUD / automation/disabled",
@@ -669,5 +669,6 @@
     "linkedSamples": 18,
     "uiSaved": true,
     "gameEngineRun": false
-  }
+  },
+  "paletteBoardId": "438228d3-7709-80fa-8008-d11fbc46be89"
 }
