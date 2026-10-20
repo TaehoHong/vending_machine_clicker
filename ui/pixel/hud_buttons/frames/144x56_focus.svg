@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="156" height="68" viewBox="0 0 156 68"><g transform="translate(6 6)"><g class="game-art" data-state="focus"><path d="M4 -5H140V0H148V52H140V60H4V52H-4V0H4Z" fill="none" stroke="#FFD883" stroke-width="2"/><path class="base" d="M8 2H136V8H142V44H136V50H8V44H2V8H8Z" transform="translate(0 4)" fill="#132433" stroke="#10171D" stroke-width="4"/>
+ <g class="moving" transform="translate(0 0)"><path class="surface" d="M8 2H136V8H142V44H136V50H8V44H2V8H8Z" fill="#4699C8" stroke="#10171D" stroke-width="4"/>
+ <path class="highlight" d="M10 6H134V10H138V15H134V10H10V15H6V10H10Z" fill="#9FDDFA"/>
+ <path class="bevel" d="M6 35H10V44H134V35H138V43H134V47H10V43H6Z" fill="#28648F"/>
+ <g ></g></g></g></g></svg>
