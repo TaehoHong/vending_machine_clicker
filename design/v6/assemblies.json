@@ -1,0 +1,765 @@
+[
+  {
+    "key": "b-assembly-closed",
+    "width": 350,
+    "height": 525,
+    "layers": [
+      {
+        "asset": "b-shadow",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "b-body",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "b-display",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "water",
+        "x": 58,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 57,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "green-tea",
+        "x": 100,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 99,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "barley-tea",
+        "x": 142,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 141,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "ion",
+        "x": 184,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 183,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "apple",
+        "x": 226,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 225,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "ginger-ale",
+        "x": 58,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 57,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "lemonade",
+        "x": 100,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 99,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "sprite",
+        "x": 142,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 141,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "peach-juice",
+        "x": 184,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 183,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "orange",
+        "x": 226,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 225,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "vitamin",
+        "x": 58,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 57,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "melon-soda",
+        "x": 100,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 99,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "fanta-grape",
+        "x": 142,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 141,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "cola",
+        "x": 184,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 183,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "energy-drink",
+        "x": 226,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 225,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "b-payment",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "b-hatch-closed",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      }
+    ]
+  },
+  {
+    "key": "b-assembly-open",
+    "width": 350,
+    "height": 525,
+    "layers": [
+      {
+        "asset": "b-shadow",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "b-body",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "b-display",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "water",
+        "x": 58,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 57,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "green-tea",
+        "x": 100,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 99,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "barley-tea",
+        "x": 142,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 141,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "ion",
+        "x": 184,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 183,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "apple",
+        "x": 226,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 225,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "ginger-ale",
+        "x": 58,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 57,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "lemonade",
+        "x": 100,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 99,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "sprite",
+        "x": 142,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 141,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "peach-juice",
+        "x": 184,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 183,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "orange",
+        "x": 226,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 225,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "vitamin",
+        "x": 58,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 57,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "melon-soda",
+        "x": 100,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 99,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "fanta-grape",
+        "x": 142,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 141,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "cola",
+        "x": 184,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 183,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "energy-drink",
+        "x": 226,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 225,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "b-payment",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "b-hatch-open",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      }
+    ]
+  },
+  {
+    "key": "b-assembly-auto",
+    "width": 350,
+    "height": 525,
+    "layers": [
+      {
+        "asset": "b-shadow",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "b-body",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "b-display",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "water",
+        "x": 58,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 57,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "green-tea",
+        "x": 100,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 99,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "barley-tea",
+        "x": 142,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 141,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "ion",
+        "x": 184,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 183,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "apple",
+        "x": 226,
+        "y": 100,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 225,
+        "y": 155,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "ginger-ale",
+        "x": 58,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 57,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "lemonade",
+        "x": 100,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 99,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "sprite",
+        "x": 142,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 141,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "peach-juice",
+        "x": 184,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 183,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "orange",
+        "x": 226,
+        "y": 190,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 225,
+        "y": 245,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "vitamin",
+        "x": 58,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 57,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "melon-soda",
+        "x": 100,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 99,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "fanta-grape",
+        "x": 142,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 141,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "cola",
+        "x": 184,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 183,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "energy-drink",
+        "x": 226,
+        "y": 280,
+        "width": 27,
+        "height": 40.5
+      },
+      {
+        "asset": "select-button-idle",
+        "x": 225,
+        "y": 335,
+        "width": 27,
+        "height": 10.8
+      },
+      {
+        "asset": "b-payment",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "b-hatch-closed",
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 525
+      },
+      {
+        "asset": "auto-marker",
+        "x": 278,
+        "y": 119,
+        "width": 32,
+        "height": 20
+      }
+    ]
+  }
+]

@@ -1,0 +1,180 @@
+{
+  "file": "cd444aaf-0d8c-801b-8008-cda246e18650",
+  "page": "af2aed71-3cfe-80ea-8008-ceaf7492d553",
+  "board": "e7808af8-2ea3-8077-8008-cedf2d6bd36f",
+  "count": 15,
+  "status": "complete",
+  "components": [
+    {
+      "key": "water",
+      "name": "물",
+      "component": "e7808af8-2ea3-8077-8008-cedf4ae82489",
+      "main": "e7808af8-2ea3-8077-8008-cedf4ae79009",
+      "width": 192,
+      "height": 288,
+      "media": "cd444aaf-0d8c-801b-8008-cedf2f911927",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "green-tea",
+      "name": "녹차",
+      "component": "e7808af8-2ea3-8077-8008-cedf4af7c052",
+      "main": "e7808af8-2ea3-8077-8008-cedf4af7c04f",
+      "width": 192,
+      "height": 288,
+      "media": "cd444aaf-0d8c-801b-8008-cedf31be2faf",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "barley-tea",
+      "name": "보리차",
+      "component": "e7808af8-2ea3-8077-8008-cedf4b03bd28",
+      "main": "e7808af8-2ea3-8077-8008-cedf4b032bf2",
+      "width": 192,
+      "height": 288,
+      "media": "ce180602-f36b-8035-8008-cedf33ecdf18",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "ion",
+      "name": "이온음료",
+      "component": "e7808af8-2ea3-8077-8008-cedf4b101b20",
+      "main": "e7808af8-2ea3-8077-8008-cedf4b0ff6c2",
+      "width": 192,
+      "height": 288,
+      "media": "ce180602-f36b-8035-8008-cedf35d321db",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "apple",
+      "name": "사과 주스",
+      "component": "e7808af8-2ea3-8077-8008-cedf4b23a83b",
+      "main": "e7808af8-2ea3-8077-8008-cedf4b23a838",
+      "width": 192,
+      "height": 288,
+      "media": "cd444aaf-0d8c-801b-8008-cedf37c4d35c",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "ginger-ale",
+      "name": "진저에일",
+      "component": "e7808af8-2ea3-8077-8008-cedf4b360f51",
+      "main": "e7808af8-2ea3-8077-8008-cedf4b360f4e",
+      "width": 192,
+      "height": 288,
+      "media": "cd444aaf-0d8c-801b-8008-cedf3983a68b",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "lemonade",
+      "name": "레모네이드",
+      "component": "e7808af8-2ea3-8077-8008-cedf4b49f861",
+      "main": "e7808af8-2ea3-8077-8008-cedf4b49ae8d",
+      "width": 192,
+      "height": 288,
+      "media": "cd444aaf-0d8c-801b-8008-cedf3b3183d4",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "lemon-lime-soda",
+      "name": "레몬라임 소다",
+      "component": "e7808af8-2ea3-8077-8008-cedf4b60bfa6",
+      "main": "e7808af8-2ea3-8077-8008-cedf4b60bfa3",
+      "width": 192,
+      "height": 288,
+      "media": "ce180602-f36b-8035-8008-cedf3d9366bb",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "peach-juice",
+      "name": "복숭아 주스",
+      "component": "e7808af8-2ea3-8077-8008-cedf4b6d781b",
+      "main": "e7808af8-2ea3-8077-8008-cedf4b6d7818",
+      "width": 192,
+      "height": 288,
+      "media": "cd444aaf-0d8c-801b-8008-cedf403832f1",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "orange",
+      "name": "오렌지 주스",
+      "component": "e7808af8-2ea3-8077-8008-cedf4b8084a2",
+      "main": "e7808af8-2ea3-8077-8008-cedf4b804a31",
+      "width": 192,
+      "height": 288,
+      "media": "ce180602-f36b-8035-8008-cedf42421baa",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "vitamin",
+      "name": "비타민 음료",
+      "component": "e7808af8-2ea3-8077-8008-cedf4b95226f",
+      "main": "e7808af8-2ea3-8077-8008-cedf4b94e493",
+      "width": 192,
+      "height": 288,
+      "media": "cd444aaf-0d8c-801b-8008-cedf4377ba6d",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "melon-soda",
+      "name": "멜론 소다",
+      "component": "e7808af8-2ea3-8077-8008-cedf4ba8f689",
+      "main": "e7808af8-2ea3-8077-8008-cedf4ba8f686",
+      "width": 192,
+      "height": 288,
+      "media": "cd444aaf-0d8c-801b-8008-cedf4574f0dd",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "golden-drink",
+      "name": "황금음료 · 오로라 골드",
+      "component": "e7808af8-2ea3-8077-8008-cedf4bc0788c",
+      "main": "e7808af8-2ea3-8077-8008-cedf4bc00cf0",
+      "width": 192,
+      "height": 288,
+      "media": "ce180602-f36b-8035-8008-cedf4734f5aa",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "cola",
+      "name": "콜라",
+      "component": "e7808af8-2ea3-8077-8008-cedf4bd9088e",
+      "main": "e7808af8-2ea3-8077-8008-cedf4bd8fec7",
+      "width": 192,
+      "height": 288,
+      "media": "ce180602-f36b-8035-8008-cedf489b4932",
+      "status": "approved",
+      "verified": true
+    },
+    {
+      "key": "energy-drink",
+      "name": "에너지 드링크",
+      "component": "e7808af8-2ea3-8077-8008-cedf4be8d3c4",
+      "main": "e7808af8-2ea3-8077-8008-cedf4be8d3c1",
+      "width": 192,
+      "height": 288,
+      "media": "cd444aaf-0d8c-801b-8008-cedf4a01b394",
+      "status": "approved",
+      "verified": true
+    }
+  ],
+  "cleanup": {
+    "failedImports": 15,
+    "temporaryPages": 2
+  },
+  "libraryPath": "Clicker / Approved / Drinks",
+  "imageComponentsVerified": true
+}

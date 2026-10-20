@@ -1,0 +1,592 @@
+{
+  "fileId": "cd444aaf-0d8c-801b-8008-cda246e18650",
+  "pageId": "af2aed71-3cfe-80ea-8008-ceaf7492d553",
+  "method": "Computer Use via Chrome, explicitly authorized by user",
+  "partsBoardId": "279b3413-f49b-8006-8008-cefcc175445c",
+  "preservedBoardId": "279b3413-f49b-8006-8008-cefe5331a7e9",
+  "assemblyMainId": "774f84a6-ab0b-806e-8008-ceeff238dfdd",
+  "assemblyCopyId": "279b3413-f49b-8006-8008-ceff4a11eaf0",
+  "drinks": [
+    {
+      "key": "water",
+      "name": "물",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4ae79009"
+    },
+    {
+      "key": "green-tea",
+      "name": "녹차",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4af7c04f"
+    },
+    {
+      "key": "barley-tea",
+      "name": "보리차",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b032bf2"
+    },
+    {
+      "key": "ion",
+      "name": "이온음료",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b0ff6c2"
+    },
+    {
+      "key": "apple",
+      "name": "사과 주스",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b23a838"
+    },
+    {
+      "key": "ginger-ale",
+      "name": "진저에일",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b360f4e"
+    },
+    {
+      "key": "lemonade",
+      "name": "레모네이드",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b49ae8d"
+    },
+    {
+      "key": "lemon-lime-soda",
+      "name": "레몬라임 소다",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b60bfa3"
+    },
+    {
+      "key": "peach-juice",
+      "name": "복숭아 주스",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b6d7818"
+    },
+    {
+      "key": "orange",
+      "name": "오렌지 주스",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b804a31"
+    },
+    {
+      "key": "vitamin",
+      "name": "비타민 음료",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b94e493"
+    },
+    {
+      "key": "melon-soda",
+      "name": "멜론 소다",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4ba8f686"
+    },
+    {
+      "key": "golden-drink",
+      "name": "황금음료 · 오로라 골드",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4bc00cf0"
+    },
+    {
+      "key": "cola",
+      "name": "콜라",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4bd8fec7"
+    },
+    {
+      "key": "energy-drink",
+      "name": "에너지 드링크",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4be8d3c1"
+    }
+  ],
+  "partMains": [
+    {
+      "key": "cabinet",
+      "mainId": "279b3413-f49b-8006-8008-cefcd71af660",
+      "imageId": "279b3413-f49b-8006-8008-cefcd68589e1"
+    },
+    {
+      "key": "header",
+      "mainId": "279b3413-f49b-8006-8008-cefcf7411303",
+      "name": "상단 간판"
+    },
+    {
+      "key": "light-1",
+      "mainId": "279b3413-f49b-8006-8008-cefd17a3ef9e",
+      "name": "진열 조명 · 1단"
+    },
+    {
+      "key": "backing-1",
+      "mainId": "279b3413-f49b-8006-8008-cefd1d187ffe",
+      "name": "진열 배경 · 1단"
+    },
+    {
+      "key": "shelf-1",
+      "mainId": "279b3413-f49b-8006-8008-cefd601151f2",
+      "name": "금속 선반 · 1단"
+    },
+    {
+      "key": "light-2",
+      "mainId": "279b3413-f49b-8006-8008-cefde64c6bb8",
+      "imageId": "279b3413-f49b-8006-8008-cefda391644e",
+      "name": "진열 조명 · 2단"
+    },
+    {
+      "key": "backing-2",
+      "mainId": "279b3413-f49b-8006-8008-cefdea01a287",
+      "imageId": "279b3413-f49b-8006-8008-cefda391644f",
+      "name": "진열 배경 · 2단"
+    },
+    {
+      "key": "shelf-2",
+      "mainId": "279b3413-f49b-8006-8008-cefdeb216237",
+      "imageId": "279b3413-f49b-8006-8008-cefda3916450",
+      "name": "금속 선반 · 2단"
+    },
+    {
+      "key": "light-3",
+      "mainId": "279b3413-f49b-8006-8008-cefdec2da3a8",
+      "imageId": "279b3413-f49b-8006-8008-cefda3916451",
+      "name": "진열 조명 · 3단"
+    },
+    {
+      "key": "backing-3",
+      "mainId": "279b3413-f49b-8006-8008-cefded392089",
+      "imageId": "279b3413-f49b-8006-8008-cefda3918ede",
+      "name": "진열 배경 · 3단"
+    },
+    {
+      "key": "shelf-3",
+      "mainId": "279b3413-f49b-8006-8008-cefdee45e76a",
+      "imageId": "279b3413-f49b-8006-8008-cefda3918edf",
+      "name": "금속 선반 · 3단"
+    },
+    {
+      "key": "display-frame",
+      "mainId": "279b3413-f49b-8006-8008-cefdef51b02a",
+      "imageId": "279b3413-f49b-8006-8008-cefda3918ee0",
+      "name": "진열창 프레임"
+    },
+    {
+      "key": "button-1-1",
+      "mainId": "279b3413-f49b-8006-8008-cefdf3f1e5f6",
+      "imageId": "279b3413-f49b-8006-8008-cefda3918ee1",
+      "name": "상품 버튼 · 1단 1열"
+    },
+    {
+      "key": "button-1-2",
+      "mainId": "279b3413-f49b-8006-8008-cefdf51a25c1",
+      "imageId": "279b3413-f49b-8006-8008-cefda3918ee2",
+      "name": "상품 버튼 · 1단 2열"
+    },
+    {
+      "key": "button-1-3",
+      "mainId": "279b3413-f49b-8006-8008-cefdf62b7d67",
+      "imageId": "279b3413-f49b-8006-8008-cefda391eb8b",
+      "name": "상품 버튼 · 1단 3열"
+    },
+    {
+      "key": "button-1-4",
+      "mainId": "279b3413-f49b-8006-8008-cefdf73dd750",
+      "imageId": "279b3413-f49b-8006-8008-cefda391eb8c",
+      "name": "상품 버튼 · 1단 4열"
+    },
+    {
+      "key": "button-1-5",
+      "mainId": "279b3413-f49b-8006-8008-cefdf84f3a3a",
+      "imageId": "279b3413-f49b-8006-8008-cefda391eb8d",
+      "name": "상품 버튼 · 1단 5열"
+    },
+    {
+      "key": "button-2-1",
+      "mainId": "279b3413-f49b-8006-8008-cefdf95e1938",
+      "imageId": "279b3413-f49b-8006-8008-cefda391eb8e",
+      "name": "상품 버튼 · 2단 1열"
+    },
+    {
+      "key": "button-2-2",
+      "mainId": "279b3413-f49b-8006-8008-cefe018f7fbb",
+      "imageId": "279b3413-f49b-8006-8008-cefda391eb8f",
+      "name": "상품 버튼 · 2단 2열"
+    },
+    {
+      "key": "button-2-3",
+      "mainId": "279b3413-f49b-8006-8008-cefe029f3e96",
+      "imageId": "279b3413-f49b-8006-8008-cefda391eb90",
+      "name": "상품 버튼 · 2단 3열"
+    },
+    {
+      "key": "button-2-4",
+      "mainId": "279b3413-f49b-8006-8008-cefe03af30a0",
+      "imageId": "279b3413-f49b-8006-8008-cefda391eb91",
+      "name": "상품 버튼 · 2단 4열"
+    },
+    {
+      "key": "button-2-5",
+      "mainId": "279b3413-f49b-8006-8008-cefe04bd2b82",
+      "imageId": "279b3413-f49b-8006-8008-cefda39207a2",
+      "name": "상품 버튼 · 2단 5열"
+    },
+    {
+      "key": "button-3-1",
+      "mainId": "279b3413-f49b-8006-8008-cefe05cd4bcd",
+      "imageId": "279b3413-f49b-8006-8008-cefda39207a3",
+      "name": "상품 버튼 · 3단 1열"
+    },
+    {
+      "key": "button-3-2",
+      "mainId": "279b3413-f49b-8006-8008-cefe23cc8514",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d374aef",
+      "name": "상품 버튼 · 3단 2열"
+    },
+    {
+      "key": "button-3-3",
+      "mainId": "279b3413-f49b-8006-8008-cefe24e808f1",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d374af0",
+      "name": "상품 버튼 · 3단 3열"
+    },
+    {
+      "key": "button-3-4",
+      "mainId": "279b3413-f49b-8006-8008-cefe25fece80",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d374af1",
+      "name": "상품 버튼 · 3단 4열"
+    },
+    {
+      "key": "button-3-5",
+      "mainId": "279b3413-f49b-8006-8008-cefe27156157",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d374af2",
+      "name": "상품 버튼 · 3단 5열"
+    },
+    {
+      "key": "status-display",
+      "mainId": "279b3413-f49b-8006-8008-cefe2831c240",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d374af3",
+      "name": "상태 표시창"
+    },
+    {
+      "key": "coin-slot",
+      "mainId": "279b3413-f49b-8006-8008-cefe294d3f1c",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d374af4",
+      "name": "동전 투입구"
+    },
+    {
+      "key": "bill-reader",
+      "mainId": "279b3413-f49b-8006-8008-cefe2a564180",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d374af5",
+      "name": "지폐 투입구"
+    },
+    {
+      "key": "return-lever",
+      "mainId": "279b3413-f49b-8006-8008-cefe2f114091",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d374af6",
+      "name": "반환 레버"
+    },
+    {
+      "key": "outlet",
+      "mainId": "279b3413-f49b-8006-8008-cefe301fcc4e",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d374af7",
+      "name": "상품 배출구"
+    },
+    {
+      "key": "vent",
+      "mainId": "279b3413-f49b-8006-8008-cefe3131574d",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d374af8",
+      "name": "통풍구"
+    },
+    {
+      "key": "left-foot",
+      "mainId": "279b3413-f49b-8006-8008-cefe324cd9b2",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d374af9",
+      "name": "받침 다리 · 왼쪽"
+    },
+    {
+      "key": "right-foot",
+      "mainId": "279b3413-f49b-8006-8008-cefe336518d0",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d3799a9",
+      "name": "받침 다리 · 오른쪽"
+    },
+    {
+      "key": "bottom-brace",
+      "mainId": "279b3413-f49b-8006-8008-cefe34832310",
+      "imageId": "279b3413-f49b-8006-8008-cefe0d3799aa",
+      "name": "하부 가로 프레임"
+    }
+  ],
+  "assemblyChildren": [
+    {
+      "key": "cabinet",
+      "instanceId": "279b3413-f49b-8006-8008-cefe6944c307",
+      "mainId": "279b3413-f49b-8006-8008-cefcd71af660"
+    },
+    {
+      "key": "header",
+      "instanceId": "279b3413-f49b-8006-8008-cefe9a82a319",
+      "mainId": "279b3413-f49b-8006-8008-cefcf7411303"
+    },
+    {
+      "key": "light-1",
+      "instanceId": "279b3413-f49b-8006-8008-cefe9c64cf47",
+      "mainId": "279b3413-f49b-8006-8008-cefd17a3ef9e"
+    },
+    {
+      "key": "backing-1",
+      "instanceId": "279b3413-f49b-8006-8008-cefe9e419889",
+      "mainId": "279b3413-f49b-8006-8008-cefd1d187ffe"
+    },
+    {
+      "key": "shelf-1",
+      "instanceId": "279b3413-f49b-8006-8008-cefea01efb3f",
+      "mainId": "279b3413-f49b-8006-8008-cefd601151f2"
+    },
+    {
+      "key": "light-2",
+      "instanceId": "279b3413-f49b-8006-8008-cefea1fa6ae0",
+      "mainId": "279b3413-f49b-8006-8008-cefde64c6bb8"
+    },
+    {
+      "key": "backing-2",
+      "instanceId": "279b3413-f49b-8006-8008-cefea7836e40",
+      "mainId": "279b3413-f49b-8006-8008-cefdea01a287"
+    },
+    {
+      "key": "shelf-2",
+      "instanceId": "279b3413-f49b-8006-8008-cefea96212f6",
+      "mainId": "279b3413-f49b-8006-8008-cefdeb216237"
+    },
+    {
+      "key": "light-3",
+      "instanceId": "279b3413-f49b-8006-8008-cefeab4657e4",
+      "mainId": "279b3413-f49b-8006-8008-cefdec2da3a8"
+    },
+    {
+      "key": "backing-3",
+      "instanceId": "279b3413-f49b-8006-8008-cefead343e23",
+      "mainId": "279b3413-f49b-8006-8008-cefded392089"
+    },
+    {
+      "key": "shelf-3",
+      "instanceId": "279b3413-f49b-8006-8008-cefeaf1d6960",
+      "mainId": "279b3413-f49b-8006-8008-cefdee45e76a"
+    },
+    {
+      "key": "display-frame",
+      "instanceId": "279b3413-f49b-8006-8008-cefeb10d8374",
+      "mainId": "279b3413-f49b-8006-8008-cefdef51b02a"
+    },
+    {
+      "key": "button-1-1",
+      "instanceId": "279b3413-f49b-8006-8008-cefeb2f4f2d6",
+      "mainId": "279b3413-f49b-8006-8008-cefdf3f1e5f6"
+    },
+    {
+      "key": "button-1-2",
+      "instanceId": "279b3413-f49b-8006-8008-cefeb4e29853",
+      "mainId": "279b3413-f49b-8006-8008-cefdf51a25c1"
+    },
+    {
+      "key": "button-1-3",
+      "instanceId": "279b3413-f49b-8006-8008-cefeb6cd333d",
+      "mainId": "279b3413-f49b-8006-8008-cefdf62b7d67"
+    },
+    {
+      "key": "button-1-4",
+      "instanceId": "279b3413-f49b-8006-8008-cefebc53fda8",
+      "mainId": "279b3413-f49b-8006-8008-cefdf73dd750"
+    },
+    {
+      "key": "button-1-5",
+      "instanceId": "279b3413-f49b-8006-8008-cefebe408e78",
+      "mainId": "279b3413-f49b-8006-8008-cefdf84f3a3a"
+    },
+    {
+      "key": "button-2-1",
+      "instanceId": "279b3413-f49b-8006-8008-cefec02e48c0",
+      "mainId": "279b3413-f49b-8006-8008-cefdf95e1938"
+    },
+    {
+      "key": "button-2-2",
+      "instanceId": "279b3413-f49b-8006-8008-cefec21bd2a2",
+      "mainId": "279b3413-f49b-8006-8008-cefe018f7fbb"
+    },
+    {
+      "key": "button-2-3",
+      "instanceId": "279b3413-f49b-8006-8008-cefec40b333e",
+      "mainId": "279b3413-f49b-8006-8008-cefe029f3e96"
+    },
+    {
+      "key": "button-2-4",
+      "instanceId": "279b3413-f49b-8006-8008-cefec6007eaf",
+      "mainId": "279b3413-f49b-8006-8008-cefe03af30a0"
+    },
+    {
+      "key": "button-2-5",
+      "instanceId": "279b3413-f49b-8006-8008-cefec7fc5b30",
+      "mainId": "279b3413-f49b-8006-8008-cefe04bd2b82"
+    },
+    {
+      "key": "button-3-1",
+      "instanceId": "279b3413-f49b-8006-8008-cefec9f67eb0",
+      "mainId": "279b3413-f49b-8006-8008-cefe05cd4bcd"
+    },
+    {
+      "key": "button-3-2",
+      "instanceId": "279b3413-f49b-8006-8008-cefecbf4d179",
+      "mainId": "279b3413-f49b-8006-8008-cefe23cc8514"
+    },
+    {
+      "key": "button-3-3",
+      "instanceId": "279b3413-f49b-8006-8008-cefed15dc893",
+      "mainId": "279b3413-f49b-8006-8008-cefe24e808f1"
+    },
+    {
+      "key": "button-3-4",
+      "instanceId": "279b3413-f49b-8006-8008-cefed34afa7e",
+      "mainId": "279b3413-f49b-8006-8008-cefe25fece80"
+    },
+    {
+      "key": "button-3-5",
+      "instanceId": "279b3413-f49b-8006-8008-cefed56ebbbe",
+      "mainId": "279b3413-f49b-8006-8008-cefe27156157"
+    },
+    {
+      "key": "status-display",
+      "instanceId": "279b3413-f49b-8006-8008-cefed76b7aba",
+      "mainId": "279b3413-f49b-8006-8008-cefe2831c240"
+    },
+    {
+      "key": "coin-slot",
+      "instanceId": "279b3413-f49b-8006-8008-cefed96b8b40",
+      "mainId": "279b3413-f49b-8006-8008-cefe294d3f1c"
+    },
+    {
+      "key": "bill-reader",
+      "instanceId": "279b3413-f49b-8006-8008-cefedb6831aa",
+      "mainId": "279b3413-f49b-8006-8008-cefe2a564180"
+    },
+    {
+      "key": "return-lever",
+      "instanceId": "279b3413-f49b-8006-8008-cefedd6722c4",
+      "mainId": "279b3413-f49b-8006-8008-cefe2f114091"
+    },
+    {
+      "key": "outlet",
+      "instanceId": "279b3413-f49b-8006-8008-cefedf6aa8ed",
+      "mainId": "279b3413-f49b-8006-8008-cefe301fcc4e"
+    },
+    {
+      "key": "vent",
+      "instanceId": "279b3413-f49b-8006-8008-cefee16a6571",
+      "mainId": "279b3413-f49b-8006-8008-cefe3131574d"
+    },
+    {
+      "key": "left-foot",
+      "instanceId": "279b3413-f49b-8006-8008-cefee36af4d3",
+      "mainId": "279b3413-f49b-8006-8008-cefe324cd9b2"
+    },
+    {
+      "key": "right-foot",
+      "instanceId": "279b3413-f49b-8006-8008-cefee56aa235",
+      "mainId": "279b3413-f49b-8006-8008-cefe336518d0"
+    },
+    {
+      "key": "bottom-brace",
+      "instanceId": "279b3413-f49b-8006-8008-cefee76fcca1",
+      "mainId": "279b3413-f49b-8006-8008-cefe34832310"
+    },
+    {
+      "key": "water",
+      "instanceId": "279b3413-f49b-8006-8008-ceff014f72d4",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4ae79009",
+      "type": "drink"
+    },
+    {
+      "key": "green-tea",
+      "instanceId": "279b3413-f49b-8006-8008-ceff09f4a58f",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4af7c04f",
+      "type": "drink"
+    },
+    {
+      "key": "barley-tea",
+      "instanceId": "279b3413-f49b-8006-8008-ceff0e630d7e",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b032bf2",
+      "type": "drink"
+    },
+    {
+      "key": "ion",
+      "instanceId": "279b3413-f49b-8006-8008-ceff109ea9b8",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b0ff6c2",
+      "type": "drink"
+    },
+    {
+      "key": "apple",
+      "instanceId": "279b3413-f49b-8006-8008-ceff12d697b2",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b23a838",
+      "type": "drink"
+    },
+    {
+      "key": "ginger-ale",
+      "instanceId": "279b3413-f49b-8006-8008-ceff14fa65bc",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b360f4e",
+      "type": "drink"
+    },
+    {
+      "key": "lemonade",
+      "instanceId": "279b3413-f49b-8006-8008-ceff17386b9a",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b49ae8d",
+      "type": "drink"
+    },
+    {
+      "key": "lemon-lime-soda",
+      "instanceId": "279b3413-f49b-8006-8008-ceff1975ddd8",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b60bfa3",
+      "type": "drink"
+    },
+    {
+      "key": "peach-juice",
+      "instanceId": "279b3413-f49b-8006-8008-ceff1fb459f8",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b6d7818",
+      "type": "drink"
+    },
+    {
+      "key": "orange",
+      "instanceId": "279b3413-f49b-8006-8008-ceff21f2897e",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b804a31",
+      "type": "drink"
+    },
+    {
+      "key": "vitamin",
+      "instanceId": "279b3413-f49b-8006-8008-ceff242c9c72",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4b94e493",
+      "type": "drink"
+    },
+    {
+      "key": "melon-soda",
+      "instanceId": "279b3413-f49b-8006-8008-ceff266e0a99",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4ba8f686",
+      "type": "drink"
+    },
+    {
+      "key": "golden-drink",
+      "instanceId": "279b3413-f49b-8006-8008-ceff28a9fcdf",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4bc00cf0",
+      "type": "drink"
+    },
+    {
+      "key": "cola",
+      "instanceId": "279b3413-f49b-8006-8008-ceff2aede83b",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4bd8fec7",
+      "type": "drink"
+    },
+    {
+      "key": "energy-drink",
+      "instanceId": "279b3413-f49b-8006-8008-ceff2d37e427",
+      "mainId": "e7808af8-2ea3-8077-8008-cedf4be8d3c1",
+      "type": "drink"
+    }
+  ],
+  "verification": {
+    "actualAssemblyChildren": 51,
+    "allAssemblyInstanceIdsPresent": true,
+    "allPartsDirectChildren": true,
+    "copyPanelSource": "자판기 · 확정 음료 15종 · 5×3",
+    "savedFileReopened": true,
+    "savedMainPanelConfirmed": true
+  },
+  "historicalRecordsNote": "partMains, assemblyChildren and verification below record the prior decomposition. They are superseded by currentConsolidation.",
+  "currentConsolidation": {
+    "bodyBoardId": "279b3413-f49b-8006-8008-cefcc175445c",
+    "bodyBoardName": "자판기 본체 · 상품 제외",
+    "mergedBodyMainId": "bc6ae191-dc09-8041-8008-cf0ab4c1d40c",
+    "sourceBEmptyMainId": "bc6ae191-dc09-8041-8008-cf0ba90d335e",
+    "removedPartMainCount": 36,
+    "drinkMainCount": 15,
+    "drinkMainIdsPreserved": true,
+    "previousAssemblyMainAndCopyFoundInCurrentLayerSearch": false,
+    "preservedIntegratedBoardId": "279b3413-f49b-8006-8008-cefe5331a7e9",
+    "proof": "design/review/ability-unlock/bodies-merged-editor.png"
+  }
+}

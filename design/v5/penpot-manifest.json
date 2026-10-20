@@ -1,0 +1,236 @@
+{
+  "scope": "assets-only",
+  "team": "ce180602-f36b-8035-8008-cda23f0a1b46",
+  "file": "cd444aaf-0d8c-801b-8008-cda246e18650",
+  "page": "af2aed71-3cfe-80ea-8008-ceaf7492d553",
+  "board": "af2aed71-3cfe-80ea-8008-ceb0d537ce15",
+  "requirements_board": "d7a10464-8e4d-803c-8008-ceb58be78642",
+  "gameplay_boards": [],
+  "preserved_pages": [
+    "469fc32a-9a9d-800d-8008-cdb900d3f532",
+    "55aeaacb-aa46-80be-8008-cdca4fa29ef0"
+  ],
+  "raster_mode": "built-in image_gen",
+  "final_sprite": "vending-machine-b-5x3.png",
+  "prompt": "prompts.txt",
+  "requirements": "asset-requirements.csv",
+  "limitations": [
+    "B is a single static bitmap; moving machine parts and animation frames are not yet separated.",
+    "Current game values in UI components are placeholders.",
+    "Original Notion page refreshed and read through CUA-connected signed-in app. Allocation proposals and unresolved fever rules are recorded separately."
+  ],
+  "assets": [
+    {
+      "key": "vending-a",
+      "main": "d7a10464-8e4d-803c-8008-ceb3272e3607",
+      "component": "d7a10464-8e4d-803c-8008-ceb3272e360a",
+      "path": "Clicker/World/Vending",
+      "name": "A · 기존 정면",
+      "export": "exports/vending-a.png",
+      "width": 350,
+      "height": 525,
+      "hasAlpha": true
+    },
+    {
+      "key": "vending-b",
+      "main": "d7a10464-8e4d-803c-8008-ceb327329f18",
+      "component": "d7a10464-8e4d-803c-8008-ceb32732e5d5",
+      "path": "Clicker/World/Vending",
+      "name": "B · 원본 디테일 · 5×3",
+      "export": "exports/vending-b.png",
+      "width": 350,
+      "height": 525,
+      "hasAlpha": true
+    },
+    {
+      "key": "japanese-alley",
+      "main": "d7a10464-8e4d-803c-8008-ceb327376c4d",
+      "component": "d7a10464-8e4d-803c-8008-ceb327376c50",
+      "path": "Clicker/World/Background",
+      "name": "일본풍 골목길",
+      "export": "exports/japanese-alley.png",
+      "width": 800,
+      "height": 450,
+      "hasAlpha": false
+    },
+    {
+      "key": "ui-currency-hud",
+      "main": "d7a10464-8e4d-803c-8008-ceb3277a6874",
+      "component": "d7a10464-8e4d-803c-8008-ceb3277ad90a",
+      "path": "Clicker/UI",
+      "name": "재화 HUD",
+      "export": "exports/ui-currency-hud.png",
+      "width": 243,
+      "height": 125,
+      "hasAlpha": true
+    },
+    {
+      "key": "ui-ability-purchase",
+      "main": "d7a10464-8e4d-803c-8008-ceb327ab813b",
+      "component": "d7a10464-8e4d-803c-8008-ceb327ac39bb",
+      "path": "Clicker/UI",
+      "name": "능력 구매",
+      "export": "exports/ui-ability-purchase.png",
+      "width": 224,
+      "height": 101,
+      "hasAlpha": true
+    },
+    {
+      "key": "ui-unlock",
+      "main": "d7a10464-8e4d-803c-8008-ceb327cdc3c8",
+      "component": "d7a10464-8e4d-803c-8008-ceb327ce0b64",
+      "path": "Clicker/UI",
+      "name": "자판기 해금",
+      "export": "exports/ui-unlock.png",
+      "width": 223,
+      "height": 79,
+      "hasAlpha": true
+    },
+    {
+      "key": "ui-upgrade",
+      "main": "d7a10464-8e4d-803c-8008-ceb327efacc0",
+      "component": "d7a10464-8e4d-803c-8008-ceb327f02d79",
+      "path": "Clicker/UI",
+      "name": "능력 강화",
+      "export": "exports/ui-upgrade.png",
+      "width": 231,
+      "height": 79,
+      "hasAlpha": true
+    },
+    {
+      "key": "ui-pause",
+      "main": "d7a10464-8e4d-803c-8008-ceb3281354ee",
+      "component": "d7a10464-8e4d-803c-8008-ceb32813a66c",
+      "path": "Clicker/UI",
+      "name": "일시정지",
+      "export": "exports/ui-pause.png",
+      "width": 75,
+      "height": 65,
+      "hasAlpha": true
+    },
+    {
+      "key": "coin",
+      "main": "d7a10464-8e4d-803c-8008-ceb328247822",
+      "component": "d7a10464-8e4d-803c-8008-ceb32824bf63",
+      "path": "Clicker/World/Objects",
+      "name": "동전",
+      "export": "exports/coin.png",
+      "width": 108,
+      "height": 108,
+      "hasAlpha": true
+    },
+    {
+      "key": "empty-can",
+      "main": "d7a10464-8e4d-803c-8008-ceb3283cc79c",
+      "component": "d7a10464-8e4d-803c-8008-ceb3283d38ac",
+      "path": "Clicker/World/Objects",
+      "name": "빈캔",
+      "export": "exports/empty-can.png",
+      "width": 56,
+      "height": 94,
+      "hasAlpha": true
+    },
+    {
+      "key": "trash-bin",
+      "main": "d7a10464-8e4d-803c-8008-ceb3285903eb",
+      "component": "d7a10464-8e4d-803c-8008-ceb3285903ee",
+      "path": "Clicker/World/Objects",
+      "name": "쓰레기통",
+      "export": "exports/trash-bin.png",
+      "width": 116,
+      "height": 162,
+      "hasAlpha": true
+    },
+    {
+      "key": "cursor",
+      "main": "d7a10464-8e4d-803c-8008-ceb32862d331",
+      "component": "d7a10464-8e4d-803c-8008-ceb32862d334",
+      "path": "Clicker/FX",
+      "name": "클릭 커서",
+      "export": "exports/cursor.png",
+      "width": 72,
+      "height": 96,
+      "hasAlpha": true
+    },
+    {
+      "key": "spark",
+      "main": "d7a10464-8e4d-803c-8008-ceb3286f6940",
+      "component": "d7a10464-8e4d-803c-8008-ceb3286f6943",
+      "path": "Clicker/FX",
+      "name": "획득 반짝임",
+      "export": "exports/spark.png",
+      "width": 60,
+      "height": 60,
+      "hasAlpha": true
+    }
+  ],
+  "requirements_board_export": "../review/v5/asset-requirements-penpot.png",
+  "asset_board_export": "../review/v5/asset-library-penpot.png",
+  "verified": {
+    "componentCount": 13,
+    "exportCount": 13,
+    "temporaryGameplayPageRemoved": true
+  },
+  "requirements_review": {
+    "checked_at": "2026-10-18T07:12:27.482Z",
+    "item_count": 27,
+    "notion_verified": true,
+    "method": "CUA connection to signed-in Notion app; refreshed original page; connected Notion MCP returned 404",
+    "snapshot": "design/planning/notion-source-2026-10-18.json",
+    "local_sources": [
+      {
+        "path": "design/planning/notion-source-2026-10-18.json",
+        "modified_at": "2026-10-18T16:12:27+09:00",
+        "sha256": "404a807f14c44984fd2122d05cd437d6dac99c85fbc3a76453835ea18c379b06"
+      },
+      {
+        "path": "PRODUCT.md",
+        "modified_at": "2026-10-18T16:13:30+09:00",
+        "sha256": "e5317f573d9e3b597b12e5bada86a0a88a9adb6ba86e81787961ca08233d4055"
+      },
+      {
+        "path": "design/planning/stages-2026-10-18.md",
+        "modified_at": "2026-10-18T15:21:38+09:00",
+        "sha256": "17b034e643516c06b35de37cca5806a8e2da07ad02ece5a899cea0666475f304"
+      },
+      {
+        "path": "images/drinks/README.md",
+        "modified_at": "2026-10-18T15:21:38+09:00",
+        "sha256": "6294ef31a2e9aa68f441d9a0a0449b5b941071bf400ecbd9a12a610fdf2611fc"
+      },
+      {
+        "path": "ui/drinks.json",
+        "modified_at": "2026-10-18T15:21:38+09:00",
+        "sha256": "fae381bc8bd0c137adb633ebf4f6eb25fee8c7b2b283dc35bfea97f9b7b61de1"
+      },
+      {
+        "path": "README.md",
+        "modified_at": "2026-10-18T15:24:05+09:00",
+        "sha256": "53af8ab2808a7c7c27c8f5fdad6f4a3f597f6504211a93bf72396e2c32b08f44"
+      },
+      {
+        "path": "ui/search_glow.svg",
+        "modified_at": "2026-10-18T15:21:38+09:00",
+        "sha256": "ee15729b76db7ae7bb10e423cd98ad66e0c8d4cad70e66bfdf019280be8a1e1f"
+      },
+      {
+        "path": "ui/reward_halo.svg",
+        "modified_at": "2026-10-18T15:21:38+09:00",
+        "sha256": "e43c909dbf5d8089fb19193fe32483b3834b3b9be598f740b705c349d25502b6"
+      },
+      {
+        "path": "ui/crying_icon.svg",
+        "modified_at": "2026-10-18T15:21:38+09:00",
+        "sha256": "8d61d9f601e989aa499ef05640b26bf38249c4a1afdee01b1818e32c0d6a9f5e"
+      }
+    ],
+    "penpot_sync": {
+      "applied": false,
+      "existing_board_item_count": 21,
+      "local_item_count": 27,
+      "reason": "Server reports suspended Penpot connection despite visible connected indicator",
+      "prepared_script": "requirements.penpot.js"
+    }
+  },
+  "requirements_board_export_status": "Previous 21-item board export; current 27-item review is local and not yet applied to Penpot."
+}

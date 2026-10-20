@@ -1,0 +1,100 @@
+{
+  "status": "asset animation specification; runtime implementation not included",
+  "values": "Suggested timings only. Source probabilities, fever duration and activation rules remain editable.",
+  "clips": {
+    "search-fever-click": {
+      "frames": [
+        "search-fx-00",
+        "search-fx-01",
+        "search-fx-02"
+      ],
+      "suggested_ms_per_frame": [
+        35,
+        45,
+        55
+      ],
+      "anchor": [
+        48,
+        48
+      ],
+      "trigger": "floor search during fever",
+      "engine": "scale and alpha fade"
+    },
+    "punch-hit": {
+      "frames": [
+        "punch-fx-00",
+        "punch-fx-01",
+        "punch-fx-02"
+      ],
+      "suggested_ms_per_frame": [
+        30,
+        40,
+        60
+      ],
+      "anchor": [
+        48,
+        48
+      ],
+      "trigger": "machine body hit during punch fever",
+      "engine": "body recoil 3–5 px and return; keep shadow fixed; flash alpha"
+    },
+    "reward": {
+      "frames": [
+        "reward-fx-00",
+        "reward-fx-01",
+        "reward-fx-02"
+      ],
+      "suggested_ms_per_frame": [
+        40,
+        50,
+        70
+      ],
+      "engine": "editable gold popup; gold×2 and click×2 are different events"
+    },
+    "auto-pickup": {
+      "frames": [
+        "pickup-fx-00",
+        "pickup-fx-01",
+        "pickup-fx-02"
+      ],
+      "suggested_ms_per_frame": [
+        45,
+        50,
+        65
+      ],
+      "engine": "item travels toward bin or counter; no ability gain"
+    },
+    "expiry": {
+      "frames": [
+        "expiry-fx-00",
+        "expiry-fx-01",
+        "expiry-fx-02"
+      ],
+      "suggested_ms_per_frame": [
+        100,
+        100,
+        100
+      ],
+      "engine": "pulse and fade at runtime-configured expiry; no fixed lifetime in art"
+    },
+    "dispense": {
+      "parts": [
+        "b-body",
+        "b-display",
+        "b-payment",
+        "b-hatch-closed",
+        "b-hatch-open"
+      ],
+      "engine": "toggle hatch only; animate item downward; keep frame registration"
+    },
+    "fever-status": {
+      "states": [
+        "fever-locked",
+        "fever-available",
+        "fever-active",
+        "fever-ending"
+      ],
+      "engine": "timer and bar derive from runtime. Orange target and normal/special caps are unresolved."
+    }
+  }
+}
