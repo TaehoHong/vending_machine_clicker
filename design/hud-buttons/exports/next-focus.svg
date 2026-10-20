@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="68" height="68" viewBox="-6 -6 68 68" aria-hidden="true"><g class="game-art" data-state="focus"><path d="M4 -5H52V0H60V52H52V60H4V52H-4V0H4Z" fill="none" stroke="#FFD883" stroke-width="2"/><path class="base" d="M8 2H48V8H54V44H48V50H8V44H2V8H8Z" transform="translate(0 4)" fill="#132433" stroke="#10171D" stroke-width="4"/>
+ <g class="moving" transform="translate(0 0)"><path class="surface" d="M8 2H48V8H54V44H48V50H8V44H2V8H8Z" fill="#4699C8" stroke="#10171D" stroke-width="4"/>
+ <path class="highlight" d="M10 6H46V10H50V15H46V10H10V15H6V10H10Z" fill="#9FDDFA"/>
+ <path class="bevel" d="M6 35H10V44H46V35H50V43H46V47H10V43H6Z" fill="#28648F"/>
+ <g ><g class="icon" transform="translate(12 10)"><g transform="translate(32 0) scale(-1 1)"><path d="M18 4H24V10H20V14H16V18H20V22H24V28H18V24H14V20H10V16H8V14H10V12H14V8H18Z" fill="#FFF2D9" stroke="#10171D" stroke-width="2" stroke-linejoin="miter"/></g></g></g></g></g></svg>

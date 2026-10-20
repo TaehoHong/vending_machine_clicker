@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 416 148" width="416" height="148" aria-hidden="true"><path d="M24 34H388V42H396V114H388V122H24V114H16V42H24Z" transform="translate(0 10)" fill="#122331" stroke="#10171D" stroke-width="6" stroke-linejoin="miter"/>
+    <g class="press-face" transform="translate(0 0)">
+    <path d="M24 34H388V42H396V114H388V122H24V114H16V42H24Z" fill="#4699C8" stroke="#10171D" stroke-width="6" stroke-linejoin="miter"/>
+    <path d="M28 39H384V45H390V54H384V46H28V54H22V45H28Z" fill="#9FDDFA"/>
+    <path d="M22 99H28V112H384V99H390V111H384V117H28V111H22Z" fill="#28648F"/>
+    <text x="116" y="96" font-family="'Cafe24 PRO UP',sans-serif" font-size="44" text-anchor="middle" fill="#10171D" stroke="#10171D" stroke-width="5" paint-order="stroke">구매</text>
+    <text x="116" y="92" font-family="'Cafe24 PRO UP',sans-serif" font-size="44" text-anchor="middle" fill="#F7F3DF">구매</text>
+    <path d="M222 51H374V57H380V100H374V106H222V100H216V57H222Z" fill="#DDEBEE" stroke="#142C3B" stroke-width="4"/>
+    <path d="M224 56H372" stroke="#FAFCF4" stroke-width="4"/>
+    <g transform="translate(240 79) scale(0.8)" shape-rendering="crispEdges"><path d="M-8-12H8V-8H12V8H8V12H-8V8H-12V-8H-8Z" fill="#EBAF3E" stroke="#352B28" stroke-width="3"/><path d="M-6-9H6V-6H9V3H6V-6H-6Z" fill="#FFE6A0"/><path d="M-2-5H3V-2H0V3H3V6H-3V3H-5V-2H-2Z" fill="#9F612B"/></g>
+    <text x="294" y="91" font-family="'Cafe24 PRO UP',sans-serif" font-size="32" text-anchor="middle" fill="#203949">100</text><text x="351" y="89" font-family="'Cafe24 PRO UP',sans-serif" font-size="22" text-anchor="middle" fill="#203949">G</text>
+    </g></svg>

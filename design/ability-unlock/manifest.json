@@ -1,0 +1,33 @@
+{
+  "file": "cd444aaf-0d8c-801b-8008-cda246e18650",
+  "page": "55aeaacb-aa46-80be-8008-cdca4fa29ef0",
+  "main": "e7808af8-2ea3-8077-8008-cee0143cdedc",
+  "states": "e7808af8-2ea3-8077-8008-cee017d5042e",
+  "original_rough": "e7808af8-2ea3-8077-8008-cedf2d2bb675",
+  "item_count": 15,
+  "illustrative_values": true,
+  "interactive_prototype": false,
+  "design_revision": "nameplates-v6",
+  "applied_via": "Computer Use (native linked component copies)",
+  "drink_visible_height_range": [
+    80,
+    103
+  ],
+  "verification_status": "All 198 rendered descendants moved together and were restored; product-hidden display is empty; 15 linked product IDs preserved; saved viewer checked.",
+  "local_preview": "design/review/ability-unlock/main-v3-local.png",
+  "source_svg": "design/ability-unlock/main-v3.svg",
+  "cabinet_asset": "Penpot main component bc6ae191-dc09-8041-8008-cf0ba90d335e",
+  "generation_prompt": "design/ability-unlock/v3-prompt.txt",
+  "requested_font": "Cafe24 PRO UP",
+  "font_apply_status": "Applied via MCP to all 40 text nodes across main and states boards; readback confirmed no mismatches",
+  "font_id": "custom-32acebab-c2dc-8059-8008-ceedca013d66",
+  "font_variant": "Regular",
+  "font_text_nodes": 40,
+  "font_preview": "design/review/ability-unlock/main-cafe24-penpot.png",
+  "states_font_preview": "design/review/ability-unlock/states-cafe24-penpot.png",
+  "original_component_apply_manifest": "design/ability-unlock/original-components-manifest.json",
+  "current_penpot_preview": "design/review/ability-unlock/nameplates-v6-preview.png",
+  "source_svg_revision": "b-pixel-v3, before linked component application",
+  "structural_verification": "design/ability-unlock/structural-fix-verification.json",
+  "label_ui_verification": "design/ability-unlock/label-polish-verification.json"
+}

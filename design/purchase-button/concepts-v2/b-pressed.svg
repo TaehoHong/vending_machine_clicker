@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 416 148" width="416" height="148" aria-hidden="true"><path d="M35 31L382 27Q401 27 398 46L390 109Q388 124 369 125L31 129Q11 129 15 109L22 47Q24 32 35 31Z" transform="translate(0 10)" fill="#8E4E2B" stroke="#2E211D" stroke-width="6"/>
+    <g class="press-face" transform="translate(0 8)">
+    <path d="M35 31L382 27Q401 27 398 46L390 109Q388 124 369 125L31 129Q11 129 15 109L22 47Q24 32 35 31Z" fill="#FFC64D" stroke="#2E211D" stroke-width="6"/>
+    <path d="M37 39L379 35Q391 34 390 44L389 48L40 49Z" fill="#FFE89A"/>
+    <path d="M23 109L378 106L376 116L31 121Q23 121 23 115Z" fill="#E59B32"/>
+    <path d="M43 60L51 54L50 67Z" fill="#FFECAA"/>
+    <text x="113" y="95" font-family="'배달의민족 주아','BM JUA ',sans-serif" font-size="49" text-anchor="middle" fill="#36241E">구매</text>
+    <g transform="rotate(-2 296 78)"><rect x="219" y="47" width="159" height="60" rx="13" fill="#FFF1D1" stroke="#4A3223" stroke-width="4"/>
+    <circle cx="244" cy="77" r="13" fill="#EDAC3E" stroke="#5A3924" stroke-width="2.5"/><path d="M244 69L247 74L252 77L247 80L244 85L241 80L236 77L241 74Z" fill="#FFF0AA"/>
+    <text x="302" y="92" font-family="'배달의민족 주아','BM JUA ',sans-serif" font-size="38" text-anchor="middle" fill="#3A2820">100</text><text x="355" y="88" font-family="'배달의민족 주아','BM JUA ',sans-serif" font-size="24" text-anchor="middle" fill="#6B482D">G</text></g>
+    </g></svg>

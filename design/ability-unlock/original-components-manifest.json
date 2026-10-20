@@ -1,0 +1,259 @@
+{
+  "fileId": "cd444aaf-0d8c-801b-8008-cda246e18650",
+  "sourcePageId": "af2aed71-3cfe-80ea-8008-ceaf7492d553",
+  "sourceBoardId": "af2aed71-3cfe-80ea-8008-ceb0d537ce15",
+  "targetPageId": "55aeaacb-aa46-80be-8008-cdca4fa29ef0",
+  "targetBoardId": "e7808af8-2ea3-8077-8008-cee0143cdedc",
+  "statesBoardId": "e7808af8-2ea3-8077-8008-cee017d5042e",
+  "method": "Computer Use, native component copy/paste",
+  "mainInstances": [
+    {
+      "name": "Clicker / UI / 일시정지",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf049bb9bd0d",
+      "sourceMainId": "d7a10464-8e4d-803c-8008-ceb3281354ee",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 에너지 드링크",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf040084414b",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4be8d3c1",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 콜라",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf0400844149",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4bd8fec7",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 황금음료 · 오로라 골드",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf0400844147",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4bc00cf0",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 멜론 소다",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf0400844145",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4ba8f686",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 비타민 음료",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf0400844143",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4b94e493",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 오렌지 주스",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf0400844141",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4b804a31",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 복숭아 주스",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf040084413f",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4b6d7818",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 레몬라임 소다",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf040084413d",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4b60bfa3",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 레모네이드",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf040084413b",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4b49ae8d",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 진저에일",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf0400844139",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4b360f4e",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 사과 주스",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf0400844137",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4b23a838",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 이온음료",
+      "instanceId": "51b9419c-1485-8040-8008-cf036230eace",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4b0ff6c2",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 보리차",
+      "instanceId": "51b9419c-1485-8040-8008-cf0359373356",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4b032bf2",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 녹차",
+      "instanceId": "51b9419c-1485-8040-8008-cf0350504b97",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4af7c04f",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 물",
+      "instanceId": "51b9419c-1485-8040-8008-cf03430c23a7",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4ae79009",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / World / Vending / B · 빈 본체 · 상품 제외",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf0bdd79d5ff",
+      "sourceMainId": "bc6ae191-dc09-8041-8008-cf0ba90d335e",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    },
+    {
+      "name": "Clicker / World / Background / 일본풍 골목길",
+      "instanceId": "51b9419c-1485-8040-8008-cf023ce58c67",
+      "sourceMainId": "d7a10464-8e4d-803c-8008-ceb327376c4d",
+      "uiIcons": [
+        "#icon-component-copy",
+        "#icon-shown",
+        "#icon-unlock"
+      ]
+    }
+  ],
+  "stateInstances": [
+    {
+      "name": "Clicker / Approved / Drinks / 콜라",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf04f6b96f68",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4bd8fec7"
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 레모네이드",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf04f6b96f66",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4b49ae8d"
+    },
+    {
+      "name": "Clicker / Approved / Drinks / 물",
+      "instanceId": "bc6ae191-dc09-8041-8008-cf04f6b96f64",
+      "sourceMainId": "e7808af8-2ea3-8077-8008-cedf4ae79009"
+    }
+  ],
+  "visibleFont": "Cafe24 PRO UP",
+  "verification": {
+    "mainConnectedCount": 18,
+    "standaloneArtworkCount": 0,
+    "statesConnectedCount": 3,
+    "savedFileViewerVerified": true,
+    "sourceBCopyPanelConfirmed": false,
+    "all21InstanceIconsConfirmed": false,
+    "statesAllThreeVisuallyConfirmed": true,
+    "sourceBEmptyBodyApplied": true,
+    "externalConcealmentPanelsRemoved": true,
+    "productsVerifiedLinkedCount": 15,
+    "allProductIdsPreserved": true,
+    "moveDescendantsVerified": 198,
+    "moveRestored": true,
+    "emptyDisplayVisuallyVerified": true,
+    "historicalFlagsNote": "The earlier source B panel and 21-icon check described v4; v5 replaces B with the new empty-body main. Existing background, pause and state instances were retained."
+  },
+  "notes": [
+    "The original integrated B main is preserved on the user-designated source board.",
+    "A single new empty-body image replaces the old B copy and the three external concealment panels.",
+    "The whole ability machine has two child groups: body/UI and 15 individually linked products.",
+    "The original 36-part master sheet is now a consolidated body sheet."
+  ],
+  "statesPreview": "design/review/ability-unlock/states-original-components-editor.png",
+  "previousApplication": {
+    "revision": "original-components-v4",
+    "defect": "Original product-bearing B and external concealment panels were siblings of the drinks. Moving B left the other elements behind.",
+    "removedCabinetInstanceId": "51b9419c-1485-8040-8008-cf0319760c33",
+    "removedCoverGroupId": "bc6ae191-dc09-8041-8008-cf04639e6f75"
+  },
+  "revision": "nameplates-v6",
+  "bodySourceAsset": "design/ability-unlock/body-b-empty.png",
+  "assembly": {
+    "machineGroupId": "bc6ae191-dc09-8041-8008-cf0c24f1e77e",
+    "productGroupId": "bc6ae191-dc09-8041-8008-cf0c7a1bfaa7",
+    "bodyUiGroupId": "bc6ae191-dc09-8041-8008-cf0c93a43158",
+    "assemblyChildren": [
+      {
+        "id": "bc6ae191-dc09-8041-8008-cf0c7a1bfaa7",
+        "name": "상품 · 음료 15종 · 개별 교체"
+      },
+      {
+        "id": "bc6ae191-dc09-8041-8008-cf0c93a43158",
+        "name": "본체 · 버튼·표시창 일체"
+      }
+    ]
+  },
+  "currentPreview": "design/review/ability-unlock/nameplates-v6-preview.png",
+  "structuralVerification": "design/ability-unlock/structural-fix-verification.json",
+  "labelUiVerification": "design/ability-unlock/label-polish-verification.json"
+}

@@ -1,0 +1,38 @@
+{
+  "status": "preview-awaiting-placement-approval",
+  "style": "A / 1번 픽셀 아케이드",
+  "visibleButtonText": "100 G",
+  "actionLabel": false,
+  "sourceAsset": "design/v5/vending-machine-b-5x3-web.png",
+  "sourceAssetModified": false,
+  "layout": {
+    "width": 1440,
+    "height": 900,
+    "scene": {
+      "x": 48,
+      "y": 213,
+      "width": 570,
+      "height": 600
+    },
+    "price": {
+      "x": 354,
+      "y": 230,
+      "width": 144,
+      "height": 56
+    },
+    "zoom": {
+      "x": 666,
+      "y": 213,
+      "width": 708,
+      "height": 498,
+      "source": [
+        278,
+        198,
+        236,
+        166
+      ]
+    }
+  },
+  "penpotWrites": 0,
+  "penpotAccess": "MCP only"
+}

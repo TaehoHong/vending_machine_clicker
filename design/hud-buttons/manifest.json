@@ -1,0 +1,56 @@
+{
+  "status": "preview-awaiting-user-approval",
+  "penpotWrites": 0,
+  "fullGameScreensCreated": 0,
+  "font": "Cafe24 PRO UP",
+  "labelsOutlined": true,
+  "exportPaddingPx": 6,
+  "navCount": 5,
+  "commonCount": 13,
+  "svgCount": 90,
+  "iconCount": 14,
+  "states": [
+    "default",
+    "hover",
+    "pressed",
+    "disabled",
+    "focus"
+  ],
+  "motion": {
+    "hoverMs": 90,
+    "pressMs": 60,
+    "releaseMs": 100,
+    "pressTravelPx": 4,
+    "reducedMotion": true
+  },
+  "preview": "http://127.0.0.1:8878/",
+  "sheets": [
+    {
+      "file": "01-hud.png",
+      "interactiveButtons": 5
+    },
+    {
+      "file": "02-common.png",
+      "interactiveButtons": 13
+    },
+    {
+      "file": "03-states.png",
+      "interactiveButtons": 25
+    }
+  ],
+  "numbersIllustrative": true,
+  "verification": {
+    "svgParsing": "90 of 90 valid",
+    "browserInputs": [
+      "지도 click",
+      "능력 Enter",
+      "설정 Space",
+      "자동 자판기 and 쓰레기통 selected state switching"
+    ],
+    "disabledCosts": [
+      "500 G",
+      "12 / 30"
+    ],
+    "penpotApplied": false
+  }
+}

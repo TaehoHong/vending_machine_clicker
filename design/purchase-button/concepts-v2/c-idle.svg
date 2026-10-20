@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 416 148" width="416" height="148" aria-hidden="true"><rect x="16" y="38" width="384" height="98" rx="20" fill="#8E8980" stroke="#22272B" stroke-width="5"/>
+    <rect x="16" y="25" width="384" height="99" rx="20" fill="#EFE7D5" stroke="#22272B" stroke-width="5"/>
+    <path d="M37 33H379" stroke="#FFF9E8" stroke-width="5" stroke-linecap="round"/>
+    <path d="M29 104Q31 116 42 116H374" fill="none" stroke="#C4BAA8" stroke-width="4"/>
+    <rect x="29" y="45" width="152" height="58" rx="7" fill="#202F35" stroke="#8B897F" stroke-width="3"/>
+    <path d="M37 51H173" stroke="#0E1C22" stroke-width="3"/>
+    <g transform="translate(49 75) scale(0.7)" shape-rendering="crispEdges"><path d="M-8-12H8V-8H12V8H8V12H-8V8H-12V-8H-8Z" fill="#EBAF3E" stroke="#352B28" stroke-width="3"/><path d="M-6-9H6V-6H9V3H6V-6H-6Z" fill="#FFE6A0"/><path d="M-2-5H3V-2H0V3H3V6H-3V3H-5V-2H-2Z" fill="#9F612B"/></g>
+    <text x="108" y="88" font-family="'Cafe24 PRO UP',sans-serif" font-size="32" text-anchor="middle" fill="#F8D179">100</text><text x="158" y="86" font-family="'Cafe24 PRO UP',sans-serif" font-size="20" text-anchor="middle" fill="#F8D179">G</text>
+    <rect x="197" y="44" width="188" height="72" rx="14" fill="#803528" stroke="#3A2827" stroke-width="4"/>
+    <g class="press-face" transform="translate(0 0)"><rect x="197" y="34" width="188" height="72" rx="14" fill="#D95D46" stroke="#3A2827" stroke-width="4"/>
+    <path d="M213 41H367" stroke="#F59A78" stroke-width="5" stroke-linecap="round"/>
+    <path d="M211 95H370" stroke="#BA4236" stroke-width="4" stroke-linecap="round"/>
+    <text x="291" y="88" font-family="'배달의민족 주아','BM JUA ',sans-serif" font-size="46" text-anchor="middle" fill="#86352A">구매</text><text x="291" y="85" font-family="'배달의민족 주아','BM JUA ',sans-serif" font-size="46" text-anchor="middle" fill="#FFF2D8">구매</text>
+    </g></svg>

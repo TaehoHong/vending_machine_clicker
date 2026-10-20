@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="56" viewBox="0 0 144 56"><g id="price-button"><path d="M8 2H136V8H142V44H136V50H8V44H2V8H8Z" transform="translate(0 4)" fill="#132433" stroke="#10171D" stroke-width="4"/>
+    <g class="price-face"><path d="M8 2H136V8H142V44H136V50H8V44H2V8H8Z" fill="#4699C8" stroke="#10171D" stroke-width="4"/>
+    <path d="M10 6H134V10H138V15H134V10H10V15H6V10H10Z" fill="#9FDDFA"/>
+    <path d="M6 35H10V44H134V35H138V43H134V47H10V43H6Z" fill="#28648F"/>
+    <text id="price-label" x="72" y="36" text-anchor="middle" font-family="'Cafe24 PRO UP',sans-serif" font-size="28" fill="#FFF2D9" stroke="#1A3547" stroke-width="2.2" paint-order="stroke" stroke-linejoin="round">100 G</text></g></g></svg>

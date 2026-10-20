@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="708" viewBox="0 0 1760 708">
+    <rect width="1760" height="708" fill="#17211C"/>
+    <g font-family="'Apple SD Gothic Neo','Noto Sans KR',sans-serif">
+    <text x="64" y="51" font-family="'Arial',sans-serif" fill="#A7C589" font-size="12" font-weight="700" letter-spacing="2.5">VENDING MACHINE / UI 01</text>
+    <text x="64" y="112" fill="#F1F2E6" font-size="38" font-weight="700">구매 버튼 · 가격표</text>
+    <text x="64" y="153" fill="#A4B39F" font-size="18">얇은 금속 프레임 · 눌리는 버튼 면 · 고정된 가격 · 작은 상태등</text>
+    <text x="1696" y="51" text-anchor="end" fill="#A4B39F" font-size="15">시안 01 · 승인 전</text>
+    <path d="M64 190H1696" stroke="#344539"/>
+    <g transform="translate(64 0)">
+    <text x="0" y="248" fill="#8D9E91" font-size="13" letter-spacing="2">01</text>
+    <text x="28" y="249" fill="#EAF0E3" font-size="21" font-weight="700">기본</text>
+    <g transform="translate(0 282)"><svg xmlns="http://www.w3.org/2000/svg" width="312" height="88" viewBox="0 0 312 88" class="state-art state-idle" aria-hidden="true">
+    <defs><linearGradient id="sheet-idle-face" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#304237"/><stop offset="1" stop-color="#1D2D25"/></linearGradient></defs>
+    <g id="housing"><rect x="0" y="4" width="312" height="84" rx="7" fill="#080F0B"/><rect x=".75" y=".75" width="310.5" height="82.5" rx="6.25" fill="#101B14" stroke="#738373" stroke-width="1.5"/>
+    <path d="M8 3H304" stroke="#8F9F86" stroke-opacity=".45"/><path d="M8 82H304" stroke="#050C08"/>
+    </g>
+    <g id="face" transform="translate(0 0)"><rect x="4" y="4" width="304" height="74" rx="3" fill="url(#sheet-idle-face)"/><path d="M8 5H304" stroke="#CFDCC2" stroke-opacity=".17"/><path d="M8 77H304" stroke="#060F09" stroke-opacity=".7"/>
+    <path d="M158 18V64" stroke="#0B180F"/><path d="M159 18V64" stroke="#B6C9A9" stroke-opacity=".12"/>
+    <g id="price" fill="#F1F1DF" font-family="'Apple SD Gothic Neo','Noto Sans KR',sans-serif"><circle cx="27" cy="41" r="10" fill="none" stroke="#DFC47C" stroke-width="1.5"/><path d="M30 38A4 4 0 1 0 30 44V41H27" fill="none" stroke="#DFC47C" stroke-width="1.3" stroke-linecap="round"/><text x="48" y="54" font-family="'DIN Alternate','Arial',sans-serif" font-weight="700" font-size="34">100</text><text x="114" y="52" font-size="16" font-weight="700" fill="#DFC47C">G</text></g>
+    <g id="action" font-family="'Apple SD Gothic Neo','Noto Sans KR',sans-serif" fill="#F1F1DF">
+      <circle cx="211" cy="41" r="3.5" fill="#B4D986"/><circle cx="211" cy="40" r="1.5" fill="#F2FFD8" fill-opacity=".5"/>
+      <text x="251" y="50" font-size="21" font-weight="700" text-anchor="middle">구매</text>
+
+    </g></g>
+  </svg></g>
+    <text x="0" y="411" fill="#C4D0C0" font-size="17" font-weight="500">가격과 구매 동작을 또렷하게</text>
+    <text x="0" y="443" fill="#98AA9B" font-size="15">구매 가능한 상태</text>
+  </g><g transform="translate(394 0)">
+    <text x="0" y="248" fill="#8D9E91" font-size="13" letter-spacing="2">02</text>
+    <text x="28" y="249" fill="#EAF0E3" font-size="21" font-weight="700">호버</text>
+    <g transform="translate(0 282)"><svg xmlns="http://www.w3.org/2000/svg" width="312" height="88" viewBox="0 0 312 88" class="state-art state-hover" aria-hidden="true">
+    <defs><linearGradient id="sheet-hover-face" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#3A503E"/><stop offset="1" stop-color="#263B2D"/></linearGradient></defs>
+    <g id="housing"><rect x="0" y="4" width="312" height="84" rx="7" fill="#080F0B"/><rect x=".75" y=".75" width="310.5" height="82.5" rx="6.25" fill="#101B14" stroke="#B7D98F" stroke-width="1.5"/>
+    <path d="M8 3H304" stroke="#CEE6B0" stroke-opacity=".45"/><path d="M8 82H304" stroke="#050C08"/>
+    </g>
+    <g id="face" transform="translate(0 0)"><rect x="4" y="4" width="304" height="74" rx="3" fill="url(#sheet-hover-face)"/><path d="M8 5H304" stroke="#CFDCC2" stroke-opacity=".17"/><path d="M8 77H304" stroke="#060F09" stroke-opacity=".7"/>
+    <path d="M158 18V64" stroke="#0B180F"/><path d="M159 18V64" stroke="#B6C9A9" stroke-opacity=".12"/>
+    <g id="price" fill="#FFFFEE" font-family="'Apple SD Gothic Neo','Noto Sans KR',sans-serif"><circle cx="27" cy="41" r="10" fill="none" stroke="#DFC47C" stroke-width="1.5"/><path d="M30 38A4 4 0 1 0 30 44V41H27" fill="none" stroke="#DFC47C" stroke-width="1.3" stroke-linecap="round"/><text x="48" y="54" font-family="'DIN Alternate','Arial',sans-serif" font-weight="700" font-size="34">100</text><text x="114" y="52" font-size="16" font-weight="700" fill="#DFC47C">G</text></g>
+    <g id="action" font-family="'Apple SD Gothic Neo','Noto Sans KR',sans-serif" fill="#FFFFEE">
+      <circle cx="211" cy="41" r="3.5" fill="#D3F2AC"/><circle cx="211" cy="40" r="1.5" fill="#F2FFD8" fill-opacity=".5"/>
+      <text x="251" y="50" font-size="21" font-weight="700" text-anchor="middle">구매</text>
+
+    </g></g>
+  </svg></g>
+    <text x="0" y="411" fill="#C4D0C0" font-size="17" font-weight="500">테두리와 표시등만 밝아짐</text>
+    <text x="0" y="443" fill="#98AA9B" font-size="15">마우스를 올렸을 때</text>
+  </g><g transform="translate(724 0)">
+    <text x="0" y="248" fill="#8D9E91" font-size="13" letter-spacing="2">03</text>
+    <text x="28" y="249" fill="#EAF0E3" font-size="21" font-weight="700">눌림</text>
+    <g transform="translate(0 282)"><svg xmlns="http://www.w3.org/2000/svg" width="312" height="88" viewBox="0 0 312 88" class="state-art state-pressed" aria-hidden="true">
+    <defs><linearGradient id="sheet-pressed-face" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#203225"/><stop offset="1" stop-color="#16251C"/></linearGradient></defs>
+    <g id="housing"><rect x="0" y="4" width="312" height="84" rx="7" fill="#080F0B"/><rect x=".75" y=".75" width="310.5" height="82.5" rx="6.25" fill="#101B14" stroke="#7C9A6A" stroke-width="1.5"/>
+    <path d="M8 3H304" stroke="#8F9F86" stroke-opacity=".45"/><path d="M8 82H304" stroke="#050C08"/>
+    </g>
+    <g id="face" transform="translate(0 2)"><rect x="4" y="4" width="304" height="74" rx="3" fill="url(#sheet-pressed-face)"/><path d="M8 5H304" stroke="#CFDCC2" stroke-opacity=".05"/><path d="M8 77H304" stroke="#060F09" stroke-opacity=".7"/>
+    <path d="M158 18V64" stroke="#0B180F"/><path d="M159 18V64" stroke="#B6C9A9" stroke-opacity=".12"/>
+    <g id="price" fill="#E3EBD8" font-family="'Apple SD Gothic Neo','Noto Sans KR',sans-serif"><circle cx="27" cy="41" r="10" fill="none" stroke="#DFC47C" stroke-width="1.5"/><path d="M30 38A4 4 0 1 0 30 44V41H27" fill="none" stroke="#DFC47C" stroke-width="1.3" stroke-linecap="round"/><text x="48" y="54" font-family="'DIN Alternate','Arial',sans-serif" font-weight="700" font-size="34">100</text><text x="114" y="52" font-size="16" font-weight="700" fill="#DFC47C">G</text></g>
+    <g id="action" font-family="'Apple SD Gothic Neo','Noto Sans KR',sans-serif" fill="#E3EBD8">
+      <circle cx="211" cy="41" r="3.5" fill="#A4C77F"/><circle cx="211" cy="40" r="1.5" fill="#F2FFD8" fill-opacity=".5"/>
+      <text x="251" y="50" font-size="21" font-weight="700" text-anchor="middle">구매</text>
+
+    </g></g>
+  </svg></g>
+    <text x="0" y="411" fill="#C4D0C0" font-size="17" font-weight="500">버튼 면이 2px 안쪽으로</text>
+    <text x="0" y="443" fill="#98AA9B" font-size="15">입력 영역의 크기는 유지</text>
+  </g><g transform="translate(1054 0)">
+    <text x="0" y="248" fill="#8D9E91" font-size="13" letter-spacing="2">04</text>
+    <text x="28" y="249" fill="#EAF0E3" font-size="21" font-weight="700">골드 부족</text>
+    <g transform="translate(0 282)"><svg xmlns="http://www.w3.org/2000/svg" width="312" height="88" viewBox="0 0 312 88" class="state-art state-insufficient" aria-hidden="true">
+    <defs><linearGradient id="sheet-insufficient-face" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2D3531"/><stop offset="1" stop-color="#222B27"/></linearGradient></defs>
+    <g id="housing"><rect x="0" y="4" width="312" height="84" rx="7" fill="#080F0B"/><rect x=".75" y=".75" width="310.5" height="82.5" rx="6.25" fill="#101B14" stroke="#56645B" stroke-width="1.5"/>
+    <path d="M8 3H304" stroke="#8F9F86" stroke-opacity=".45"/><path d="M8 82H304" stroke="#050C08"/>
+    </g>
+    <g id="face" transform="translate(0 0)"><rect x="4" y="4" width="304" height="74" rx="3" fill="url(#sheet-insufficient-face)"/><path d="M8 5H304" stroke="#CFDCC2" stroke-opacity=".17"/><path d="M8 77H304" stroke="#060F09" stroke-opacity=".7"/>
+    <path d="M158 18V64" stroke="#0B180F"/><path d="M159 18V64" stroke="#B6C9A9" stroke-opacity=".12"/>
+    <g id="price" fill="#B9C3B9" font-family="'Apple SD Gothic Neo','Noto Sans KR',sans-serif"><circle cx="27" cy="41" r="10" fill="none" stroke="#9CA991" stroke-width="1.5"/><path d="M30 38A4 4 0 1 0 30 44V41H27" fill="none" stroke="#9CA991" stroke-width="1.3" stroke-linecap="round"/><text x="48" y="54" font-family="'DIN Alternate','Arial',sans-serif" font-weight="700" font-size="34">100</text><text x="114" y="52" font-size="16" font-weight="700" fill="#9CA991">G</text></g>
+    <g id="action" font-family="'Apple SD Gothic Neo','Noto Sans KR',sans-serif" fill="#B9C3B9">
+      <circle cx="189" cy="41" r="3.5" fill="#5D6A60"/>
+      <text x="244" y="50" font-size="18" font-weight="700" text-anchor="middle">골드 부족</text>
+
+    </g></g>
+  </svg></g>
+    <text x="0" y="411" fill="#D3B5A5" font-size="17" font-weight="500">이유를 글자로 함께 표시</text>
+    <text x="0" y="443" fill="#98AA9B" font-size="15">보유 60 G · 40 G 부족</text>
+  </g><g transform="translate(1384 0)">
+    <text x="0" y="248" fill="#8D9E91" font-size="13" letter-spacing="2">05</text>
+    <text x="28" y="249" fill="#EAF0E3" font-size="21" font-weight="700">구매 중</text>
+    <g transform="translate(0 282)"><svg xmlns="http://www.w3.org/2000/svg" width="312" height="88" viewBox="0 0 312 88" class="state-art state-processing" aria-hidden="true">
+    <defs><linearGradient id="sheet-processing-face" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#293C30"/><stop offset="1" stop-color="#1C2E23"/></linearGradient></defs>
+    <g id="housing"><rect x="0" y="4" width="312" height="84" rx="7" fill="#080F0B"/><rect x=".75" y=".75" width="310.5" height="82.5" rx="6.25" fill="#101B14" stroke="#779568" stroke-width="1.5"/>
+    <path d="M8 3H304" stroke="#8F9F86" stroke-opacity=".45"/><path d="M8 82H304" stroke="#050C08"/>
+    </g>
+    <g id="face" transform="translate(0 0)"><rect x="4" y="4" width="304" height="74" rx="3" fill="url(#sheet-processing-face)"/><path d="M8 5H304" stroke="#CFDCC2" stroke-opacity=".17"/><path d="M8 77H304" stroke="#060F09" stroke-opacity=".7"/>
+    <path d="M158 18V64" stroke="#0B180F"/><path d="M159 18V64" stroke="#B6C9A9" stroke-opacity=".12"/>
+    <g id="price" fill="#CEDBC8" font-family="'Apple SD Gothic Neo','Noto Sans KR',sans-serif"><circle cx="27" cy="41" r="10" fill="none" stroke="#DFC47C" stroke-width="1.5"/><path d="M30 38A4 4 0 1 0 30 44V41H27" fill="none" stroke="#DFC47C" stroke-width="1.3" stroke-linecap="round"/><text x="48" y="54" font-family="'DIN Alternate','Arial',sans-serif" font-weight="700" font-size="34">100</text><text x="114" y="52" font-size="16" font-weight="700" fill="#DFC47C">G</text></g>
+    <g id="action" font-family="'Apple SD Gothic Neo','Noto Sans KR',sans-serif" fill="#CEDBC8">
+
+      <text x="234" y="45" font-size="19" font-weight="700" text-anchor="middle">투입 중</text>
+      <rect class="chase chase-0" x="216" y="56" width="9" height="3" rx="1" fill="#C9E79C" fill-opacity="1"/><rect class="chase chase-1" x="230" y="56" width="9" height="3" rx="1" fill="#C9E79C" fill-opacity="0.5"/><rect class="chase chase-2" x="244" y="56" width="9" height="3" rx="1" fill="#C9E79C" fill-opacity="0.2"/>
+    </g></g>
+  </svg></g>
+    <text x="0" y="411" fill="#C4D0C0" font-size="17" font-weight="500">투입 표시가 차례로 점등</text>
+    <text x="0" y="443" fill="#98AA9B" font-size="15">가격은 같은 위치에 유지</text>
+  </g>
+    <path d="M64 505H1696" stroke="#344539"/>
+    <text x="64" y="559" fill="#DCE5D3" font-size="18" font-weight="700">모션</text>
+    <text x="64" y="598" fill="#A4B39F" font-size="17">호버 120ms</text><text x="260" y="598" fill="#A4B39F" font-size="17">눌림 70ms · 복귀 110ms</text><text x="618" y="598" fill="#A4B39F" font-size="17">투입 표시 600ms 반복</text>
+    <text x="1696" y="598" text-anchor="end" fill="#A4B39F" font-size="16">버튼 312 × 88 · 가격은 예시</text>
+    <text x="64" y="661" fill="#8FA18F" font-size="15">5개는 동일한 버튼의 상태입니다. 색상과 함께 문구·깊이·표시등으로 구분합니다.</text>
+    </g></svg>
