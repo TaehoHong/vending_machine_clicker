@@ -1,0 +1,63 @@
+{
+  "status": "verified-in-editor-with-library-cleanup-pending",
+  "date": "2026-10-20",
+  "fileId": "cd444aaf-0d8c-801b-8008-cda246e18650",
+  "pageId": "490e660f-738c-80e7-8008-d0f0d410a6b5",
+  "pageName": "00 · 디자인 시스템",
+  "boards": {
+    "foundations": {
+      "id": "b3f38c37-8163-8042-8008-d100d2d53ef9",
+      "name": "01 / 파운데이션 · Play",
+      "x": 0,
+      "y": 0,
+      "width": 1800,
+      "height": 1350
+    },
+    "components": {
+      "id": "b3f38c37-8163-8042-8008-d10122b08b05",
+      "name": "02 / 컴포넌트 · Play",
+      "x": 2000,
+      "y": 0,
+      "width": 1800,
+      "height": 1450
+    },
+    "recipes": {
+      "id": "b3f38c37-8163-8042-8008-d100d704010a",
+      "name": "03 / 조합·상태·피드백",
+      "x": 0,
+      "y": 1650,
+      "width": 1800,
+      "height": 1300
+    },
+    "reference": {
+      "id": "b3f38c37-8163-8042-8008-d1013d32deb1",
+      "name": "90 / 현재 구현·전용 값",
+      "x": 2000,
+      "y": 1650,
+      "width": 1800,
+      "height": 1350
+    }
+  },
+  "questPanel": {
+    "mainId": "9a779784-0f70-804d-8008-d10bebded89b",
+    "componentId": "9a779784-0f70-804d-8008-d10bfd5355f7",
+    "previousEmptyEntryId": "b3f38c37-8163-8042-8008-d1013cd498b1",
+    "previousEntryCleanup": "UI deletion not confirmed"
+  },
+  "roles": {
+    "coreColors": 16,
+    "coreTypography": 6,
+    "specificTypography": 15
+  },
+  "verification": {
+    "method": "Computer Use, reload and rendered board inspection",
+    "gameCodeChanged": false,
+    "gameAssetsChanged": false,
+    "gameEngineTestRun": false
+  },
+  "limitations": [
+    "Malgun Gothic unavailable in Penpot; Noto Sans KR annotation only.",
+    "Multilingual fallback policy remains undecided.",
+    "Old empty QuestPanel library entry cleanup unconfirmed."
+  ]
+}

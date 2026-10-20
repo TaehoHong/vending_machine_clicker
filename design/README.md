@@ -27,6 +27,7 @@ Notion 원문과 로컬 기록이 충돌하면 기획 SSOT인 Notion을 확인�
 
 | 자료 | 위치 | 용도·상태 |
 | --- | --- | --- |
+| 현재 게임 디자인 시스템 | [current-game-system/README.md](current-game-system/README.md) | 00의 파운데이션·컴포넌트·상태/피드백·전용 값 4개 보드. 기존 색상·타입·연결 인스턴스 재사용. 맑은 고딕 미설치와 빈 이전 QuestPanel 항목은 안내 참조. |
 | 전체 HUD 버튼 시안 · 승인 대기 | [hud-buttons/README.md](hud-buttons/README.md) | HUD 5종과 공통 버튼·상태 비교 3장. 로컬 검토용이며 사용자 승인 전 Penpot 미반영. |
 | A 픽셀 가격 버튼 | [purchase-button/README.md](purchase-button/README.md) | 금액만 표시하는 144×56 `100 G` 버튼. 기존 02 에셋 페이지에 재사용 컴포넌트와 Cafe24 PRO UP 텍스트 스타일 등록. |
 | 확정 음료 에셋 15종 | [v9/README.md](v9/README.md), [전체 확인 이미지](v9/approved-items.png) | 일반 14종 승인 + 황금음료 05 오로라 골드 확정. PNG·원본 이미지 내장 SVG를 각각 분리했다. 기존 **02 · 에셋 라이브러리** 안에 독립 컴포넌트 15종 등록 완료. |
