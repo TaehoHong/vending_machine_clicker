@@ -4,11 +4,13 @@
 
 ## 편집 원본
 
-- [00 · 디자인 시스템 · 메인 5종](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers&board-id=d9c1a69c-6a27-809e-8008-d107e6137aa4): 지도·능력·강화·자동화·메뉴.
-- [00 · 디자인 시스템 · 공통 조작·비용·메뉴](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers&board-id=d9c1a69c-6a27-809e-8008-d107e619a122): 뒤로·닫기·이전·다음, 자판기·쓰레기통 탭, 골드·재료 비용, 계속하기·설정·타이틀.
+- [00 · 02 / 버튼 · A 채택 · 메인 5종](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers&board-id=d9c1a69c-6a27-809e-8008-d107e6137aa4): 지도·능력·강화·자동화·메뉴.
+- [00 · 03 / 버튼 · A 채택 · 공통 조작·비용·메뉴](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers&board-id=d9c1a69c-6a27-809e-8008-d107e619a122): 뒤로·닫기·이전·다음, 자판기·쓰레기통 탭, 골드·재료 비용, 계속하기·설정·타이틀.
 - [02 · 에셋 · HUD A](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers&board-id=d9c1a69c-6a27-809e-8008-d107e6329245): 14종 아이콘, 6크기 × 5상태 프레임, 연결된 버튼 견본 18개와 A 글꼴 견본.
 
 실제 객체·컴포넌트 ID는 [penpot-manifest.json](penpot-manifest.json)에 기록했다. Computer Use로 편집했다. 새 UI 79개는 네이티브 Text와 연결된 프레임·아이콘으로 구성한다. 기존 `100 G` 기본 컴포넌트를 재사용해 16종 × 5상태를 제공하며, 금액·재료 부족 예시는 disabled 상태의 문구 오버라이드로 관리한다. 기존 가격 기본형의 글리프 윤곽선은 보존했다.
+
+00의 [01 / 파운데이션 · A 채택](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers&board-id=438228d3-7709-80fa-8008-d11fbc46be89)에서 승인 팔레트 24색·글꼴·크기를 확인한다. 현재 구현과 참고 자료는 [시스템 전체 안내](../current-game-system/README.md)의 90–99 보드로 구분했다. 에셋 시트의 제목·설명 위치도 실제 견본에 맞춰 갱신했다.
 
 ## 사용 규격
 
