@@ -30,7 +30,7 @@ godot --headless --path . --script res://tests/coin_effect_test.gd
 - PAVE 설치 헬퍼의 내장 파일·계약 검증을 통과했다.
 - 문서 로컬 링크·명령의 대상 파일·공유 심볼·SSOT 표기·기존 코드/에셋 보존을 정적으로 확인했다. 공백 검증은 `git diff --check`다.
 - Godot 실행 파일이 PATH와 일반적인 macOS 앱 설치 위치에서 발견되지 않았다. 게임 테스트·import·parse·내보내기는 실행하지 못했으며 통과로 보고하지 않는다.
-- 포매터·린터·CI·릴리스 export 명령은 설정되지 않았다. 성능 수치·지원 하드웨어 하한은 `unresolved-after-asking`이며 임의의 FPS 합격 기준을 만들지 않는다.
+- 텍스트·GDScript 편집 기준은 `.editorconfig`와 [개발 규칙](02-development-rules.md)에 선언되어 있다. 자동 포매터·린터·CI·릴리스 export 명령은 설정되지 않았다. 성능 수치·지원 하드웨어 하한은 `unresolved-after-asking`이며 임의의 FPS 합격 기준을 만들지 않는다.
 
 ## Linked Sources
 

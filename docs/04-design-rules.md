@@ -17,7 +17,7 @@ MCP에서 연결 오류가 나면 [MCP 원본 접근 복구 절차](../design/RE
 1. 작업 대상의 Penpot 원본과 채택·검토·이전 상태를 확인한다. 오래된 보드가 남아 있다는 이유로 채택본으로 취급하지 않는다.
 2. [DESIGN.md](../DESIGN.md)와 [design/README.md](../design/README.md)에서 적용 상태·로컬 경로를 찾는다. 통합 화면 Play 스타일은 `design/drink-screen-references/applied/play-style/`에 연결되어 있다.
 3. 구현은 `ui/play_theme.tres`, `ui/pixel/`, `ui/skill_tree.gd`의 공유 자원을 먼저 확인한다. Main은 `ui/backstreet_theme.tres`를 사용한다.
-4. 실제 디자인 변경은 Penpot 편집 원본과 로컬 원본·에셋·미리보기·안내를 함께 갱신한다. 캡처만으로 원본 동기화 완료를 선언하지 않는다.
+4. 실제 디자인 변경은 Penpot 편집 원본, 게임 적용 에셋, 원본·적용 경로 안내를 함께 갱신한다. 로컬 자료는 [개발 규칙의 보관 범위](02-development-rules.md#에셋-관리와-보관-범위)를 따른다. 캡처만으로 원본 동기화 완료를 선언하지 않는다.
 
 ## 디자인 작업 준수사항
 

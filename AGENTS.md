@@ -1,5 +1,6 @@
 # 프로젝트 메모리
 
+- 개발·코드 스타일·Git·협업·에셋 보관 규칙은 `docs/02-development-rules.md`를 따른다. 새 코드와 수정 부분에 적용하며 관련 없는 기존 코드를 일괄 정리하지 않는다.
 - 작업 시작 시 `PRODUCT.md`를 읽어 기획 원본 링크, 마지막 확인 시점과 미동기화 항목을 확인한다. 로컬 문서는 원본을 대체하지 않는다.
 - 기획 원문: [자판기 클릭커 게임](https://app.notion.com/p/3fcb6b9ead24800aa7bce8a1e1b045de).
 - 디자인 원본: [Penpot 파일](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650). 파일 ID는 `cd444aaf-0d8c-801b-8008-cda246e18650`이며 페이지·보드별 경로는 `design/README.md`, 작성 규칙은 `docs/04-design-rules.md`에서 확인한다. 도구의 현재 연결 파일 ID와 대조한 뒤 작업한다.
@@ -11,7 +12,7 @@
 
 - 새로운 기획이 확정되거나 기존 기획이 변경되면 같은 작업에서 `PRODUCT.md`와 위 Notion 기획 문서의 해당 내용을 함께 업데이트한다. 최신 사용자 확정 규칙을 반영하고, 제안·미정 사항은 확정 내용과 구분한다.
 - 디자인이 추가되거나 변경되면 해당 디자인의 편집 가능한 원본 파일(연결된 Penpot 파일·보드 포함)을 함께 업데이트한다. 코드 수정이나 화면 캡처 저장만으로 디자인 파일 업데이트를 완료한 것으로 처리하지 않는다.
-- 디자인 변경 시 `DESIGN.md`와 `design/README.md`의 관련 안내·파일 경로·Penpot 링크도 갱신하고, 해당 `design/` 폴더에 원본·에셋·미리보기 등 관련 산출물을 최신 상태로 보관한다. 이전 시안은 현재 채택본과 구분한다.
+- 디자인 변경 시 `DESIGN.md`와 `design/README.md`의 관련 안내·적용 파일 경로·Penpot 링크를 갱신하고 게임 적용 에셋을 함께 반영한다. 로컬 소스·미리보기·이전 시안의 보관 범위는 `docs/02-development-rules.md`를 따르며, 모든 작업 산출물의 영구 보관을 요구하지 않는다.
 - 사용자가 요청한 기획·디자인 변경에 따른 위 동기화는 작업 범위에 포함하며 매번 별도 요청을 기다리지 않는다. 관련 없는 내용은 덮어쓰지 않는다.
 - Notion 또는 디자인 서비스에 접근할 수 없으면 가능한 로컬 문서를 먼저 갱신하고, 관련 문서에 미동기화 항목·대상·사유를 기록한 뒤 사용자에게 알린다. 외부 반영을 확인하기 전에는 동기화 완료로 보고하지 않으며, 이후 관련 작업에서 접근이 가능해지면 미동기화 항목을 반영한다.
 
@@ -82,7 +83,7 @@ terseness, or implementation size.
 Godot 4.7 is declared by `project.godot`; the executable is not installed or discoverable on this host. Commands below are declared but engine commands have not been run. See `docs/05-quality-rules.md` for scope and setup gaps.
 
 - Setup/import: `godot --headless --editor --path . --import` (requires Godot 4.7).
-- Format: not configured (UTF-8 is declared in `.editorconfig`).
+- Format: conventions declared in `.editorconfig` and `docs/02-development-rules.md`; automatic formatter not configured.
 - Lint: not configured; whitespace check: `git diff --check`.
 - Unit tests: separate runner not configured. Effect regression (game scene): `godot --headless --path . --script res://tests/coin_effect_test.gd`.
 - Gameplay integration: `godot --headless --path . --script res://tests/gameplay_test.gd`.
