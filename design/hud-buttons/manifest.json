@@ -1,9 +1,7 @@
 {
-  "status": "preview-awaiting-user-approval",
-  "penpotWrites": 0,
+  "status": "adopted-design-sheet",
   "fullGameScreensCreated": 0,
   "font": "Cafe24 PRO UP",
-  "labelsOutlined": true,
   "exportPaddingPx": 6,
   "navCount": 5,
   "commonCount": 13,
@@ -51,6 +49,9 @@
       "500 G",
       "12 / 30"
     ],
-    "penpotApplied": false
-  }
+    "penpotApplied": true
+  },
+  "previewLabelsOutlined": true,
+  "penpotLabels": "native Text (legacy normal price preserves its existing outline source)",
+  "registration": "penpot-manifest.json"
 }
