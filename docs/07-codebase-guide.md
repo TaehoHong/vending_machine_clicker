@@ -4,7 +4,7 @@
 
 ## 탐색 순서
 
-관련 행의 근거 경로에 커밋·staged·unstaged 변경이 있는지 먼저 확인한다. 대상 소유자·직접 호출자/피호출자·공유 예시·테스트를 읽고 소유권이 없거나 모순될 때만 검색을 넓힌다. 예: 구매 가격은 `game_session.purchase` → `economy_rules.current_draw_price` → Play 구매 요청 → 구매/저장 테스트 순서로 확인한다. 예전 루트 game.gd·ui/ 경로에 새 기능을 만들지 않는다.
+관련 행의 근거 경로에 커밋·staged·unstaged 변경이 있는지 먼저 확인한다. 대상 소유자·직접 호출자/피호출자·공유 예시·테스트를 읽고 소유권이 없거나 모순될 때만 검색을 넓힌다. 예: 구매 가격은 `game_session.purchase` → `economy_rules.current_draw_price` → Play 구매 요청 → 구매/저장 테스트 순서로 확인한다. 예전 루트 game.gd·ui/ 경로에 새 기능을 만들지 않는다. 승인된 미적용 HUD SVG는 `src/shared/ui/icons/hud_buttons/`에 있으며 연결 안내는 `design/hud-buttons/README.md`다.
 
 ## 모듈 맵
 
