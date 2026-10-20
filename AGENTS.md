@@ -1,7 +1,7 @@
 # 프로젝트 메모리
 
 - 개발·코드 스타일·Git·협업·에셋 보관 규칙은 `docs/02-development-rules.md`를 따른다. 새 코드와 수정 부분에 적용하며 관련 없는 기존 코드를 일괄 정리하지 않는다.
-- 새 파일·폴더 추가나 모듈 책임 변경 전 `docs/06-architecture.md`의 목표 폴더 구조·책임·의존성 규칙을 확인한다. 현재 소유자·함수·검증은 `docs/07-codebase-guide.md`에서 찾는다. 목표 경로를 이미 존재한다고 가정하거나 빈 구조를 미리 생성하지 않고, 실제 구조 전환은 해당 기능·리팩터링 작업에서 진행한다.
+- 새 파일·폴더 추가나 모듈 책임 변경 전 `docs/06-architecture.md`의 실제 폴더 구조·책임·의존성 규칙을 확인한다. 현재 소유자·함수·검증은 `docs/07-codebase-guide.md`에서 찾는다. 실제 생성된 경로를 확인하며, 미래 기능의 빈 구조를 미리 생성하지 않는다.
 - 코드 작업은 위 문서의 `코드 품질 필수 검사`를 작성 전·작성 중·완료 전에 수행한다. 기존 소유자·디자인 시스템 재사용과 새 파일의 필요성을 확인하고, 실제 diff의 중복 구현·임의 스타일·책임 위반을 해결하기 전 완료로 보고하지 않는다. 검증한 작업은 별도 요청 없이 로컬 `main`에 머지하며 push·PR 생성은 별도 사용자 요청을 따른다.
 - 작업 시작 시 `PRODUCT.md`를 읽어 기획 원본 링크, 마지막 확인 시점과 미동기화 항목을 확인한다. 로컬 문서는 원본을 대체하지 않는다.
 - 기획 원문: [자판기 클릭커 게임](https://app.notion.com/p/3fcb6b9ead24800aa7bce8a1e1b045de).
@@ -82,16 +82,17 @@ terseness, or implementation size.
 
 ## Declared Verification Commands
 
-Godot 4.7 is declared by `project.godot`; the executable is not installed or discoverable on this host. Commands below are declared but engine commands have not been run. See `docs/05-quality-rules.md` for scope and setup gaps.
+Godot 4.7 is declared by `project.godot`. The official 4.7-stable executable was verified in a temporary directory for the architecture refactor; it is not installed on PATH. Replace `godot` below with its actual path. See `docs/05-quality-rules.md` for verification evidence and remaining setup gaps.
 
 - Setup/import: `godot --headless --editor --path . --import` (requires Godot 4.7).
 - Format: conventions declared in `.editorconfig` and `docs/02-development-rules.md`; automatic formatter not configured.
 - Lint: not configured; whitespace check: `git diff --check`.
-- Unit tests: separate runner not configured. Effect regression (game scene): `godot --headless --path . --script res://tests/coin_effect_test.gd`.
-- Gameplay integration: `godot --headless --path . --script res://tests/gameplay_test.gd`.
-- Save/menu regression: `godot --headless --path . --script res://tests/menu_test.gd`.
-- Purchase/save regression: `godot --headless --path . --script res://tests/purchase_price_test.gd`.
-- Current drink UI: `godot --headless --path . --script res://tests/drink_screen_test.gd`.
+- Unit tests: separate runner not configured. Effect regression (game scene): `godot --headless --path . --script res://tests/features/coin_effect_test.gd`.
+- Gameplay integration: `godot --headless --path . --script res://tests/features/gameplay_test.gd`.
+- Save/menu regression: `godot --headless --path . --script res://tests/features/menu_test.gd`.
+- Purchase/save regression: `godot --headless --path . --script res://tests/features/purchase_price_test.gd`.
+- Save data compatibility: `godot --headless --path . --script res://tests/integrations/progress_store_test.gd`.
+- Current drink UI: `godot --headless --path . --script res://tests/features/drink_screen_test.gd`.
 - Parse/resource check: `godot --headless --editor --path . --quit`.
 - Release build: not configured; `export_presets.cfg` and Steamworks application settings are absent.
 

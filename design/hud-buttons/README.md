@@ -16,7 +16,7 @@ A 픽셀의 파란 면·굵은 외곽선·계단형 모서리·입체 밑면, Ca
 
 상태는 normal(default)·hover·pressed·disabled·focus다. 호버 90ms, 눌림 60ms·아래 4px, 복귀 100ms를 시트에 표기했다. 실제 애니메이션 구현은 로컬 시안에서 확인할 수 있으며 Penpot은 상태별 원본이다. 비용은 금액·아이콘·수량만 표시한다. 모든 금액과 수량은 예시다.
 
-게임용 분리 벡터는 [ui/pixel/hud_buttons/](../../ui/pixel/hud_buttons/)에 준비했으며 게임 화면에는 연결하지 않았다. 현재 Play 팔레트·테마를 교체한 작업이 아니다.
+게임용 분리 벡터는 [src/shared/ui/icons/hud_buttons/](../../src/shared/ui/icons/hud_buttons/)에 준비했으며 게임 화면에는 연결하지 않았다. 현재 Play 팔레트·테마를 교체한 작업이 아니다.
 
 ## 확인 자료와 이전 시안
 

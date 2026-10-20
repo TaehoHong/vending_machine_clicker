@@ -1,5 +1,7 @@
 # 자판기 클릭커 게임
 
+2026-10-20 구조 전환: 현재 게임 코드는 `src/`, 게임 에셋은 `assets/`, 검증은 `tests/features/`·`tests/integrations/`에 있다. [현재 아키텍처](docs/06-architecture.md)를 따른다. 과거 적용 기록의 이전 코드 경로는 당시 이력이다. 기획·디자인 원본은 바뀌지 않았다.
+
 <!-- impeccable:product-schema 1 -->
 
 기획 SSOT는 [Notion 기획 원문](https://app.notion.com/p/3fcb6b9ead24800aa7bce8a1e1b045de)이다. 이 파일은 로컬 요약·확인 기록이며 원본을 대체하지 않는다. 디자인 SSOT는 [Penpot 연결 안내](design/README.md)의 원본 파일이다. 새 사용자 결정은 원본에 반영한 뒤 이 요약을 갱신한다.
