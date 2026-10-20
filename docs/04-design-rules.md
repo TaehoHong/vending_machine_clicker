@@ -16,7 +16,7 @@ MCP에서 연결 오류가 나면 [MCP 원본 접근 복구 절차](../design/RE
 
 1. 작업 대상의 Penpot 원본과 채택·검토·이전 상태를 확인한다. 오래된 보드가 남아 있다는 이유로 채택본으로 취급하지 않는다.
 2. [DESIGN.md](../DESIGN.md)와 [design/README.md](../design/README.md)에서 적용 상태·로컬 경로를 찾는다. 통합 화면 Play 스타일은 `design/drink-screen-references/applied/play-style/`에 연결되어 있다.
-3. 구현은 `ui/play_theme.tres`, `ui/pixel/`, `ui/skill_tree.gd`의 공유 자원을 먼저 확인한다. Main은 `ui/backstreet_theme.tres`를 사용한다.
+3. 구현은 `src/shared/ui/themes/play_theme.tres`, `src/shared/ui/themes/`, `src/features/drinks/drink_screen.gd`의 공유 자원을 먼저 확인한다. Main은 `src/shared/ui/themes/backstreet_theme.tres`를 사용한다.
 4. 실제 디자인 변경은 Penpot 편집 원본, 게임 적용 에셋, 원본·적용 경로 안내를 함께 갱신한다. 로컬 자료는 [개발 규칙의 보관 범위](02-development-rules.md#에셋-관리와-보관-범위)를 따른다. 캡처만으로 원본 동기화 완료를 선언하지 않는다.
 
 ## 디자인 작업 준수사항
@@ -37,5 +37,5 @@ MCP에서 연결 오류가 나면 [MCP 원본 접근 복구 절차](../design/RE
 | --- | --- | --- | --- |
 | [Penpot](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650) | 디자인 SSOT·편집 원본 | 실제 게임 동작 검증 | design/README.md |
 | [DESIGN.md](../DESIGN.md), [자료 안내](../design/README.md) | 원본 링크·적용 상태·이전 시안 | 독립 디자인 원본 | DESIGN.md, design/README.md |
-| [적용본 안내](../design/drink-screen-references/applied/play-style/README.md) | 통합 화면 소스·실행 캡처 연결 | 미래 접근성·번역 화면 | ui/skill_tree.gd, ui/pixel/ |
-| [글꼴 출처](../ui/fonts/Cafe24PROUP-SOURCE.md), [글꼴 안내](../ui/fonts/README.md) | 글꼴·라이선스 근거 | 전체 언어 지원 보장 | ui/fonts/, ui/play_theme.tres |
+| [적용본 안내](../design/drink-screen-references/applied/play-style/README.md) | 통합 화면 소스·실행 캡처 연결 | 미래 접근성·번역 화면 | src/features/drinks/drink_screen.gd, src/shared/ui/ |
+| [글꼴 출처](../assets/fonts/Cafe24PROUP-SOURCE.md), [글꼴 안내](../assets/fonts/README.md) | 글꼴·라이선스 근거 | 전체 언어 지원 보장 | assets/fonts/, src/shared/ui/themes/play_theme.tres |

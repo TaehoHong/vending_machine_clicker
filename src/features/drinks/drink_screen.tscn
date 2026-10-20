@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/features/drinks/drink_screen.gd" id="script"]
+
+[node name="DrinkScreen" type="Control"]
+script = ExtResource("script")

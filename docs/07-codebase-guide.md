@@ -1,82 +1,72 @@
 # 07. 코드 안내
 
-근거 확인: 2026-10-20. 폴더·메뉴/플레이 진입·구매/해금/저장 경계와 공유 UI 연결은 HEAD `ccaf3be`의 소스에서 다시 확인했다. 나머지 색인의 최초 작성 기준은 초기화 전 HEAD `fdae8f7`과 당시 로컬 파일이다. 이 색인은 소스를 좁혀 읽기 위한 안내이며 현재 코드 검증을 대체하지 않는다.
+2026-10-20 승인된 구조 전환의 실제 소스를 기준으로 갱신했다. 폴더·책임·의존성은 [아키텍처](06-architecture.md), 작성 전/후 검사는 [개발 규칙](02-development-rules.md#코드-품질-필수-검사)를 따른다.
 
-## 사용법
+## 탐색 순서
 
-앞으로 지향할 폴더 구조·책임·의존성 규칙은 [목표 아키텍처](06-architecture.md)를 따른다. 목표 경로는 아직 구현되지 않았다. 이 문서는 현재 코드의 실제 파일·함수·회귀 테스트를 찾는 색인이다.
-
-요청과 관련된 행의 근거 경로에 이 안내 이후 커밋·staged·unstaged 변경이 있는지 확인한다. 해당 모듈·직접 호출자/피호출자·공유 소유자·테스트부터 읽고 소유권이 없거나 모순될 때만 검색을 넓힌다. 예: 구매 가격은 `current_draw_price` → `_on_shop_button_pressed` → 저장 함수 → `purchase_price_test.gd`부터 확인한다.
-
-코드 작성과 새 파일 추가 전 [개발 규칙의 코드 품질 필수 검사](02-development-rules.md#코드-품질-필수-검사)에 따라 기존 소유자·재사용 경로·파일 배치 근거를 확인한다. 아래 맵에 없다는 이유만으로 소유자가 없다고 단정하지 않는다.
+관련 행의 근거 경로에 커밋·staged·unstaged 변경이 있는지 먼저 확인한다. 대상 소유자·직접 호출자/피호출자·공유 예시·테스트를 읽고 소유권이 없거나 모순될 때만 검색을 넓힌다. 예: 구매 가격은 `game_session.purchase` → `economy_rules.current_draw_price` → Play 구매 요청 → 구매/저장 테스트 순서로 확인한다. 예전 루트 game.gd·ui/ 경로에 새 기능을 만들지 않는다.
 
 ## 모듈 맵
 
-| 영역 | 경로·진입점 | 책임·의존성 | 관련 테스트 | Evidence paths |
+| 영역 | 경로·진입점 | 책임·호출 방향 | 관련 검증 | Evidence paths |
 | --- | --- | --- | --- | --- |
-| 앱·메뉴 | project.godot, main.tscn, main.gd `_start_game` | 시작·백업·로드 → Game.tscn | menu_test.gd | project.godot, main.gd, main.tscn, tests/menu_test.gd |
-| 경제·수색·구매·저장 | Game.tscn, game.gd | 진행 소유; 카탈로그·UI·ConfigFile 의존 | gameplay_test.gd, purchase_price_test.gd, search_test.gd | Game.tscn, game.gd, tests/gameplay_test.gd, tests/purchase_price_test.gd, tests/search_test.gd |
-| 상품·해금 UI | ui/drink_catalog.gd.DATA, ui/skill_tree.gd `update_state`, `select_drink` | 상품 정의·선택·표현; 해금은 signal로 game에 요청 | drink_screen_test.gd, vending_display_test.gd | ui/drink_catalog.gd, ui/skill_tree.gd, game.gd, tests/drink_screen_test.gd, tests/vending_display_test.gd |
-| 일시정지 | pause_menu.gd `set_open` | ESC·포커스·pause, 저장·종료 signal → game | menu_test.gd, punch_fever_test.gd | pause_menu.gd, game.gd, tests/menu_test.gd, tests/punch_fever_test.gd |
-| 피버·시각 효과 | ui/search_fever.gd, ui/punch_fever.gd, ui/search_coin.gd, ui/drink_dispense_fx.gd, ui/ability_toast.gd | 상태를 받아 연출; 보상·타이머 소유자는 game | search_fever_test.gd, punch_fever_test.gd, coin_effect_test.gd, drink_dispense_test.gd | game.gd, ui/search_fever.gd, ui/punch_fever.gd, ui/search_coin.gd, tests/search_fever_test.gd, tests/punch_fever_test.gd, tests/coin_effect_test.gd, tests/drink_dispense_test.gd |
-| 테마·커서 | ui/play_theme.tres, ui/backstreet_theme.tres, ui/pixel/, ui/cursor_theme.gd | Play/Main 테마·공유 스타일·autoload 커서 | drink_screen_test.gd, punch_fever_test.gd | project.godot, Game.tscn, main.tscn, ui/skill_tree.gd, ui/cursor_theme.gd, ui/play_theme.tres |
-| 개발용 생성 | ui/build_scenes.py, ui/drinks.json, design/penpot-ui/tokens.json | 씬·테마 쓰기, 게임 실행에 불필요 | 전용 자동 검증 없음 | ui/build_scenes.py, ui/drinks.json, design/penpot-ui/tokens.json |
+| 실행·연결 | src/app/main.tscn, main.gd `_ready`, `_start_game`, `_save_game` | 메뉴·Play·세션·저장 생성/연결, 백업·저장 결과 처리 | menu_test.gd | project.godot, src/app/ |
+| 메뉴 | src/features/main_menu/main_menu.tscn, main_menu.gd `update_save_status` | 저장 가능 상태 표시, 시작/종료 signal | menu_test.gd | src/features/main_menu/, src/app/main.gd |
+| 실제 진행 | src/game/game_session.gd, progress_state.gd | 구매·수색·해금·퀘스트·피버 상태 변경; UI/I/O 없음 | gameplay, purchase_price, search, search_fever, punch_fever | src/game/, src/features/play/play.gd |
+| 계산·상품 규칙 | src/game/economy/economy_rules.gd, progression/drink_rules.gd, search/search_rules.gd | 세션 상태를 읽는 가격·보너스·상품·클릭·기간 계산 | purchase_price, expanded_skills, search_fever | src/game/, src/data/drink_catalog.gd |
+| Play 표현 | src/features/play/play.tscn, play.gd `_on_shop_button_pressed`, `_finish_action`, `_process` | 입력 차단·세션 호출·화면 갱신·저장 요청·연출 | gameplay, purchase_area, coin_effect, drink_dispense | src/features/play/, src/app/main.gd |
+| 음료·능력 화면 | src/features/drinks/drink_screen.tscn, drink_screen.gd `select_drink`, `update_state` | 표시용 사본과 클릭 선택; 해금은 signal → Play → 세션 | drink_screen, drink_unlock_screen, vending_display | src/features/drinks/, src/features/play/play.gd |
+| 일시정지 | src/features/pause/pause_menu.tscn, pause_menu.gd `set_open` | ESC·포커스·pause, 저장/종료/ESC signal → Play | menu, punch_fever | src/features/pause/, src/features/play/play.gd |
+| 시각 효과 | src/features/play/effects/ | 세션의 결과를 표현, 별도 보상 지급 안 함 | coin_effect, drink_dispense, search_fever, punch_fever | src/features/play/effects/, src/features/play/play.gd |
+| 저장·호환 | src/integrations/saves/progress_store.gd `write`, `load_into`, `exists`, `backup` | 기존 ConfigFile 형식·정규화·검사·백업 | menu, purchase_price, progress_store | src/integrations/saves/, src/app/main.gd |
+| 카탈로그·에셋 | src/data/drink_catalog.gd.DATA, assets/ | 단일 상품 정의와 이미지/폰트; key·인덱스는 저장 계약 | vending_display | src/data/, assets/ |
+| 공유 UI·표시 | src/shared/ui/themes/, icons/, cursor_theme.gd; src/shared/formatting/amount_format.gd | 기존 공통 외형·커서·금액 표시 | drink_screen, purchase_price, punch_fever | src/shared/, project.godot |
+| 개발 생성 | tools/build_scenes.py | 단일 런타임 카탈로그와 디자인 토큰을 읽어 임시 미리보기만 출력 | Python parse·미리보기 출력 검사 | tools/, src/data/drink_catalog.gd |
 
-테스트 경로 열은 모두 `tests/` 기준이다. 이전 스킬트리·해금 화면 테스트(`skill_tree_test.gd`, `expanded_skills_test.gd`, `drink_unlock_screen_test.gd`)는 현재 화면과 기대값의 동등성을 검토한 뒤 사용한다.
+테스트 이름은 아래의 `tests/features/<이름>_test.gd` 기준이며 저장 전용은 `tests/integrations/progress_store_test.gd`다. skills 계열 파일 이름은 기존 회귀의 식별자이며 현재 UI를 스킬트리로 정의하는 근거가 아니다.
 
-## 공유 기능과 정규 예시
+## 공유 소유자·정규 예시
 
-| 기능 | 정규 소유자·예시 | 계약·주의 | Evidence paths |
-| --- | --- | --- | --- |
-| 구매 가격·중복 방지 | game.gd `current_draw_price`, `_on_shop_button_pressed` | UI에 별도 계산을 만들지 않음 | game.gd, tests/purchase_price_test.gd |
-| 금액 표기 | game.gd `_format_gold`, `_refresh_ui` | 표시 축약과 실제 정수 잔액 구분 | game.gd, tests/purchase_price_test.gd |
-| 진행 저장·호환 | game.gd `_save_progress`, `_load_progress`; main.gd `_backup_existing_save` | 기존 저장·카탈로그 인덱스 호환 확인 | game.gd, main.gd, tests/menu_test.gd, tests/gameplay_test.gd |
-| 상품 정의 | ui/drink_catalog.gd.DATA | key·인덱스는 저장 호환과 연관 | ui/drink_catalog.gd, game.gd, ui/skill_tree.gd |
-| 해금 요청·상태 갱신 | ui/skill_tree.gd `unlock_requested`, `update_state`; game.gd `_on_unlock_drink_requested` | UI signal → game의 잔액·저장 갱신 → UI refresh | ui/skill_tree.gd, game.gd, tests/drink_screen_test.gd |
-| 오류 처리 | main.gd `_backup_existing_save`, `_start_game` | 백업 실패 시 새 진행 시작 차단; 다른 경계는 현재 소스 확인 | main.gd, tests/menu_test.gd |
-| 테스트 대역·설정 주입 | tests/purchase_price_test.gd `PriceGame`, tests/drink_screen_test.gd `ScreenGame` | 상속으로 랜덤·저장 통제, save_path 분리 | tests/purchase_price_test.gd, tests/drink_screen_test.gd |
-| UI 공유 스타일 | ui/skill_tree.gd `PLAY_PANEL`, `PLAY_BUTTONS`, `PLAY_ACTIONS` | 기존 Play 리소스 재사용 | ui/skill_tree.gd, ui/pixel/, tests/drink_screen_test.gd |
-
-## 의존성·관찰 규칙
-
-- 현재: 씬 → 연결 스크립트; main → Game; game → 카탈로그·UI; 선택 UI → 카탈로그·리소스와 signal. 카탈로그가 game을 역참조하지 않는다.
-- 변경 시 진행 원장은 game의 소유 경계를 따른다. 미래 계정·저장 연동은 [06](06-architecture.md)의 사용자 확정 경계에 맞춰 설계한다.
-- `ui/drinks.json`과 생성 Python은 런타임 카탈로그와 자동 동기화되지 않는다. 생성 도구 실행은 현재 씬을 덮어쓰는 별도 작업이다.
-- 로그·관측의 통일된 런타임 규약은 없다. 테스트의 `print`·assert를 출시 관측 정책으로 확대하지 않는다. 코드 스타일은 [개발 규칙](02-development-rules.md)을 따르며, 혼용된 기존 코드 전체를 재정렬하지 않고 새 코드와 수정 부분부터 적용한다.
+| 찾는 기능 | 소유자·사용 예시 | 계약 |
+| --- | --- | --- |
+| 진행 변경 | `game_session.purchase`, `search`, `punch`, `unlock`, `claim_quest`; Play 호출 | 실제 잔액·획득·해금은 세션 하나에만 존재 |
+| 가격·보상 | `economy_rules.current_draw_price`, `calculate_reward`; 세션 경유 | 가격 5% 증가·최종 정수 처리·피버 곱을 UI에서 복제하지 않음 |
+| 저장·복구 | `progress_store.write`, `load_into`, `backup`; app 연결 | 기존 키·상품 인덱스·이전 저장 처리 보존 |
+| 금액 표기 | `amount_format.format_amount`, `format_gold`; Play `_refresh_ui` | 표기 축약은 실제 잔액·가격 계산에 적용하지 않음 |
+| 공유 외형 | `drink_screen.PLAY_PANEL/PLAY_BUTTONS/PLAY_ACTIONS`, shared/ui/themes | 기존 StyleBox·상태를 재사용, 화면별 새 테마 복제 금지 |
+| 외부 의존성 연결 | app의 세션 주입·save_requested 연결; tests/support/game_fixture | UI는 파일 저장소를 직접 생성/호출하지 않음 |
+| 테스트 대역 | tests/features의 Session 하위 클래스 | 랜덤 결과만 통제하고 실제 진행 계산을 mock하지 않음 |
 
 ## 검증 맵
 
-공통 접두어는 `godot --headless --path . --script res://tests/`이며 아래 파일명을 이어 실행한다. Godot 실행 환경과 한계는 [05](05-quality-rules.md)를 따른다.
-
-| 영역 | 좁은 검증 파일 | 함께 확인할 검증 | 기대 증거 |
-| --- | --- | --- | --- |
-| 구매·금액·저장 | purchase_price_test.gd | gameplay_test.gd, menu_test.gd | 차감·가격 증가·로드·호환 assertion과 완료 출력 |
-| 선택·해금·레이아웃 입력 | drink_screen_test.gd | vending_display_test.gd | 클릭·호버·재진입·잔액·ESC·크기 assertion |
-| 수색·보상 연출 | search_test.gd, coin_effect_test.gd | search_fever_test.gd | 정확한 지급·꽝·중복 효과 검증 |
-| 펀치·일시정지 | punch_fever_test.gd | menu_test.gd | 발동·영역·보상·pause·복원 검증 |
-| 음료 배출·구매 영역 | drink_dispense_test.gd, purchase_area_test.gd | purchase_price_test.gd | 연출·입력·중복 구매 검증 |
-
-검증 맵 근거는 각 `tests/<파일명>`과 연결된 game/UI 소스다. 더 넓은 검증은 변경 영향에 따라 선택하며 과거 테스트 전체를 검증된 최신 스위트로 단정하지 않는다.
-
-## 제외·보관 경로
-
-| 경로 | 이유 | 근거 |
+| 영역 | 명령의 스크립트 경로 | 기대 관찰 |
 | --- | --- | --- |
-| .git/ | Git 내부 상태 | Git 저장소 |
-| .godot/, android/ | 생성 캐시·플랫폼 출력 | .gitignore |
-| design/ | Godot import 제외, 기획·원본 보관; 관련 UI 작업에는 선별 확인 | design/.gdignore, design/README.md |
-| design/v2~v10, design/review/, 각 concepts/ | 채택·이전 기록 혼재; 폴더명만으로 최신 판단 금지 | DESIGN.md, design/README.md |
-| *.uid, *.import | 엔진 식별·import 메타데이터, 일반 기능 탐색에서는 후순위 | project.godot, 각 리소스 |
-| .DS_Store | 로컬 파일 탐색기 메타데이터 | 로컬 파일 목록 |
+| 구매·저장·가격 | tests/features/gameplay_test.gd, purchase_price_test.gd | 중복/잔액 부족 차감 방지·획득 즉시 저장·가격·이전 구매 횟수 |
+| 메뉴·백업·저장 오류 | tests/features/menu_test.gd | 새 게임 백업·로드·ESC·수동 저장·실패 시 종료 차단 |
+| 음료·해금·표시 | tests/features/drink_screen_test.gd, drink_unlock_screen_test.gd, vending_display_test.gd | 클릭 선택·무반응 hover·초기화·정확한 차감·진열·resize |
+| 수색·연출·피버 | tests/features/search_test.gd, coin_effect_test.gd, search_fever_test.gd, punch_fever_test.gd | 정확한 지급·꽝·이펙트·pause·기간·중첩·종료 |
+| 배출·구매 영역 | tests/features/drink_dispense_test.gd, purchase_area_test.gd | 입력 영역·중복 방지·배출/알림 순서 |
+| 저장 데이터 호환 | tests/integrations/progress_store_test.gd | 정수 키 획득량·독립 플래그·누락 필드·잘못된 타입/범위 정규화 |
 
-## 알려진 공백
+전체 명령과 한계는 [품질·검증](05-quality-rules.md)을 따른다. 각 파일은 실제 저장을 쓰지 않으며 테스트 캡처는 `.godot/test_artifacts/`에 생성한다.
 
-Godot 실행 파일·export·CI·Steam Cloud·모바일 인증·번역 리소스는 준비 또는 구현이 필요하다. README·과거 지역 기록·PRODUCT의 오래된 기능 요약과 최신 Notion 간 차이가 있으므로 관련 기능을 구현할 때 SSOT를 직접 확인한다. 검증된 고신호 장애 기록이 없어 troubleshooting 디렉터리는 생성하지 않는다.
+## 제외·주의 경로
+
+- `.git/`, `.godot/`, `android/`: Git 내부·캐시·생성 출력. 캐시/미리보기를 구현 원본으로 삼지 않는다.
+- `design/`, `docs/`, `tools/`: `.gdignore`로 Godot import 제외. 관련 UI 작업의 원본 안내는 선별해서 읽는다.
+- `.uid`, `.import`: 리소스 식별·가져오기 메타데이터. 이동할 때 관련 파일과 함께 확인한다.
+- 과거 design/v*·검토 시안·캡처는 현재 채택의 근거가 아니다. Penpot 링크와 DESIGN.md를 확인한다.
+- `node_2d.tscn`은 현재 실행 경로 밖이며 새 진입점의 정규 예시가 아니다.
+- `tools/build_scenes.py`는 이전 시안 미리보기다. 현재 앱의 빌드/설치/검증 단계로 실행하지 않는다.
+
+## 남은 경계
+
+Steam Cloud·모바일 인증·번역 리소스·릴리스 export·CI는 아직 구현/설정되지 않았다. 관련 제품 기획은 Notion을 직접 확인하고, 현재 코드에서 미정 밸런스를 확정 기획으로 승격하지 않는다.
 
 ## Linked Sources
 
 | Source | Owns | Not covered | Evidence paths |
 | --- | --- | --- | --- |
-| [README.md](../README.md) | 편집·실행·기존 구현 안내 | 최신 전체 코드 구조 | project.godot, main.gd, game.gd |
-| [자료 안내](../design/README.md) | 에셋·원본·생성 자료 위치 | 런타임 의존성 | design/README.md, ui/build_scenes.py |
-| [PRODUCT.md](../PRODUCT.md) | 기획 SSOT 포인터·구현과 기획 구분 | 코드 소유권 | PRODUCT.md, ui/drink_catalog.gd |
+| [아키텍처](06-architecture.md) | 폴더·의존성·상태 소유권 | 제품 기획 | src/ |
+| [검증 안내](05-quality-rules.md) | 명령·실행 결과·한계 | 새 기능 승인 | tests/ |
+| [자료 안내](../design/README.md) | Penpot 연결·채택 원본 위치 | 런타임 코드 원본 | DESIGN.md, design/README.md |

@@ -1,69 +1,37 @@
 # Backstreet Clicker
 
-Godot 4.7 프로젝트입니다. `project.godot`를 열고 실행하세요.
-기획 기준과 문서 링크는 `AGENTS.md`에 있습니다.
+Godot 4.7 게임이다. `project.godot`를 열면 `src/app/main.tscn`에서 시작한다.
+기획 SSOT는 Notion, 디자인 SSOT는 Penpot이다. 원본 링크는 [자료 안내](design/README.md), 작업 규칙은 [AGENTS.md](AGENTS.md)를 따른다.
 
-기획 SSOT는 Notion, 디자인 SSOT는 Penpot입니다. 원본 링크·접속 방법은 [자료·접속 안내](design/README.md)를, 로컬 요약·적용 기록은 [PRODUCT.md](PRODUCT.md)와 [DESIGN.md](DESIGN.md)를 참고하세요. PAVE 문서·코드 탐색·검증 안내는 [프로젝트 안내](docs/00-overview.md)에서 시작합니다.
+## 구조·실행
 
-## Penpot UI 적용
+- [아키텍처](docs/06-architecture.md): 실제 폴더·상태 소유권·의존성 규칙.
+- [코드 안내](docs/07-codebase-guide.md): 기능별 진입점·공유 구현·관련 회귀 테스트.
+- [개발 규칙](docs/02-development-rules.md): 코드 스타일·재사용·파일 생성·main 통합.
+- [검증 안내](docs/05-quality-rules.md): 실행 명령·검증 결과·한계.
 
-Penpot의 메인·플레이·물/녹차 획득·ESC 메뉴 시안을 실제 Godot Control 노드에 적용했습니다.
-`main.tscn`, `Game.tscn`에서 편집할 수 있으며 공통 색상·버튼·패널은 `ui/backstreet_theme.tres`를 사용합니다.
-화면에는 실제 보유 금액, 수집 개수, 퀘스트·수색 진행률과 저장 여부가 표시됩니다.
-Settings는 아직 미구현이므로 비활성화했습니다.
-
-`design/godot-applied/`에는 Godot 실행 화면 캡처가 있습니다.
-디자인 참고 자료는 `design/.gdignore`로 게임 리소스 가져오기에서 제외했습니다.
-`ui/build_scenes.py`는 디자인 토큰으로 씬과 테마를 재생성하는 개발용 도구이며, 게임 실행에 Python은 필요하지 않습니다.
-
-## 현재 플레이 흐름
-
-- **New Game**: 새 진행으로 시작합니다. 기존 저장은 `user://backups/`에 별도 백업한 뒤 새 저장을 만듭니다.
-- **Load Game**: 저장된 금액·음료·퀘스트 진행을 복원합니다. 저장 파일이 없으면 비활성화됩니다.
-- 플레이 중 **ESC**: 일시 정지 메뉴를 엽니다. **계속** 또는 ESC로 재개하고, **저장**으로 현재 진행을 저장하며, **끝내기**로 저장 후 게임을 종료합니다.
-- 일시 정지 중에는 동전 투입 애니메이션과 게임 조작도 멈춥니다.
-- 자판기 밑의 바닥을 직접 클릭해 동전을 찾습니다. 수색 버튼과 진행 막대는 화면에 표시하지 않습니다.
-- 클릭할수록 자판기 밑이 점점 밝아지고, 수색 결과가 나오면 다시 어두워집니다. 꽝이어도 클릭 횟수가 초기화되며, 보상 없이 우는 표시가 한 번만 뜹니다. 다음 추첨까지 다시 필요한 횟수만큼 클릭해야 합니다.
-- 꽝일 때는 하단 문구 대신 우는 아이콘이 클릭 위치 위로 튀어 올라 서서히 사라집니다.
-- 하단의 고정 투입구 안내 문구는 제거했습니다. 동전 획득 시 클릭 위치 위에 `+1`처럼 금액만 무작위 위치로 튀어 올라 서서히 사라집니다. 잔액 부족 등의 안내는 하단에 표시합니다.
-- 동전 발견 10회 달성 시 일회성 보상 ¥5,000을 받습니다.
-- 자판기 오른쪽 **동전 투입구**를 누르면 즉시 **100 Gold**가 차감되고 해금된 음료 중 하나를 같은 확률로 획득합니다. 잔액이 부족하면 차감하지 않습니다. 투입 안내에는 `100 Gold 투입`만 표시하며 아래 설명과 마우스 툴팁은 없습니다.
-- 동전 투입 애니메이션 후 큰 음료 그림과 적용 능력치, **닫기** 버튼이 있는 결과 창이 표시됩니다.
-- 물: 수색 숙련도 +1. 물 3개마다 필요한 클릭 수가 1 감소합니다(최소 3회).
-- 녹차: 동전 발견 금액 +¥1. 수집할수록 누적됩니다.
-- 모든 음료는 즉시 마시며 빈캔 1개를 얻습니다.
-- 음료 종류와 무관하게 뽑기 1회당 빈캔 1개가 지급되며, 보유 금액 아래의 캔 아이콘 옆에 총개수가 표시됩니다.
-- 기존 수집 현황 패널은 제거했습니다. 왼쪽 아래 **능력** 창에서 해금된 음료별 획득 개수와 실제 적용된 능력을 스크롤해 확인합니다.
-- **스킬** 버튼은 위에서 아래로 가지가 뻗는 스킬 트리를 엽니다. 첫 노드는 빈캔 5개로 이온음료를 해금합니다. 아래쪽 노드는 스크롤해 확인합니다.
-- 이온음료 → 비타민 음료 → 오렌지 주스 → 환타, 이온음료 → 사과 주스 → 콜라 → 스프라이트로 두 갈래를 구성했습니다.
-- 이온음료는 마실 때마다 발견 금액 +2 Gold입니다. 각 가지의 빈캔 해금 비용은 순서대로 8 / 12 / 18개입니다.
-- 비타민 음료: 꽝 확률 -0.5%p(최소 2%). 사과 주스: 발견 금액 +3 Gold. 오렌지 주스: 최종 발견 금액 +1%. 콜라: 발견 금액 +5 Gold. 환타: 최종 발견 금액 +2%. 스프라이트: 4개마다 수색 클릭 -1(최소 3회). 효과는 획득 수에 따라 누적됩니다.
-- 빈캔을 해금에 사용해도 누적 수집 능력과 빈캔 퀘스트 진척은 유지됩니다. 차감된 잔액과 해금 여부도 저장됩니다.
-- 보유 금액은 ¥ 기호 없이 숫자로 표시하며, 기존 JPY 대신 Gold를 약 1.5배 큰 글씨로 표시합니다.
-- 첫 동전 수집 퀘스트 뒤에 **빈캔을 5개 모으시오** 퀘스트가 이어집니다. 기존에 모은 빈캔도 인정하며, 두 퀘스트 보상을 모두 받으면 패널이 접힙니다. 빈캔 퀘스트 보상은 임시 ¥100입니다.
-- 빈캔 5개마다 발견 금액에 ¥1이 추가됩니다.
-- 자판기 업그레이드 버튼과 수집 조건 표시는 제거했습니다.
-- 마지막 퀘스트 보상을 받으면 퀘스트 패널이 작게 접힙니다.
-- 진행 상황은 `user://progress.cfg`에 자동 또는 수동으로 저장하고, Load Game으로 복원합니다.
-
-뽑기 가격은 100 Gold입니다. 해금된 음료는 균등 확률로 등장합니다. 신규 해금 비용과 성장 수치는 임시 밸런스이며 `ui/drink_catalog.gd`와 `game.gd`에 정의했습니다. `ui/drinks.json`은 씬 생성용 동일 카탈로그입니다.
-자동 자판기 설치, 시간당 수익, 사라지는 드롭 아이템, 쓰레기통은 아직 구현하지 않았습니다.
-
-## 검증
-
-Godot 실행 파일 경로에 맞춰 다음을 실행합니다.
-
-```powershell
-& '<Godot 실행 파일>' --headless --path . --script res://tests/gameplay_test.gd
-& '<Godot 실행 파일>' --headless --path . --script res://tests/menu_test.gd
-& '<Godot 실행 파일>' --headless --path . --script res://tests/search_test.gd
-& '<Godot 실행 파일>' --headless --path . --script res://tests/abilities_test.gd
-& '<Godot 실행 파일>' --headless --path . --script res://tests/skill_tree_test.gd
-& '<Godot 실행 파일>' --headless --path . --script res://tests/expanded_skills_test.gd
+```sh
+godot --headless --editor --path . --import
+godot --path .
 ```
 
-100엔 즉시 차감, 잔액 부족, 애니메이션 중 중복 차감 방지, 물·녹차 효과와 결과 창,
-닫기 버튼, 퀘스트 최소화, 저장/복원 및 이전 버전 저장 호환성을 검사합니다.
-실제 플레이 저장 파일은 사용하지 않습니다.
-메뉴 테스트는 새 게임 초기화와 기존 저장 백업, 불러오기, ESC 일시 정지·재개, 수동 저장을 검사합니다.
+`godot`이 PATH에 없으면 실제 Godot 실행 파일 경로로 바꾼다. 별도 게임용 패키지 매니저나 Python 설치는 필요하지 않다.
 
+## 플레이·저장
+
+New Game은 기존 저장을 백업하고 새 진행으로 시작하며, Load Game은 저장된 진행을 복원한다. 플레이 중 수색·음료 구매·빈캔 해금과 피버를 사용한다. ESC에서 일시정지·저장·종료할 수 있고 저장 실패 시 종료하지 않는다.
+
+기존 `user://progress.cfg`와 `user://backups/`를 유지한다. 가격·능력·밸런스의 코드 소유자는 [코드 안내](docs/07-codebase-guide.md), 확정 기획과 원문 차이는 [PRODUCT.md](PRODUCT.md)에서 확인한다. Steam Cloud·모바일 계정은 아직 연결되지 않았다.
+
+## 검증·개발 도구
+
+```sh
+godot --headless --editor --path . --quit
+godot --headless --path . --script res://tests/features/gameplay_test.gd
+godot --headless --path . --script res://tests/features/menu_test.gd
+godot --headless --path . --script res://tests/features/purchase_price_test.gd
+godot --headless --path . --script res://tests/features/drink_screen_test.gd
+godot --headless --path . --script res://tests/integrations/progress_store_test.gd
+```
+
+테스트 저장과 캡처는 `.godot/` 아래 임시 산출물로 분리한다. 전체 관련 테스트는 [검증 안내](docs/05-quality-rules.md)를 따른다. [개발 생성기](tools/README.md)는 이전 레이아웃의 미리보기만 만들며 채택 씬을 덮어쓰지 않는다.
