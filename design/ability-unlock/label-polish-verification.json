@@ -1,0 +1,333 @@
+{
+  "revision": "nameplates-v6",
+  "method": "Computer Use native shapes and text",
+  "labels": [
+    {
+      "leftInset": 4.46490478515625,
+      "name": "레몬라임 소다",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "738.3999999999999",
+        "y": "1751.2"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89c5ae1e3",
+      "rightInset": 4.474609375,
+      "text": "레몬라임 소다",
+      "textId": "b2f07b67-e456-809a-8008-cee89c5ea268",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 18.355712890625,
+      "name": "보리차",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "738.3999999999999",
+        "y": "1606"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89b4295a5",
+      "rightInset": 18.36553955078125,
+      "text": "보리차",
+      "textId": "b2f07b67-e456-809a-8008-cee89b462a5b",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 13.237548828125,
+      "name": "사과 주스",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "914.8",
+        "y": "1606"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89ba539b3",
+      "rightInset": 13.2471923828125,
+      "text": "사과 주스",
+      "textId": "b2f07b67-e456-809a-8008-cee89baaf65e",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 8.69384765625,
+      "name": "오렌지 주스",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "914.8",
+        "y": "1751.2"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89cfa48b9",
+      "rightInset": 8.70361328125,
+      "text": "오렌지 주스",
+      "textId": "b2f07b67-e456-809a-8008-cee89cfe0dae",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 9.0084228515625,
+      "name": "복숭아 주스",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "826.5999999999999",
+        "y": "1751.2"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89c9b814a",
+      "rightInset": 9.0120849609375,
+      "text": "복숭아 주스",
+      "textId": "b2f07b67-e456-809a-8008-cee89ca18a88",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 22.5906982421875,
+      "name": "콜라",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "826.5999999999999",
+        "y": "1896.4"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89e514110",
+      "rightInset": 22.5943603515625,
+      "text": "콜라",
+      "textId": "b2f07b67-e456-809a-8008-cee89e5984e0",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 22.5906982421875,
+      "name": "녹차",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "650.2",
+        "y": "1606"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89b1511aa",
+      "rightInset": 22.59442138671875,
+      "text": "녹차",
+      "textId": "b2f07b67-e456-809a-8008-cee89b19ec76",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 26.81976318359375,
+      "name": "물",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "562",
+        "y": "1606"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89ae0f3ff",
+      "rightInset": 26.82342529296875,
+      "text": "물",
+      "textId": "b2f07b67-e456-809a-8008-cee89ae61a42",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(255, 218, 122)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 12.92279052734375,
+      "name": "멜론 소다",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "650.2",
+        "y": "1896.4"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89d9fe09e",
+      "rightInset": 12.9324951171875,
+      "text": "멜론 소다",
+      "textId": "b2f07b67-e456-809a-8008-cee89da3a5f3",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 13.8182373046875,
+      "name": "진저에일",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "562",
+        "y": "1751.2"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89bd5c6c2",
+      "rightInset": 13.8218994140625,
+      "text": "진저에일",
+      "textId": "b2f07b67-e456-809a-8008-cee89bd8f708",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 14.12677001953125,
+      "name": "황금음료",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "738.3999999999999",
+        "y": "1896.4"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89dfba0e5",
+      "rightInset": 14.136474609375,
+      "text": "황금음료",
+      "textId": "b2f07b67-e456-809a-8008-cee89e020fe3",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 9.0084228515625,
+      "name": "비타민 음료",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "562",
+        "y": "1896.4"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89d47ac67",
+      "rightInset": 9.01214599609375,
+      "text": "비타민 음료",
+      "textId": "b2f07b67-e456-809a-8008-cee89d4dc356",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 14.12677001953125,
+      "name": "이온음료",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "826.5999999999999",
+        "y": "1606"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89b71dc7f",
+      "rightInset": 14.136474609375,
+      "text": "이온음료",
+      "textId": "b2f07b67-e456-809a-8008-cee89b76cda2",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 9.274658203125,
+      "name": "레모네이드",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "650.2",
+        "y": "1751.2"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89c1bf399",
+      "rightInset": 9.2783203125,
+      "text": "레모네이드",
+      "textId": "b2f07b67-e456-809a-8008-cee89c21fe33",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    },
+    {
+      "leftInset": 4.4649658203125,
+      "name": "에너지 드링크",
+      "plate": {
+        "fill": "rgb(38, 51, 61)",
+        "height": "18",
+        "width": "80.20000000000005",
+        "x": "914.8",
+        "y": "1896.4"
+      },
+      "plateId": "b2f07b67-e456-809a-8008-cee89ec0715b",
+      "rightInset": 4.474609375,
+      "text": "에너지 드링크",
+      "textId": "b2f07b67-e456-809a-8008-cee89ec542dc",
+      "type": {
+        "family": "\"Cafe24 PRO UP\"",
+        "fill": "rgb(243, 235, 216)",
+        "size": "11.5px"
+      },
+      "withinPlate": true
+    }
+  ],
+  "contrast": {
+    "normal": 10.89,
+    "selected": 9.59
+  },
+  "verification": {
+    "nameCount": 15,
+    "allNamesFit": true,
+    "allCafe24ProUp": true,
+    "savedViewerVisuallyConfirmed": true,
+    "existingShapeIdsRetained": true,
+    "noProductChanges": true
+  }
+}
