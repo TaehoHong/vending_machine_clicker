@@ -1,5 +1,7 @@
 # 기획·디자인 자료와 접속 안내
 
+2026-10-20 구조 전환: 현재 게임 코드는 `src/`, 게임 에셋은 `assets/`, 검증은 `tests/features/`·`tests/integrations/`에 있다. [현재 아키텍처](../docs/06-architecture.md)를 따른다. 과거 적용 기록의 이전 코드 경로는 당시 이력이다. 기획·디자인 원본은 바뀌지 않았다.
+
 **기획 SSOT는 Notion, 디자인 SSOT는 Penpot이다**(2026-10-20 사용자 확정). `PRODUCT.md`·`DESIGN.md`와 이 안내, PAVE 문서는 원본을 참조하는 로컬 요약·탐색 자료다. 확정 변경은 원본에 반영하고 로컬 요약을 함께 갱신한다. 접근할 수 없으면 대상·내용·사유를 동기화 대기로 남긴다.
 
 ## Penpot 페이지 구성 · 2026-10-20 정리 완료
@@ -28,7 +30,7 @@ Notion 원문과 로컬 기록이 충돌하면 기획 SSOT인 Notion을 확인�
 | 자료 | 위치 | 용도·상태 |
 | --- | --- | --- |
 | 현재 게임 디자인 시스템 | [current-game-system/README.md](current-game-system/README.md) | 00의 파운데이션·컴포넌트·상태/피드백·전용 값 4개 보드. 기존 색상·타입·연결 인스턴스 재사용. 맑은 고딕 미설치와 빈 이전 QuestPanel 항목은 안내 참조. |
-| 전체 HUD 버튼 시안 · 승인 대기 | [hud-buttons/README.md](hud-buttons/README.md) | HUD 5종과 공통 버튼·상태 비교 3장. 로컬 검토용이며 사용자 승인 전 Penpot 미반영. |
+| HUD A 버튼 · 디자인 시트 채택 | [hud-buttons/README.md](hud-buttons/README.md) | 00에 16종 × 5상태 조립 마스터, 02에 14아이콘·30프레임·연결 견본 18개·A 글꼴. 네이티브 문구 편집, 기존 가격 기본형 재사용. 게임 미적용. |
 | A 픽셀 가격 버튼 | [purchase-button/README.md](purchase-button/README.md) | 금액만 표시하는 144×56 `100 G` 버튼. 기존 02 에셋 페이지에 재사용 컴포넌트와 Cafe24 PRO UP 텍스트 스타일 등록. |
 | 확정 음료 에셋 15종 | [v9/README.md](v9/README.md), [전체 확인 이미지](v9/approved-items.png) | 일반 14종 승인 + 황금음료 05 오로라 골드 확정. PNG·원본 이미지 내장 SVG를 각각 분리했다. 기존 **02 · 에셋 라이브러리** 안에 독립 컴포넌트 15종 등록 완료. |
 | 현재 수정본 안내 | [DESIGN.md](../DESIGN.md) | v5 에셋 전용 범위, 추가 제작 목록, 기획·구현 차이와 이전 시안 기록 |

@@ -6,12 +6,12 @@
 
 | 역량 / 이용자 | 의도한 결과 | 현재 소유 영역 | 의존·공통 제약 | 상태·남은 결정 |
 | --- | --- | --- | --- | --- |
-| 수색·피버 / 플레이어 | 반복 클릭과 즉시 보상 | game.gd, ui/search_*.gd, ui/punch_fever.gd | 경제 계산·일시정지·표현 | 일부 구현; 상세 수치·원문 차이는 기능 기획 |
-| 음료 구매·성장·해금 / 플레이어 | 구매를 통한 성장 | game.gd, ui/drink_catalog.gd, ui/skill_tree.gd | 골드·빈캔·저장·표현 | 구현 존재, Notion 전체 규칙과 동등하다고 보장하지 않음 |
+| 수색·피버 / 플레이어 | 반복 클릭과 즉시 보상 | src/game/game_session.gd, src/features/play/effects/search_*.gd, src/features/play/effects/punch_fever.gd | 경제 계산·일시정지·표현 | 일부 구현; 상세 수치·원문 차이는 기능 기획 |
+| 음료 구매·성장·해금 / 플레이어 | 구매를 통한 성장 | src/game/game_session.gd, src/data/drink_catalog.gd, src/features/drinks/drink_screen.gd | 골드·빈캔·저장·표현 | 구현 존재, Notion 전체 규칙과 동등하다고 보장하지 않음 |
 | 자판기·지역 확장 / 플레이어 | 다음 수집 목표로 진행 | 후속 도메인, 현재 전용 모듈 없음 | 재화·진행·지역 기획 | 첫 출시 반복에 포함, 콘텐츠 수·상세는 기능 기획 |
 | 자동 자판기·수집 자동화 / 플레이어 | 반복 성장의 확장 | 후속 도메인, 현재 전용 모듈 없음 | 생산·드롭·진행 | 기획 존재; 오프라인 생산·잡 실행 방식 미확정 |
-| 저장·복원 / 플레이어 | 진행 보존과 PC 간 이어하기 | main.gd, game.gd; Steam 연동은 후속 | 진행 데이터·기존 저장 호환 | 로컬 구현; Steamworks 설정·복구는 기능 기획 |
-| 다국어·접근성 / 플레이어 | 지원 언어와 기기에서 플레이 | 현재 ui/와 씬, 전용 번역 리소스 미확인 | 글꼴·레이아웃·공유 테마 | 출시 목표, 번역·옵션 구현 필요 |
+| 저장·복원 / 플레이어 | 진행 보존과 PC 간 이어하기 | src/app/main.gd, src/game/game_session.gd; Steam 연동은 후속 | 진행 데이터·기존 저장 호환 | 로컬 구현; Steamworks 설정·복구는 기능 기획 |
+| 다국어·접근성 / 플레이어 | 지원 언어와 기기에서 플레이 | 현재 src/features/와 씬, 전용 번역 리소스 미확인 | 글꼴·레이아웃·공유 테마 | 출시 목표, 번역·옵션 구현 필요 |
 | 모바일 계정·저장 / 모바일 플레이어 | 비회원 또는 외부 계정으로 후속 앱 이용 | 후속 계정·저장 경계 | Google/Apple·모바일 저장 제공자 | PC 출시 이후, PC 진행과 공유하지 않음 |
 | 설계·검수 / 사용자 | 제품 방향·화면·플레이 품질 승인 | Notion·Penpot·검증 결과 | 에이전트 구현·SSOT 동기화 | 사용자 최종 검수 |
 
@@ -23,10 +23,17 @@
 
 단계별 일정·릴리스 수·출시 가격은 미확정이다. 멀티플레이·채팅·거래·광고·인앱결제·분석 수집은 첫 버전 제외다. 구체적인 기능 상태 머신·권한·데이터 필드·구현 순서는 `deferred-to-feature-planning`이다.
 
+## 모바일 백엔드 검토 · 후속 로드맵
+
+- 2026-10-20 사용자 지시로 PC 출시 이후 모바일 계정·클라우드 저장 단계의 검토 항목으로만 남긴다. Supabase 등 관리형 백엔드가 후보이며 제공자 채택·구현 방식은 미정이다.
+- 검토 범위: Godot 실기기 로그인·앱 복귀·인증 갱신, 비회원 진행의 계정 연결·복구, 저장 시점·재시도·충돌 처리, 사용자별 접근 권한·비용.
+- 현재 서버 구축·DB 생성·SDK 연결·미사용 폴더 생성은 시작하지 않는다. PC 로컬 저장 + Steam Cloud 및 PC·모바일 진행 분리 방향을 유지한다.
+- 위 범위는 Notion 원문의 `2026-10-20 · 모바일 백엔드 검토 로드맵` 절에 반영하고 새로고침 후 저장을 확인했다. 상세 결정은 모바일 기능 기획에서 진행한다.
+
 ## Linked Sources
 
 | Source | Owns | Not covered | Evidence paths |
 | --- | --- | --- | --- |
-| [Notion](https://app.notion.com/p/3fcb6b9ead24800aa7bce8a1e1b045de) | 범위·반복·출시 방향 SSOT | 코드 모듈 배정 | PRODUCT.md, game.gd |
+| [Notion](https://app.notion.com/p/3fcb6b9ead24800aa7bce8a1e1b045de) | 범위·반복·출시 방향 SSOT | 코드 모듈 배정 | PRODUCT.md, src/game/game_session.gd |
 | [PRODUCT 요약](../PRODUCT.md) | 확인 시점·구현과 기획 구분 | 최신 원문 전체 | PRODUCT.md |
 | [지역 검토 기록](../design/planning/stages-2026-10-18.md) | 과거 지역 검토 맥락 | 현재 주차장 해금 규칙 | design/planning/stages-2026-10-18.md; Notion 최신 확정 절 우선 |

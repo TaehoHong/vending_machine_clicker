@@ -12,7 +12,7 @@
 ## 초기화 근거 · 2026-10-20
 
 - `user decision`: 인터뷰 예시안을 채택했고, 중국어 간체·번체 모두 지원, PC·모바일 진행 공유 제외, 일반적인 Steam 로컬+클라우드 저장, Notion/Penpot SSOT를 명시했다. 세부 방향은 Notion의 `2026-10-20 · 프로젝트 방향 · 사용자 확정` 절을 따른다.
-- `repo fact`: `project.godot`는 Godot 4.7을 선언한다. GDScript·씬·리소스 기반 프로젝트이며 Node/Python은 게임 런타임 의존성이 아니다. 로컬 저장은 ConfigFile이다.
+- `repo fact`: `project.godot`는 Godot 4.7을 선언한다. GDScript·씬·리소스 기반 프로젝트이며 Node/Python은 게임 런타임 의존성이 아니다. 로컬 저장은 integrations/saves의 ConfigFile 구현이다.
 - `unsupported assumption`: 클라우드·로그인·다국어·자동화가 이미 구현되어 있다는 해석은 근거가 없으므로 채택하지 않는다.
 
 ## 문서 발견·감사 기록
