@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-20",
+  "status": "draft",
+  "fileId": "cd444aaf-0d8c-801b-8008-cda246e18650",
+  "pageId": "490e660f-738c-80e7-8008-d0f0d410a6b5",
+  "pageName": "00 · 디자인 팔레트(시스템)",
+  "boardId": "490e660f-738c-80e7-8008-d0f0d4686e84",
+  "boardName": "파일 작성 규칙 · 초안 · 2026-10-20",
+  "editableTexts": 27,
+  "previousPages": [
+    {
+      "id": "55aeaacb-aa46-80be-8008-cdca4fa29ef0",
+      "name": "01 · 플레이 화면"
+    },
+    {
+      "id": "af2aed71-3cfe-80ea-8008-ceaf7492d553",
+      "name": "02 · 에셋 라이브러리"
+    },
+    {
+      "id": "78528b83-c102-8057-8008-cec032c8f181",
+      "name": "03 · 개별 에셋 · 심플 아이템·피버"
+    },
+    {
+      "id": "6587dfe1-cdcc-8063-8008-cfd0f79b9bd3",
+      "name": "04 · 재화 HUD · 축약 표기"
+    },
+    {
+      "id": "6587dfe1-cdcc-8063-8008-cfe00be50226",
+      "name": "05 · 능력 창 · 비교 시안"
+    },
+    {
+      "id": "6587dfe1-cdcc-8063-8008-cfe19a746796",
+      "name": "06 · 능력 + 음료수 추가 · 통합 시안"
+    }
+  ],
+  "sourceOfTruth": "Penpot",
+  "proposedStructure": [
+    "00 · 디자인 팔레트(시스템)",
+    "01 · 게임 화면",
+    "02 · 에셋"
+  ],
+  "additionalPageRecommendation": {
+    "name": "99 · 보관함",
+    "status": "recommended-unconfirmed"
+  },
+  "existingContentMoved": false,
+  "verification": {
+    "editableTextCount": 27,
+    "svgRawCount": 0,
+    "overflow": [],
+    "existingLibrary": {
+      "components": 120,
+      "colors": 0,
+      "typographies": 1
+    },
+    "persistedAfterReload": true,
+    "unchangedExistingPages": 6,
+    "draftPageCount": 1,
+    "totalPageCount": 7
+  },
+  "documentationStyleReference": "af2aed71-3cfe-80ea-8008-ceb0d537ce15"
+}
