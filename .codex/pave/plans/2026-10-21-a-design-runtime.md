@@ -1,6 +1,6 @@
 # 확정 A 디자인의 게임 적용
 
-상태: 사용자 구현 승인. 코드 선행을 중단하고 Penpot 원본 정합성 수정·저장·재확인을 먼저 완료했다. 구현 변경은 미커밋 검수 중이다. 원본 파일 `cd444aaf-0d8c-801b-8008-cda246e18650`의 00과 01을 Computer Use로 읽고 대표 화면·공통 패널의 편집 속성을 대조했다. 상세 임시 원본은 `/tmp/clicker-a-runtime-reference/`에 있으며 저장소의 새 디자인 원본으로 취급하지 않는다.
+상태: 완료. 코드 선행을 중단하고 Penpot 원본 정합성 수정·저장·재확인을 먼저 완료한 뒤 구현을 대조·검증했다. 기능 커밋 `004781b`를 로컬 main에 fast-forward 병합했다. 원본 파일 `cd444aaf-0d8c-801b-8008-cda246e18650`의 00과 01을 Computer Use로 읽고 대표 화면·공통 패널의 편집 속성을 대조했다. 상세 임시 원본은 `/tmp/clicker-a-runtime-reference/`에 있으며 저장소의 새 디자인 원본으로 취급하지 않는다.
 
 ## 범위와 결정
 
@@ -28,7 +28,7 @@
 - [x] 입력·크기 검증: `tests/features/menu_test.gd`, `drink_screen_test.gd`에 필요한 경우 새 버튼의 keyboard focus/비활성 입력과 화면 축소 시 실제 클릭·정보 패널 경계 회귀를 보강한다. 기존 진행/가격 assertion은 완화하지 않는다. 단순 색상·상수·리소스 존재 확인용 테스트는 추가하지 않는다. 실제 렌더러에서 1152×648 원본, 출시 목표 1280×720, 확대 창 및 기존 800×600 회귀를 확인한다.
 - [x] 기존 `DESIGN.md`, `design/README.md`, `design/hud-buttons/README.md`, 런타임 HUD 안내와 `docs/07-codebase-guide.md`의 적용 상태·공유 소유자·경로만 갱신한다. Penpot 기존 팔레트의 적용 상태 표기를 실제 결과와 맞춘다. 새 디자인 페이지·규칙 문서를 만들지 않는다.
 - [x] 실제 diff의 중복 스타일·미사용 파일·책임 위반 검토. 보상 버튼도 ActionButton과 공유 피드백을 사용하며 관련 없는 숨겨진 레거시 카드 수정은 제외했다.
-- [ ] 기능 단위 로컬 커밋, 로컬 main 머지·재검증. Push/PR은 범위 밖이다.
+- [x] 기능 커밋 `004781b`를 로컬 main에 fast-forward 병합하고 import·parse·16개 회귀·실제 렌더링 37개 캡처를 다시 확인했다. Push/PR은 하지 않았다.
 
 ## 검증 계약
 
@@ -60,3 +60,5 @@ git diff --check
 - Test Value: menu에 실제 마우스 입력·초기 포커스·고정 클릭 영역 회귀를 추가했다. purchase_price·expanded_skills의 기존 문자열 기대값만 Penpot의 `100 G` 형식에 맞췄고 가격 계산·원자성 assertion은 유지했다. 마지막 보상 버튼의 공유 테마 연결 후 menu·gameplay를 다시 통과했다.
 - Knowledge Delta: 사용자 확정 원본 우선 순서를 DESIGN.md에 명시하고, 원본의 native Text 가격·규격·연결 ID와 런타임 공유 소유자를 기존 README·manifest·코드 안내에 반영했다. 새 규칙 문서나 Penpot 규칙 보드는 추가하지 않았다.
 - 사람 검수: Windows 배포와 지원 언어 전체 글리프, 최종 플레이 감각은 남아 있다. 공통 상태 코드는 pixel_button.gd 하나이며 새 게임 기능·설정·진행 규칙을 추가하지 않았다.
+
+최종 통합 검증: 로컬 main의 Godot 4.7 import·parse 종료 0, 위 16개 회귀 실패 0, Metal 실제 캡처 완료. 기본·보상·부족·긴 저장 오류·다중 해상도 출력과 고정 클릭 영역을 확인했다. Penpot 팔레트의 적용 표기도 갱신하고 브라우저 재열기 후 저장을 확인했다. 새 일반 문서나 미사용 테마 변형은 만들지 않았다.
