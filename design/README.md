@@ -19,15 +19,15 @@
 
 | 자료 | 안내·파일 | 상태 |
 | --- | --- | --- |
-| HUD A 버튼 | [규격·ID](hud-buttons/README.md), `src/shared/ui/icons/hud_buttons/` | 01의 29개 화면에 연결, 게임 코드 적용 전 |
-| 가격 버튼 A 기본형 | [원본 안내](purchase-button/README.md) | 공통 버튼 보드에서 재사용 |
+| HUD A 버튼 | [규격·ID](hud-buttons/README.md), `src/shared/ui/icons/hud_buttons/` | 01의 29개 화면과 현재 네 게임 화면·공유 테마 연결 |
+| 가격 버튼 A 기본형 | [원본 안내](purchase-button/README.md) | 공통 버튼·패널 견본에서 재사용, 금액은 네이티브 Text |
 | Play·음료와 능력 화면 | [적용본 안내](drink-screen-references/applied/play-style/README.md) | 현재 게임 적용 |
 | 재화 HUD·가격판 | [표시 규칙·이전 원본 안내](currency-hud/README.md) | 표시 규칙은 게임 적용, 현재 디자인은 00 공통 패널·HUD |
 | 음료·자판기 원본 | [음료 15종](v9/README.md), [자판기](v10/README.md) | 02 에셋의 원본 사용 |
 
 ## 현재 구현 화면 · 2026-10-21
 
-코드 `221723c`의 실제 화면·상태 29개를 01 게임 화면에 반영한 뒤, 사용자 요청으로 공통 HUD까지 A 디자인 시스템에 맞췄다. 보드 이름은 `디자인 시스템 적용 / 화면 / 상태 / PC 1152×648`이며, 같은 행에서 왼쪽부터 아래 상태 순서로 배치한다. 보드 ID와 아래 링크는 유지한다. 수치·문구는 구현 검수용 상태이며 새 기획 확정이 아니다. 게임 코드·런타임 에셋 적용은 별도 작업이다.
+코드 `221723c`의 실제 화면·상태 29개를 01 게임 화면에 반영한 뒤, 사용자 요청으로 공통 HUD까지 A 디자인 시스템에 맞췄다. 보드 이름은 `디자인 시스템 적용 / 화면 / 상태 / PC 1152×648`이며, 같은 행에서 왼쪽부터 아래 상태 순서로 배치한다. 보드 ID와 아래 링크는 유지한다. 수치·문구는 구현 검수용 상태이며 새 기획 확정이 아니다. 해당 원본을 현재 타이틀·Play·음료와 능력·일시정지의 코드·테마·런타임 에셋에 적용했다.
 
 | Y | 원본 보드·수 | 상태 |
 | --- | --- | --- |
@@ -40,7 +40,7 @@
 | 5400 | [플레이 피드백 · 3개](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=51ff814c-57a3-802e-8008-d25b480ef9d9) | 수색 꽝, 고액 동전 획득, 구매 골드 부족 |
 | 6300 | [구매 연출 · 4개](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=51ff814c-57a3-802e-8008-d25b50a62c19) | 동전 투입, 음료 배출, 능력 버튼으로 이동, 능력 획득 알림 |
 
-구현 소유자는 `src/features/play/`, `src/features/main_menu/`, `src/features/drinks/`, `src/features/pause/`이며 현재 게임의 공통 외형은 `src/shared/ui/themes/`와 기존 런타임 에셋을 사용한다. 디자인 원본은 UI 문구를 네이티브 Text로 유지하고 A의 HUD·Common 버튼·프레임 및 기존 공통 패널 마스터에 연결했다. 같은 24색과 Cafe24 PRO UP을 사용하며 일본어 브랜드·푸터는 Noto Sans KR를 유지한다. [디자인 시스템 적용 상태](../DESIGN.md#공통-hud-포함-디자인-시스템-적용--2026-10-21)와 [이전 시안 보관 대기](../DESIGN.md#현재-구현-화면-반영--2026-10-21)를 확인한다.
+구현 소유자는 `src/features/play/`, `src/features/main_menu/`, `src/features/drinks/`, `src/features/pause/`이며 현재 게임의 공통 외형은 `src/shared/ui/themes/play_theme.tres`와 기존 런타임 에셋을 사용한다. 공통 입력·상태 피드백은 `src/shared/ui/pixel_button.gd`, 프레임·아이콘은 `src/shared/ui/icons/hud_buttons/`에서 재사용한다. 디자인 원본은 UI 문구를 네이티브 Text로 유지하고 A의 HUD·Common 버튼·프레임 및 기존 공통 패널 마스터에 연결했다. 같은 24색과 Cafe24 PRO UP을 사용하며 일본어 브랜드·푸터는 Noto Sans KR를 유지한다. [디자인 시스템 적용 상태](../DESIGN.md#공통-hud-포함-디자인-시스템-적용--2026-10-21)와 [이전 시안 보관 대기](../DESIGN.md#현재-구현-화면-반영--2026-10-21)를 확인한다.
 
 ## MCP 원본 접근 복구 절차
 

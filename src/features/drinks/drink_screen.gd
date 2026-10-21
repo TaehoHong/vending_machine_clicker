@@ -8,20 +8,9 @@ const DESIGN_SIZE = Vector2(1200,760)
 const MACHINE_POS = Vector2(408,135)
 const MACHINE_SIZE = Vector2(384,576)
 const MACHINE_SCALE = 384.0 / 1024.0
+const PIXEL_BUTTON = preload("res://src/shared/ui/pixel_button.gd")
 const FONT = preload("res://assets/fonts/Cafe24PROUP.ttf")
 const PLAY_PANEL = preload("res://src/shared/ui/themes/quest_style.tres")
-const PLAY_BUTTONS = {
-	"normal": preload("res://src/shared/ui/themes/ability_style.tres"),
-	"hover": preload("res://src/shared/ui/themes/ability_hover.tres"),
-	"pressed": preload("res://src/shared/ui/themes/ability_pressed.tres"),
-	"disabled": preload("res://src/shared/ui/themes/ability_disabled.tres")
-}
-const PLAY_ACTIONS = {
-	"normal": preload("res://src/shared/ui/themes/quest_claim_style.tres"),
-	"hover": preload("res://src/shared/ui/themes/quest_claim_hover.tres"),
-	"pressed": preload("res://src/shared/ui/themes/quest_claim_pressed.tres"),
-	"disabled": preload("res://src/shared/ui/themes/quest_claim_disabled.tres")
-}
 var canvas: Control
 var balance: Label
 var close_button: Button
@@ -43,6 +32,9 @@ var cumulative_effects: Dictionary = {}
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	var foreground := get_theme_color("font_color", "Label")
+	var secondary := get_theme_color("secondary_color", "Label")
+	var accent := get_theme_color("accent_color", "Label")
 	var backdrop := TextureRect.new()
 	backdrop.name = "Backdrop"
 	backdrop.texture = preload("res://assets/alley_arcade_penpot.png")
@@ -73,7 +65,7 @@ func _ready() -> void:
 	machine.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	machine.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	canvas.add_child(machine)
-	_label(canvas,Rect2(30,24,320,50),"음료와 능력",30,Color("fff4dc"))
+	_label(canvas,Rect2(30,24,320,50),"음료와 능력",30,foreground)
 	var balance_panel := _panel(Rect2(30,86,210,64),"CanBalance")
 	var can := TextureRect.new()
 	can.texture = preload("res://src/shared/ui/icons/can_icon.svg")
@@ -83,11 +75,11 @@ func _ready() -> void:
 	can.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	can.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	balance_panel.add_child(can)
-	balance = _label(balance_panel,Rect2(55,14,135,34),"",22,Color.WHITE)
+	balance = _label(balance_panel,Rect2(55,14,135,34),"",22,foreground)
 	balance.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	summary_button = _button(canvas,Rect2(900,24,150,60),"능력 요약")
+	summary_button = _button(canvas,Rect2(894,18,162,72),"능력 요약")
 	summary_button.pressed.connect(_toggle_summary)
-	close_button = _button(canvas,Rect2(1062,24,114,60),"ESC 닫기")
+	close_button = _button(canvas,Rect2(1056,18,126,72),"ESC 닫기")
 	close_button.pressed.connect(func() -> void: close_requested.emit())
 	for i in DATA.size():
 		var slot: int = DATA[i].display_slot
@@ -106,35 +98,26 @@ func _ready() -> void:
 		canvas.add_child(product)
 		products[i] = product
 	detail_panel = _panel(Rect2(862,241,306,278),"DrinkDetail")
-	detail_title = _label(detail_panel,Rect2(18,14,222,34),"",24,Color.WHITE)
-	var dismiss := _button(detail_panel,Rect2(244,8,54,44),"×")
-	for state in PLAY_BUTTONS:
-		var compact: StyleBox = PLAY_BUTTONS[state].duplicate()
-		compact.content_margin_left = 6
-		compact.content_margin_right = 6
-		compact.content_margin_top = 4
-		compact.content_margin_bottom = 8
-		dismiss.add_theme_stylebox_override(state,compact)
+	detail_title = _label(detail_panel,Rect2(18,14,222,34),"",24,foreground)
+	var dismiss := _button(detail_panel,Rect2(248,6,52,52),"×", &"PixelIconButton")
 	dismiss.add_theme_font_size_override("font_size",18)
 	dismiss.pressed.connect(dismiss_details)
-	detail_count = _label(detail_panel,Rect2(18,53,270,25),"",16,Color("e4eff4"))
-	detail_effect = _label(detail_panel,Rect2(18,92,270,77),"",18,Color("f4eedf"))
+	detail_count = _label(detail_panel,Rect2(18,53,270,25),"",16,secondary)
+	detail_effect = _label(detail_panel,Rect2(18,92,270,77),"",18,foreground)
 	detail_effect.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	detail_status = _label(detail_panel,Rect2(18,174,270,43),"",15,Color("dcebf2"))
+	detail_status = _label(detail_panel,Rect2(18,169,270,36),"",15,secondary)
 	detail_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	for i in range(2,DATA.size()):
-		var unlock := _button(detail_panel,Rect2(18,225,270,38),"")
+		var unlock := _button(detail_panel,Rect2(18,210,270,56),"", &"ActionButton")
 		unlock.name = DATA[i].key + "UnlockButton"
 		unlock.icon = preload("res://src/shared/ui/icons/can_icon.svg")
 		unlock.expand_icon = true
 		unlock.add_theme_constant_override("icon_max_width",18)
-		for state in PLAY_ACTIONS:
-			unlock.add_theme_stylebox_override(state,PLAY_ACTIONS[state])
 		unlock.pressed.connect(func() -> void: unlock_requested.emit(i))
 		buttons[i] = unlock
 	summary_panel = _panel(Rect2(840,88,328,252),"AbilitySummary")
-	_label(summary_panel,Rect2(18,14,290,35),"현재 적용된 능력",23,Color("fff0bd"))
-	summary_label = _label(summary_panel,Rect2(18,61,290,170),"",18,Color("dae4ea"))
+	_label(summary_panel,Rect2(18,14,290,35),"현재 적용된 능력",23,accent)
+	summary_label = _label(summary_panel,Rect2(18,61,290,170),"",18,secondary)
 	summary_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	resized.connect(_layout)
 	_layout()
@@ -160,27 +143,27 @@ func _label(parent: Node, bounds: Rect2, value: String, font_size: int, color: C
 	label.add_theme_font_override("font",FONT)
 	label.add_theme_font_size_override("font_size",font_size)
 	label.add_theme_color_override("font_color",color)
-	label.add_theme_color_override("font_outline_color",Color("12121d"))
+	label.add_theme_color_override(
+		"font_outline_color", get_theme_color("font_outline_color", "Label")
+	)
 	label.add_theme_constant_override("outline_size",2)
 	parent.add_child(label)
 	return label
 
-func _button(parent: Node, bounds: Rect2, value: String) -> Button:
-	var button := Button.new()
+func _button(
+	parent: Node, bounds: Rect2, value: String, style: StringName = &""
+) -> Button:
+	var button := PIXEL_BUTTON.new()
 	button.position = bounds.position
 	button.size = bounds.size
 	button.text = value
-	button.focus_mode = Control.FOCUS_NONE
+	button.focus_mode = Control.FOCUS_ALL
 	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	button.add_theme_font_override("font",FONT)
-	button.add_theme_font_size_override("font_size",18)
+	button.add_theme_font_size_override("font_size",24)
 	button.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	for state in PLAY_BUTTONS:
-		button.add_theme_stylebox_override(state,PLAY_BUTTONS[state])
-	button.add_theme_color_override("font_color",Color.WHITE)
-	button.add_theme_color_override("font_outline_color",Color("12121d"))
+	button.theme_type_variation = style
 	button.add_theme_constant_override("outline_size",2)
-	button.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
 	parent.add_child(button)
 	return button
 

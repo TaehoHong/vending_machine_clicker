@@ -654,8 +654,8 @@
   "notes": [
     "16 controls × 5 states; 79 new assembled masters plus the existing normal price component.",
     "30 frame and 14 icon source masters on the existing 02 asset page.",
-    "New button labels remain native Text; legacy normal price preserves its existing outline source.",
-    "No game scene, theme or logic changes."
+    "All button labels, including the normal price amount, remain editable native Text.",
+    "A styles are connected to current title, play, drink and pause scenes through the shared play theme and pixel_button.gd; gameplay and save rules are preserved."
   ],
   "samples": {
     "groupId": "438228d3-7709-80fa-8008-d10db4647334",
@@ -668,7 +668,10 @@
     "nativeButtonLabels": 64,
     "linkedSamples": 18,
     "uiSaved": true,
-    "gameEngineRun": false
+    "gameEngineRun": true,
+    "nativePriceLabel": true
   },
-  "paletteBoardId": "438228d3-7709-80fa-8008-d11fbc46be89"
+  "paletteBoardId": "438228d3-7709-80fa-8008-d11fbc46be89",
+  "runtimeTheme": "src/shared/ui/themes/play_theme.tres",
+  "runtimeFeedback": "src/shared/ui/pixel_button.gd"
 }

@@ -32,6 +32,27 @@ func make_menu():
 func run_checks() -> void:
 	var menu = make_menu()
 	check(menu.view.load_button.disabled, "Load disabled without saved game")
+	var start_button: Button = menu.view.get_node("MenuBox/NewGameButton")
+	check(start_button.has_focus(), "New Game starts with keyboard focus")
+	var start_bounds: Rect2 = start_button.get_global_rect()
+	var move := InputEventMouseMotion.new()
+	move.position = start_bounds.get_center()
+	root.push_input(move, true)
+	await process_frame
+	var press := InputEventMouseButton.new()
+	press.position = start_bounds.get_center()
+	press.button_index = MOUSE_BUTTON_LEFT
+	press.pressed = true
+	root.push_input(press, true)
+	await process_frame
+	check(start_button.get_global_rect() == start_bounds, "Pressed feedback keeps its hit area")
+	press = press.duplicate()
+	press.pressed = false
+	root.push_input(press, true)
+	await process_frame
+	check(menu.view.has_node("WalletPanel"), "Click passes through the A frame and starts play")
+	menu.free()
+	menu = make_menu()
 	var saved := ConfigFile.new()
 	saved.set_value("progress", "money", 734)
 	saved.set_value("progress", "water_count", 6)
