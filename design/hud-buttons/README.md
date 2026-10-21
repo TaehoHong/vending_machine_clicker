@@ -1,6 +1,6 @@
 # HUD A 버튼
 
-디자인 시트 채택, 게임 화면·테마 연결 전이다. 전체 원본 위치는 [design/README.md](../README.md)를 따른다.
+디자인 시트와 Penpot 01의 29개 게임 화면에 연결했다. 게임 코드·테마 적용은 별도 작업이다. 전체 원본 위치는 [design/README.md](../README.md)를 따른다.
 
 - [공통 버튼 마스터](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers&board-id=d9c1a69c-6a27-809e-8008-d107e6137aa4): 메인 5종·공통 조작·탭·비용·메뉴의 16종 × 5상태. 새 조립 마스터 79개와 기존 가격 기본형을 재사용한다.
 - [팔레트·글꼴](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers&board-id=438228d3-7709-80fa-8008-d11fbc46be89): 승인 24색, Cafe24 PRO UP Regular. 메인 문구 28px·공통 문구 28/24px, 문구 외곽 2.2px.
