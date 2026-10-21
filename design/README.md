@@ -10,8 +10,10 @@
 | --- | --- |
 | [00 · 디자인 시스템](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers) | [팔레트·폰트](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers&board-id=438228d3-7709-80fa-8008-d11fbc46be89), [공통 버튼](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers&board-id=d9c1a69c-6a27-809e-8008-d107e6137aa4), [공통 패널·HUD](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers&board-id=b3f38c37-8163-8042-8008-d10122b08b05) |
 | [01 · 게임 화면](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers) | 현재 채택 화면과 검토 중 화면의 배치·상태 |
-| [02 · 에셋](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers) | 음료·자판기·FX·HUD 프레임·아이콘·출력 조각 |
+| [02 · 에셋](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers) | A HUD, 상품 제외 자판기 본체, 확정 음료 15종, 기존 아트 원본의 네 보드 |
 | [99 · 보관함](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe00be50226&layout=layers) | 이전·미채택 시안. [이전 공통 UI 검토안](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe00be50226&layout=layers&board-id=80a74875-ea87-801d-8008-d12ac018eeb8) 포함 |
+
+02의 이전 검토 보드 7개와 A로 대체된 구형 버튼 4개는 기존 99 보관함으로 이동했다. 현재 화면의 참조와 확정 원본은 유지한다. [이전 재화·가격판 검토 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe00be50226&layout=layers&board-id=cba4763b-9ae7-8052-8008-d2a633070914)은 보관 자료이며 현재 화면 디자인으로 사용하지 않는다.
 
 ## 적용 파일
 
@@ -20,7 +22,7 @@
 | HUD A 버튼 | [규격·ID](hud-buttons/README.md), `src/shared/ui/icons/hud_buttons/` | 01의 29개 화면에 연결, 게임 코드 적용 전 |
 | 가격 버튼 A 기본형 | [원본 안내](purchase-button/README.md) | 공통 버튼 보드에서 재사용 |
 | Play·음료와 능력 화면 | [적용본 안내](drink-screen-references/applied/play-style/README.md) | 현재 게임 적용 |
-| 재화 HUD·가격판 | [안내](currency-hud/README.md) | 현재 게임 적용 |
+| 재화 HUD·가격판 | [표시 규칙·이전 원본 안내](currency-hud/README.md) | 표시 규칙은 게임 적용, 현재 디자인은 00 공통 패널·HUD |
 | 음료·자판기 원본 | [음료 15종](v9/README.md), [자판기](v10/README.md) | 02 에셋의 원본 사용 |
 
 ## 현재 구현 화면 · 2026-10-21
