@@ -9,11 +9,6 @@
       "componentId": "438228d3-7709-80fa-8008-d10a9ddd32c9"
     },
     {
-      "name": "Clicker / UI / Pixel A / Frame / 136x56/hover",
-      "shapeId": "438228d3-7709-80fa-8008-d10a84386599",
-      "componentId": "438228d3-7709-80fa-8008-d10aa63808ba"
-    },
-    {
       "name": "Clicker / UI / Pixel A / Frame / 56x56/normal",
       "shapeId": "438228d3-7709-80fa-8008-d10a8438659d",
       "componentId": "438228d3-7709-80fa-8008-d10aa5d8f99e"
@@ -29,16 +24,6 @@
       "componentId": "438228d3-7709-80fa-8008-d10aa52ec279"
     },
     {
-      "name": "Clicker / UI / Pixel A / Frame / 176x64/focus",
-      "shapeId": "438228d3-7709-80fa-8008-d10a84386596",
-      "componentId": "438228d3-7709-80fa-8008-d10aa665c99b"
-    },
-    {
-      "name": "Clicker / UI / Pixel A / Icon / right",
-      "shapeId": "438228d3-7709-80fa-8008-d10a84386582",
-      "componentId": "438228d3-7709-80fa-8008-d10aad2dba41"
-    },
-    {
       "name": "Clicker / UI / Pixel A / Frame / 144x56/disabled",
       "shapeId": "438228d3-7709-80fa-8008-d10a843865b3",
       "componentId": "438228d3-7709-80fa-8008-d10a9dc49163"
@@ -47,11 +32,6 @@
       "name": "Clicker / UI / Pixel A / Frame / 224x64/hover",
       "shapeId": "438228d3-7709-80fa-8008-d10a843865a5",
       "componentId": "438228d3-7709-80fa-8008-d10aa54693ff"
-    },
-    {
-      "name": "Clicker / UI / Pixel A / Frame / 136x56/focus",
-      "shapeId": "438228d3-7709-80fa-8008-d10a8438659c",
-      "componentId": "438228d3-7709-80fa-8008-d10aa5ed40fa"
     },
     {
       "name": "Clicker / UI / Pixel A / Frame / 192x64/focus",
@@ -64,11 +44,6 @@
       "componentId": "438228d3-7709-80fa-8008-d10a9df486d4"
     },
     {
-      "name": "Clicker / UI / Pixel A / Frame / 176x64 / normal",
-      "shapeId": "438228d3-7709-80fa-8008-d109122284df",
-      "componentId": "438228d3-7709-80fa-8008-d10912233361"
-    },
-    {
       "name": "Clicker / UI / Pixel A / Icon / door",
       "shapeId": "438228d3-7709-80fa-8008-d10a8438658c",
       "componentId": "438228d3-7709-80fa-8008-d10aacbdd8db"
@@ -77,11 +52,6 @@
       "name": "Clicker / UI / Pixel A / Frame / 224x64/normal",
       "shapeId": "438228d3-7709-80fa-8008-d10a843865a3",
       "componentId": "438228d3-7709-80fa-8008-d10aa55dbf75"
-    },
-    {
-      "name": "Clicker / UI / Pixel A / Icon / machine",
-      "shapeId": "438228d3-7709-80fa-8008-d10a84386578",
-      "componentId": "438228d3-7709-80fa-8008-d10aada1a6dc"
     },
     {
       "name": "Clicker / UI / Pixel A / Frame / 192x64/pressed",
@@ -94,11 +64,6 @@
       "componentId": "438228d3-7709-80fa-8008-d10a967697a0"
     },
     {
-      "name": "Clicker / UI / Pixel A / Icon / upgrade",
-      "shapeId": "438228d3-7709-80fa-8008-d10a84386576",
-      "componentId": "438228d3-7709-80fa-8008-d10aadb8d7db"
-    },
-    {
       "name": "Clicker / UI / Pixel A / Frame / 136x56/normal",
       "shapeId": "438228d3-7709-80fa-8008-d10a84386597",
       "componentId": "438228d3-7709-80fa-8008-d10aa64f50b4"
@@ -107,16 +72,6 @@
       "name": "Clicker / UI / Pixel A / Icon / can",
       "shapeId": "438228d3-7709-80fa-8008-d10a84386586",
       "componentId": "438228d3-7709-80fa-8008-d10aacfe8a4d"
-    },
-    {
-      "name": "Clicker / UI / Pixel A / Frame / 176x64/hover",
-      "shapeId": "438228d3-7709-80fa-8008-d10a84386593",
-      "componentId": "438228d3-7709-80fa-8008-d10aa6a8bfdb"
-    },
-    {
-      "name": "Clicker / UI / Pixel A / Frame / 136x56/disabled",
-      "shapeId": "438228d3-7709-80fa-8008-d10a8438659b",
-      "componentId": "438228d3-7709-80fa-8008-d10aa60698f2"
     },
     {
       "name": "Clicker / UI / Pixel A / Frame / 56x56/disabled",
@@ -132,16 +87,6 @@
       "name": "Clicker / UI / Pixel A / Frame / 224x64/focus",
       "shapeId": "438228d3-7709-80fa-8008-d10a843865a8",
       "componentId": "438228d3-7709-80fa-8008-d10aa50451b5"
-    },
-    {
-      "name": "Clicker / UI / Pixel A / Frame / 176x64/pressed",
-      "shapeId": "438228d3-7709-80fa-8008-d10a84386594",
-      "componentId": "438228d3-7709-80fa-8008-d10aa690129d"
-    },
-    {
-      "name": "Clicker / UI / Pixel A / Icon / left",
-      "shapeId": "438228d3-7709-80fa-8008-d10a84386580",
-      "componentId": "438228d3-7709-80fa-8008-d10aad439d84"
     },
     {
       "name": "Clicker / UI / Pixel A / Frame / 192x64/hover",
@@ -169,11 +114,6 @@
       "componentId": "438228d3-7709-80fa-8008-d10aa51a35ad"
     },
     {
-      "name": "Clicker / UI / Pixel A / Icon / trash",
-      "shapeId": "438228d3-7709-80fa-8008-d10a84386584",
-      "componentId": "438228d3-7709-80fa-8008-d10aad14e5c1"
-    },
-    {
       "name": "Clicker / UI / Pixel A / Icon / close",
       "shapeId": "438228d3-7709-80fa-8008-d10a8438657e",
       "componentId": "438228d3-7709-80fa-8008-d10aad5c5066"
@@ -187,16 +127,6 @@
       "name": "Clicker / UI / Pixel A / Frame / 192x64/normal",
       "shapeId": "438228d3-7709-80fa-8008-d10a843865a9",
       "componentId": "438228d3-7709-80fa-8008-d10a9e8751ab"
-    },
-    {
-      "name": "Clicker / UI / Pixel A / Frame / 176x64/disabled",
-      "shapeId": "438228d3-7709-80fa-8008-d10a84386595",
-      "componentId": "438228d3-7709-80fa-8008-d10aa679d867"
-    },
-    {
-      "name": "Clicker / UI / Pixel A / Icon / back",
-      "shapeId": "438228d3-7709-80fa-8008-d10a8438657c",
-      "componentId": "438228d3-7709-80fa-8008-d10aad73ba6b"
     },
     {
       "name": "Clicker / UI / Pixel A / Frame / 56x56/pressed",
@@ -214,16 +144,6 @@
       "componentId": "438228d3-7709-80fa-8008-d10aa5c0c73a"
     },
     {
-      "name": "Clicker / UI / Pixel A / Icon / map",
-      "shapeId": "438228d3-7709-80fa-8008-d10a84386572",
-      "componentId": "438228d3-7709-80fa-8008-d10aade47240"
-    },
-    {
-      "name": "Clicker / UI / Pixel A / Frame / 136x56/pressed",
-      "shapeId": "438228d3-7709-80fa-8008-d10a8438659a",
-      "componentId": "438228d3-7709-80fa-8008-d10aa61f14ea"
-    },
-    {
       "name": "UI / HUD/가격 LCD",
       "shapeId": "8e4548c6-4cd1-8076-8008-ceef6c0920ba",
       "componentId": "8e4548c6-4cd1-8076-8008-ceef6c094af7",
@@ -238,24 +158,6 @@
   "commonBoardId": "b1fb0fb9-8b3e-80e3-8008-d383e5fd8f92",
   "masters": [
     {
-      "name": "UI / 버튼/자동화",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697fe",
-      "componentId": "438228d3-7709-80fa-8008-d10b6d43a501",
-      "state": "disabled"
-    },
-    {
-      "name": "UI / 버튼/지도",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697e6",
-      "componentId": "438228d3-7709-80fa-8008-d10b6b89bc85",
-      "state": "normal"
-    },
-    {
-      "name": "UI / 버튼/지도",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697ea",
-      "componentId": "438228d3-7709-80fa-8008-d10b6bede98b",
-      "state": "focus"
-    },
-    {
       "name": "UI / 버튼/능력",
       "shapeId": "438228d3-7709-80fa-8008-d10b50b697f0",
       "componentId": "438228d3-7709-80fa-8008-d10b6c4cd0c7",
@@ -266,18 +168,6 @@
       "shapeId": "438228d3-7709-80fa-8008-d10b50b69806",
       "componentId": "438228d3-7709-80fa-8008-d10b6ddb7f78",
       "state": "focus"
-    },
-    {
-      "name": "UI / 버튼/강화",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697f7",
-      "componentId": "438228d3-7709-80fa-8008-d10b6cc88ea3",
-      "state": "disabled"
-    },
-    {
-      "name": "UI / 버튼/자동화",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697fc",
-      "componentId": "438228d3-7709-80fa-8008-d10b6d0e87fc",
-      "state": "hover"
     },
     {
       "name": "UI / 버튼/메뉴",
@@ -292,24 +182,6 @@
       "state": "hover"
     },
     {
-      "name": "UI / 버튼/강화",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697f8",
-      "componentId": "438228d3-7709-80fa-8008-d10b6cdeb292",
-      "state": "focus"
-    },
-    {
-      "name": "UI / 버튼/자동화",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697ff",
-      "componentId": "438228d3-7709-80fa-8008-d10b6d5cbcf5",
-      "state": "focus"
-    },
-    {
-      "name": "UI / 버튼/지도",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697e8",
-      "componentId": "438228d3-7709-80fa-8008-d10b6bbd1029",
-      "state": "pressed"
-    },
-    {
       "name": "UI / 버튼/능력",
       "shapeId": "438228d3-7709-80fa-8008-d10b50b697ed",
       "componentId": "438228d3-7709-80fa-8008-d10b6c04f61b",
@@ -322,45 +194,9 @@
       "state": "hover"
     },
     {
-      "name": "UI / 버튼/강화",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697f6",
-      "componentId": "438228d3-7709-80fa-8008-d10b6caeffe3",
-      "state": "pressed"
-    },
-    {
-      "name": "UI / 버튼/자동화",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697fd",
-      "componentId": "438228d3-7709-80fa-8008-d10b6d2a8822",
-      "state": "pressed"
-    },
-    {
-      "name": "UI / 버튼/강화",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697f5",
-      "componentId": "438228d3-7709-80fa-8008-d10b6c96a780",
-      "state": "hover"
-    },
-    {
-      "name": "UI / 버튼/지도",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697e7",
-      "componentId": "438228d3-7709-80fa-8008-d10b6ba436ef",
-      "state": "hover"
-    },
-    {
-      "name": "UI / 버튼/자동화",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697fb",
-      "componentId": "438228d3-7709-80fa-8008-d10b6cf796d9",
-      "state": "normal"
-    },
-    {
       "name": "UI / 버튼/메뉴",
       "shapeId": "438228d3-7709-80fa-8008-d10b50b69802",
       "componentId": "438228d3-7709-80fa-8008-d10b6d7414ad",
-      "state": "normal"
-    },
-    {
-      "name": "UI / 버튼/강화",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697f4",
-      "componentId": "438228d3-7709-80fa-8008-d10b6c7cb620",
       "state": "normal"
     },
     {
@@ -368,12 +204,6 @@
       "shapeId": "438228d3-7709-80fa-8008-d10b50b697ef",
       "componentId": "438228d3-7709-80fa-8008-d10b6c349d5e",
       "state": "pressed"
-    },
-    {
-      "name": "UI / 버튼/지도",
-      "shapeId": "438228d3-7709-80fa-8008-d10b50b697e9",
-      "componentId": "438228d3-7709-80fa-8008-d10b6bd45b57",
-      "state": "disabled"
     },
     {
       "name": "UI / 버튼/능력",
@@ -388,52 +218,16 @@
       "state": "pressed"
     },
     {
-      "name": "UI / 버튼/이전",
-      "shapeId": "438228d3-7709-80fa-8008-d10bbbf333ee",
-      "componentId": "438228d3-7709-80fa-8008-d10c4b5550a0",
-      "state": "normal"
-    },
-    {
       "name": "UI / 버튼/닫기",
       "shapeId": "438228d3-7709-80fa-8008-d10bbbf333e7",
       "componentId": "438228d3-7709-80fa-8008-d10c0c2e5455",
       "state": "normal"
     },
     {
-      "name": "UI / 버튼/이전",
-      "shapeId": "438228d3-7709-80fa-8008-d10bbbf333ef",
-      "componentId": "438228d3-7709-80fa-8008-d10c4e6ca4d9",
-      "state": "hover"
-    },
-    {
-      "name": "UI / 버튼/이전",
-      "shapeId": "438228d3-7709-80fa-8008-d10bbbf333f2",
-      "componentId": "438228d3-7709-80fa-8008-d10c57b2d720",
-      "state": "focus"
-    },
-    {
-      "name": "UI / 버튼/이전",
-      "shapeId": "438228d3-7709-80fa-8008-d10bbbf333f1",
-      "componentId": "438228d3-7709-80fa-8008-d10c5499ff64",
-      "state": "disabled"
-    },
-    {
       "name": "UI / 버튼/닫기",
       "shapeId": "438228d3-7709-80fa-8008-d10bbbf333eb",
       "componentId": "438228d3-7709-80fa-8008-d10c41c2513d",
       "state": "focus"
-    },
-    {
-      "name": "UI / 버튼/뒤로",
-      "shapeId": "438228d3-7709-80fa-8008-d10bbbf333e3",
-      "componentId": "438228d3-7709-80fa-8008-d10c06094f3b",
-      "state": "disabled"
-    },
-    {
-      "name": "UI / 버튼/뒤로",
-      "shapeId": "438228d3-7709-80fa-8008-d10bbbf333e1",
-      "componentId": "438228d3-7709-80fa-8008-d10bffe4888d",
-      "state": "hover"
     },
     {
       "name": "UI / 버튼/닫기",
@@ -448,46 +242,10 @@
       "state": "hover"
     },
     {
-      "name": "UI / 버튼/이전",
-      "shapeId": "438228d3-7709-80fa-8008-d10bbbf333f0",
-      "componentId": "438228d3-7709-80fa-8008-d10c5183a002",
-      "state": "pressed"
-    },
-    {
-      "name": "UI / 버튼/뒤로",
-      "shapeId": "438228d3-7709-80fa-8008-d10bbbf333e2",
-      "componentId": "438228d3-7709-80fa-8008-d10c02f8ef0f",
-      "state": "pressed"
-    },
-    {
-      "name": "UI / 버튼/뒤로",
-      "shapeId": "438228d3-7709-80fa-8008-d10bbbf333e0",
-      "componentId": "438228d3-7709-80fa-8008-d10bfcd1e960",
-      "state": "normal"
-    },
-    {
       "name": "UI / 버튼/닫기",
       "shapeId": "438228d3-7709-80fa-8008-d10bbbf333ea",
       "componentId": "438228d3-7709-80fa-8008-d10c15616851",
       "state": "disabled"
-    },
-    {
-      "name": "UI / 버튼/뒤로",
-      "shapeId": "438228d3-7709-80fa-8008-d10bbbf333e4",
-      "componentId": "438228d3-7709-80fa-8008-d10c091bf9cb",
-      "state": "focus"
-    },
-    {
-      "name": "UI / 버튼/다음",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc665596b",
-      "componentId": "438228d3-7709-80fa-8008-d10c784b0c1d",
-      "state": "focus"
-    },
-    {
-      "name": "UI / 버튼/다음",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc6655968",
-      "componentId": "438228d3-7709-80fa-8008-d10c5ddebf59",
-      "state": "hover"
     },
     {
       "name": "UI / HUD/가격 LCD",
@@ -496,34 +254,10 @@
       "state": "pressed"
     },
     {
-      "name": "UI / 버튼/다음",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc6655967",
-      "componentId": "438228d3-7709-80fa-8008-d10c5ac8db66",
-      "state": "normal"
-    },
-    {
-      "name": "UI / 버튼/자판기 탭",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc6655972",
-      "componentId": "438228d3-7709-80fa-8008-d10c8f559f52",
-      "state": "focus"
-    },
-    {
-      "name": "UI / 버튼/다음",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc665596a",
-      "componentId": "438228d3-7709-80fa-8008-d10c6409be2e",
-      "state": "disabled"
-    },
-    {
       "name": "UI / HUD/가격 LCD",
       "shapeId": "438228d3-7709-80fa-8008-d10bc6655980",
       "componentId": "438228d3-7709-80fa-8008-d10cab2450f1",
       "state": "focus"
-    },
-    {
-      "name": "UI / 버튼/자판기 탭",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc665596e",
-      "componentId": "438228d3-7709-80fa-8008-d10c7b5ef8e9",
-      "state": "normal"
     },
     {
       "name": "UI / HUD/가격 LCD",
@@ -536,60 +270,6 @@
       "shapeId": "438228d3-7709-80fa-8008-d10bc665597f",
       "componentId": "438228d3-7709-80fa-8008-d10ca80e2905",
       "state": "disabled"
-    },
-    {
-      "name": "UI / 버튼/회수함 탭",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc6655976",
-      "componentId": "438228d3-7709-80fa-8008-d10c95861de6",
-      "state": "hover"
-    },
-    {
-      "name": "UI / 버튼/회수함 탭",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc6655975",
-      "componentId": "438228d3-7709-80fa-8008-d10c926bea51",
-      "state": "normal"
-    },
-    {
-      "name": "UI / 버튼/회수함 탭",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc6655978",
-      "componentId": "438228d3-7709-80fa-8008-d10c9bb36c61",
-      "state": "disabled"
-    },
-    {
-      "name": "UI / 버튼/다음",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc6655969",
-      "componentId": "438228d3-7709-80fa-8008-d10c60f46b42",
-      "state": "pressed"
-    },
-    {
-      "name": "UI / 버튼/자판기 탭",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc6655970",
-      "componentId": "438228d3-7709-80fa-8008-d10c818135f2",
-      "state": "pressed"
-    },
-    {
-      "name": "UI / 버튼/자판기 탭",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc6655971",
-      "componentId": "438228d3-7709-80fa-8008-d10c84936448",
-      "state": "disabled"
-    },
-    {
-      "name": "UI / 버튼/회수함 탭",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc6655977",
-      "componentId": "438228d3-7709-80fa-8008-d10c989e3582",
-      "state": "pressed"
-    },
-    {
-      "name": "UI / 버튼/회수함 탭",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc6655979",
-      "componentId": "438228d3-7709-80fa-8008-d10c9ec97947",
-      "state": "focus"
-    },
-    {
-      "name": "UI / 버튼/자판기 탭",
-      "shapeId": "438228d3-7709-80fa-8008-d10bc665596f",
-      "componentId": "438228d3-7709-80fa-8008-d10c7e7150d9",
-      "state": "hover"
     },
     {
       "name": "UI / 버튼/타이틀",
@@ -733,20 +413,20 @@
   "legacyPriceComponentId": "8e4548c6-4cd1-8076-8008-ceef6c094af7",
   "notes": [
     "Component masters are owned by 02 assets; 00 previews and 01 screens use linked instances.",
-    "18 native variant sets contain 89 states. State changes preserve matching child text overrides.",
+    "10 native variant sets contain 49 states. State changes preserve matching child text overrides.",
     "Existing main instance and component IDs are preserved; moved board/container IDs are updated.",
     "New design is not applied to the game. Runtime code, assets and tests remain at the pre-task baseline."
   ],
   "samples": {
-    "groupId": "438228d3-7709-80fa-8008-d10db4647334",
-    "count": 18,
-    "nativeFontSample": true
+    "pageId": "490e660f-738c-80e7-8008-d0f0d410a6b5",
+    "buttonBoardId": "b1fb0fb9-8b3e-80e3-8008-d384ceb4bf36",
+    "panelBoardId": "b1fb0fb9-8b3e-80e3-8008-d3862cdbb8e2"
   },
   "verification": {
     "verifiedAt": "2026-10-22",
-    "nativeVariantSets": 18,
-    "variantStates": 89,
-    "currentAssetMasters": 198,
+    "nativeVariantSets": 10,
+    "variantStates": 49,
+    "currentAssetMasters": 133,
     "sourceChangePropagatesTo00And01": true,
     "variantTextOverridePreserved": true,
     "unlinkedRasterAssetsIn00And01": 0,
@@ -754,7 +434,9 @@
     "mastersOutside02ReferencedBy00And01": 0,
     "fileValidationIssues": 0,
     "uiSaved": true,
-    "renderedSourceReviewed": true
+    "renderedSourceReviewed": true,
+    "unusedAfterDependencyAndVariantClosure": 0,
+    "screenStructureAndAppearanceDifferences": 0
   },
   "paletteBoardId": "438228d3-7709-80fa-8008-d11fbc46be89",
   "runtimeTheme": "src/shared/ui/themes/play_theme.tres",
@@ -810,44 +492,8 @@
       ]
     },
     {
-      "name": "UI / 버튼 / 뒤로",
-      "containerId": "b1fb0fb9-8b3e-80e3-8008-d383e5fd8f97",
-      "property": "State",
-      "states": [
-        "focus",
-        "disabled",
-        "pressed",
-        "hover",
-        "normal"
-      ]
-    },
-    {
       "name": "UI / 버튼 / 닫기",
       "containerId": "b1fb0fb9-8b3e-80e3-8008-d383e5fd8f99",
-      "property": "State",
-      "states": [
-        "focus",
-        "disabled",
-        "pressed",
-        "hover",
-        "normal"
-      ]
-    },
-    {
-      "name": "UI / 버튼 / 이전",
-      "containerId": "b1fb0fb9-8b3e-80e3-8008-d383e5fd8f9b",
-      "property": "State",
-      "states": [
-        "focus",
-        "disabled",
-        "pressed",
-        "hover",
-        "normal"
-      ]
-    },
-    {
-      "name": "UI / 버튼 / 다음",
-      "containerId": "b1fb0fb9-8b3e-80e3-8008-d383e5fd8f9d",
       "property": "State",
       "states": [
         "focus",
@@ -906,66 +552,6 @@
       ]
     },
     {
-      "name": "UI / 버튼 / 지도",
-      "containerId": "b1fb0fb9-8b3e-80e3-8008-d383e5fd8fa7",
-      "property": "State",
-      "states": [
-        "focus",
-        "disabled",
-        "pressed",
-        "hover",
-        "normal"
-      ]
-    },
-    {
-      "name": "UI / 버튼 / 강화",
-      "containerId": "b1fb0fb9-8b3e-80e3-8008-d383e5fd8fa9",
-      "property": "State",
-      "states": [
-        "focus",
-        "disabled",
-        "pressed",
-        "hover",
-        "normal"
-      ]
-    },
-    {
-      "name": "UI / 버튼 / 자동화",
-      "containerId": "b1fb0fb9-8b3e-80e3-8008-d383e5fd8fab",
-      "property": "State",
-      "states": [
-        "focus",
-        "disabled",
-        "pressed",
-        "hover",
-        "normal"
-      ]
-    },
-    {
-      "name": "UI / 버튼 / 자판기 탭",
-      "containerId": "b1fb0fb9-8b3e-80e3-8008-d383e5fd8fad",
-      "property": "State",
-      "states": [
-        "focus",
-        "disabled",
-        "pressed",
-        "hover",
-        "normal"
-      ]
-    },
-    {
-      "name": "UI / 버튼 / 회수함 탭",
-      "containerId": "b1fb0fb9-8b3e-80e3-8008-d383e5fd8faf",
-      "property": "State",
-      "states": [
-        "focus",
-        "disabled",
-        "pressed",
-        "hover",
-        "normal"
-      ]
-    },
-    {
       "name": "UI / 버튼 / 보상",
       "containerId": "b1fb0fb9-8b3e-80e3-8008-d383e5fd8fb1",
       "property": "State",
@@ -1006,37 +592,41 @@
     "audit": [
       {
         "page": "00 · 디자인 시스템",
-        "roots": 3,
         "main": 0,
-        "copy": 266,
-        "rawImages": 0,
+        "copy": 144,
         "missing": 0,
-        "external": 0,
-        "variantSets": 0
+        "archiveRefs": 0,
+        "raw": 0
       },
       {
         "page": "01 · 게임 화면",
-        "roots": 29,
         "main": 0,
         "copy": 1728,
-        "rawImages": 0,
         "missing": 0,
-        "external": 0,
-        "variantSets": 0
+        "archiveRefs": 0,
+        "raw": 0
       },
       {
         "page": "02 · 에셋",
-        "roots": 4,
-        "main": 198,
-        "copy": 252,
-        "rawImages": 0,
+        "main": 133,
+        "copy": 122,
         "missing": 0,
-        "external": 0,
-        "variantSets": 18
+        "archiveRefs": 0,
+        "raw": 0
       }
     ],
     "sourceChangePropagatesTo00And01": true,
     "variantTextOverridePreserved": true,
     "gameApplied": false
+  },
+  "cleanup": {
+    "verifiedAt": "2026-10-22",
+    "archivedPageId": "6587dfe1-cdcc-8063-8008-cfe00be50226",
+    "archivedBoardId": "b1fb0fb9-8b3e-80e3-8008-d38b86488494",
+    "archivedMasters": 65,
+    "mainAndComponentIdsPreserved": true,
+    "usageRoots": "01 adopted screens plus required variant states and nested source components; preview-only references excluded",
+    "unchangedScreenBoards": 29,
+    "removedDuplicateSampleInstances": 18
   }
 }

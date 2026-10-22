@@ -15,7 +15,7 @@
 
 02의 이전 검토 보드 7개와 A로 대체된 구형 버튼 4개는 기존 99 보관함으로 이동했다. 현재 화면의 참조와 확정 원본은 유지한다. [이전 재화·가격판 검토 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe00be50226&layout=layers&board-id=cba4763b-9ae7-8052-8008-d2a633070914)은 보관 자료이며 현재 화면 디자인으로 사용하지 않는다.
 
-컴포넌트 원본: [버튼](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers&board-id=b1fb0fb9-8b3e-80e3-8008-d383e5fd8f92), [패널·HUD·LCD](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers&board-id=b1fb0fb9-8b3e-80e3-8008-d3844c04d0ca). 00의 버튼·패널은 이 원본의 인스턴스 견본이다. 18개 베리언트 세트는 `State`로 전환한다. 원본 변경 전파·문구 오버라이드 보존을 검증했다. 이전 화면 4개와 교체된 구형 UI는 기존 99로 옮겼다.
+컴포넌트 원본: [버튼](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers&board-id=b1fb0fb9-8b3e-80e3-8008-d383e5fd8f92), [패널·HUD·LCD](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers&board-id=b1fb0fb9-8b3e-80e3-8008-d3844c04d0ca). 00의 버튼·패널은 이 원본의 인스턴스 견본이다. 10개 베리언트 세트는 `State`로 전환한다. 원본 변경 전파·문구 오버라이드 보존을 검증했다. 이전 화면 4개와 교체된 구형 UI는 기존 99로 옮겼다. 미사용 원본 65개를 추가로 보관해 현재 원본은 133개다. 사용 여부는 01 화면·필수 상태·중첩 원본으로 판단하며 견본만의 참조는 제외한다.
 
 ## 적용 파일
 
