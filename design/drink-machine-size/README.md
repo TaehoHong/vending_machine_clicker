@@ -1,5 +1,7 @@
 # 중앙 자판기 확대 배치도 · 2026-10-20
 
+> 2026-10-20 페이지 정리: 현재 원본 위치는 [페이지·에셋 정리 기록](../page-organization/README.md)을 따른다. 아래 Y 좌표·페이지 이름·생성 manifest는 작성 당시 기록이며, Penpot 링크는 현재 위치로 갱신했다.
+
 선택 전 크기 비교안이다. 게임 코드와 확정 기획은 변경하지 않았다. 완성 아트 대신 단순 도형으로 자판기·15종 음료·배출구를 표현한다.
 
 기준 화면 1200×760, 현재 자판기 384×576. 모든 안은 2:3 비율, 중심 X=600, 바닥 Y=711을 유지한다. 제목·빈캔 HUD·요약·ESC·선택 정보창 위치와 크기는 동일하다. 표의 크기는 기준 디자인 좌표의 값이며 실제 창에서는 전체 화면과 함께 비례 조정된다.
@@ -14,4 +16,4 @@ B는 음료 선택 영역과 여백의 균형을 고려한 추천이다. A는 �
 
 [전체 비교 PNG](comparison.png) · [A SVG](a.svg) · [B SVG](b.svg) · [C SVG](c.svg) · [편집 갤러리 SVG](editable-gallery.svg) · [재생성 소스](build.py)
 
-[Penpot 통합 시안 페이지](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe19a746796&layout=layers) X=-1528, Y=10600에 3안의 편집 가능한 도형·문구를 추가했다. [동기화 화면](penpot-synced.png). 이전 채택본은 위쪽 Y=9400에 유지한다. 미확정 디자인 비교이므로 Notion 확정 규칙은 변경하지 않았다.
+[Penpot 통합 시안 페이지](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=6d00bd1a-d292-8094-8008-d0fa07b44d51) 현재 01 · 게임 화면의 X=0, Y=4300에 3안의 편집 가능한 도형·문구를 보관한다. [동기화 화면](penpot-synced.png). 채택된 Play 스타일 화면은 같은 01 페이지의 Y=3200에 있다. 미확정 디자인 비교이므로 Notion 확정 규칙은 변경하지 않았다.

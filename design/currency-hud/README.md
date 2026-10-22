@@ -1,7 +1,10 @@
-# 재화 HUD 축약 표기 · 현재 채택본 (2026-10-19)
+# 재화 HUD 표시 규칙·이전 디자인 기록
+
+> 2026-10-20 페이지 정리: 현재 원본 위치는 [페이지·에셋 정리 기록](../page-organization/README.md)을 따른다. 아래 Y 좌표·페이지 이름·생성 manifest는 작성 당시 기록이며, Penpot 링크는 현재 위치로 갱신했다.
 
 - 편집 가능한 원본: `gold-hud-compact.svg` (네이티브 도형·텍스트).
-- 연결 Penpot: [04 · 재화 HUD · 축약 표기](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfd0f79b9bd3&layout=layers). 그룹 `HUD · 골드 축약 · 채택 2026-10-19`; 편집 가능한 SVG 도형·텍스트로 반영했다. 기존 페이지는 보존한다.
+- 현재 디자인: [00 공통 패널·HUD](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers&board-id=b3f38c37-8163-8042-8008-d10122b08b05). 표시 규칙의 게임 적용 여부와 디자인 원본의 채택 상태를 구분한다.
+- 이전 검토 원본: [99 보관함 · 재화·가격판](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe00be50226&layout=layers&board-id=cba4763b-9ae7-8052-8008-d2a633070914). 02 에셋의 중복 검토 보드를 보관함으로 옮겼으며, 아래 SVG·캡처·좌표는 작성 당시 기록이다.
 - 기획 동기화: [Notion](https://app.notion.com/p/3fcb6b9ead24800aa7bce8a1e1b045de)의 `2026-10-19 · 골드 HUD 표시와 음료 구매 가격 검토` 절. 확정 규칙과 미확정 가격 제안을 구분했으며 새로고침 후 저장된 내용을 확인했다.
 - 동기화 증거: `penpot-synced.png`, `notion-synced.png`.
 - 실제 게임 미리보기: `gold-10000.png`, `gold-999999.png` 등. 이전 `design/font-cafe24/play.png`는 축약 전 상태 기록이다.

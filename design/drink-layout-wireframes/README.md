@@ -1,5 +1,7 @@
 # 중앙 자판기 + 선택 정보 카드 · 단순 배치도 · 2026-10-19
 
+> 2026-10-20 페이지 정리: 현재 원본 위치는 [페이지·에셋 정리 기록](../page-organization/README.md)을 따른다. 아래 Y 좌표·페이지 이름·생성 manifest는 작성 당시 기록이며, Penpot 링크는 현재 위치로 갱신했다.
+
 현재 게임 자판기 아트를 넣은 후속 [미리보기·정확한 비율의 편집 원본](game-machine-preview/README.md)을 추가했다. 게임 표시의 기본 크기 384×576, 2:3이며 Penpot Y=6400에서 확인할 수 있다. 아래 순수 배치도는 유지한다.
 
 ## 최신 A 수정 · 캔 배지 제거
@@ -20,4 +22,4 @@ Penpot 동일 페이지 Y=5400에 최신 A 원본을 추가했다. [Penpot 확�
 
 결정적인 도형 배치를 직접 생성했다. [생성 소스](build.py), [편집용 전체 SVG](editable-gallery.svg). imagegen으로 생성한 완성 이미지가 아니다. 1200×760의 세 배치도이며 SVG 도형·텍스트를 직접 수정할 수 있다.
 
-[Penpot 통합 시안 페이지](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe19a746796&layout=layers)의 X=-1528, Y=4400에 3종 편집 원본을 추가했다. [확인](penpot-synced.png). Notion에는 이전 기록 아래 최신 동의 방향을 추가했으며 기존 동일 크기 박스안을 미채택으로 명시했다. [Notion 확인](notion-synced.png). PRODUCT.md·DESIGN.md도 이 구분을 반영했다.
+[Penpot 통합 시안 페이지](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe00be50226&layout=layers)의 X=-1528, Y=4400에 3종 편집 원본을 추가했다. [확인](penpot-synced.png). Notion에는 이전 기록 아래 최신 동의 방향을 추가했으며 기존 동일 크기 박스안을 미채택으로 명시했다. [Notion 확인](notion-synced.png). PRODUCT.md·DESIGN.md도 이 구분을 반영했다.

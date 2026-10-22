@@ -1,5 +1,7 @@
 # 이전 낮 레퍼런스 1번 · 게임 적용본 · 2026-10-19
 
+> 2026-10-20 페이지 정리: 현재 원본 위치는 [페이지·에셋 정리 기록](../../page-organization/README.md)을 따른다. 아래 Y 좌표·페이지 이름·생성 manifest는 작성 당시 기록이며, Penpot 링크는 현재 위치로 갱신했다.
+
 **최신 채택본은 [Play 픽셀 스타일 통일](play-style/README.md)이다.** 아래의 단순 남색 패널·금색 추가 버튼·Play의 음료수 추가 버튼은 대체되었다. 클릭 전용 정보·자판기 원본 비율·기존 게임 규칙은 유지한다.
 
 사용자 확정 3가지: 1번 낮 디자인 적용, 마우스 클릭 시에만 음료 정보창 표시, 자판기와 정보창 연결선 제거. 구현은 `ui/skill_tree.gd`와 `game.gd`다.
@@ -18,7 +20,7 @@
 ## 원본·동기화
 
 - [초기 상태 SVG](initial.svg), [클릭 상태 SVG](locked-selected.svg), [전체 상태 SVG](editable-states.svg), [생성 소스](build_sources.py). 배경·자판기는 원본 PNG, 패널·문구·선택 테두리는 편집 가능한 도형·텍스트다. 연결선 없음.
-- [Penpot 통합 페이지](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe19a746796&layout=layers)의 Y=8400에 상태 원본을 추가했다. 중복 이미지 가져오기 누락은 선택 상태를 별도 가져와 보완했다. [Penpot 확인](penpot-synced.png).
+- [Penpot 통합 페이지](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe00be50226&layout=layers&board-id=6d00bd1a-d292-8094-8008-d0fa5a47cfe3)의 Y=8400에 상태 원본을 추가했다. 중복 이미지 가져오기 누락은 선택 상태를 별도 가져와 보완했다. [Penpot 확인](penpot-synced.png).
 - Notion의 최신 디자인 기록을 적용 완료로 갱신했다. [확인](notion-synced.png). PRODUCT.md·DESIGN.md·design/README.md에도 반영했다. 이전 미적용·연결선 시안은 기록으로 유지한다.
 
 ## 검증

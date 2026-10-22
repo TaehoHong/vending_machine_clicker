@@ -1,10 +1,12 @@
 # A 배치도 · 실제 게임 자판기 적용 미리보기 · 2026-10-19
 
+> 2026-10-20 페이지 정리: 현재 원본 위치는 [페이지·에셋 정리 기록](../../page-organization/README.md)을 따른다. 아래 Y 좌표·페이지 이름·생성 manifest는 작성 당시 기록이며, Penpot 링크는 현재 위치로 갱신했다.
+
 사용자 요청: 최신 A 배치도의 중앙 자판기를 현재 게임 이미지로 교체하고 크기·비율을 임의 변경하지 않는다. 오른쪽 선택 카드와 나머지 배치는 유지한다. 게임 코드는 변경하지 않았다.
 
 - [이미지 미리보기](preview.png): built-in imagegen 편집. [프롬프트](prompt.txt). A의 흑백 UI와 실제 자판기 아트를 함께 보는 시각 레퍼런스다.
 - [편집 원본](layout.svg), [재생성 소스](build_source.py): 현재 게임의 `images/vending_approved_15.png` 원본을 데이터 URI로 그대로 포함했다. 자판기 원본 자체를 다시 그리거나 잘라내지 않았다.
 - 원본 이미지 1024×1536, 비율 2:3. `game.gd::_position_coin_slot()`의 화면 배율 적용 전 디자인 표시 크기 384×576을 원본 SVG에 그대로 지정했다. 게임의 실제 창에서는 배경 배율 factor가 곱해진다. 원본에는 x=408, y=135에 배치했다. A의 470×520 자리표시 직사각형에 맞춰 찌그러뜨리지 않는다.
 - 원본 크기·비율의 정확한 기준은 SVG다. AI PNG는 생성 과정의 크기 오차가 있을 수 있는 시각 레퍼런스다. 이 작업은 실제 게임 캡처나 게임 UI 구현이 아니다.
-- [Penpot 통합 시안 페이지](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe19a746796&layout=layers)의 X=-1528, Y=6400에 원본 이미지가 포함된 편집 레이아웃을 추가하고 실제 표시를 확인했다. [확인](penpot-synced.png).
+- [Penpot 통합 시안 페이지](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe00be50226&layout=layers&board-id=6d00bd1a-d292-8094-8008-d0fa44bb4585)의 X=-1528, Y=6400에 원본 이미지가 포함된 편집 레이아웃을 추가하고 실제 표시를 확인했다. [확인](penpot-synced.png).
 - 캔 배지 없음·선택 카드에서만 비용 확인 등 기존 기획은 변경하지 않았다. 따라서 Notion 확정 규칙은 이번 이미지 제작에서 수정하지 않았다.
