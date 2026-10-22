@@ -578,8 +578,8 @@
   },
   "historicalRecordsNote": "partMains, assemblyChildren and verification below record the prior decomposition. They are superseded by currentConsolidation.",
   "currentConsolidation": {
-    "bodyBoardId": "279b3413-f49b-8006-8008-cefcc175445c",
-    "bodyBoardName": "자판기 본체 · 상품 제외",
+    "bodyBoardId": "6d00bd1a-d292-8094-8008-d0f9501e779e",
+    "bodyBoardName": "자판기 / 본체·진열 조립 / 원본",
     "mergedBodyMainId": "bc6ae191-dc09-8041-8008-cf0ab4c1d40c",
     "sourceBEmptyMainId": "bc6ae191-dc09-8041-8008-cf0ba90d335e",
     "removedPartMainCount": 36,
@@ -587,6 +587,10 @@
     "drinkMainIdsPreserved": true,
     "previousAssemblyMainAndCopyFoundInCurrentLayerSearch": false,
     "preservedIntegratedBoardId": "279b3413-f49b-8006-8008-cefe5331a7e9",
-    "proof": "design/review/ability-unlock/bodies-merged-editor.png"
+    "proof": "design/review/ability-unlock/bodies-merged-editor.png",
+    "mergedBodyRole": "445×524 본체·확정 음료 15종 연결 조립",
+    "sourceBEmptyRole": "445×524 조작부 확대 · 상품 제외",
+    "verifiedAt": "2026-10-22",
+    "gameApplied": false
   }
 }

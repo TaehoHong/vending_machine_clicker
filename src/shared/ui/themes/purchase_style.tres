@@ -1,14 +1,15 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=3]
 
-[ext_resource type="Texture2D" path="res://src/shared/ui/icons/purchase_frame.svg" id="1"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/144x56_normal.svg" id="1"]
 
 [resource]
 texture = ExtResource("1")
-texture_margin_left = 38.0
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 18.0
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 20.0
-content_margin_bottom = 16.0
+region_rect = Rect2(6, 6, 144, 56)
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 22.0
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 20.0

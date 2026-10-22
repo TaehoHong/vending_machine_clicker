@@ -8,6 +8,7 @@ signal exit_requested
 
 
 func _ready() -> void:
+	$MenuBox/Accent.color = get_theme_color("accent_color", "Label")
 	$MenuBox/NewGameButton.grab_focus()
 
 

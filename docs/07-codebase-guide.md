@@ -4,7 +4,7 @@
 
 ## 탐색 순서
 
-관련 행의 근거 경로에 커밋·staged·unstaged 변경이 있는지 먼저 확인한다. 대상 소유자·직접 호출자/피호출자·공유 예시·테스트를 읽고 소유권이 없거나 모순될 때만 검색을 넓힌다. 예: 구매 가격은 `game_session.purchase` → `economy_rules.current_draw_price` → Play 구매 요청 → 구매/저장 테스트 순서로 확인한다. 예전 루트 game.gd·ui/ 경로에 새 기능을 만들지 않는다. 승인된 미적용 HUD SVG는 `src/shared/ui/icons/hud_buttons/`에 있으며 연결 안내는 `design/hud-buttons/README.md`다.
+관련 행의 근거 경로에 커밋·staged·unstaged 변경이 있는지 먼저 확인한다. 대상 소유자·직접 호출자/피호출자·공유 예시·테스트를 읽고 소유권이 없거나 모순될 때만 검색을 넓힌다. 예: 구매 가격은 `game_session.purchase` → `economy_rules.current_draw_price` → Play 구매 요청 → 구매/저장 테스트 순서로 확인한다. 예전 루트 game.gd·ui/ 경로에 새 기능을 만들지 않는다. 게임에 연결된 A HUD SVG는 `src/shared/ui/icons/hud_buttons/`에 있으며 연결 안내는 `design/hud-buttons/README.md`다.
 
 ## 모듈 맵
 
@@ -20,7 +20,7 @@
 | 시각 효과 | src/features/play/effects/ | 세션의 결과를 표현, 별도 보상 지급 안 함 | coin_effect, drink_dispense, search_fever, punch_fever | src/features/play/effects/, src/features/play/play.gd |
 | 저장·호환 | src/integrations/saves/progress_store.gd `write`, `load_into`, `exists`, `backup` | 기존 ConfigFile 형식·정규화·검사·백업 | menu, purchase_price, progress_store | src/integrations/saves/, src/app/main.gd |
 | 카탈로그·에셋 | src/data/drink_catalog.gd.DATA, assets/ | 단일 상품 정의와 이미지/폰트; key·인덱스는 저장 계약 | vending_display | src/data/, assets/ |
-| 공유 UI·표시 | src/shared/ui/themes/, icons/, cursor_theme.gd; src/shared/formatting/amount_format.gd | 기존 공통 외형·커서·금액 표시 | drink_screen, purchase_price, punch_fever | src/shared/, project.godot |
+| 공유 UI·표시 | src/shared/ui/themes/, icons/, pixel_button.gd, cursor_theme.gd; src/shared/formatting/amount_format.gd | A 공통 외형·Button 상태 전환·커서·금액 표시 | drink_screen, purchase_price, punch_fever | src/shared/, project.godot |
 | 개발 생성 | tools/build_scenes.py | 단일 런타임 카탈로그와 디자인 토큰을 읽어 임시 미리보기만 출력 | Python parse·미리보기 출력 검사 | tools/, src/data/drink_catalog.gd |
 
 테스트 이름은 아래의 `tests/features/<이름>_test.gd` 기준이며 저장 전용은 `tests/integrations/progress_store_test.gd`다. skills 계열 파일 이름은 기존 회귀의 식별자이며 현재 UI를 스킬트리로 정의하는 근거가 아니다.
@@ -33,7 +33,8 @@
 | 가격·보상 | `economy_rules.current_draw_price`, `calculate_reward`; 세션 경유 | 가격 5% 증가·최종 정수 처리·피버 곱을 UI에서 복제하지 않음 |
 | 저장·복구 | `progress_store.write`, `load_into`, `backup`; app 연결 | 기존 키·상품 인덱스·이전 저장 처리 보존 |
 | 금액 표기 | `amount_format.format_amount`, `format_gold`; Play `_refresh_ui` | 표기 축약은 실제 잔액·가격 계산에 적용하지 않음 |
-| 공유 외형 | `drink_screen.PLAY_PANEL/PLAY_BUTTONS/PLAY_ACTIONS`, shared/ui/themes | 기존 StyleBox·상태를 재사용, 화면별 새 테마 복제 금지 |
+| 공유 외형 | `play_theme.tres`의 Button·PixelHudButton·PrimaryButton·PixelIconButton·ActionButton·PricePlate; `drink_screen.PLAY_PANEL` | 기존 StyleBox·상태를 재사용, 화면별 새 테마 복제 금지 |
+| 공통 버튼 입력·피드백 | `shared/ui/pixel_button.gd`; MainMenu·Play·DrinkScreen·PauseMenu | 기본 Button이 입력·문구·포커스를 소유하고 프레임만 90/60/100ms 전환, 클릭 영역을 이동하지 않음 |
 | 외부 의존성 연결 | app의 세션 주입·save_requested 연결; tests/support/game_fixture | UI는 파일 저장소를 직접 생성/호출하지 않음 |
 | 테스트 대역 | tests/features의 Session 하위 클래스 | 랜덤 결과만 통제하고 실제 진행 계산을 mock하지 않음 |
 
@@ -42,7 +43,7 @@
 | 영역 | 명령의 스크립트 경로 | 기대 관찰 |
 | --- | --- | --- |
 | 구매·저장·가격 | tests/features/gameplay_test.gd, purchase_price_test.gd | 중복/잔액 부족 차감 방지·획득 즉시 저장·가격·이전 구매 횟수 |
-| 메뉴·백업·저장 오류 | tests/features/menu_test.gd | 새 게임 백업·로드·ESC·수동 저장·실패 시 종료 차단 |
+| 메뉴·백업·저장 오류 | tests/features/menu_test.gd | A 프레임을 통과하는 실제 클릭·초기 포커스·고정 클릭 영역, 새 게임 백업·로드·ESC·수동 저장·실패 시 종료 차단 |
 | 음료·해금·표시 | tests/features/drink_screen_test.gd, drink_unlock_screen_test.gd, vending_display_test.gd | 클릭 선택·무반응 hover·초기화·정확한 차감·진열·resize |
 | 수색·연출·피버 | tests/features/search_test.gd, coin_effect_test.gd, search_fever_test.gd, punch_fever_test.gd | 정확한 지급·꽝·이펙트·pause·기간·중첩·종료 |
 | 배출·구매 영역 | tests/features/drink_dispense_test.gd, purchase_area_test.gd | 입력 영역·중복 방지·배출/알림 순서 |
