@@ -654,7 +654,7 @@
   "notes": [
     "16 controls × 5 states; 79 new assembled masters plus the existing normal price component.",
     "30 frame and 14 icon source masters on the existing 02 asset page.",
-    "New button labels remain native Text; legacy normal price preserves its existing outline source.",
+    "All button labels, including the normal price amount, remain editable native Text.",
     "No game scene, theme or logic changes."
   ],
   "samples": {
@@ -668,7 +668,8 @@
     "nativeButtonLabels": 64,
     "linkedSamples": 18,
     "uiSaved": true,
-    "gameEngineRun": false
+    "gameEngineRun": false,
+    "nativePriceLabel": true
   },
   "paletteBoardId": "438228d3-7709-80fa-8008-d11fbc46be89"
 }

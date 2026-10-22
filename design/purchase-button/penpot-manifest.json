@@ -6,7 +6,7 @@
   "board": "d9c1a69c-6a27-809e-8008-d107e6137aa4",
   "component": "8e4548c6-4cd1-8076-8008-ceef6c094af7",
   "main": "8e4548c6-4cd1-8076-8008-ceef6c0920ba",
-  "amount": "8e4548c6-4cd1-8076-8008-cef2690e91fd",
+  "amount": "cdc7492d-ce6d-809e-8008-d2d6e69201f7",
   "typography": "8e4548c6-4cd1-8076-8008-ceef6bade547",
   "font": {
     "name": "Cafe24 PRO UP",
@@ -18,13 +18,13 @@
     "height": 56
   },
   "libraryPath": "Clicker/UI/Price",
-  "verification": "MCP readback confirmed one asset board, original boards retained, 144 x 56 reusable component, Cafe24 PRO UP typography. Final Penpot board PNG visually checked: native font glyph outlines preserve the small price label; 3x preview and font specimen render correctly.",
+  "verification": "2026-10-21 MCP readback: preserved 144×56 component ID, editable Cafe24 PRO UP 28px amount, 25 linked game-screen instances updated, no visible outlined amounts or board-boundary text overflow. Saved source reloaded in UI.",
   "previewSize": {
     "width": 432,
     "height": 168
   },
-  "amountRendering": "font-outlines",
-  "editableTextSource": "design/purchase-button/price-only-v3.svg",
+  "amountRendering": "native-text",
+  "editableTextSource": "Penpot main instance / Amount / 가격 / 편집 가능",
   "boardPreview": "design/purchase-button/penpot-board.png",
   "componentPreview": "design/purchase-button/price-button-penpot.png",
   "instanceVerification": {
@@ -33,7 +33,10 @@
       144,
       56
     ],
-    "outlinedAmount": true,
-    "testInstanceRemoved": true
-  }
+    "outlinedAmount": false,
+    "testInstanceRemoved": true,
+    "nativeTextAmount": true,
+    "linkedGameScreens": 25
+  },
+  "previewStatus": "existing PNG previews predate native Text correction"
 }

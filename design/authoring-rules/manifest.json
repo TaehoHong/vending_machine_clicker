@@ -1,6 +1,6 @@
 {
   "date": "2026-10-20",
-  "status": "draft",
+  "status": "removed-from-penpot",
   "fileId": "cd444aaf-0d8c-801b-8008-cda246e18650",
   "pageId": "490e660f-738c-80e7-8008-d0f0d410a6b5",
   "pageName": "00 · 디자인 팔레트(시스템)",
@@ -34,17 +34,11 @@
     }
   ],
   "sourceOfTruth": "Penpot",
-  "proposedStructure": [
-    "00 · 디자인 팔레트(시스템)",
-    "01 · 게임 화면",
-    "02 · 에셋"
-  ],
-  "additionalPageRecommendation": {
-    "name": "99 · 보관함",
-    "status": "recommended-unconfirmed"
-  },
-  "existingContentMoved": false,
-  "verification": {
+  "documentationStyleReference": "af2aed71-3cfe-80ea-8008-ceb0d537ce15",
+  "removedAt": "2026-10-20",
+  "currentRules": "../../DESIGN.md#디자인-작업-준수사항",
+  "currentStructure": "../page-organization/manifest.json",
+  "creationVerification": {
     "editableTextCount": 27,
     "svgRawCount": 0,
     "overflow": [],
@@ -58,5 +52,18 @@
     "draftPageCount": 1,
     "totalPageCount": 7
   },
-  "documentationStyleReference": "af2aed71-3cfe-80ea-8008-ceb0d537ce15"
+  "proposedStructureAtCreation": [
+    "00 · 디자인 팔레트(시스템)",
+    "01 · 게임 화면",
+    "02 · 에셋"
+  ],
+  "additionalPageRecommendationAtCreation": {
+    "name": "99 · 보관함",
+    "status": "recommended-unconfirmed"
+  },
+  "existingContentMovedAtCreation": false,
+  "currentVerification": {
+    "boardPresent": false,
+    "removedRuleTextCount": 27
+  }
 }
