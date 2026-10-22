@@ -673,5 +673,26 @@
   },
   "paletteBoardId": "438228d3-7709-80fa-8008-d11fbc46be89",
   "runtimeTheme": "src/shared/ui/themes/play_theme.tres",
-  "runtimeFeedback": "src/shared/ui/pixel_button.gd"
+  "runtimeFeedback": "src/shared/ui/pixel_button.gd",
+  "currentPlay": {
+    "verifiedAt": "2026-10-22",
+    "iconButtonSize": [
+      54.4,
+      54.4
+    ],
+    "goalSize": [
+      124.8,
+      54.4
+    ],
+    "goalComponent": "57cf90e6-1346-80ff-8008-d2e8461ddf2c",
+    "goalMain": "57cf90e6-1346-80ff-8008-d2e845e20d04",
+    "gloveMain": "57cf90e6-1346-80ff-8008-d2de68455a76",
+    "cornersMain": "3c5d6130-1844-804f-8008-d2f5ed246c98",
+    "priceSize": [
+      56,
+      32
+    ],
+    "currencyFonts": 24,
+    "runtimeTheme": "src/shared/ui/themes/play_theme.tres"
+  }
 }

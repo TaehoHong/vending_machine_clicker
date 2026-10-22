@@ -30,16 +30,20 @@
 [ext_resource type="StyleBox" path="res://src/shared/ui/themes/ability_pressed.tres" id="ability_pressed"]
 [ext_resource type="StyleBox" path="res://src/shared/ui/themes/ability_disabled.tres" id="ability_disabled"]
 
-[ext_resource type="StyleBox" path="res://src/shared/ui/themes/purchase_style.tres" id="price_normal"]
-[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/144x56_disabled.svg" id="price_disabled"]
 
-[sub_resource type="StyleBoxTexture" id="price_disabled"]
-texture = ExtResource("price_disabled")
-region_rect = Rect2(6, 6, 144, 56)
-texture_margin_left = 18.0
-texture_margin_top = 18.0
-texture_margin_right = 18.0
-texture_margin_bottom = 22.0
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/144x56_normal.svg" id="goal_normal"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/144x56_hover.svg" id="goal_hover"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/144x56_pressed.svg" id="goal_pressed"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/144x56_disabled.svg" id="goal_disabled"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/144x56_focus.svg" id="goal_focus"]
+
+[sub_resource type="StyleBoxFlat" id="price_lcd"]
+bg_color = Color(0.062745, 0.090196, 0.113725, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.298039, 0.372549, 0.439216, 1)
 
 [sub_resource type="StyleBoxTexture" id="f136x56_normal"]
 texture = ExtResource("f136x56_normal")
@@ -173,58 +177,58 @@ content_margin_bottom = 20.0
 
 [sub_resource type="StyleBoxTexture" id="f56x56_normal"]
 texture = ExtResource("f56x56_normal")
-texture_margin_left = 18.0
-texture_margin_top = 18.0
-texture_margin_right = 18.0
-texture_margin_bottom = 22.0
-content_margin_left = 18.0
-content_margin_top = 12.0
-content_margin_right = 18.0
-content_margin_bottom = 20.0
+texture_margin_left = 0.0
+texture_margin_top = 0.0
+texture_margin_right = 0.0
+texture_margin_bottom = 0.0
+content_margin_left = 14.4
+content_margin_top = 12.8
+content_margin_right = 14.4
+content_margin_bottom = 16.0
 
 [sub_resource type="StyleBoxTexture" id="f56x56_hover"]
 texture = ExtResource("f56x56_hover")
-texture_margin_left = 18.0
-texture_margin_top = 18.0
-texture_margin_right = 18.0
-texture_margin_bottom = 22.0
-content_margin_left = 18.0
-content_margin_top = 12.0
-content_margin_right = 18.0
-content_margin_bottom = 20.0
+texture_margin_left = 0.0
+texture_margin_top = 0.0
+texture_margin_right = 0.0
+texture_margin_bottom = 0.0
+content_margin_left = 14.4
+content_margin_top = 12.8
+content_margin_right = 14.4
+content_margin_bottom = 16.0
 
 [sub_resource type="StyleBoxTexture" id="f56x56_pressed"]
 texture = ExtResource("f56x56_pressed")
-texture_margin_left = 18.0
-texture_margin_top = 18.0
-texture_margin_right = 18.0
-texture_margin_bottom = 22.0
-content_margin_left = 18.0
+texture_margin_left = 0.0
+texture_margin_top = 0.0
+texture_margin_right = 0.0
+texture_margin_bottom = 0.0
+content_margin_left = 14.4
 content_margin_top = 16.0
-content_margin_right = 18.0
-content_margin_bottom = 16.0
+content_margin_right = 14.4
+content_margin_bottom = 12.8
 
 [sub_resource type="StyleBoxTexture" id="f56x56_disabled"]
 texture = ExtResource("f56x56_disabled")
-texture_margin_left = 18.0
-texture_margin_top = 18.0
-texture_margin_right = 18.0
-texture_margin_bottom = 22.0
-content_margin_left = 18.0
-content_margin_top = 12.0
-content_margin_right = 18.0
-content_margin_bottom = 20.0
+texture_margin_left = 0.0
+texture_margin_top = 0.0
+texture_margin_right = 0.0
+texture_margin_bottom = 0.0
+content_margin_left = 14.4
+content_margin_top = 12.8
+content_margin_right = 14.4
+content_margin_bottom = 16.0
 
 [sub_resource type="StyleBoxTexture" id="f56x56_focus"]
 texture = ExtResource("f56x56_focus")
-texture_margin_left = 18.0
-texture_margin_top = 18.0
-texture_margin_right = 18.0
-texture_margin_bottom = 22.0
-content_margin_left = 18.0
-content_margin_top = 12.0
-content_margin_right = 18.0
-content_margin_bottom = 20.0
+texture_margin_left = 0.0
+texture_margin_top = 0.0
+texture_margin_right = 0.0
+texture_margin_bottom = 0.0
+content_margin_left = 14.4
+content_margin_top = 12.8
+content_margin_right = 14.4
+content_margin_bottom = 16.0
 
 [sub_resource type="StyleBoxFlat" id="pause_panel"]
 content_margin_left = 0.0
@@ -237,6 +241,61 @@ border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.274510, 0.600000, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="goal_normal"]
+texture = ExtResource("goal_normal")
+texture_margin_left = 0.0
+texture_margin_top = 0.0
+texture_margin_right = 0.0
+texture_margin_bottom = 0.0
+content_margin_left = 14.4
+content_margin_top = 10.4
+content_margin_right = 14.4
+content_margin_bottom = 12.8
+
+[sub_resource type="StyleBoxTexture" id="goal_hover"]
+texture = ExtResource("goal_hover")
+texture_margin_left = 0.0
+texture_margin_top = 0.0
+texture_margin_right = 0.0
+texture_margin_bottom = 0.0
+content_margin_left = 14.4
+content_margin_top = 10.4
+content_margin_right = 14.4
+content_margin_bottom = 12.8
+
+[sub_resource type="StyleBoxTexture" id="goal_pressed"]
+texture = ExtResource("goal_pressed")
+texture_margin_left = 0.0
+texture_margin_top = 0.0
+texture_margin_right = 0.0
+texture_margin_bottom = 0.0
+content_margin_left = 14.4
+content_margin_top = 10.4
+content_margin_right = 14.4
+content_margin_bottom = 12.8
+
+[sub_resource type="StyleBoxTexture" id="goal_disabled"]
+texture = ExtResource("goal_disabled")
+texture_margin_left = 0.0
+texture_margin_top = 0.0
+texture_margin_right = 0.0
+texture_margin_bottom = 0.0
+content_margin_left = 14.4
+content_margin_top = 10.4
+content_margin_right = 14.4
+content_margin_bottom = 12.8
+
+[sub_resource type="StyleBoxTexture" id="goal_focus"]
+texture = ExtResource("goal_focus")
+texture_margin_left = 0.0
+texture_margin_top = 0.0
+texture_margin_right = 0.0
+texture_margin_bottom = 0.0
+content_margin_left = 14.4
+content_margin_top = 10.4
+content_margin_right = 14.4
+content_margin_bottom = 12.8
 
 [resource]
 default_font = ExtResource("font")
@@ -304,5 +363,19 @@ Button/colors/font_pressed_color = Color(1, 0.94902, 0.85098, 1)
 Button/colors/font_focus_color = Color(1, 0.94902, 0.85098, 1)
 
 PricePlate/base_type = &"Panel"
-PricePlate/styles/panel = ExtResource("price_normal")
-PricePlate/styles/disabled = SubResource("price_disabled")
+PricePlate/styles/panel = SubResource("price_lcd")
+PricePlate/styles/disabled = SubResource("price_lcd")
+PixelIconButton/constants/icon_max_width = 25
+QuestToggle/base_type = &"Button"
+QuestToggle/constants/icon_max_width = 25
+QuestToggle/constants/h_separation = 8
+QuestToggle/font_sizes/font_size = 22
+QuestToggle/constants/outline_size = 0
+QuestToggle/styles/normal = SubResource("goal_normal")
+QuestToggle/styles/hover = SubResource("goal_hover")
+QuestToggle/styles/pressed = SubResource("goal_pressed")
+QuestToggle/styles/disabled = SubResource("goal_disabled")
+QuestToggle/styles/focus = SubResource("goal_focus")
+PricePlate/colors/font_color = Color(0.752941, 0.898039, 0.549020, 1)
+PricePlate/colors/disabled_color = Color(0.517647, 0.592157, 0.627451, 1)
+SearchHint/colors/hint_color = Color(1, 0.941176, 0.815686, 1)

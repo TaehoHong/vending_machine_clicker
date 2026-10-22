@@ -92,6 +92,7 @@ func _ready() -> void:
 	_setup_coin_slot()
 	_setup_search_area()
 	resized.connect(_position_coin_slot)
+	$QuestToggle.pressed.connect(_refresh_quest_panel)
 	_refresh_ui()
 
 
@@ -423,6 +424,8 @@ func _animate_search_popup(popup: Control, popup_group: String) -> void:
 
 
 func _setup_search_area() -> void:
+	earn_button.mouse_entered.connect(func() -> void: search_hint.set("hovered", true))
+	earn_button.mouse_exited.connect(func() -> void: search_hint.set("hovered", false))
 	# 본체와 다리가 빛을 가려, 자판기 안쪽 틈에서 새어 나오도록 배치한다.
 	move_child(search_glow, $VendingMachine.get_index())
 	# 모든 버튼 상태를 투명하게 두어 배경 위에 클릭 영역만 남긴다.
@@ -470,40 +473,36 @@ func _setup_coin_slot() -> void:
 
 
 func _position_coin_slot() -> void:
-	# 배경의 KEEP_ASPECT_COVER 변환에 맞춰 독립 자판기를 배치한다.
-	var image_size: Vector2 = $TextureRect.texture.get_size()
-	var factor: float = maxf(size.x / image_size.x, size.y / image_size.y)
-	var origin: Vector2 = (size - image_size * factor) * 0.5
+	# Penpot 1152×648 배치를 배경과 같은 COVER 변환으로 옮긴다.
+	var factor: float = maxf(size.x / 1152.0, size.y / 648.0)
+	var origin: Vector2 = (size - Vector2(1152, 648) * factor) * 0.5
 	var machine: TextureRect = $VendingMachine
-	machine.position = origin + Vector2(608, 110) * factor
-	machine.size = Vector2(384, 576) * factor
+	machine.position = origin + Vector2(427.392, 68.04) * factor
+	machine.size = Vector2(364.9, 429.68) * factor
 	machine_home = machine.position
-	# 첨부 이미지 512×768의 투입구와 발밑에 클릭 영역을 맞춘다.
-	var machine_scale: float = machine.size.x / 512.0
-	punch_button.position = machine.position + Vector2(56, 60) * machine_scale
-	punch_button.size = Vector2(400, 670) * machine_scale
+	var machine_scale: float = machine.size.x / 445.0
+	punch_button.position = machine.position + Vector2(40, 45) * machine_scale
+	punch_button.size = Vector2(310, 435) * machine_scale
 	punch_fever_fx.size = size
-	# 구매 영역은 실제 본체의 상단부터 음료 배출구 바로 위까지만 포함한다.
-	shop_button.position = machine.position + Vector2(56, 60) * machine_scale
-	shop_button.size = Vector2(400, 500) * machine_scale
-	earn_button.position = machine.position + Vector2(50, 690) * machine_scale
-	earn_button.size = Vector2(412, 120) * machine_scale
-	search_glow.position = machine.position + Vector2(40, 690) * machine_scale
-	search_glow.size = Vector2(432, 110) * machine_scale
-	search_hint.position = Vector2(
-		earn_button.position.x + earn_button.size.x * 0.5 - search_hint.size.x * 0.5,
-		earn_button.position.y + earn_button.size.y * 0.5
-	)
+	shop_button.position = machine.position + Vector2(40, 45) * machine_scale
+	shop_button.size = Vector2(310, 330) * machine_scale
+	earn_button.position = origin + Vector2(458.496, 476.28) * factor
+	earn_button.size = Vector2(276.48, 64.8) * factor
+	search_glow.position = earn_button.position
+	search_glow.size = earn_button.size
+	search_hint.position = earn_button.position
+	search_hint.size = earn_button.size
+
 	search_fever_fx.size = size
 	search_fever_fx.set("source", earn_button.position + earn_button.size * Vector2(0.5, 0.43))
 	var slot_target := coin_insertion_target()
 	if is_instance_valid(coin_insert_fx):
 		coin_insert_fx.set("target", slot_target)
-	$SlotHint.position = slot_target + Vector2(76, -30)
-	$SlotHint.position.x = minf($SlotHint.position.x, size.x - $SlotHint.size.x - 12)
+	$SlotHint.position = origin + Vector2(647.644, 211.553) * factor
+	$SlotHint.scale = Vector2.ONE * factor
 	ability_toast.position = Vector2((size.x - ability_toast.size.x) * 0.5, 100)
 	drink_dispense_fx.set(
-		"outlet", machine.position + Vector2(490, 1210) * (machine.size.x / 1024.0)
+		"outlet", machine.position + Vector2(183, 434) * machine_scale
 	)
 	drink_dispense_fx.set("destination", ability_receipt_position())
 
@@ -529,7 +528,7 @@ func _show_acquired_ability() -> void:
 
 func coin_insertion_target() -> Vector2:
 	var machine: TextureRect = $VendingMachine
-	return machine.position + Vector2(855, 648) * (machine.size.x / 1024.0)
+	return machine.position + Vector2(303, 235) * (machine.size.x / 445.0)
 
 
 func _on_shop_button_pressed() -> void:
@@ -643,33 +642,35 @@ func _on_result_close_pressed() -> void:
 
 func _refresh_ui() -> void:
 	_refresh_vending_display()
-	money_label.text = AMOUNTS.format_gold(session.money) + " Gold"
+	money_label.text = AMOUNTS.format_gold(session.money)
 	money_label.tooltip_text = "보유 골드: %s Gold" % AMOUNTS.format_amount(session.money)
+	can_count_label.text = AMOUNTS.format_gold(session.cans)
+	can_count_label.tooltip_text = "보유 빈캔: %s" % AMOUNTS.format_amount(session.cans)
 	var font: Font = money_label.get_theme_font("font")
-	var font_size: int = 28
-	while (
-		font_size > 18
-		and (
-			font.get_string_size(money_label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x + 6
-			> 158
-		)
-	):
-		font_size -= 1
-	money_label.add_theme_font_size_override("font_size", font_size)
+	var font_size: int = money_label.get_theme_font_size("font_size")
+	var gold_width: float = maxf(70.0, font.get_string_size(money_label.text,
+		HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x + 4.0)
+	var can_width: float = maxf(36.0, font.get_string_size(can_count_label.text,
+		HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x + 4.0)
+	money_label.size.x = gold_width
+	$WalletPanel/CanIcon.position.x = 46.0 + gold_width + 18.0
+	can_count_label.position.x = $WalletPanel/CanIcon.position.x + 34.0
+	can_count_label.size.x = can_width
+	$WalletPanel.size.x = can_count_label.position.x + can_width + 12.0
 	var price_label: Label = $SlotHint/Price
 	var price: int = session.current_draw_price()
 	var affordable: bool = session.money >= price
-	price_label.text = AMOUNTS.format_gold(price) + " G"
+	price_label.text = AMOUNTS.format_gold(price)
 	$SlotHint.add_theme_stylebox_override(
 		"panel", get_theme_stylebox("panel" if affordable else "disabled", "PricePlate")
 	)
 	price_label.add_theme_color_override(
-		"font_color", get_theme_color("accent_color" if affordable else "secondary_color", "Label")
+		"font_color", get_theme_color("font_color" if affordable else "disabled_color", "PricePlate")
 	)
 	var price_font: Font = price_label.get_theme_font("font")
-	var price_font_size: int = 28
+	var price_font_size: int = 19
 	while (
-		price_font_size > 18
+		price_font_size > 9
 		and (
 			(
 				(
@@ -688,11 +689,11 @@ func _refresh_ui() -> void:
 	price_label.add_theme_font_size_override("font_size", price_font_size)
 	earn_button.text = ""
 	_refresh_search_glow()
-	can_count_label.text = "빈캔 " + AMOUNTS.format_amount(session.cans)
 	_refresh_quest_panel()
 	shop_button.disabled = session.inserting_coin or result_overlay.visible or info_overlay.visible
 	earn_button.disabled = session.inserting_coin or result_overlay.visible or info_overlay.visible
 	$Navigation/AbilityButton.disabled = session.inserting_coin or result_overlay.visible
+	$QuestToggle.disabled = session.inserting_coin or result_overlay.visible or info_overlay.visible
 	shop_button.tooltip_text = ""
 
 
@@ -724,9 +725,12 @@ func _refresh_quest_panel() -> void:
 	quest_title.text = "퀘스트 모두 완료 ✓" if minimized else ("빈캔 수집" if can_quest else "첫 수집 목표")
 	var completed_width := maxf(234.0, quest_title.get_minimum_size().x + 36.0)
 	var completed_height := maxf(64.0, quest_title.get_minimum_size().y + 32.0)
-	quest_panel.offset_left = -28.0 - completed_width if minimized else -290.0
-	quest_panel.offset_top = $WalletPanel.offset_top
+	quest_panel.offset_left = -16.0 - completed_width if minimized else -278.0
+	quest_panel.offset_top = 84.0
 	quest_panel.offset_bottom = quest_panel.offset_top + (completed_height if minimized else 178.0)
+	$QuestToggle.text = "완료" if minimized else "%d / %d" % [progress, target]
+	$QuestToggle.tooltip_text = quest_title.text + " · 조건과 보상 보기"
+	quest_panel.visible = $QuestToggle.button_pressed
 	quest_title.position.y = 12.0
 	quest_title.size.x = quest_panel.size.x - 36.0
 

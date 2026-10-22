@@ -1,44 +1,47 @@
 extends Control
 
-const IDLE_SECONDS: float = 60.0
-var idle_seconds: float = 0.0
+const GLOVE: Texture2D = preload("res://src/shared/ui/icons/search_glove.svg")
+
 var blocked: bool = false
 var showing: bool = true
+var hovered: bool = false
 var elapsed: float = 0.0
-var fade: Tween
+
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	size = Vector2(380, 66)
+
 
 func _process(delta: float) -> void:
 	visible = not blocked
 	if blocked:
 		return
 	elapsed += delta
-	idle_seconds += delta
-	if not showing and idle_seconds >= IDLE_SECONDS:
-		_set_showing(true)
-	if modulate.a > 0.0:
-		queue_redraw()
+	queue_redraw()
+
 
 func notify_search_click() -> void:
-	idle_seconds = 0.0
-	_set_showing(false)
+	showing = false
+	queue_redraw()
 
-func _set_showing(value: bool) -> void:
-	if showing == value:
-		return
-	showing = value
-	if fade and fade.is_valid():
-		fade.kill()
-	fade = create_tween()
-	fade.tween_property(self, "modulate:a", 1.0 if value else 0.0, 0.65).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func _draw() -> void:
-	var bounce := floorf(sin(elapsed * 4.0) * 3.0)
-	var points := PackedVector2Array([Vector2(190, 0), Vector2(202, 12), Vector2(195, 12), Vector2(195, 21), Vector2(185, 21), Vector2(185, 12), Vector2(178, 12)])
-	for i in range(points.size()):
-		points[i].y += bounce
-	draw_colored_polygon(points, Color("ffe48c"))
-	draw_polyline(points + PackedVector2Array([points[0]]), Color("12121d"), 2)
+	if not showing and not hovered:
+		return
+	var factor: float = size.x / 276.48
+	var tint := get_theme_color("hint_color", "SearchHint")
+	tint.a = 0.85 if hovered else 0.5
+	var w: float = 14.0 * factor
+	var h: float = 9.0 * factor
+	var line: float = 2.0 * factor
+	for corner in [Vector2.ZERO, Vector2(size.x, 0), Vector2(0, size.y), size]:
+		var x: float = corner.x - w if corner.x > 0 else 0.0
+		var y: float = corner.y - line if corner.y > 0 else 0.0
+		draw_rect(Rect2(x, y, w, line), tint)
+		x = corner.x - line if corner.x > 0 else 0.0
+		y = corner.y - h if corner.y > 0 else 0.0
+		draw_rect(Rect2(x, y, line, h), tint)
+	if showing:
+		var point: Vector2 = size * Vector2(0.48, 0.07)
+		point.y += floorf(sin(elapsed * 4.0) * 3.0) * factor
+		draw_texture_rect(GLOVE, Rect2(point, Vector2(32, 36) * factor), false)

@@ -5,9 +5,9 @@ signal close_requested
 const DATA = preload("res://src/data/drink_catalog.gd").DATA
 const ORDER: Array[int] = [2,9,4,10,11,8,12,5,3,13,6,14,7]
 const DESIGN_SIZE = Vector2(1200,760)
-const MACHINE_POS = Vector2(408,135)
-const MACHINE_SIZE = Vector2(384,576)
-const MACHINE_SCALE = 384.0 / 1024.0
+const MACHINE_POS = Vector2(355.42,135)
+const MACHINE_SIZE = Vector2(489.16,576)
+const MACHINE_SCALE = 576.0 / 524.0
 const PIXEL_BUTTON = preload("res://src/shared/ui/pixel_button.gd")
 const FONT = preload("res://assets/fonts/Cafe24PROUP.ttf")
 const PLAY_PANEL = preload("res://src/shared/ui/themes/quest_style.tres")
@@ -85,13 +85,10 @@ func _ready() -> void:
 		var slot: int = DATA[i].display_slot
 		var col: int = slot % 5
 		var row: int = slot / 5
-		var tops := [269.0,507.0,766.0]
-		var bottoms := [468.0,721.0,955.0]
-		var lefts := [185.0,302.0,422.0,541.0,660.0]
 		var product := Button.new()
 		product.name = DATA[i].key + "Product"
-		product.position = MACHINE_POS + Vector2(lefts[col],tops[row]) * MACHINE_SCALE
-		product.size = Vector2(111,bottoms[row]-tops[row]) * MACHINE_SCALE
+		product.position = MACHINE_POS + Vector2(62.56 + col * 40.8, 82.078 + row * 80.0) * MACHINE_SCALE
+		product.size = Vector2(40.8,80) * MACHINE_SCALE
 		product.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		product.focus_mode = Control.FOCUS_NONE
 		product.pressed.connect(func() -> void: select_drink(i))

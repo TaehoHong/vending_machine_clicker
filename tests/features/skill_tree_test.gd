@@ -30,9 +30,11 @@ func run_checks() -> void:
 	check(
 		(
 			not game.money_label.text.contains("¥")
-			and game.get_node("WalletPanel/Currency").text == "Gold"
+			and not game.money_label.text.contains("Gold")
+			and game.get_node("WalletPanel/GoldIcon").visible
+			and game.get_node("WalletPanel/CanIcon").visible
 		),
-		"Wallet uses plain amount and larger Gold label"
+		"Wallet uses currency icons and plain amounts"
 	)
 	game._on_ability_button_pressed()
 	var screen = game.get_node("InfoOverlay/Card/SkillTree")

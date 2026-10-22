@@ -26,8 +26,8 @@ func run_checks() -> void:
 	game._refresh_ui()
 	await process_frame
 	var machine: TextureRect = game.get_node("VendingMachine")
-	var factor: float = machine.size.x / 1024.0
-	for point in [Vector2(160, 160), Vector2(600, 450), Vector2(850, 1000)]:
+	var factor: float = machine.size.x / 445.0
+	for point in [Vector2(70, 70), Vector2(200, 200), Vector2(320, 350)]:
 		var before: int = game.session.drinks
 		await tap(machine.position + point * factor)
 		assert(game.session.inserting_coin and game.session.drinks == before + 1)
@@ -36,7 +36,7 @@ func run_checks() -> void:
 		await game.coin_tween.finished
 		assert(not game.result_overlay.visible and not game.session.inserting_coin)
 	var before: int = game.session.drinks
-	await tap(machine.position + Vector2(500, 1200) * factor)
+	await tap(machine.position + Vector2(183, 434) * factor)
 	assert(
 		game.session.drinks == before and not game.session.inserting_coin,
 		"The dispensing tray must not purchase"

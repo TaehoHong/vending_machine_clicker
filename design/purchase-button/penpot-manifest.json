@@ -12,31 +12,27 @@
     "name": "Cafe24 PRO UP",
     "id": "custom-32acebab-c2dc-8059-8008-ceedca013d66"
   },
-  "visibleText": "100 G",
+  "visibleText": "100",
   "originalSize": {
-    "width": 144,
-    "height": 56
+    "width": 56,
+    "height": 32
   },
   "libraryPath": "Clicker/UI/Price",
-  "verification": "2026-10-21 MCP readback: preserved 144×56 component ID, editable Cafe24 PRO UP 28px amount, 25 linked game-screen instances updated, no visible outlined amounts or board-boundary text overflow. Saved source reloaded in UI.",
-  "previewSize": {
-    "width": 432,
-    "height": 168
-  },
+  "verification": "2026-10-22: editable numeric 19px LCD, original component ID retained, source and Godot rendering verified.",
   "amountRendering": "native-text",
-  "editableTextSource": "Penpot main instance / Amount / 가격 / 편집 가능",
+  "editableTextSource": "Penpot main instance / Amount / 가격 / 숫자",
   "boardPreview": "design/purchase-button/penpot-board.png",
   "componentPreview": "design/purchase-button/price-button-penpot.png",
   "instanceVerification": {
     "created": true,
     "size": [
-      144,
-      56
+      56,
+      32
     ],
     "outlinedAmount": false,
     "testInstanceRemoved": true,
     "nativeTextAmount": true,
-    "linkedGameScreens": 25
+    "linkedGameScreens": 26
   },
-  "previewStatus": "existing PNG previews predate native Text correction"
+  "previewStatus": "historical PNG/SVG previews; current source is linked Penpot LCD"
 }
