@@ -74,7 +74,7 @@
 
 - 편집 가능한 디자인 원본은 Penpot에서 관리한다. 로컬 `design/`을 Penpot 전체 복제본이나 작업 이력 보관함으로 유지하지 않는다.
 - 게임이 실제로 사용하는 이미지·아이콘·스타일 리소스는 저장소의 해당 런타임 경로에서 관리한다. 현재 경로 예시는 `assets/`, `src/shared/ui/`이며, 임의로 중복 복사하거나 전체 경로를 재편하지 않는다.
-- 디자인 적용 시 원본 보드·컴포넌트 링크와 적용 파일 경로를 [DESIGN.md](../DESIGN.md)·[design/README.md](../design/README.md)의 해당 안내에서 연결한다. 내보낸 파일은 게임에서 크기·비율·선명도를 확인한다.
+- 로컬 디자인 안내에는 원본 링크와 작성·검수 규칙만 남기며, 화면·애니메이션별 코드 연결표와 적용 상태를 별도로 작성하지 않는다. 내보낸 파일은 게임에서 크기·비율·선명도를 확인한다.
 - 비교 시안·이전 버전·미리보기·작업 기록은 기본 영구 보관 대상이 아니다. 버전 추적은 Git 이력을 사용하고, 검수용 임시 출력은 필요할 때만 만든다. 현재 작업에 필요한 로컬 소스·산출물이나 사용자가 보관을 요청한 자료만 목적에 맞게 남긴다.
 - 이 기준은 앞으로의 보관 정책이다. 기존 자료 삭제나 Penpot 보관함 정리는 별도로 범위를 정하며, 이 문서 추가만으로 기존 파일을 일괄 삭제하지 않는다.
 
@@ -85,6 +85,6 @@
 | [AGENTS.md](../AGENTS.md) | 저장소 지침·PAVE 진입·검증 명령 | 제품 기획 원본 | AGENTS.md |
 | [README.md](../README.md) | 편집·실행 안내 | 최신 기능 규칙·전체 최신 테스트 목록 | README.md, project.godot, tests/ |
 | [PRODUCT.md](../PRODUCT.md) | 역할 분담 원본 요약 | 코드 스타일 | PRODUCT.md |
-| [DESIGN.md](../DESIGN.md), [design/README.md](../design/README.md) | 디자인 작성·검수 규칙과 원본·적용 경로 | 개발·Git 규칙 | DESIGN.md, design/README.md |
+| [DESIGN.md](../DESIGN.md), [design/README.md](../design/README.md) | 디자인 작성·검수 규칙과 원본 링크 | 개발·Git 규칙 | DESIGN.md, design/README.md |
 | [Godot GDScript 스타일 가이드](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html) | 코드 스타일의 공식 참고 | 사용자 확정 프로젝트 규칙을 대체하지 않음 | 위 코드 스타일 절 |
 | [Godot 정적 타입 안내](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/static_typing.html) | 타입 표기의 공식 참고 | 프로젝트의 타입 적용 범위 결정 | 위 코드 스타일 절 |
