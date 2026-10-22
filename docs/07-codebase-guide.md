@@ -33,9 +33,7 @@
 | 가격·보상 | `economy_rules.current_draw_price`, `calculate_reward`; 세션 경유 | 가격 5% 증가·최종 정수 처리·피버 곱을 UI에서 복제하지 않음 |
 | 저장·복구 | `progress_store.write`, `load_into`, `backup`; app 연결 | 기존 키·상품 인덱스·이전 저장 처리 보존 |
 | 금액 표기 | `amount_format.format_amount`, `format_gold`; Play `_refresh_ui` | 표기 축약은 실제 잔액·가격 계산에 적용하지 않음 |
-| 공유 외형 | `play_theme.tres`의 Button·PixelHudButton·PrimaryButton·PixelIconButton·QuestToggle·ActionButton·PricePlate; `drink_screen.PLAY_PANEL` | 기존 StyleBox·상태를 재사용, 화면별 새 테마 복제 금지 |
-| 자판기 진열 | `vending_display.gdshader`·`assets/vending_approved_15.png`·`vending_empty.png` | 445×524 조립과 같은 좌표의 빈 본체를 사용하며 `unlocked_slots` 비트 계약 유지 |
-| 수색 안내 | `effects/search_hint.gd`·`shared/ui/icons/search_glove.svg` | 최초 장갑, 첫 클릭 뒤 호버 모서리만 표시 |
+| 공유 외형 | `play_theme.tres`의 Button·PixelHudButton·PrimaryButton·PixelIconButton·ActionButton·PricePlate; `drink_screen.PLAY_PANEL` | 기존 StyleBox·상태를 재사용, 화면별 새 테마 복제 금지 |
 | 공통 버튼 입력·피드백 | `shared/ui/pixel_button.gd`; MainMenu·Play·DrinkScreen·PauseMenu | 기본 Button이 입력·문구·포커스를 소유하고 프레임만 90/60/100ms 전환, 클릭 영역을 이동하지 않음 |
 | 외부 의존성 연결 | app의 세션 주입·save_requested 연결; tests/support/game_fixture | UI는 파일 저장소를 직접 생성/호출하지 않음 |
 | 테스트 대역 | tests/features의 Session 하위 클래스 | 랜덤 결과만 통제하고 실제 진행 계산을 mock하지 않음 |

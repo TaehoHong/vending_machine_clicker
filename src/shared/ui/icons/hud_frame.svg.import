@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cye3wxjnu3238"
-path="res://.godot/imported/vending_empty.png-c03046dc1129319397895c8f53f29f4d.ctex"
+uid="uid://dk8gcpx5tm5ml"
+path="res://.godot/imported/hud_frame.svg-3cddf0f5efaf00118ce927ef7daea1f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/vending_empty.png"
-dest_files=["res://.godot/imported/vending_empty.png-c03046dc1129319397895c8f53f29f4d.ctex"]
+source_file="res://src/shared/ui/icons/hud_frame.svg"
+dest_files=["res://.godot/imported/hud_frame.svg-3cddf0f5efaf00118ce927ef7daea1f0.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

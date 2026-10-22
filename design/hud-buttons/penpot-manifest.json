@@ -693,6 +693,6 @@
       32
     ],
     "currencyFonts": 24,
-    "runtimeTheme": "src/shared/ui/themes/play_theme.tres"
+    "gameApplied": false
   }
 }

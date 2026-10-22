@@ -1,6 +1,6 @@
 {
   "status": "complete",
-  "applied_via": "MCP",
+  "applied_via": "Computer Use + MCP",
   "file": "cd444aaf-0d8c-801b-8008-cda246e18650",
   "page": "490e660f-738c-80e7-8008-d0f0d410a6b5",
   "board": "d9c1a69c-6a27-809e-8008-d107e6137aa4",
@@ -18,7 +18,7 @@
     "height": 32
   },
   "libraryPath": "Clicker/UI/Price",
-  "verification": "2026-10-22: editable numeric 19px LCD, original component ID retained, source and Godot rendering verified.",
+  "verification": "2026-10-22: editable numeric 19px LCD, original component ID retained, saved Penpot source and export verified.",
   "amountRendering": "native-text",
   "editableTextSource": "Penpot main instance / Amount / 가격 / 숫자",
   "boardPreview": "design/purchase-button/penpot-board.png",
@@ -34,5 +34,6 @@
     "nativeTextAmount": true,
     "linkedGameScreens": 26
   },
-  "previewStatus": "historical PNG/SVG previews; current source is linked Penpot LCD"
+  "previewStatus": "historical PNG/SVG previews; current source is linked Penpot LCD",
+  "gameApplied": false
 }

@@ -28,14 +28,6 @@ func run_checks() -> void:
 	var game = FIXTURE.create_game(root)
 	FIXTURE.store_for(game).path = "res://.godot/ability_test_%d.cfg" % Time.get_ticks_usec()
 	check(not game.has_node("ShopPanel"), "Old collection panel removed")
-	check(not game.quest_panel.visible, "Quest detail starts collapsed")
-	var goal: Button = game.get_node("QuestToggle")
-	goal.button_pressed = true
-	goal.pressed.emit()
-	check(game.quest_panel.visible, "Goal button opens condition and reward details")
-	goal.button_pressed = false
-	goal.pressed.emit()
-	check(not game.quest_panel.visible, "Goal button closes details without changing progress")
 	game.session.quest_clicks = 10
 	game._on_quest_complete_button_pressed()
 	check(
@@ -58,7 +50,7 @@ func run_checks() -> void:
 	game._refresh_ui()
 	check(
 		(
-			game.can_count_label.text == "5"
+			game.can_count_label.text == "빈캔 5"
 			and game.session.water_count == 2
 			and game.session.green_tea_count == 3
 		),

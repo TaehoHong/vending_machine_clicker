@@ -19,16 +19,16 @@
 
 | 자료 | 안내·파일 | 상태 |
 | --- | --- | --- |
-| HUD A 버튼 | [규격·ID](hud-buttons/README.md), `src/shared/ui/icons/hud_buttons/` | 01의 29개 화면과 현재 네 게임 화면·공유 테마 연결 |
+| HUD A 버튼 | [규격·ID](hud-buttons/README.md), `src/shared/ui/icons/hud_buttons/` | 01의 29개 화면과 기존 A 프레임 사용 중, 새 Play 배치는 게임 미적용 |
 | 가격 LCD | [원본 안내](purchase-button/README.md) | 56×32, 초록 숫자만 표시하는 네이티브 Text |
-| Play·음료와 능력 화면 | [적용본 안내](drink-screen-references/applied/play-style/README.md) | 현재 게임 적용 |
-| 재화 HUD·가격 LCD | [표시 규칙·이전 원본 안내](currency-hud/README.md) | 표시 규칙은 게임 적용, 24px 아이콘·숫자와 접힌 목표는 00 공통 패널·HUD |
+| Play·음료와 능력 화면 | [적용본 안내](drink-screen-references/applied/play-style/README.md) | 기존 버전 적용, 이번 수정은 게임 미적용 |
+| 재화 HUD·가격 LCD | [표시 규칙·이전 원본 안내](currency-hud/README.md) | 표시 규칙은 게임 적용, 새 디자인은 00 공통 패널·HUD, 게임 미적용 |
 | 음료·자판기 원본 | [음료 15종](v9/README.md), [자판기](v10/README.md) | 445×524 본체·진열 15종, 정렬·접지 그림자 적용 |
-| 재화·수색 안내 | 02 HUD 보드 | `src/shared/ui/icons/{gold_icon,can_icon,search_glove}.svg`, 모서리는 `search_hint.gd` |
+| 재화·수색 안내 | 02 HUD 보드 | Penpot 네이티브 원본, 게임 출력 교체는 별도 작업 |
 
 ## 현재 구현 화면 · 2026-10-22
 
-확정된 작은 HUD·내부 LCD·정렬한 진열·픽셀 장갑을 원본부터 수정하고 게임에 적용했다. 기존 29개 보드 ID와 배치를 유지한다. 타이틀 3개를 제외한 26개 화면의 공통 배경과 음료 선택 화면의 전면 자판기 7개를 연결했다. 아래 수치·문구는 구현 검수 상태이며 새 기획 확정이 아니다.
+확정된 작은 HUD·내부 LCD·정렬한 진열·픽셀 장갑을 원본에 수정했다. 사용자의 디자인 파일 한정 지시에 따라 새 디자인은 게임 미적용이다. 기존 29개 보드 ID와 배치를 유지한다. 타이틀 3개를 제외한 26개 원본 화면의 공통 배경과 음료 선택 원본의 전면 자판기 7개를 연결했다. 아래 수치·문구는 구현 검수 상태이며 새 기획 확정이 아니다.
 
 | Y | 원본 보드·수 | 상태 |
 | --- | --- | --- |
@@ -41,7 +41,7 @@
 | 5400 | [플레이 피드백 · 3개](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=51ff814c-57a3-802e-8008-d25b480ef9d9) | 수색 꽝, 고액 동전 획득, 구매 골드 부족 |
 | 6300 | [구매 연출 · 4개](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=51ff814c-57a3-802e-8008-d25b50a62c19) | 동전 투입, 음료 배출, 능력 버튼으로 이동, 능력 획득 알림 |
 
-구현 소유자는 `src/features/play/`, `src/features/drinks/`와 기존 메뉴·일시정지다. `src/shared/ui/themes/play_theme.tres`의 PixelIconButton·QuestToggle·PricePlate, 기존 `pixel_button.gd`와 A 프레임을 재사용한다. `assets/vending_approved_15.png`는 445×524 진열 조립, `assets/vending_empty.png`는 해금 전 상품을 숨기는 빈 본체다. `vending_display.gdshader`는 기존 해금 비트 마스크 계약을 유지한다. Cafe24 PRO UP을 유지하며 [적용 상태](../DESIGN.md#현재-적용-상태--2026-10-22)를 따른다.
+게임의 기존 구현은 이번 작업 직전 상태로 유지한다. 새 디자인을 적용할 대상은 기존 Play·DrinkScreen·공유 테마이며, 원본과의 차이를 구현 완료로 표시하지 않는다. Penpot 원본은 445×524 상품 제외 본체·진열 15종 조립과 네이티브 HUD다. [현재 상태](../DESIGN.md#현재-적용-상태--2026-10-22)를 따른다.
 
 ## MCP 원본 접근 복구 절차
 

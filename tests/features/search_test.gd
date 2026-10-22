@@ -44,7 +44,6 @@ func run_checks() -> void:
 		not game.earn_button.get_global_rect().intersects(game.shop_button.get_global_rect()),
 		"Search region does not intercept coin slot"
 	)
-	check(game.search_hint.showing, "First search has a glove hint")
 	await capture("dark")
 	for i in range(8):
 		game.earn_button.pressed.emit()
@@ -53,18 +52,6 @@ func run_checks() -> void:
 		is_equal_approx(game.search_glow.modulate.a, 0.8) and game.session.money == 0,
 		"Repeated clicks increase brightness before reward"
 	)
-	check(not game.search_hint.showing, "First click removes the glove")
-	game.search_hint._process(61.0)
-	check(not game.search_hint.showing, "Idle time cannot restore the first-search glove")
-	var motion := InputEventMouseMotion.new()
-	motion.position = game.earn_button.get_global_rect().get_center()
-	root.push_input(motion, true)
-	await process_frame
-	check(game.search_hint.hovered, "Search area hover shows corners after the glove is gone")
-	motion.position = Vector2(4, 4)
-	root.push_input(motion, true)
-	await process_frame
-	check(not game.search_hint.hovered, "Leaving the search area removes hover corners")
 	await capture("bright")
 	for i in range(2):
 		game.earn_button.pressed.emit()

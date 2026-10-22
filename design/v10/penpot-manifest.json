@@ -590,10 +590,7 @@
     "proof": "design/review/ability-unlock/bodies-merged-editor.png",
     "mergedBodyRole": "445×524 본체·확정 음료 15종 연결 조립",
     "sourceBEmptyRole": "445×524 조작부 확대 · 상품 제외",
-    "runtimeAssets": [
-      "assets/vending_empty.png",
-      "assets/vending_approved_15.png"
-    ],
-    "verifiedAt": "2026-10-22"
+    "verifiedAt": "2026-10-22",
+    "gameApplied": false
   }
 }
