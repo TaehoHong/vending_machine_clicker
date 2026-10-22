@@ -3,7 +3,7 @@ extends RefCounted
 
 static func current_draw_price(state: RefCounted) -> int:
 	# 원래 가격에 복리를 적용하고 결제 금액만 올림해 반올림 오차의 누적을 피한다.
-	var price: float = state.DRAW_PRICE * pow(1.05, state.purchase_count)
+	var price: float = state.DRAW_PRICE * pow(1.02, state.purchase_count)
 	if not is_finite(price) or price >= 9.0e18:
 		return 9000000000000000000
 	return ceili(price - 0.00000001)
