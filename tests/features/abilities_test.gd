@@ -72,7 +72,7 @@ func run_checks() -> void:
 	check(screen.detail_count.text.contains("3"), "Selected tea shows three acquired cans")
 	screen.summary_button.pressed.emit()
 	check(
-		screen.summary_panel.visible and screen.summary_label.text.contains("+4 Gold"),
+		screen.summary_panel.visible and screen.summary_label.text.contains("+11 Gold"),
 		"Ability summary shows actual combined bonuses"
 	)
 	var clicks_before: int = game.session.click_stack

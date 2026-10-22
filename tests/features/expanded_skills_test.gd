@@ -2,6 +2,26 @@ extends SceneTree
 
 const FIXTURE = preload("res://tests/support/game_fixture.gd")
 
+class OutcomeSession:
+	extends "res://src/game/game_session.gd"
+	var empty: bool = false
+	var doubled: bool = false
+	var double_click: bool = false
+	var forced_drink: int = 6
+
+	func _search_is_empty() -> bool:
+		return empty
+
+	func _roll_double_reward() -> bool:
+		return doubled
+
+	func _roll_double_click() -> bool:
+		return double_click
+
+	func _roll_drink() -> int:
+		return forced_drink
+
+
 var failures: int = 0
 
 
@@ -63,45 +83,23 @@ func run_checks() -> void:
 	tree.select_drink(14)
 	await capture("energy_selection")
 	game._on_info_close_pressed()
-	var seen: Dictionary = {}
-	seed(20261017)
-	for i in range(1000):
-		seen[game.session._roll_drink()] = true
-	check(seen.size() == 15, "All fifteen unlocked drinks can appear")
-	var old_miss: float = game.session.miss_chance()
-	game.session._apply_drink(3)
-	check(
-		is_equal_approx(game.session.miss_chance(), old_miss - 0.005),
-		"Vitamin reduces miss chance by 0.5 percentage points"
-	)
-	var old_bonus: int = game.session.coin_bonus()
-	game.session._apply_drink(4)
-	check(game.session.coin_bonus() == old_bonus + 3, "Apple adds 3 discovery Gold")
-	game.session._apply_drink(5)
-	check(
-		is_equal_approx(game.session.reward_multiplier(), 1.01),
-		"Orange adds 1 percent final reward"
-	)
-	old_bonus = game.session.coin_bonus()
-	game.session._apply_drink(6)
-	check(game.session.coin_bonus() == old_bonus + 5, "Cola adds 5 discovery Gold")
-	game.session._apply_drink(7)
-	check(
-		is_equal_approx(game.session.reward_multiplier(), 1.03), "Fanta adds 2 percent final reward"
-	)
-	var old_clicks: int = game.session.clicks_required()
-	for i in range(4):
-		game.session._apply_drink(8)
-	check(
-		game.session.clicks_required() == old_clicks - 1,
-		"Four sprites reduce required clicks by one"
-	)
-	check(
-		game.session.calculate_reward(1000) == floori((1000 + game.session.coin_bonus()) * 1.03),
-		"Percentage effects apply to actual payouts"
-	)
+	_check_new_rules()
+	for index in range(15):
+		for count in range(int(game.session.DRINK_DATA[index].max_enhancements) + 5):
+			game.session._apply_drink(index)
+	game._refresh_ui()
 	game._on_ability_button_pressed()
-	await capture("ability_top")
+	tree.select_drink(0)
+	check(tree.detail_count.text.contains("15개"), "Overflow collection remains visible")
+	check(tree.detail_count.text.contains("10/10"), "Applied strength is capped separately")
+	check(tree.detail_status.text.contains("추첨 제외"), "Completed normal drinks explain exclusion")
+	await capture("water_capped")
+	tree.select_drink(6)
+	check(tree.detail_status.text.contains("반복 등장"), "Fever drink remains repeatable")
+	await capture("cola_repeatable")
+	tree.summary_button.pressed.emit()
+	check(tree.summary_label.text.contains("+90 Gold"), "Summary reflects capped fixed bonuses")
+	await capture("capped_summary")
 	game.get_node("InfoOverlay/Card/Catalog").scroll_vertical = 2000
 	await capture("ability_bottom")
 	game._on_info_close_pressed()
@@ -125,8 +123,11 @@ func run_checks() -> void:
 	check(
 		(
 			game.session.cans == saved_cans
-			and game.session.drink_count(8) == 4
-			and game.session.drink_count(3) == 1
+			and game.session.drink_count(8) == 15
+			and game.session.drink_count(3) == 11
+			and game.session.water_count == 15
+			and game.session.coin_bonus() == 90
+			and game.session.parking_unlocked()
 		),
 		"New drink counts and spent balance survive reload"
 	)
@@ -136,3 +137,119 @@ func run_checks() -> void:
 	DirAccess.remove_absolute(path)
 	print("Expanded skill checks: %d failures" % failures)
 	quit(1 if failures else 0)
+
+
+func _check_new_rules() -> void:
+	var state: RefCounted = FIXTURE.SESSION.new()
+	check(state.coin_weights() == [7000, 900, 500, 100, 1500], "Base search probabilities")
+	state.ion_count = 1
+	check(state.coin_weights() == [6900, 960, 530, 110, 1500], "Ion shifts 1 percentage point")
+	state.extra_counts[4] = 1
+	check(state.coin_weights() == [6700, 1080, 590, 130, 1500], "Apple shift stacks with ion")
+	state.extra_counts[11] = 1
+	check(state.coin_weights() == [6900, 1080, 590, 130, 1300], "Reduced miss moves to 1 Gold")
+	state.ion_count = 0
+	state.extra_counts.clear()
+	for index in range(15):
+		var cap: int = state.DRINK_DATA[index].max_enhancements
+		for count in range(cap + 2):
+			state._apply_drink(index)
+			if count == cap - 2:
+				check(state.enhancement_count(index) == cap - 1, "Strength below the cap still grows")
+		check(state.drink_count(index) == cap + 2, "Collection is never truncated")
+		check(state.enhancement_count(index) == cap, "Every drink obeys its ability cap")
+	check(state.coin_bonus() == 90, "Only water, tea and barley contribute fixed Gold")
+	check(state.coin_weights() == [6500, 1800, 950, 250, 500], "Max chance table sums to 100%")
+	check(is_equal_approx(state.miss_chance(), 0.05), "Miss chance stops at five percent")
+	check(is_equal_approx(state.double_reward_chance(), 0.2), "Ginger caps at twenty percent")
+	check(is_equal_approx(state.double_click_chance(), 0.8), "Double clicks cap at eighty percent")
+	check(state.clicks_required() == 8, "Only six vitamins reduce normal clicks to eight")
+	state.start_search_fever()
+	check(state.clicks_required() == 3, "Fever minus five stacks with vitamin minus two")
+	check(state.search_fever_duration() == 20 and state.punch_fever_duration() == 15, "Time caps")
+	check(state.calculate_reward(10) == 200, "Fixed Gold stacks with search fever only")
+	check(state.parking_unlocked(), "Golden collection records unlock parking")
+
+	var draw: RefCounted = FIXTURE.SESSION.new()
+	check(draw.golden_chance() == 0, "Golden never appears before its can unlock")
+	draw.cans = 500
+	for index in [2, 9, 4, 10, 11, 8, 12, 5, 3, 13, 6, 14]:
+		check(draw.unlock(index), "Existing prerequisite chain remains usable")
+	check(not draw.drink_unlocked(7), "Golden still requires a separate unlock")
+	var before_golden: int = draw.cans
+	check(draw.unlock(7) and draw.cans == before_golden - 30, "Golden costs thirty cans")
+	check(is_equal_approx(draw.golden_chance(), 0.001), "Unlocked golden starts at 0.1%")
+	check(draw.DRINKS.draw_for_roll(draw, 0.000999) == 7, "Golden lower interval")
+	check(draw.DRINKS.draw_for_roll(draw, 0.001) == 0, "Exact threshold starts normal pool")
+	var normals: Array[int] = draw.purchasable_drinks()
+	normals.erase(7)
+	for slot in range(normals.size()):
+		var roll: float = 0.001 + 0.999 * (slot + 0.5) / normals.size()
+		check(draw.DRINKS.draw_for_roll(draw, roll) == normals[slot], "Normal weights are equal")
+	draw.water_count = 10
+	check(not draw.purchasable_drinks().has(0), "Capped water leaves the draw pool")
+	normals.erase(0)
+	for slot in range(normals.size()):
+		var roll: float = 0.001 + 0.999 * (slot + 0.5) / normals.size()
+		check(draw.DRINKS.draw_for_roll(draw, roll) == normals[slot], "Remaining weights rebalance")
+	for level in [0, 1, 9, 10, 50]:
+		draw.extra_counts[13] = level
+		var expected: float = minf(0.1, 0.001 + mini(level, 10) * 0.01)
+		check(is_equal_approx(draw.golden_chance(), expected), "Melon applies its capped rate")
+	for index in range(15):
+		if index == 7:
+			continue
+		while not draw.enhancement_complete(index):
+			draw._apply_drink(index)
+	draw.unlocked_drinks.erase(7)
+	check(draw.golden_chance() == 0, "Even the completion guarantee cannot bypass golden unlock")
+	check(draw.DRINKS.draw_for_roll(draw, 0.0) != 7, "Locked golden is never forced")
+	draw.unlocked_drinks.append(7)
+	check(draw.golden_chance() == 1.0, "All fourteen caps guarantee the next golden")
+	check(draw.DRINKS.draw_for_roll(draw, 1.0) == 7, "Guarantee even includes the upper endpoint")
+	draw._apply_drink(7)
+	check(draw.golden_chance() == 0 and draw.purchasable_drinks() == [6, 14], "Only fever repeats")
+	var before_cans: int = draw.cans
+	draw._apply_drink(6)
+	draw._apply_drink(14)
+	check(draw.cans == before_cans + 2, "Repeated fever drinks each grant one can")
+	check(
+		draw.enhancement_count(6) == 1 and draw.enhancement_count(14) == 1,
+		"Unlock strengths stay one"
+	)
+
+	var empty_pool: RefCounted = FIXTURE.SESSION.new()
+	empty_pool.water_count = 10
+	empty_pool.green_tea_count = 10
+	empty_pool.money = 1000
+	check(not empty_pool.purchase(), "No eligible drinks never starts a purchase")
+	check(empty_pool.money == 1000 and empty_pool.purchase_count == 0, "No charge for empty pool")
+	var outcome := OutcomeSession.new()
+	outcome.water_count = 10
+	outcome.green_tea_count = 10
+	outcome.extra_counts = {3: 6, 9: 10, 10: 10}
+	outcome.start_search_fever()
+	outcome.start_punch_fever()
+	outcome.doubled = true
+	seed(2210)
+	var base: int = outcome.SEARCH.coin_for_roll(outcome, randf())
+	seed(2210)
+	check(outcome.punch() == (base + 90) * 2 * 2 * 3, "Ginger, search and punch all stack")
+	outcome.empty = true
+	var before_money: int = outcome.money
+	check(outcome.punch() == 0 and outcome.money == before_money, "Miss stays zero with all buffs")
+	outcome.double_click = true
+	outcome.search_fever_remaining = 0
+	outcome.click_stack = 0
+	check(outcome.search() == -1 and outcome.click_stack == 2, "Double click advances two only")
+	outcome.money = 1000
+	outcome.ion_unlocked = true
+	outcome.unlocked_drinks.assign([6, 14])
+	for drink in [6, 6, 14, 14]:
+		outcome.forced_drink = drink
+		check(outcome.purchase(), "Repeated fever drinks remain purchasable")
+		outcome.finish_purchase()
+		check(
+			outcome.search_fever_remaining > 0 if drink == 6 else outcome.punch_fever_remaining > 0,
+			"Repeated receipt triggers the matching fever"
+		)

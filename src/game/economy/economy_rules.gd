@@ -10,21 +10,21 @@ static func current_draw_price(state: RefCounted) -> int:
 
 
 static func coin_bonus(state: RefCounted) -> int:
-	return (
-		state.collected_cans() / state.CANS_PER_BONUS
-		+ state.green_tea_count
-		+ state.ion_count * 2
-		+ state.drink_count(4) * 3
-		+ state.drink_count(6) * 5
-	)
+	return drink_coin_bonus(state, 0) + drink_coin_bonus(state, 1) + drink_coin_bonus(state, 9)
+
+
+static func drink_coin_bonus(state: RefCounted, index: int) -> int:
+	var per_drink: int = {0: 1, 1: 3, 9: 5}.get(index, 0)
+	return state.enhancement_count(index) * per_drink
 
 
 static func reward_multiplier(state: RefCounted) -> float:
-	return 1.0 + state.drink_count(5) * 0.01 + state.drink_count(7) * 0.02
+	return 2.0 if state.search_fever_remaining > 0 else 1.0
+
+
+static func double_reward_chance(state: RefCounted) -> float:
+	return state.enhancement_count(10) * 0.02
 
 
 static func calculate_reward(state: RefCounted, base_amount: int) -> int:
-	var normal: int = maxi(
-		1, floori((base_amount + state.coin_bonus()) * state.reward_multiplier())
-	)
-	return normal * 2 if state.search_fever_remaining > 0 else normal
+	return (base_amount + state.coin_bonus()) * int(reward_multiplier(state))

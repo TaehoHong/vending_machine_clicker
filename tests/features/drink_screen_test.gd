@@ -85,7 +85,7 @@ func run_checks() -> void:
 	game._on_unlock_drink_requested(2)
 	assert(game.session.cans == 13, "Repeated unlock must not charge twice")
 	await tap(screen.products[0])
-	assert(screen.detail_count.text.contains("6") and screen.detail_status.text.contains("2회"))
+	assert(screen.detail_count.text.contains("6") and screen.detail_status.text.contains("+6 Gold"))
 	await capture("acquired-selected")
 	await tap(screen.summary_button)
 	assert(screen.summary_panel.visible and not screen.detail_panel.visible)

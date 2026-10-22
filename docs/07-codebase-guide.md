@@ -31,6 +31,8 @@
 | --- | --- | --- |
 | 진행 변경 | `game_session.purchase`, `search`, `punch`, `unlock`, `claim_quest`; Play 호출 | 실제 잔액·획득·해금은 세션 하나에만 존재 |
 | 가격·보상 | `economy_rules.current_draw_price`, `calculate_reward`; 세션 경유 | 가격 5% 증가·최종 정수 처리·피버 곱을 UI에서 복제하지 않음 |
+| 음료 강화·추첨 | `drink_rules.enhancement_count`, `purchasable_drinks`, `draw_for_roll`; 세션 경유 | 원본 획득 수 보존·효과 상한·최대 강화 제외·피버 반복·황금 해금 후 별도 확률 |
+| 주차장 해금 상태 | `game_session.parking_unlocked` | 저장된 황금 획득 수로 판정; 새 플래그나 스테이지 씬은 없음 |
 | 저장·복구 | `progress_store.write`, `load_into`, `backup`; app 연결 | 기존 키·상품 인덱스·이전 저장 처리 보존 |
 | 금액 표기 | `amount_format.format_amount`, `format_gold`; Play `_refresh_ui` | 표기 축약은 실제 잔액·가격 계산에 적용하지 않음 |
 | 공유 외형 | `drink_screen.PLAY_PANEL/PLAY_BUTTONS/PLAY_ACTIONS`, shared/ui/themes | 기존 StyleBox·상태를 재사용, 화면별 새 테마 복제 금지 |
@@ -46,6 +48,7 @@
 | 음료·해금·표시 | tests/features/drink_screen_test.gd, drink_unlock_screen_test.gd, vending_display_test.gd | 클릭 선택·무반응 hover·초기화·정확한 차감·진열·resize |
 | 수색·연출·피버 | tests/features/search_test.gd, coin_effect_test.gd, search_fever_test.gd, punch_fever_test.gd | 정확한 지급·꽝·이펙트·pause·기간·중첩·종료 |
 | 배출·구매 영역 | tests/features/drink_dispense_test.gd, purchase_area_test.gd | 입력 영역·중복 방지·배출/알림 순서 |
+| 음료 상한·확률·추첨 | tests/features/expanded_skills_test.gd | cap 경계·초과 기록 저장/로드·정수 확률 합계/구간·황금 선행 조건/보장·피버 중복/반복·빈 후보 차감 방지 |
 | 저장 데이터 호환 | tests/integrations/progress_store_test.gd | 정수 키 획득량·독립 플래그·누락 필드·잘못된 타입/범위 정규화 |
 
 전체 명령과 한계는 [품질·검증](05-quality-rules.md)을 따른다. 각 파일은 실제 저장을 쓰지 않으며 테스트 캡처는 `.godot/test_artifacts/`에 생성한다.
