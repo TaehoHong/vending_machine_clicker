@@ -1,6 +1,6 @@
 # HUD A 분리 벡터
 
-2026-10-20 승인된 HUD 버튼의 프레임·아이콘 출력 조각이다. 편집 원본과 실제 컴포넌트 ID는 [디자인 안내](../../../../../design/hud-buttons/README.md), [Penpot 등록 목록](../../../../../design/hud-buttons/penpot-manifest.json)을 따른다.
+2026-10-20 승인된 HUD 버튼의 프레임·아이콘 출력 조각이다. 편집 원본과 연결 정보는 [디자인 안내](../../../../../design/hud-buttons/README.md)를 따른다.
 
 - `frames/`: 본체 6크기 × normal / hover / pressed / disabled / focus = 30개. 사방 6px 여백을 포함한다.
 - `icons/`: 32×32 벡터 14개. 문구·프레임과 분리해서 사용한다.
