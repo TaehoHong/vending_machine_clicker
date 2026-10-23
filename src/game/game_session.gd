@@ -174,7 +174,7 @@ func unlock(index: int) -> bool:
 	if index < 2 or index >= DRINK_DATA.size() or drink_unlocked(index):
 		return false
 	var data: Dictionary = DRINK_DATA[index]
-	if cans < data.cost or (data.parent >= 0 and not drink_unlocked(data.parent)):
+	if cans < data.cost:
 		return false
 	cans -= data.cost
 	if index == 2:

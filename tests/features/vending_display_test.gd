@@ -19,10 +19,10 @@ func run_checks() -> void:
 	game.session.cans = 500
 	game._on_skill_button_pressed()
 	var tree = game.get_node("InfoOverlay/Card/SkillTree")
-	game._on_unlock_drink_requested(7)
-	assert(not game.session.drink_unlocked(7), "Locked prerequisite must block the golden drink")
 	var expected_slots: int = 3
-	for index in tree.ORDER:
+	var reverse_order: Array = tree.ORDER.duplicate()
+	reverse_order.reverse()
+	for index in reverse_order:
 		var previous: int = game.session.cans
 		tree.get_unlock_button(index).pressed.emit()
 		assert(game.session.drink_unlocked(index))

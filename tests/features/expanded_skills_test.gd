@@ -60,11 +60,13 @@ func run_checks() -> void:
 	var tree = game.get_node("InfoOverlay/Card/SkillTree")
 	game._on_unlock_drink_requested(5)
 	check(
-		not game.session.drink_unlocked(5) and game.session.cans == 200,
-		"Prerequisite gates prevent skipping branches"
+		game.session.drink_unlocked(5) and game.session.cans == 185,
+		"Orange unlocks directly without lime"
 	)
 	await capture("tree_top_locked")
 	for i in tree.ORDER:
+		if i == 5:
+			continue
 		var before: int = game.session.cans
 		tree.get_unlock_button(i).pressed.emit()
 		check(
@@ -140,6 +142,20 @@ func run_checks() -> void:
 
 
 func _check_new_rules() -> void:
+	check(FIXTURE.SESSION.DRINK_DATA[6].cost == 10, "Cola costs ten cans")
+	check(FIXTURE.SESSION.DRINK_DATA[14].cost == 15, "Energy costs fifteen cans")
+	for index in range(2, 15):
+		var independent: RefCounted = FIXTURE.SESSION.new()
+		var cost: int = independent.DRINK_DATA[index].cost
+		independent.cans = cost - 1
+		check(not independent.unlock(index), "Insufficient cans never unlock any drink")
+		check(independent.cans == cost - 1, "Failed unlock preserves balance")
+		independent.cans = cost
+		check(independent.unlock(index), "Every drink unlocks independently, including golden")
+		check(independent.cans == 0, "Exact cost is deducted once")
+		check(independent.drinks == 0, "Unlock does not grant a drink or its ability")
+		check(not independent.unlock(index), "Repeat unlock is rejected")
+		check(independent.cans == 0, "Repeat unlock never charges again")
 	var state: RefCounted = FIXTURE.SESSION.new()
 	check(state.coin_weights() == [7000, 900, 500, 100, 1500], "Base search probabilities")
 	state.ion_count = 1
@@ -174,7 +190,7 @@ func _check_new_rules() -> void:
 	check(draw.golden_chance() == 0, "Golden never appears before its can unlock")
 	draw.cans = 500
 	for index in [2, 9, 4, 10, 11, 8, 12, 5, 3, 13, 6, 14]:
-		check(draw.unlock(index), "Existing prerequisite chain remains usable")
+		check(draw.unlock(index), "Existing unlock costs remain usable")
 	check(not draw.drink_unlocked(7), "Golden still requires a separate unlock")
 	var before_golden: int = draw.cans
 	check(draw.unlock(7) and draw.cans == before_golden - 30, "Golden costs thirty cans")
