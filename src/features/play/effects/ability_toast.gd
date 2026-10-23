@@ -41,8 +41,6 @@ func present(drink_name: String, description: String, color: Color) -> void:
 	animation.tween_callback(hide)
 
 func _draw() -> void:
-	draw_rect(Rect2(4, 5, size.x, size.y), Color(0.03, 0.04, 0.07, 0.55))
-	draw_rect(Rect2(Vector2.ZERO, size), Color("12121d"))
-	draw_rect(Rect2(3, 3, size.x - 6, size.y - 6), Color("243c50"))
+	get_theme_stylebox("panel", "PanelContainer").draw(get_canvas_item(), Rect2(Vector2.ZERO, size))
 	draw_rect(Rect2(0, 0, size.x, 3), accent)
 	draw_rect(Rect2(0, 0, 4, size.y), accent)

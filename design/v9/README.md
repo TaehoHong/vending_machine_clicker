@@ -1,5 +1,7 @@
 # 확정 음료 에셋 15종
 
+> 2026-10-20 페이지 정리: 현재 원본 위치는 [페이지·에셋 정리 기록](../page-organization/README.md)을 따른다. 아래 Y 좌표·페이지 이름·생성 manifest는 작성 당시 기록이며, Penpot 링크는 현재 위치로 갱신했다.
+
 일반 음료 14종과 황금음료 05 오로라 골드의 승인 결과다. 게임 화면은 포함하지 않는다.
 
 - `exports/`: 192×288 투명 배경 PNG 15개. 공통 하단 기준점으로 배치했다.
@@ -22,6 +24,6 @@
 - 등록 ID와 검증 결과: `penpot-manifest.json`.
 - 실제 Penpot 내보내기: `../review/v9/approved-drinks-penpot.png`.
 
-[Penpot에서 열기](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=af2aed71-3cfe-80ea-8008-ceaf7492d553&board-id=e7808af8-2ea3-8077-8008-cedf2d6bd36f&layout=layers)
+[Penpot에서 열기](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=6d00bd1a-d292-8094-8008-d0f9484645ce&layout=layers)
 
 15개 모두 기존 페이지·대상 보드에 속하고 크기가 192×288인 것을 MCP로 검증했다. 이번 작업 중 잘못 생성한 임시 페이지 2개와 실패한 SVG 불러오기 잔여물 15개를 정리했다. 원래 있던 에셋 보드와 사용자 메모는 보존했다.

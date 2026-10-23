@@ -1058,8 +1058,17 @@
   "source": "Penpot MCP live read",
   "verification": {
     "pageOrder": true,
-    "components": 120,
-    "nativeRuleBoardRemoved": true,
-    "movedSubtreeCountsAndComponentIds": "moves.json"
+    "componentMainInstancesPresent": 120,
+    "copies": {
+      "heads": 127,
+      "nestedInsideMain": 106,
+      "topCopyRefsChecked": 21,
+      "missingComponents": [],
+      "missingReferences": []
+    },
+    "ruleBoardRemoved": true,
+    "ruleTextsRemaining": 0,
+    "movedSubtreeCountsAndComponentIds": "moves.json",
+    "persistedAfterReload": true
   }
 }

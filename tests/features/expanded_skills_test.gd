@@ -51,7 +51,7 @@ func run_checks() -> void:
 		(
 			game.shop_button.tooltip_text.is_empty()
 			and not game.has_node("SlotHint/Description")
-			and game.get_node("SlotHint/Price").text == "100G"
+			and game.get_node("SlotHint/Price").text == "100 G"
 		),
 		"Price is Gold and both extra hints are removed"
 	)

@@ -499,7 +499,7 @@ func _position_coin_slot() -> void:
 	var slot_target := coin_insertion_target()
 	if is_instance_valid(coin_insert_fx):
 		coin_insert_fx.set("target", slot_target)
-	$SlotHint.position = slot_target + Vector2(61, -29)
+	$SlotHint.position = slot_target + Vector2(76, -30)
 	$SlotHint.position.x = minf($SlotHint.position.x, size.x - $SlotHint.size.x - 12)
 	ability_toast.position = Vector2((size.x - ability_toast.size.x) * 0.5, 100)
 	drink_dispense_fx.set(
@@ -643,7 +643,15 @@ func _refresh_ui() -> void:
 		font_size -= 1
 	money_label.add_theme_font_size_override("font_size", font_size)
 	var price_label: Label = $SlotHint/Price
-	price_label.text = AMOUNTS.format_gold(session.current_draw_price()) + "G"
+	var price: int = session.current_draw_price()
+	var affordable: bool = session.money >= price
+	price_label.text = AMOUNTS.format_gold(price) + " G"
+	$SlotHint.add_theme_stylebox_override(
+		"panel", get_theme_stylebox("panel" if affordable else "disabled", "PricePlate")
+	)
+	price_label.add_theme_color_override(
+		"font_color", get_theme_color("accent_color" if affordable else "secondary_color", "Label")
+	)
 	var price_font: Font = price_label.get_theme_font("font")
 	var price_font_size: int = 28
 	while (

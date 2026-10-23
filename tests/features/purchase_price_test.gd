@@ -79,7 +79,7 @@ func run_checks() -> void:
 	loaded.session.purchase_count = 233
 	assert(loaded.session.current_draw_price() == 10089)
 	loaded._refresh_ui()
-	assert(loaded.get_node("SlotHint/Price").text == "10.0KG")
+	assert(loaded.get_node("SlotHint/Price").text == "10.0K G")
 	loaded.free()
 	game.free()
 	DirAccess.remove_absolute("res://.godot/price-test.cfg")
