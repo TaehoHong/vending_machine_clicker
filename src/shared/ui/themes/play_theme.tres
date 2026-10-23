@@ -1,6 +1,6 @@
-[gd_resource type="Theme" format=3]
+[gd_resource type="Theme" format=3 uid="uid://dnyq85vpihoel"]
 
-[ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="font"]
+[ext_resource type="FontFile" uid="uid://uih767dbt883" path="res://assets/fonts/Cafe24PROUP.ttf" id="font"]
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/136x56_normal.svg" id="f136x56_normal"]
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/136x56_hover.svg" id="f136x56_hover"]
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/136x56_pressed.svg" id="f136x56_pressed"]
