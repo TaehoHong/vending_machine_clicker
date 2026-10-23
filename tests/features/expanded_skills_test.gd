@@ -105,15 +105,17 @@ func run_checks() -> void:
 	game.get_node("InfoOverlay/Card/Catalog").scroll_vertical = 2000
 	await capture("ability_bottom")
 	game._on_info_close_pressed()
+	var dispense: Control = preload("res://src/features/play/effects/drink_dispense_fx.gd").new()
+	game.add_child(dispense)
 	for i in range(3, 15):
-		game.drink_dispense_fx.call(
+		dispense.call(
 			"begin", load(game.session.DRINK_DATA[i].asset), Color(game.session.DRINK_DATA[i].color)
 		)
 		check(
-			game.drink_dispense_fx.art.texture != null,
+			dispense.art.texture != null,
 			"Every drink has its own dispensing illustration"
 		)
-	game.drink_dispense_fx.hide()
+	dispense.queue_free()
 	var saved_cans: int = game.session.cans
 	game._save_progress()
 	var path: String = FIXTURE.store_for(game).path
@@ -264,7 +266,7 @@ func _check_new_rules() -> void:
 	for drink in [6, 6, 14, 14]:
 		outcome.forced_drink = drink
 		check(outcome.purchase(), "Repeated fever drinks remain purchasable")
-		outcome.finish_purchase()
+		outcome.finish_purchase(outcome.purchase_count)
 		check(
 			outcome.search_fever_remaining > 0 if drink == 6 else outcome.punch_fever_remaining > 0,
 			"Repeated receipt triggers the matching fever"

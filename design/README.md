@@ -11,4 +11,4 @@
 
 [음료 상세 · 순서 없는 해금 견본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=51ff814c-57a3-802e-8008-d25b1a13d887)은 선행 음료 안내 없이 빈캔 비용만 표시하는 상태의 원본이다.
 
-[구매 투입 · 능력·수색·추가 뽑기 허용](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=b1fb0fb9-8b3e-80e3-8008-d3a32c9d22c7)은 연출 중 정상 입력을 유지하는 상태의 편집 원본이다.
+[연속 구매 · 겹친 동전 투입](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=b1fb0fb9-8b3e-80e3-8008-d3a32c9d22c7)은 연출 중 정상 입력과 두 동전을 유지하는 편집 원본이다. [겹친 음료 배출](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=51ff814c-57a3-802e-8008-d25b5355961f)도 같은 페이지에서 편집한다.

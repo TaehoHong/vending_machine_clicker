@@ -31,9 +31,8 @@ func run_checks() -> void:
 		var before: int = game.session.drinks
 		await tap(machine.position + point * factor)
 		assert(game.session.inserting_coin and game.session.drinks == before + 1)
-		assert(not game.coin_token.get_node("Symbol").visible)
-		assert(game.coin_insert_fx.get_child_count() == 0)
-		await game.coin_tween.finished
+		assert(game._purchase_effects.values()[0].coin.get_child_count() == 0)
+		await FIXTURE.wait_for_purchase_effects(game)
 		assert(not game.result_overlay.visible and not game.session.inserting_coin)
 	var before: int = game.session.drinks
 	await tap(machine.position + Vector2(500, 1200) * factor)

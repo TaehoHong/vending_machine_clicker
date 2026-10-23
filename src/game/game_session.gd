@@ -137,7 +137,7 @@ func purchase() -> bool:
 	purchase_count += 1
 	last_drink = selected
 	_apply_drink(last_drink)
-	pending_purchases.append(last_drink)
+	pending_purchases[purchase_count] = last_drink
 	return true
 
 
@@ -206,14 +206,16 @@ func start_punch_fever() -> void:
 	punch_fever_remaining = punch_fever_total
 
 
-func finish_purchase() -> void:
-	if pending_purchases.is_empty():
-		return
-	var completed: int = pending_purchases.pop_front()
+func finish_purchase(purchase_id: int) -> bool:
+	if not pending_purchases.has(purchase_id):
+		return false
+	var completed: int = pending_purchases[purchase_id]
+	pending_purchases.erase(purchase_id)
 	if completed == 6:
 		start_search_fever()
 	if completed == 14:
 		start_punch_fever()
+	return true
 
 
 func advance(delta: float, blocked: bool) -> void:

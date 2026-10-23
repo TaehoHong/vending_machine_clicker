@@ -11,10 +11,7 @@ const FEVER_COIN_SCALE: float = 2.5
 var session: SESSION = SESSION.new()
 var last_save_error: Error = OK
 
-var coin_tween: Tween
-var _purchase_animation_active: bool = false
-var coin_insert_fx: Control
-var drink_dispense_fx: Control
+var _purchase_effects: Dictionary = {}
 var ability_toast: Control
 var ability_receipt_tween: Tween
 var search_glow_tween: Tween
@@ -35,7 +32,6 @@ var punch_coin_phase: float = 0.0
 @onready var can_count_label: Label = $WalletPanel/CanCount
 @onready var info_overlay: ColorRect = $InfoOverlay
 @onready var shop_button: Button = $CoinSlotButton
-@onready var coin_token: Panel = $CoinToken
 @onready var quest_panel: Panel = $QuestPanel
 @onready var quest_title: Label = $QuestPanel/QuestTitle
 @onready var result_overlay: ColorRect = $ResultOverlay
@@ -55,10 +51,6 @@ func _ready() -> void:
 	ability_toast.name = "AbilityToast"
 	add_child(ability_toast)
 	move_child(ability_toast, result_overlay.get_index())
-	drink_dispense_fx = preload("res://src/features/play/effects/drink_dispense_fx.gd").new()
-	drink_dispense_fx.name = "DrinkDispenseFX"
-	add_child(drink_dispense_fx)
-	move_child(drink_dispense_fx, info_overlay.get_index())
 	search_hint = preload("res://src/features/play/effects/search_hint.gd").new()
 	search_hint.name = "SearchHint"
 	add_child(search_hint)
@@ -459,11 +451,6 @@ func _setup_coin_slot() -> void:
 	# 비활성화 상태에도 기본 테마의 사각형이 나타나지 않도록 모두 투명 처리.
 	for state in ["normal", "hover", "pressed", "focus", "disabled", "hover_pressed"]:
 		shop_button.add_theme_stylebox_override(state, StyleBoxEmpty.new())
-	coin_token.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
-	coin_token.get_node("Symbol").hide()
-	coin_insert_fx = preload("res://src/features/play/effects/coin_insert_fx.gd").new()
-	coin_insert_fx.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	coin_token.add_child(coin_insert_fx)
 	_position_coin_slot()
 
 
@@ -495,15 +482,18 @@ func _position_coin_slot() -> void:
 	search_fever_fx.size = size
 	search_fever_fx.set("source", earn_button.position + earn_button.size * Vector2(0.5, 0.43))
 	var slot_target := coin_insertion_target()
-	if is_instance_valid(coin_insert_fx):
-		coin_insert_fx.set("target", slot_target)
 	$SlotHint.position = slot_target + Vector2(76, -30)
 	$SlotHint.position.x = minf($SlotHint.position.x, size.x - $SlotHint.size.x - 12)
 	ability_toast.position = Vector2((size.x - ability_toast.size.x) * 0.5, 100)
-	drink_dispense_fx.set(
-		"outlet", machine.position + Vector2(490, 1210) * (machine.size.x / 1024.0)
-	)
-	drink_dispense_fx.set("destination", ability_receipt_position())
+	for entry: Dictionary in _purchase_effects.values():
+		_position_purchase_effect(entry.coin, entry.drink)
+
+
+func _position_purchase_effect(coin: Control, drink: Control) -> void:
+	var machine: TextureRect = $VendingMachine
+	coin.set("target", coin_insertion_target())
+	drink.set("outlet", machine.position + Vector2(490, 1210) * (machine.size.x / 1024.0))
+	drink.set("destination", ability_receipt_position())
 
 
 func ability_receipt_position() -> Vector2:
@@ -551,47 +541,51 @@ func _on_shop_button_pressed() -> void:
 		return
 	# 차감과 획득을 함께 즉시 저장해 애니메이션 중 종료해도 음료를 잃지 않는다.
 	_finish_action("")
-	if not _purchase_animation_active:
-		_play_purchase_queue()
+	_start_purchase_effect(session.purchase_count, session.last_drink)
 
 
-func _play_purchase_queue() -> void:
-	_purchase_animation_active = true
-	while not session.pending_purchases.is_empty():
-		# 마지막 구매 값 대신 현재 연출 결과를 고정해 뒤의 구매로 덮어쓰지 않는다.
-		var drink_index: int = session.pending_purchases[0]
-		coin_token.position = Vector2.ZERO
-		coin_token.scale = Vector2.ONE
-		coin_token.modulate = Color.WHITE
-		coin_insert_fx.set("target", coin_insertion_target())
-		coin_insert_fx.call("advance", 0.0)
-		coin_token.show()
-		coin_tween = create_tween()
-		coin_tween.tween_method(Callable(coin_insert_fx, "advance"), 0.0, 1.02, 1.02)
-		coin_tween.tween_callback(coin_token.hide)
-		coin_tween.tween_callback(
-			func() -> void:
-				drink_dispense_fx.call(
-					"begin", load(DRINK_DATA[drink_index].asset), Color(DRINK_DATA[drink_index].color)
-				)
-		)
-		coin_tween.tween_method(Callable(drink_dispense_fx, "advance"), 0.0, 1.32, 1.32)
-		coin_tween.tween_callback(
-			func() -> void:
-				drink_dispense_fx.hide()
-				_show_acquired_ability(drink_index)
-		)
-		await coin_tween.finished
-		session.finish_purchase()
-		_process(0)
-		_refresh_ui()
-	_purchase_animation_active = false
+func _start_purchase_effect(purchase_id: int, drink_index: int) -> void:
+	var coin: Control = preload("res://src/features/play/effects/coin_insert_fx.gd").new()
+	var drink: Control = preload("res://src/features/play/effects/drink_dispense_fx.gd").new()
+	for effect: Control in [coin, drink]:
+		effect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(effect)
+		move_child(effect, info_overlay.get_index())
+	_position_purchase_effect(coin, drink)
+	coin.call("advance", 0.0)
+	var animation: Tween = create_tween()
+	_purchase_effects[purchase_id] = {"coin": coin, "drink": drink, "animation": animation}
+	animation.tween_method(Callable(coin, "advance"), 0.0, 1.02, 1.02)
+	animation.tween_callback(coin.hide)
+	animation.tween_callback(
+		func() -> void:
+			drink.call("begin", load(DRINK_DATA[drink_index].asset), Color(DRINK_DATA[drink_index].color))
+	)
+	animation.tween_method(Callable(drink, "advance"), 0.0, 1.32, 1.32)
+	animation.tween_callback(_finish_purchase_effect.bind(purchase_id))
+
+
+func _finish_purchase_effect(purchase_id: int) -> void:
+	if not _purchase_effects.has(purchase_id):
+		return
+	var drink_index: int = session.pending_purchases[purchase_id]
+	var entry: Dictionary = _purchase_effects[purchase_id]
+	entry.coin.hide()
+	entry.drink.hide()
+	entry.coin.queue_free()
+	entry.drink.queue_free()
+	_purchase_effects.erase(purchase_id)
+	if session.finish_purchase(purchase_id):
+		_show_acquired_ability(drink_index)
+	_process(0)
+	_refresh_ui()
 
 
 func _refresh_vending_display() -> void:
 	var slots: int = 0
-	for index in session.purchasable_drinks():
-		slots |= 1 << int(DRINK_DATA[index].display_slot)
+	for index in range(DRINK_DATA.size()):
+		if session.drink_unlocked(index):
+			slots |= 1 << int(DRINK_DATA[index].display_slot)
 	($VendingMachine.material as ShaderMaterial).set_shader_parameter("unlocked_slots", slots)
 
 
@@ -884,6 +878,9 @@ func _notification(what: int) -> void:
 
 
 func _exit_tree() -> void:
+	for entry: Dictionary in _purchase_effects.values():
+		entry.animation.kill()
+	_purchase_effects.clear()
 	var cursor := get_node_or_null("/root/CursorTheme")
 	if cursor != null:
 		cursor.call("set_punch_mode", false)

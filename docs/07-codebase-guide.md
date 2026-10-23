@@ -31,7 +31,7 @@
 | --- | --- | --- |
 | 진행 변경 | `game_session.purchase`, `search`, `punch`, `unlock`, `claim_quest`; Play 호출 | 실제 잔액·획득·해금은 세션 하나에만 존재 |
 | 가격·보상 | `economy_rules.current_draw_price`, `calculate_reward`; 세션 경유 | 가격 2% 증가·최종 정수 처리·피버 곱을 UI에서 복제하지 않음 |
-| 연속 구매·배출 | `game_session.purchase`, `finish_purchase`; `progress_state.pending_purchases`; Play `_play_purchase_queue` | 결제·지급·저장은 즉시, 결과별 연출/피버 완료만 FIFO로 소비. 구매 중 입력 허용, 모달·pause 유지. 대기열은 저장하지 않으며 `inserting_coin`은 대기 여부 조회만 담당 |
+| 연속 구매·배출 | `game_session.purchase`, `finish_purchase`; `progress_state.pending_purchases`; Play `_start_purchase_effect`, `_finish_purchase_effect` | 결제·지급·저장은 즉시, 구매 ID별 FX/tween을 즉시 병렬 시작하고 해당 결과만 완료. 알림은 ability_toast가 순차 표시. 구매 중 입력 허용, 모달·pause 유지. 대기열은 저장하지 않으며 `inserting_coin`은 대기 여부 조회만 담당 |
 | 음료 해금 | `game_session.unlock`, `drink_screen._refresh_selection`; `drink_catalog.DATA.cost` | 선행 순서 없이 비용만 확인, 세션이 단일 차감·기록 소유; UI는 비용·현재 해금 상태만 표시 |
 | 음료 강화·추첨 | `drink_rules.enhancement_count`, `purchasable_drinks`, `draw_for_roll`; 세션 경유 | 원본 획득 수 보존·효과 상한·최대 강화 제외·피버 반복·황금 해금 후 별도 확률 |
 | 주차장 해금 상태 | `game_session.parking_unlocked` | 저장된 황금 획득 수로 판정; 새 플래그나 스테이지 씬은 없음 |
@@ -48,9 +48,9 @@
 | --- | --- | --- |
 | 구매·저장·가격 | tests/features/gameplay_test.gd, purchase_price_test.gd | 연속 구매별 단일 차감·잔액 부족 무차감·획득 즉시 저장·가격·이전 구매 횟수 |
 | 메뉴·백업·저장 오류 | tests/features/menu_test.gd | A 프레임을 통과하는 실제 클릭·초기 포커스·고정 클릭 영역, 새 게임 백업·로드·ESC·수동 저장·실패 시 종료 차단 |
-| 음료·해금·표시 | tests/features/drink_screen_test.gd, drink_unlock_screen_test.gd, vending_display_test.gd | 클릭 선택·무반응 hover·독립 해금·콜라10/에너지15 비용·정확한 차감·진열·resize |
+| 음료·해금·표시 | tests/features/drink_screen_test.gd, drink_unlock_screen_test.gd, vending_display_test.gd | 클릭 선택·무반응 hover·독립 해금·콜라10/에너지15 비용·정확한 차감·강화 완료 후 해금 진열 유지·resize |
 | 수색·연출·피버 | tests/features/search_test.gd, coin_effect_test.gd, search_fever_test.gd, punch_fever_test.gd | 정확한 지급·꽝·이펙트·pause·기간·중첩·종료 |
-| 배출·구매 영역 | tests/features/drink_dispense_test.gd, purchase_area_test.gd | 입력 영역·구매 중 수색/능력·FIFO 그림/알림/피버·pause·저장 재지급 방지 |
+| 배출·구매 영역 | tests/features/drink_dispense_test.gd, purchase_area_test.gd | 입력 영역·구매 중 수색/능력·겹친 동전/음료·ID별 그림/피버·순차 알림·pause·저장 재지급 방지 |
 | 음료 상한·확률·추첨 | tests/features/expanded_skills_test.gd | cap 경계·초과 기록 저장/로드·정수 확률 합계/구간·황금 빈캔 해금/보장·피버 중복/반복·빈 후보 차감 방지 |
 | 저장 데이터 호환 | tests/integrations/progress_store_test.gd | 정수 키 획득량·독립 플래그·누락 필드·잘못된 타입/범위 정규화 |
 

@@ -16,6 +16,19 @@ func run_checks() -> void:
 	assert(game.session.DRINK_DATA.size() == 15)
 	assert(game.session.purchasable_drinks() == [0, 1])
 	assert(game.get_node("VendingMachine").material.get_shader_parameter("unlocked_slots") == 3)
+	game.session.water_count = 10
+	game.session.green_tea_count = 10
+	game._refresh_ui()
+	assert(game.session.purchasable_drinks().is_empty())
+	assert(game.get_node("VendingMachine").material.get_shader_parameter("unlocked_slots") == 3)
+	if DisplayServer.get_name() != "headless":
+		await process_frame
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png(
+			"res://.godot/test_artifacts/overlapping-purchase/base-drinks-at-cap.png"
+		)
+	game.session.water_count = 0
+	game.session.green_tea_count = 0
 	game.session.cans = 500
 	game._on_skill_button_pressed()
 	var tree = game.get_node("InfoOverlay/Card/SkillTree")

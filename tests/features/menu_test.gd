@@ -1,5 +1,7 @@
 extends SceneTree
 
+const FIXTURE = preload("res://tests/support/game_fixture.gd")
+
 var failures: int = 0
 var test_path: String = "res://.godot/menu_test_%d.cfg" % Time.get_ticks_usec()
 
@@ -132,7 +134,7 @@ func run_checks() -> void:
 		"Coin animation stays paused under ESC menu"
 	)
 	press_escape()
-	await game.coin_tween.finished
+	await FIXTURE.wait_for_purchase_effects(game)
 	check(
 		not paused and not game.session.inserting_coin and not game.result_overlay.visible,
 		"ESC resumes dispensing and completes without a popup"

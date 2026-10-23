@@ -36,8 +36,7 @@ func run_checks() -> void:
 			and saved.get_value("progress", "purchase_count") == 2
 		)
 	)
-	while game.session.inserting_coin:
-		await game.coin_tween.finished
+	await FIXTURE.wait_for_purchase_effects(game)
 	assert(
 		(
 			game.session.money == 798
@@ -63,7 +62,7 @@ func run_checks() -> void:
 			and game.session.current_draw_price() == 107
 		)
 	)
-	await game.coin_tween.finished
+	await FIXTURE.wait_for_purchase_effects(game)
 	game._save_progress()
 	var loaded = FIXTURE.create_game(root)
 	FIXTURE.store_for(loaded).path = FIXTURE.store_for(game).path
