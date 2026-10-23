@@ -330,7 +330,6 @@ text = "100 G"
 
 [node name="CoinToken" type="Panel" parent="." unique_id=540826342]
 visible = false
-z_index = 10
 layout_mode = 0
 offset_right = 42.0
 offset_bottom = 42.0

@@ -55,11 +55,6 @@ func run_checks() -> void:
 		),
 		"Charge and reward persist together before animation completes"
 	)
-	game._on_shop_button_pressed()
-	check(
-		game.session.money == 207 and game.session.drinks == 1,
-		"Repeated clicks during animation do not charge twice"
-	)
 	await game.coin_tween.finished
 	await process_frame
 	check(

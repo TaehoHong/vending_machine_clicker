@@ -28,16 +28,16 @@ func run_checks() -> void:
 		)
 	)
 	game._on_shop_button_pressed()
-	assert(game.session.purchase_count == 1)
+	assert(game.session.purchase_count == 2 and game.session.money == 798)
 	var saved := ConfigFile.new()
 	assert(
 		(
 			saved.load(FIXTURE.store_for(game).path) == OK
-			and saved.get_value("progress", "purchase_count") == 1
+			and saved.get_value("progress", "purchase_count") == 2
 		)
 	)
-	await game.coin_tween.finished
-	game._on_shop_button_pressed()
+	while game.session.inserting_coin:
+		await game.coin_tween.finished
 	assert(
 		(
 			game.session.money == 798
@@ -45,7 +45,6 @@ func run_checks() -> void:
 			and game.session.current_draw_price() == 105
 		)
 	)
-	await game.coin_tween.finished
 	game.session.money = 104
 	game._on_shop_button_pressed()
 	assert(

@@ -10,3 +10,5 @@
 | [99 · 보관함](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=6587dfe1-cdcc-8063-8008-cfe00be50226&layout=layers) | 이전·미채택 원본 |
 
 [음료 상세 · 순서 없는 해금 견본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=51ff814c-57a3-802e-8008-d25b1a13d887)은 선행 음료 안내 없이 빈캔 비용만 표시하는 상태의 원본이다.
+
+[구매 투입 · 능력·수색·추가 뽑기 허용](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=b1fb0fb9-8b3e-80e3-8008-d3a32c9d22c7)은 연출 중 정상 입력을 유지하는 상태의 편집 원본이다.

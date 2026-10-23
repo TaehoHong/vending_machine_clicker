@@ -12,6 +12,7 @@ var session: SESSION = SESSION.new()
 var last_save_error: Error = OK
 
 var coin_tween: Tween
+var _purchase_animation_active: bool = false
 var coin_insert_fx: Control
 var drink_dispense_fx: Control
 var ability_toast: Control
@@ -57,7 +58,7 @@ func _ready() -> void:
 	drink_dispense_fx = preload("res://src/features/play/effects/drink_dispense_fx.gd").new()
 	drink_dispense_fx.name = "DrinkDispenseFX"
 	add_child(drink_dispense_fx)
-	move_child(drink_dispense_fx, result_overlay.get_index())
+	move_child(drink_dispense_fx, info_overlay.get_index())
 	search_hint = preload("res://src/features/play/effects/search_hint.gd").new()
 	search_hint.name = "SearchHint"
 	add_child(search_hint)
@@ -96,7 +97,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	var blocked: bool = session.inserting_coin or result_overlay.visible or info_overlay.visible
+	var blocked: bool = result_overlay.visible or info_overlay.visible
 	search_hint.set(
 		"blocked",
 		blocked or session.search_fever_remaining > 0 or session.punch_fever_remaining > 0
@@ -139,7 +140,6 @@ func _restore_machine_position() -> void:
 func _on_punch_button_pressed() -> void:
 	if (
 		get_tree().paused
-		or session.inserting_coin
 		or result_overlay.visible
 		or info_overlay.visible
 		or session.punch_fever_remaining <= 0
@@ -182,7 +182,6 @@ func _on_earn_button_pressed() -> void:
 		return
 	if (
 		get_tree().paused
-		or session.inserting_coin
 		or result_overlay.visible
 		or info_overlay.visible
 	):
@@ -448,7 +447,6 @@ func _refresh_search_glow() -> void:
 func _on_quest_complete_button_pressed() -> void:
 	if (
 		get_tree().paused
-		or session.inserting_coin
 		or result_overlay.visible
 		or info_overlay.visible
 	):
@@ -516,8 +514,8 @@ func ability_receipt_position() -> Vector2:
 	)
 
 
-func _show_acquired_ability() -> void:
-	var data: Dictionary = DRINK_DATA[session.last_drink]
+func _show_acquired_ability(drink_index: int) -> void:
+	var data: Dictionary = DRINK_DATA[drink_index]
 	ability_toast.call("present", data.name, data.effect, Color(data.color))
 	var button: Button = $Navigation/AbilityButton
 	if is_instance_valid(ability_receipt_tween):
@@ -538,7 +536,6 @@ func _on_shop_button_pressed() -> void:
 		return
 	if (
 		get_tree().paused
-		or session.inserting_coin
 		or result_overlay.visible
 		or info_overlay.visible
 	):
@@ -554,35 +551,41 @@ func _on_shop_button_pressed() -> void:
 		return
 	# 차감과 획득을 함께 즉시 저장해 애니메이션 중 종료해도 음료를 잃지 않는다.
 	_finish_action("")
-	shop_button.disabled = true
-	coin_token.position = Vector2.ZERO
-	coin_token.scale = Vector2.ONE
-	coin_token.modulate = Color.WHITE
-	coin_insert_fx.set("target", coin_insertion_target())
-	coin_insert_fx.call("advance", 0.0)
-	coin_token.show()
-	coin_tween = create_tween()
-	coin_tween.tween_method(Callable(coin_insert_fx, "advance"), 0.0, 1.02, 1.02)
-	coin_tween.tween_callback(coin_token.hide)
-	coin_tween.tween_callback(
-		func() -> void:
-			drink_dispense_fx.call(
-				"begin",
-				load(DRINK_DATA[session.last_drink].asset),
-				Color(DRINK_DATA[session.last_drink].color)
-			)
-	)
-	coin_tween.tween_method(Callable(drink_dispense_fx, "advance"), 0.0, 1.32, 1.32)
-	coin_tween.tween_callback(
-		func() -> void:
-			drink_dispense_fx.hide()
-			_show_acquired_ability()
-	)
-	await coin_tween.finished
-	session.finish_purchase()
-	_process(0)
-	feedback_label.text = ""
-	_refresh_ui()
+	if not _purchase_animation_active:
+		_play_purchase_queue()
+
+
+func _play_purchase_queue() -> void:
+	_purchase_animation_active = true
+	while not session.pending_purchases.is_empty():
+		# 마지막 구매 값 대신 현재 연출 결과를 고정해 뒤의 구매로 덮어쓰지 않는다.
+		var drink_index: int = session.pending_purchases[0]
+		coin_token.position = Vector2.ZERO
+		coin_token.scale = Vector2.ONE
+		coin_token.modulate = Color.WHITE
+		coin_insert_fx.set("target", coin_insertion_target())
+		coin_insert_fx.call("advance", 0.0)
+		coin_token.show()
+		coin_tween = create_tween()
+		coin_tween.tween_method(Callable(coin_insert_fx, "advance"), 0.0, 1.02, 1.02)
+		coin_tween.tween_callback(coin_token.hide)
+		coin_tween.tween_callback(
+			func() -> void:
+				drink_dispense_fx.call(
+					"begin", load(DRINK_DATA[drink_index].asset), Color(DRINK_DATA[drink_index].color)
+				)
+		)
+		coin_tween.tween_method(Callable(drink_dispense_fx, "advance"), 0.0, 1.32, 1.32)
+		coin_tween.tween_callback(
+			func() -> void:
+				drink_dispense_fx.hide()
+				_show_acquired_ability(drink_index)
+		)
+		await coin_tween.finished
+		session.finish_purchase()
+		_process(0)
+		_refresh_ui()
+	_purchase_animation_active = false
 
 
 func _refresh_vending_display() -> void:
@@ -622,7 +625,6 @@ func _update_result() -> void:
 
 func _on_result_close_pressed() -> void:
 	result_overlay.hide()
-	session.finish_pending_search_fever()
 	_refresh_ui()
 	shop_button.grab_focus()
 
@@ -677,11 +679,11 @@ func _refresh_ui() -> void:
 	can_count_label.text = "빈캔 " + AMOUNTS.format_amount(session.cans)
 	_refresh_quest_panel()
 	shop_button.disabled = (
-		session.inserting_coin or result_overlay.visible or info_overlay.visible
+		result_overlay.visible or info_overlay.visible
 		or session.purchasable_drinks().is_empty()
 	)
-	earn_button.disabled = session.inserting_coin or result_overlay.visible or info_overlay.visible
-	$Navigation/AbilityButton.disabled = session.inserting_coin or result_overlay.visible
+	earn_button.disabled = result_overlay.visible or info_overlay.visible
+	$Navigation/AbilityButton.disabled = result_overlay.visible
 	shop_button.tooltip_text = ""
 
 
@@ -725,7 +727,7 @@ func _on_ability_button_pressed() -> void:
 
 
 func _on_skill_button_pressed() -> void:
-	if get_tree().paused or session.inserting_coin or result_overlay.visible:
+	if get_tree().paused or result_overlay.visible:
 		return
 	_set_info_layout(true)
 	$InfoOverlay/Card/Title.text = "음료수 추가"

@@ -17,10 +17,18 @@ var unlocked_drinks: Array[int] = []
 var last_drink: int = 0
 var cans: int = 0
 var machine_level: int = 0
-var inserting_coin: bool = false
+# 결제·지급은 완료됐으며 배출 연출만 남은 결과다. 저장 원장과 구분한다.
+var pending_purchases: Array[int] = []
+var inserting_coin: bool:
+	get:
+		return not pending_purchases.is_empty()
 var search_fever_remaining: float = 0.0
 var search_fever_total: float = 10.0
-var search_fever_pending: bool = false
+var search_fever_pending: bool:
+	get:
+		return pending_purchases.has(6)
 var punch_fever_remaining: float = 0.0
 var punch_fever_total: float = 5.0
-var punch_fever_pending: bool = false
+var punch_fever_pending: bool:
+	get:
+		return pending_purchases.has(14)
