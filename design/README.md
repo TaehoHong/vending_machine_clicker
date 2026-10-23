@@ -2,6 +2,8 @@
 
 디자인 SSOT는 [Penpot](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650), 기획 SSOT는 [Notion](https://app.notion.com/p/3fcb6b9ead24800aa7bce8a1e1b045de)이다. 편집·검수는 [DESIGN.md](../DESIGN.md)를 따른다.
 
+[게임 화면·애니메이션 재생](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&index=3)에서 상단 화면 목록이나 플로우를 선택해 확인한다.
+
 | 원본 | 용도 |
 | --- | --- |
 | [00 · 디자인 시스템](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers) | 공유 색상·폰트와 인스턴스 견본 |
