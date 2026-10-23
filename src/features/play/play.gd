@@ -612,24 +612,10 @@ func _update_result() -> void:
 	result_title.text = "%s 획득!" % data.name
 	result_art.texture = load(data.asset)
 	$ResultOverlay/Card/Margin/Contents/Halo.modulate = Color(data.color)
-	var effects: Array[String] = [
-		"수색 숙련도 +1",
-		"동전 발견 금액 +1 Gold",
-		"동전 발견 금액 +2 Gold",
-		"꽝 확률 -0.5%p",
-		"동전 발견 금액 +3 Gold",
-		"최종 발견 금액 +1%",
-		"동전 발견 금액 +5 Gold",
-		"최종 발견 금액 +2%",
-		"수색 숙련도 +1",
-	]
-	if session.last_drink == 6:
-		effects[6] = "수색 피버! 창을 닫으면 시작"
-	var headline: String = (
-		effects[session.last_drink] if session.last_drink < effects.size() else "새 음료 수집 · 빈캔 +1"
-	)
+	var headline: String = _drink_cumulative_text(session.last_drink)
 	result_effect.text = (
-		"[center][font_size=21][color=%s]%s[/color][/font_size]\n[color=#A6B3BF]%s\n빈캔 +1[/color][/center]"
+		("[center][font_size=21][color=%s]%s[/color][/font_size]\n"
+		+ "[color=#A6B3BF]%s\n빈캔 +1[/color][/center]")
 		% [data.color, headline, data.effect]
 	)
 
@@ -690,7 +676,10 @@ func _refresh_ui() -> void:
 	_refresh_search_glow()
 	can_count_label.text = "빈캔 " + AMOUNTS.format_amount(session.cans)
 	_refresh_quest_panel()
-	shop_button.disabled = session.inserting_coin or result_overlay.visible or info_overlay.visible
+	shop_button.disabled = (
+		session.inserting_coin or result_overlay.visible or info_overlay.visible
+		or session.purchasable_drinks().is_empty()
+	)
 	earn_button.disabled = session.inserting_coin or result_overlay.visible or info_overlay.visible
 	$Navigation/AbilityButton.disabled = session.inserting_coin or result_overlay.visible
 	shop_button.tooltip_text = ""
@@ -752,53 +741,64 @@ func _refresh_skill_tree() -> void:
 	var active: Array[int] = []
 	var collected: Dictionary = {}
 	var effects: Dictionary = {}
+	var enhancements: Dictionary = {}
 	for i in range(DRINK_DATA.size()):
 		collected[i] = session.drink_count(i)
 		effects[i] = _drink_cumulative_text(i)
+		enhancements[i] = session.enhancement_count(i)
 	for i in range(2, DRINK_DATA.size()):
 		if session.drink_unlocked(i):
 			active.append(i)
 	var summary := (
-		"수색 %d회 · 꽝 %.1f%%\n발견 보너스 +%d Gold\n최종 발견 금액 +%.0f%%\n수색 피버 %.0f초\n펀치 피버 %.0f초"
-		% [
-			session.clicks_required(),
-			session.miss_chance() * 100,
-			session.coin_bonus(),
-			(session.reward_multiplier() - 1) * 100,
-			session.search_fever_duration(),
-			session.punch_fever_duration(),
-		]
+		"발견 보너스 +%d Gold\n수색 %d회 · 더블 클릭 %.0f%%\n꽝 %.0f%% · 골드 2배 %.0f%%\n"
+		+ "수색 피버 %.0f초 / 펀치 %.0f초\n황금 %.1f%% · 주차장 %s"
 	)
-	$InfoOverlay/Card/SkillTree.update_state(session.cans, active, collected, summary, effects)
+	summary = summary % [
+		session.coin_bonus(),
+		session.clicks_required(),
+		session.double_click_chance() * 100,
+		session.miss_chance() * 100,
+		session.double_reward_chance() * 100,
+		session.search_fever_duration(),
+		session.punch_fever_duration(),
+		session.golden_chance() * 100,
+		"해금" if session.parking_unlocked() else "잠김",
+	]
+	$InfoOverlay/Card/SkillTree.update_state(
+		session.cans, active, collected, summary, effects, enhancements
+	)
 
 
 func _drink_cumulative_text(index: int) -> String:
-	var count := session.drink_count(index)
+	var text: String = ""
 	match index:
-		0:
-			return "누적 수색 클릭 감소 -%d회 (최소 3회)" % (count / 3)
-		1:
-			return "누적 발견 보너스 +%d Gold" % count
-		2:
-			return "누적 발견 보너스 +%d Gold" % (count * 2)
+		0, 1, 9:
+			text = "누적 발견 골드 +%d Gold" % session.drink_coin_bonus(index)
+		2, 4:
+			text = "상위 골드 확률 강화 %d/5" % session.enhancement_count(index)
 		3:
-			return "꽝 확률 감소 최대 %.1f%%p 적용" % minf(count * 0.5, 13.0)
-		4:
-			return "누적 발견 보너스 +%d Gold" % (count * 3)
+			text = "현재 수색 %d회 · 비타민 최대 −2회" % session.clicks_required()
 		5:
-			return "최종 금액 +%d%% · 펀치 피버 +%d초" % [count, mini(count, 10)]
+			text = "펀치 피버 %.0f초" % session.punch_fever_duration()
 		6:
-			return "발견 보너스 +%d Gold · 획득 시 피버" % (count * 5)
+			text = "획득 시 수색 피버 %.0f초 · 반복 등장" % session.search_fever_duration()
 		7:
-			return "누적 최종 발견 금액 +%d%%" % (count * 2)
+			return "주차장 해금 완료 · 추첨 제외" if session.parking_unlocked() else "획득 시 주차장 해금"
 		8:
-			return "누적 수색 클릭 감소 -%d회 (최소 3회)" % (count / 4)
+			text = "클릭 2회 인정 확률 %.0f%%" % (session.double_click_chance() * 100)
+		10:
+			text = "골드 2배 확률 %.0f%%" % (session.double_reward_chance() * 100)
+		11:
+			text = "현재 꽝 확률 %.0f%%" % (session.miss_chance() * 100)
 		12:
-			return "수색 피버 시간 +%d초" % mini(count, 10)
+			text = "수색 피버 %.0f초" % session.search_fever_duration()
+		13:
+			text = "황금 등장 확률 %.1f%%" % (session.golden_chance() * 100)
 		14:
-			return "획득 시 펀치 피버 · 현재 지속 %.0f초" % session.punch_fever_duration()
-	return "누적 획득 %d개 · 빈캔은 공통 재화" % count
-
+			text = "획득 시 펀치 피버 %.0f초 · 반복 등장" % session.punch_fever_duration()
+	if index not in [6, 14] and session.enhancement_complete(index):
+		text += "\n최대 강화 · 추첨 제외"
+	return text
 
 func _set_info_layout(skill_mode: bool) -> void:
 	var card: Panel = $InfoOverlay/Card

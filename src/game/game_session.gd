@@ -8,7 +8,6 @@ const CAN_QUEST_TARGET: int = 5
 const CAN_QUEST_REWARD: int = 100
 const DRAW_PRICE: int = 100
 const ION_UNLOCK_COST: int = 5
-const CANS_PER_BONUS: int = 5
 const MAX_MACHINE_LEVEL: int = 4
 const COINS: Array[int] = [1, 5, 10, 50, 100, 500, 1000, 5000]
 const DRINK_DATA = preload("res://src/data/drink_catalog.gd").DATA
@@ -25,8 +24,41 @@ func coin_bonus() -> int:
 	return ECONOMY.coin_bonus(self)
 
 
+func drink_coin_bonus(index: int) -> int:
+	return ECONOMY.drink_coin_bonus(self, index)
+
+
 func reward_multiplier() -> float:
 	return ECONOMY.reward_multiplier(self)
+
+
+func double_reward_chance() -> float:
+	return ECONOMY.double_reward_chance(self)
+
+
+func double_click_chance() -> float:
+	return SEARCH.double_click_chance(self)
+
+
+func coin_weights() -> Array[int]:
+	return SEARCH.coin_weights(self)
+
+
+func enhancement_count(index: int) -> int:
+	return DRINKS.enhancement_count(self, index)
+
+
+func enhancement_complete(index: int) -> bool:
+	return DRINKS.enhancement_complete(self, index)
+
+
+func golden_chance() -> float:
+	return DRINKS.golden_chance(self)
+
+
+func parking_unlocked() -> bool:
+	# 황금 획득 기록 자체가 저장되므로 별도 해금 원장을 중복 저장하지 않는다.
+	return drink_count(7) > 0
 
 
 func calculate_reward(base_amount: int) -> int:
@@ -66,8 +98,15 @@ func clicks_required() -> int:
 
 
 func _roll_drink() -> int:
-	var pool := purchasable_drinks()
-	return pool[randi_range(0, pool.size() - 1)]
+	return DRINKS.draw_for_roll(self, randf())
+
+
+func _roll_double_reward() -> bool:
+	return randf() < double_reward_chance()
+
+
+func _roll_double_click() -> bool:
+	return randf() < double_click_chance()
 
 
 func _search_is_empty() -> bool:
@@ -89,12 +128,15 @@ func _apply_drink(drink_index: int) -> void:
 
 func purchase() -> bool:
 	var price: int = current_draw_price()
-	if inserting_coin or money < price:
+	if inserting_coin or money < price or purchasable_drinks().is_empty():
+		return false
+	var selected: int = _roll_drink()
+	if selected < 0 or selected >= DRINK_DATA.size():
 		return false
 	inserting_coin = true
 	money -= price
 	purchase_count += 1
-	last_drink = _roll_drink()
+	last_drink = selected
 	_apply_drink(last_drink)
 	search_fever_pending = last_drink == 6
 	punch_fever_pending = last_drink == 14
@@ -104,7 +146,7 @@ func purchase() -> bool:
 func search() -> int:
 	if inserting_coin:
 		return -1
-	click_stack = mini(click_stack + 1, clicks_required())
+	click_stack = mini(click_stack + (2 if _roll_double_click() else 1), clicks_required())
 	if click_stack < clicks_required():
 		return -1
 	click_stack = 0
@@ -120,10 +162,9 @@ func punch() -> int:
 func _discover_coin(multiplier: int) -> int:
 	if _search_is_empty():
 		return 0
-	var coin_index: int = 0
-	while coin_index < 3 + machine_level and randf() < 0.22:
-		coin_index += 1
-	var earned: int = calculate_reward(COINS[coin_index]) * multiplier
+	var base_amount: int = SEARCH.coin_for_roll(self, randf())
+	var doubled: int = 2 if _roll_double_reward() else 1
+	var earned: int = calculate_reward(base_amount) * doubled * multiplier
 	money += earned
 	quest_clicks = mini(quest_clicks + 1, QUEST_TARGET)
 	return earned

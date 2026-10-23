@@ -29,7 +29,7 @@ func run_checks() -> void:
 	assert(
 		(
 			game.session.calculate_reward(10)
-			== floori((10 + game.session.coin_bonus()) * game.session.reward_multiplier()) * 2
+			== (10 + game.session.coin_bonus()) * 2
 		)
 	)
 	game._process(0.5)
@@ -62,12 +62,13 @@ func run_checks() -> void:
 	game._start_search_fever()
 	assert(game.session.search_fever_remaining == 20)
 	game.session.water_count = 30
-	assert(game.session.clicks_required() == 1)
+	game.session.extra_counts[3] = 6
+	assert(game.session.clicks_required() == 3)
 	game.session.click_stack = 0
 	game.session.search_fever_remaining = 0.1
 	game._process(0.2)
 	assert(game.session.search_fever_remaining == 0 and not game.search_fever_fx.visible)
-	assert(game.session.clicks_required() == 3)
+	assert(game.session.clicks_required() == 8)
 	assert(
 		(
 			game.session.calculate_reward(10)

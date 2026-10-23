@@ -35,11 +35,11 @@ func run_checks() -> void:
 		game.session.money == 99 and game.session.drinks == 0 and not game.session.inserting_coin,
 		"Insufficient funds never charge or grant drinks"
 	)
-	game.session.money = 316
+	game.session.money = 307
 	game._refresh_ui()
 	game.shop_button.pressed.emit()
 	check(
-		game.session.money == 216 and game.session.water_count == 1 and game.session.cans == 1,
+		game.session.money == 207 and game.session.water_count == 1 and game.session.cans == 1,
 		"Click immediately charges 100 yen and grants water"
 	)
 	check(
@@ -50,14 +50,14 @@ func run_checks() -> void:
 	check(
 		(
 			committed.load(FIXTURE.store_for(game).path) == OK
-			and committed.get_value("progress", "money") == 216
+			and committed.get_value("progress", "money") == 207
 			and committed.get_value("progress", "water_count") == 1
 		),
 		"Charge and reward persist together before animation completes"
 	)
 	game._on_shop_button_pressed()
 	check(
-		game.session.money == 216 and game.session.drinks == 1,
+		game.session.money == 207 and game.session.drinks == 1,
 		"Repeated clicks during animation do not charge twice"
 	)
 	await game.coin_tween.finished
@@ -78,14 +78,14 @@ func run_checks() -> void:
 	game.shop_button.pressed.emit()
 	check(
 		(
-			game.session.money == 111
+			game.session.money == 105
 			and game.session.green_tea_count == 1
 			and game.session.drinks == 2
 			and game.session.cans == 2
 		),
-		"Second drink costs 105 Gold"
+		"Second drink costs 102 Gold"
 	)
-	check(game.session.coin_bonus() == 1, "Green tea increases discovered coin value")
+	check(game.session.coin_bonus() == 4, "Water +1 and green tea +3 add to discovered coin value")
 	await game.coin_tween.finished
 	await process_frame
 	check(
@@ -94,7 +94,7 @@ func run_checks() -> void:
 	)
 	game.session.forced_drink = 0
 	game.shop_button.pressed.emit()
-	check(game.session.money == 0, "Exact 111 Gold balance can buy the third drink")
+	check(game.session.money == 0, "Exact 105 Gold balance can buy the third drink")
 	await game.coin_tween.finished
 	await process_frame
 	game._on_shop_button_pressed()
@@ -103,7 +103,7 @@ func run_checks() -> void:
 		"Zero balance cannot buy"
 	)
 	game.session._apply_drink(0)
-	check(game.session.clicks_required() == 9, "Three waters reduce search clicks")
+	check(game.session.clicks_required() == 10, "Water changes Gold, never search clicks")
 	check(not game.has_node("ShopPanel/Margin/Items/UpgradeButton"), "Upgrade remains removed")
 	game.session.quest_clicks = 10
 	game._on_quest_complete_button_pressed()
@@ -137,7 +137,7 @@ func run_checks() -> void:
 		(
 			game.session.water_count == 6
 			and game.session.green_tea_count == 0
-			and game.session.clicks_required() == 8
+			and game.session.clicks_required() == 10
 		),
 		"Older saves retain existing water progress"
 	)

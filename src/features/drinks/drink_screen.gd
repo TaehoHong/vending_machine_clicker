@@ -29,6 +29,7 @@ var current_cans: int = 0
 var unlocked_indices: Array[int] = []
 var counts: Dictionary = {}
 var cumulative_effects: Dictionary = {}
+var applied_counts: Dictionary = {}
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -196,11 +197,15 @@ func select_drink(index: int) -> void:
 	summary_panel.hide()
 	_refresh_selection()
 
-func update_state(cans: int, unlocked: Array[int], collected: Dictionary = {}, summary: String = "", effects: Dictionary = {}) -> void:
+func update_state(
+	cans: int, unlocked: Array[int], collected: Dictionary = {}, summary: String = "",
+	effects: Dictionary = {}, enhancements: Dictionary = {}
+) -> void:
 	current_cans = cans
 	unlocked_indices = unlocked.duplicate()
 	counts = collected.duplicate()
 	cumulative_effects = effects.duplicate()
+	applied_counts = enhancements.duplicate()
 	balance.text = "빈캔 %d" % cans
 	summary_label.text = summary
 	_refresh_selection()
@@ -228,7 +233,12 @@ func _refresh_selection() -> void:
 	var parent: int = data.parent
 	detail_title.text = data.name
 	detail_title.add_theme_font_size_override("font_size",20 if data.name.length() > 10 else 24)
-	detail_count.text = "해금 완료 · 획득 %d개" % int(counts.get(selected_index,0)) if acquired else "미해금"
+	detail_count.text = "미해금"
+	if acquired:
+		detail_count.text = "획득 %d개 · 강화 %d/%d" % [
+			int(counts.get(selected_index, 0)), int(applied_counts.get(selected_index, 0)),
+			int(data.max_enhancements),
+		]
 	detail_effect.text = data.effect
 	if acquired:
 		detail_status.text = str(cumulative_effects.get(selected_index,"획득한 음료의 능력이 적용됩니다"))

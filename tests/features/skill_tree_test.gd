@@ -115,9 +115,10 @@ func run_checks() -> void:
 		(
 			game.session.ion_count == 1
 			and game.session.cans == 1
-			and game.session.coin_bonus() == before_bonus + 2
+			and game.session.coin_bonus() == before_bonus
+			and game.session.coin_weights() == [6900, 960, 530, 110, 1500]
 		),
-		"Ion grants one can and a permanent +2 Gold discovery bonus"
+		"Ion grants one can and shifts discovery probabilities without a Gold bonus"
 	)
 	game.session.last_drink = 2
 	game._update_result()
