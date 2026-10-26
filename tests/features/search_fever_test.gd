@@ -23,7 +23,7 @@ func run_checks() -> void:
 	game.session.money = 100
 	game._on_shop_button_pressed()
 	assert(game.session.search_fever_pending and game.session.search_fever_remaining == 0)
-	await game.coin_tween.finished
+	await FIXTURE.wait_for_purchase_effects(game)
 	assert(not game.result_overlay.visible and not game.session.search_fever_pending)
 	assert(game.session.search_fever_remaining == 10 and game.session.clicks_required() == 5)
 	assert(

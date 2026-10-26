@@ -2,6 +2,7 @@ extends Control
 
 var title: Label
 var effect: Label
+var _pending: Array[Dictionary] = []
 var animation: Tween
 var accent := Color("ffe475")
 
@@ -26,12 +27,20 @@ func _label(font_size: int, origin: Vector2, dimensions: Vector2) -> Label:
 	return label
 
 func present(drink_name: String, description: String, color: Color) -> void:
-	if is_instance_valid(animation):
-		animation.kill()
+	_pending.append({"name": drink_name, "description": description, "color": color})
+	if not visible:
+		_present_next()
+
+
+func _present_next() -> void:
+	if _pending.is_empty():
+		return
+	var next: Dictionary = _pending.pop_front()
+	var color: Color = next.color
 	accent = color
-	title.text = drink_name + " · 능력 획득"
+	title.text = next.name + " · 능력 획득"
 	title.add_theme_color_override("font_color", color)
-	effect.text = description
+	effect.text = next.description
 	modulate = Color.WHITE
 	show()
 	queue_redraw()
@@ -39,6 +48,7 @@ func present(drink_name: String, description: String, color: Color) -> void:
 	animation.tween_interval(1.0)
 	animation.tween_property(self, "modulate:a", 0.0, 0.6)
 	animation.tween_callback(hide)
+	animation.tween_callback(_present_next)
 
 func _draw() -> void:
 	get_theme_stylebox("panel", "PanelContainer").draw(get_canvas_item(), Rect2(Vector2.ZERO, size))

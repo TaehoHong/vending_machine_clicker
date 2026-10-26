@@ -41,7 +41,7 @@ func run_checks() -> void:
 	game.session.money = 1000
 	game._on_shop_button_pressed()
 	assert(game.session.punch_fever_pending and game.session.punch_fever_remaining == 0)
-	await game.coin_tween.finished
+	await FIXTURE.wait_for_purchase_effects(game)
 	assert(game.session.punch_fever_remaining == 5 and game.punch_button.visible)
 	assert(root.get_node("CursorTheme").punch_mode)
 	await process_frame
@@ -111,7 +111,7 @@ func run_checks() -> void:
 		game.session.inserting_coin and game.session.drinks == 2,
 		"Regular purchases must return after punch fever"
 	)
-	await game.coin_tween.finished
+	await FIXTURE.wait_for_purchase_effects(game)
 	game.free()
 	assert(not root.get_node("CursorTheme").punch_mode)
 	print(

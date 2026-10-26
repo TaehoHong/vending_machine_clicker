@@ -221,16 +221,13 @@ func _refresh_selection() -> void:
 			products[i].add_theme_stylebox_override(state,style)
 	for i in buttons:
 		var acquired: bool = unlocked_indices.has(i)
-		var parent: int = DATA[i].parent
-		var available: bool = parent < 2 or unlocked_indices.has(parent)
 		buttons[i].visible = selected_index == i and not acquired
-		buttons[i].disabled = acquired or not available or current_cans < DATA[i].cost
+		buttons[i].disabled = acquired or current_cans < DATA[i].cost
 		buttons[i].text = "%d개로 추가" % DATA[i].cost
 	detail_panel.visible = selected_index >= 0
 	if selected_index < 0: return
 	var data: Dictionary = DATA[selected_index]
 	var acquired: bool = selected_index < 2 or unlocked_indices.has(selected_index)
-	var parent: int = data.parent
 	detail_title.text = data.name
 	detail_title.add_theme_font_size_override("font_size",20 if data.name.length() > 10 else 24)
 	detail_count.text = "미해금"
@@ -242,8 +239,6 @@ func _refresh_selection() -> void:
 	detail_effect.text = data.effect
 	if acquired:
 		detail_status.text = str(cumulative_effects.get(selected_index,"획득한 음료의 능력이 적용됩니다"))
-	elif parent >= 2 and not unlocked_indices.has(parent):
-		detail_status.text = "먼저 %s 해금" % DATA[parent].name
 	else:
 		detail_status.text = "해금 후 자판기에서 등장"
 

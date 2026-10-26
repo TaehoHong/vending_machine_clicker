@@ -16,13 +16,26 @@ func run_checks() -> void:
 	assert(game.session.DRINK_DATA.size() == 15)
 	assert(game.session.purchasable_drinks() == [0, 1])
 	assert(game.get_node("VendingMachine").material.get_shader_parameter("unlocked_slots") == 3)
+	game.session.water_count = 10
+	game.session.green_tea_count = 10
+	game._refresh_ui()
+	assert(game.session.purchasable_drinks().is_empty())
+	assert(game.get_node("VendingMachine").material.get_shader_parameter("unlocked_slots") == 3)
+	if DisplayServer.get_name() != "headless":
+		await process_frame
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png(
+			"res://.godot/test_artifacts/overlapping-purchase/base-drinks-at-cap.png"
+		)
+	game.session.water_count = 0
+	game.session.green_tea_count = 0
 	game.session.cans = 500
 	game._on_skill_button_pressed()
 	var tree = game.get_node("InfoOverlay/Card/SkillTree")
-	game._on_unlock_drink_requested(7)
-	assert(not game.session.drink_unlocked(7), "Locked prerequisite must block the golden drink")
 	var expected_slots: int = 3
-	for index in tree.ORDER:
+	var reverse_order: Array = tree.ORDER.duplicate()
+	reverse_order.reverse()
+	for index in reverse_order:
 		var previous: int = game.session.cans
 		tree.get_unlock_button(index).pressed.emit()
 		assert(game.session.drink_unlocked(index))

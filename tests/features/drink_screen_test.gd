@@ -70,8 +70,14 @@ func run_checks() -> void:
 		"Hover must not open the card"
 	)
 	await tap(screen.products[6])
-	assert(screen.detail_panel.visible and screen.buttons[6].disabled)
-	assert(screen.detail_status.text.contains("비타민"))
+	assert(screen.detail_panel.visible and not screen.buttons[6].disabled)
+	assert(screen.detail_status.text == "해금 후 자판기에서 등장")
+	assert(screen.buttons[6].text == "10개로 추가")
+	await tap(screen.products[5])
+	assert(not screen.buttons[5].disabled and screen.buttons[5].text == "15개로 추가")
+	assert(not game.session.drink_unlocked(8), "Orange is available before lime unlock")
+	assert(not screen.detail_status.text.contains("먼저"))
+	await capture("independent-orange")
 	await tap(screen.products[2])
 	assert(screen.selected_index == 2 and screen.detail_panel.visible)
 	assert(not screen.buttons[2].disabled and screen.buttons[2].visible)
@@ -114,6 +120,7 @@ func run_checks() -> void:
 	assert(not game.info_overlay.visible)
 	game.free()
 	print(
-		"Drink screen: click-only cards, silent hover, fresh open, locked prerequisites, atomic can charge, acquired effects, summary, ESC and resize passed."
+		"Drink screen: click-only cards, silent hover, fresh open, independent unlocks, "
+		+ "atomic can charge, acquired effects, summary, ESC and resize passed."
 	)
 	quit()

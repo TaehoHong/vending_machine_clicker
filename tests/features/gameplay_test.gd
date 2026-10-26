@@ -43,7 +43,11 @@ func run_checks() -> void:
 		"Click immediately charges 100 yen and grants water"
 	)
 	check(
-		game.session.inserting_coin and game.coin_token.visible and not game.result_overlay.visible,
+		(
+			game.session.inserting_coin
+			and not game._purchase_effects.is_empty()
+			and not game.result_overlay.visible
+		),
 		"Coin animation precedes result"
 	)
 	var committed := ConfigFile.new()
@@ -55,18 +59,12 @@ func run_checks() -> void:
 		),
 		"Charge and reward persist together before animation completes"
 	)
-	game._on_shop_button_pressed()
-	check(
-		game.session.money == 207 and game.session.drinks == 1,
-		"Repeated clicks during animation do not charge twice"
-	)
-	await game.coin_tween.finished
+	await FIXTURE.wait_for_purchase_effects(game)
 	await process_frame
 	check(
 		(
 			not game.result_overlay.visible
-			and not game.coin_token.visible
-			and not game.drink_dispense_fx.visible
+			and game._purchase_effects.is_empty()
 		),
 		"Purchase completes without a popup"
 	)
@@ -86,7 +84,7 @@ func run_checks() -> void:
 		"Second drink costs 102 Gold"
 	)
 	check(game.session.coin_bonus() == 4, "Water +1 and green tea +3 add to discovered coin value")
-	await game.coin_tween.finished
+	await FIXTURE.wait_for_purchase_effects(game)
 	await process_frame
 	check(
 		not game.result_overlay.visible and game.ability_toast.title.text.contains("녹차"),
@@ -95,7 +93,7 @@ func run_checks() -> void:
 	game.session.forced_drink = 0
 	game.shop_button.pressed.emit()
 	check(game.session.money == 0, "Exact 105 Gold balance can buy the third drink")
-	await game.coin_tween.finished
+	await FIXTURE.wait_for_purchase_effects(game)
 	await process_frame
 	game._on_shop_button_pressed()
 	check(

@@ -18,3 +18,8 @@ static func create_game(root: Window, session: RefCounted = null) -> PLAY_SCRIPT
 
 static func store_for(game: Control) -> RefCounted:
 	return game.get_meta("test_store")
+
+
+static func wait_for_purchase_effects(game: PLAY_SCRIPT) -> void:
+	while game.session.inserting_coin:
+		await game.get_tree().process_frame

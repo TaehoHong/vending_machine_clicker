@@ -28,16 +28,15 @@ func run_checks() -> void:
 		)
 	)
 	game._on_shop_button_pressed()
-	assert(game.session.purchase_count == 1)
+	assert(game.session.purchase_count == 2 and game.session.money == 798)
 	var saved := ConfigFile.new()
 	assert(
 		(
 			saved.load(FIXTURE.store_for(game).path) == OK
-			and saved.get_value("progress", "purchase_count") == 1
+			and saved.get_value("progress", "purchase_count") == 2
 		)
 	)
-	await game.coin_tween.finished
-	game._on_shop_button_pressed()
+	await FIXTURE.wait_for_purchase_effects(game)
 	assert(
 		(
 			game.session.money == 798
@@ -45,7 +44,6 @@ func run_checks() -> void:
 			and game.session.current_draw_price() == 105
 		)
 	)
-	await game.coin_tween.finished
 	game.session.money = 104
 	game._on_shop_button_pressed()
 	assert(
@@ -64,7 +62,7 @@ func run_checks() -> void:
 			and game.session.current_draw_price() == 107
 		)
 	)
-	await game.coin_tween.finished
+	await FIXTURE.wait_for_purchase_effects(game)
 	game._save_progress()
 	var loaded = FIXTURE.create_game(root)
 	FIXTURE.store_for(loaded).path = FIXTURE.store_for(game).path

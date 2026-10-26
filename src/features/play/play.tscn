@@ -328,24 +328,6 @@ offset_right = 144.0
 offset_bottom = 56.0
 text = "100 G"
 
-[node name="CoinToken" type="Panel" parent="." unique_id=540826342]
-visible = false
-z_index = 10
-layout_mode = 0
-offset_right = 42.0
-offset_bottom = 42.0
-mouse_filter = 2
-
-[node name="Symbol" type="Label" parent="CoinToken" unique_id=1740288923]
-layout_mode = 0
-offset_right = 42.0
-offset_bottom = 42.0
-theme_override_colors/font_color = Color(0.34902, 0.2, 0.01961, 1)
-theme_override_font_sizes/font_size = 25
-text = "¥"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="FeedbackLabel" type="Label" parent="." unique_id=361713234]
 layout_mode = 0
 anchor_top = 1.0

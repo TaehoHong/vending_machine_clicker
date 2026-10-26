@@ -128,24 +128,20 @@ func _apply_drink(drink_index: int) -> void:
 
 func purchase() -> bool:
 	var price: int = current_draw_price()
-	if inserting_coin or money < price or purchasable_drinks().is_empty():
+	if money < price or purchasable_drinks().is_empty():
 		return false
 	var selected: int = _roll_drink()
 	if selected < 0 or selected >= DRINK_DATA.size():
 		return false
-	inserting_coin = true
 	money -= price
 	purchase_count += 1
 	last_drink = selected
 	_apply_drink(last_drink)
-	search_fever_pending = last_drink == 6
-	punch_fever_pending = last_drink == 14
+	pending_purchases[purchase_count] = last_drink
 	return true
 
 
 func search() -> int:
-	if inserting_coin:
-		return -1
 	click_stack = mini(click_stack + (2 if _roll_double_click() else 1), clicks_required())
 	if click_stack < clicks_required():
 		return -1
@@ -154,7 +150,7 @@ func search() -> int:
 
 
 func punch() -> int:
-	if inserting_coin or punch_fever_remaining <= 0:
+	if punch_fever_remaining <= 0:
 		return -1
 	return _discover_coin(3)
 
@@ -174,7 +170,7 @@ func unlock(index: int) -> bool:
 	if index < 2 or index >= DRINK_DATA.size() or drink_unlocked(index):
 		return false
 	var data: Dictionary = DRINK_DATA[index]
-	if cans < data.cost or (data.parent >= 0 and not drink_unlocked(data.parent)):
+	if cans < data.cost:
 		return false
 	cans -= data.cost
 	if index == 2:
@@ -210,20 +206,16 @@ func start_punch_fever() -> void:
 	punch_fever_remaining = punch_fever_total
 
 
-func finish_purchase() -> void:
-	inserting_coin = false
-	if search_fever_pending:
-		search_fever_pending = false
+func finish_purchase(purchase_id: int) -> bool:
+	if not pending_purchases.has(purchase_id):
+		return false
+	var completed: int = pending_purchases[purchase_id]
+	pending_purchases.erase(purchase_id)
+	if completed == 6:
 		start_search_fever()
-	if punch_fever_pending:
-		punch_fever_pending = false
+	if completed == 14:
 		start_punch_fever()
-
-
-func finish_pending_search_fever() -> void:
-	if search_fever_pending:
-		search_fever_pending = false
-		start_search_fever()
+	return true
 
 
 func advance(delta: float, blocked: bool) -> void:
