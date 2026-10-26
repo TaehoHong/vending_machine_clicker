@@ -73,7 +73,7 @@
 - [x] 승인 후 작업 브랜치에서 기존 테마/화면 소유자를 확장해 정적 UI 적용.
 - [x] import·parse와 관련 회귀 검증, 실제 렌더러에서 긴 문구·부족/완료·요약·resize 확인.
 - [x] 실제 diff의 중복·임의 스타일·책임 위반·다른 작업 변경 혼입 검사.
-- [ ] 검증한 공유 UI 소유권만 코드 안내에 반영하고 로컬 커밋·main 머지 및 포함 여부 확인.
+- [x] 검증한 공유 UI 소유권만 코드 안내에 반영하고 로컬 커밋·main 머지 및 포함 여부 확인.
 
 Godot은 `/private/tmp/clicker-godot-4.7/Godot.app/Contents/MacOS/Godot` (`4.7.stable.official.5b4e0cb0f`)를 사용한다. 기본 user 로그 경로는 sandbox에서 열리지 않아 최초 실행이 충돌했다. `--log-file /private/tmp/<개별 로그 이름>.log`를 명시하자 세 회귀가 완료됐다. macOS 시스템 인증서 조회 경고가 있으며 스크립트 오류·assertion·리소스 오류는 없었다.
 
@@ -100,6 +100,7 @@ git diff --check
 - 가변 글꼴은 OpenType wght 정수 태그로 지정하고 렌더러의 실제 좌표가 400임을 확인했다. 문자열 태그 지정 때 기본 100으로 표시되던 현상은 검수 중 수정했다.
 - sandbox에서 실제 렌더러 실행은 권한 확장이 필요했다. 편집기 import의 설정 저장 오류는 임시 Godot 바이너리 옆 `_sc_` 파일로 독립 설정 경로를 사용해 해결했다. 재실행에서 설정 저장 오류·스크립트 오류·assertion·리소스 오류가 없었다. headless의 기존 macOS 인증서 조회 경고는 남는다.
 - `git diff --check`를 통과했다. 다른 작업의 `DESIGN.md` 수정은 작업 시작 때와 동일한 해시이며 커밋에서 제외한다. 새 파일은 승인한 폰트·라이선스·import 메타데이터뿐이며 새 스크립트·카탈로그·상태 원장은 없다.
+- 구현 커밋 `a093ee0`을 로컬 main에 fast-forward 머지했다. main worktree에서 import·parse·위 회귀 5종을 다시 실행해 모두 종료 코드 0과 완료 출력을 확인했고, 스크립트·리소스·assertion 오류는 없었다. push·PR·릴리스는 수행하지 않았다.
 
 ## Knowledge Delta
 
