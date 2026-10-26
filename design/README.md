@@ -4,7 +4,7 @@
 
 [게임 화면·애니메이션 재생](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&index=3)에서 상단 화면 목록이나 플로우를 선택해 확인한다.
 
-[시설 구매 동선](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=55aeaacb-aa46-80be-8008-cdca500ac9c3&index=37)은 메인 하단의 시설 아이콘에서 시작한다. [공통 구매창 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers&board-id=530a781c-9b38-80ef-8008-d8a9fa600823)에서 배치를 편집한다.
+[시설 구매 동선](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=55aeaacb-aa46-80be-8008-cdca500ac9c3&index=37)은 메인 하단의 시설 아이콘에서 시작한다. [목록형 공통 구매창 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers&board-id=530a781c-9b38-80ef-8008-d8a9fa600823)에서 배치를 편집한다.
 
 | 원본 | 용도 |
 | --- | --- |
