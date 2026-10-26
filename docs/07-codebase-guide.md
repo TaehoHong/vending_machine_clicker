@@ -37,7 +37,7 @@
 | 주차장 해금 상태 | `game_session.parking_unlocked` | 저장된 황금 획득 수로 판정; 새 플래그나 스테이지 씬은 없음 |
 | 저장·복구 | `progress_store.write`, `load_into`, `backup`; app 연결 | 기존 키·상품 인덱스·이전 저장 처리 보존 |
 | 금액 표기 | `amount_format.format_amount`, `format_gold`; Play `_refresh_ui` | 표기 축약은 실제 잔액·가격 계산에 적용하지 않음 |
-| 공유 외형 | `play_theme.tres`의 Button·PixelHudButton·PrimaryButton·PixelIconButton·ActionButton·PricePlate; `drink_screen.PLAY_PANEL` | 기존 StyleBox·상태를 재사용, 화면별 새 테마 복제 금지 |
+| 공유 외형 | `play_theme.tres`의 Button·PixelHudButton·PrimaryButton·PixelIconButton·ActionButton·PricePlate·InfoPanel·InfoTitle·InfoBody; `drink_screen._panel`, `_label` | 기존 StyleBox·상태를 재사용, 화면별 새 테마 복제 금지. InfoPanel은 크림색 정보 카드, InfoTitle은 짙은 Cafe24, InfoBody는 외곽선 없는 Noto Sans KR 400 본문. 재화 HUD는 기존 PLAY_PANEL 유지 |
 | 공통 버튼 입력·피드백 | `shared/ui/pixel_button.gd`; MainMenu·Play·DrinkScreen·PauseMenu | 기본 Button이 입력·문구·포커스를 소유하고 프레임만 90/60/100ms 전환, 클릭 영역을 이동하지 않음 |
 | 외부 의존성 연결 | app의 세션 주입·save_requested 연결; tests/support/game_fixture | UI는 파일 저장소를 직접 생성/호출하지 않음 |
 | 테스트 대역 | tests/features의 Session 하위 클래스 | 랜덤 결과만 통제하고 실제 진행 계산을 mock하지 않음 |
@@ -48,7 +48,7 @@
 | --- | --- | --- |
 | 구매·저장·가격 | tests/features/gameplay_test.gd, purchase_price_test.gd | 연속 구매별 단일 차감·잔액 부족 무차감·획득 즉시 저장·가격·이전 구매 횟수 |
 | 메뉴·백업·저장 오류 | tests/features/menu_test.gd | A 프레임을 통과하는 실제 클릭·초기 포커스·고정 클릭 영역, 새 게임 백업·로드·ESC·수동 저장·실패 시 종료 차단 |
-| 음료·해금·표시 | tests/features/drink_screen_test.gd, drink_unlock_screen_test.gd, vending_display_test.gd | 클릭 선택·무반응 hover·독립 해금·콜라10/에너지15 비용·정확한 차감·강화 완료 후 해금 진열 유지·resize |
+| 음료·해금·표시 | tests/features/drink_screen_test.gd, drink_unlock_screen_test.gd, vending_display_test.gd | 클릭 선택·선택 음료의 상세 그림 전환·무반응 hover·독립 해금·콜라10/에너지15 비용·정확한 차감·강화 완료 후 해금 진열 유지·resize |
 | 수색·연출·피버 | tests/features/search_test.gd, coin_effect_test.gd, search_fever_test.gd, punch_fever_test.gd | 정확한 지급·꽝·이펙트·pause·기간·중첩·종료 |
 | 배출·구매 영역 | tests/features/drink_dispense_test.gd, purchase_area_test.gd | 입력 영역·구매 중 수색/능력·겹친 동전/음료·ID별 그림/피버·순차 알림·pause·저장 재지급 방지 |
 | 음료 상한·확률·추첨 | tests/features/expanded_skills_test.gd | cap 경계·초과 기록 저장/로드·정수 확률 합계/구간·황금 빈캔 해금/보장·피버 중복/반복·빈 후보 차감 방지 |

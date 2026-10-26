@@ -19,6 +19,7 @@ var detail_panel: Panel
 var summary_panel: Panel
 var summary_label: Label
 var detail_title: Label
+var detail_art: TextureRect
 var detail_effect: Label
 var detail_status: Label
 var detail_count: Label
@@ -35,7 +36,6 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	var foreground := get_theme_color("font_color", "Label")
 	var secondary := get_theme_color("secondary_color", "Label")
-	var accent := get_theme_color("accent_color", "Label")
 	var backdrop := TextureRect.new()
 	backdrop.name = "Backdrop"
 	backdrop.texture = preload("res://assets/alley_arcade_penpot.png")
@@ -98,15 +98,36 @@ func _ready() -> void:
 		product.pressed.connect(func() -> void: select_drink(i))
 		canvas.add_child(product)
 		products[i] = product
-	detail_panel = _panel(Rect2(862,241,306,278),"DrinkDetail")
-	detail_title = _label(detail_panel,Rect2(18,14,222,34),"",24,foreground)
+	detail_panel = _panel(Rect2(862, 241, 306, 278), "DrinkDetail", &"InfoPanel")
+	detail_art = TextureRect.new()
+	detail_art.name = "DrinkArt"
+	detail_art.position = Vector2(18, 14)
+	detail_art.size = Vector2(40, 60)
+	detail_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	detail_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	detail_art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	detail_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	detail_panel.add_child(detail_art)
+	detail_title = _label(
+		detail_panel, Rect2(74, 10, 166, 62), "", 24, foreground, &"InfoTitle"
+	)
+	detail_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	detail_title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	var dismiss := _button(detail_panel,Rect2(248,6,52,52),"×", &"PixelIconButton")
 	dismiss.add_theme_font_size_override("font_size",18)
 	dismiss.pressed.connect(dismiss_details)
-	detail_count = _label(detail_panel,Rect2(18,53,270,25),"",16,secondary)
-	detail_effect = _label(detail_panel,Rect2(18,92,270,77),"",18,foreground)
+	detail_count = _label(
+		detail_panel, Rect2(18, 80, 270, 25), "", 16, secondary, &"InfoTitle"
+	)
+	detail_count.clip_text = true
+	detail_count.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	detail_effect = _label(
+		detail_panel, Rect2(18, 112, 270, 57), "", 18, foreground, &"InfoBody"
+	)
 	detail_effect.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	detail_status = _label(detail_panel,Rect2(18,169,270,36),"",15,secondary)
+	detail_status = _label(
+		detail_panel, Rect2(18, 174, 270, 31), "", 15, secondary, &"InfoBody"
+	)
 	detail_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	for i in range(2,DATA.size()):
 		var unlock := _button(detail_panel,Rect2(18,210,270,56),"", &"ActionButton")
@@ -116,38 +137,49 @@ func _ready() -> void:
 		unlock.add_theme_constant_override("icon_max_width",18)
 		unlock.pressed.connect(func() -> void: unlock_requested.emit(i))
 		buttons[i] = unlock
-	summary_panel = _panel(Rect2(840,88,328,252),"AbilitySummary")
-	_label(summary_panel,Rect2(18,14,290,35),"현재 적용된 능력",23,accent)
-	summary_label = _label(summary_panel,Rect2(18,61,290,170),"",18,secondary)
+	summary_panel = _panel(Rect2(840, 88, 328, 252), "AbilitySummary", &"InfoPanel")
+	_label(
+		summary_panel, Rect2(18, 14, 290, 35), "현재 적용된 능력", 23, foreground, &"InfoTitle"
+	)
+	summary_label = _label(
+		summary_panel, Rect2(18, 61, 290, 170), "", 18, secondary, &"InfoBody"
+	)
 	summary_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	resized.connect(_layout)
 	_layout()
 	update_state(0,[])
 	reset_selection()
 
-func _panel(bounds: Rect2, title: String) -> Panel:
+func _panel(bounds: Rect2, title: String, style: StringName = &"") -> Panel:
 	var panel := Panel.new()
 	panel.name = title
 	panel.position = bounds.position
 	panel.size = bounds.size
-	panel.add_theme_stylebox_override("panel",PLAY_PANEL)
+	panel.theme_type_variation = style
+	if style.is_empty():
+		panel.add_theme_stylebox_override("panel", PLAY_PANEL)
 	panel.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	canvas.add_child(panel)
 	return panel
 
-func _label(parent: Node, bounds: Rect2, value: String, font_size: int, color: Color) -> Label:
+func _label(
+	parent: Node, bounds: Rect2, value: String, font_size: int, color: Color,
+	style: StringName = &""
+) -> Label:
 	var label := Label.new()
 	label.position = bounds.position
 	label.size = bounds.size
 	label.text = value
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	label.add_theme_font_override("font",FONT)
+	label.theme_type_variation = style
 	label.add_theme_font_size_override("font_size",font_size)
-	label.add_theme_color_override("font_color",color)
-	label.add_theme_color_override(
-		"font_outline_color", get_theme_color("font_outline_color", "Label")
-	)
-	label.add_theme_constant_override("outline_size",2)
+	if style.is_empty():
+		label.add_theme_font_override("font", FONT)
+		label.add_theme_color_override("font_color", color)
+		label.add_theme_color_override(
+			"font_outline_color", get_theme_color("font_outline_color", "Label")
+		)
+		label.add_theme_constant_override("outline_size", 2)
 	parent.add_child(label)
 	return label
 
@@ -229,6 +261,7 @@ func _refresh_selection() -> void:
 	var data: Dictionary = DATA[selected_index]
 	var acquired: bool = selected_index < 2 or unlocked_indices.has(selected_index)
 	detail_title.text = data.name
+	detail_art.texture = load(data.asset)
 	detail_title.add_theme_font_size_override("font_size",20 if data.name.length() > 10 else 24)
 	detail_count.text = "미해금"
 	if acquired:
@@ -236,6 +269,7 @@ func _refresh_selection() -> void:
 			int(counts.get(selected_index, 0)), int(applied_counts.get(selected_index, 0)),
 			int(data.max_enhancements),
 		]
+	detail_count.tooltip_text = detail_count.text
 	detail_effect.text = data.effect
 	if acquired:
 		detail_status.text = str(cumulative_effects.get(selected_index,"획득한 음료의 능력이 적용됩니다"))
