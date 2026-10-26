@@ -6,7 +6,7 @@
 
 [시설 구매 동선](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=55aeaacb-aa46-80be-8008-cdca500ac9c3&index=37)은 메인 하단의 시설 아이콘에서 시작한다. [목록형 공통 구매창 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers&board-id=530a781c-9b38-80ef-8008-d8a9fa600823)에서 배치를 편집한다.
 
-배치 시안: [자동 자판기·쓰레기통 설치 후 플레이 · 위치 검토](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=50762640-c848-806c-8008-d8c7ba42a837).
+배치 시안: [자동 자판기·쓰레기통 설치 후 플레이 · 위치 검토](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=50762640-c848-806c-8008-d8c7ba42a837) · [쓰레기통 아트 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers&board-id=eb1d83d1-2566-809d-8008-d4480ac50cd6).
 
 | 원본 | 용도 |
 | --- | --- |
