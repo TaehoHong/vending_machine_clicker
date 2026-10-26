@@ -8,6 +8,8 @@
 
 배치 시안: [자동 자판기·쓰레기통 설치 후 플레이 · 위치 검토](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&layout=layers&board-id=50762640-c848-806c-8008-d8c7ba42a837) · [쓰레기통 아트 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers&board-id=eb1d83d1-2566-809d-8008-d4480ac50cd6).
 
+손님 연출: [게임 배치·이용 순서 재생](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=50762640-c848-806c-8008-d8e04c9ed4d4&index=50) · [동작 프레임 재생](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&section=interactions&frame-id=e45d1929-def8-80c2-8008-d8eaaea8d1e2&index=29) · [캐릭터 공통 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers&board-id=50762640-c848-806c-8008-d8e0c440ce7a).
+
 | 원본 | 용도 |
 | --- | --- |
 | [00 · 디자인 시스템](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=490e660f-738c-80e7-8008-d0f0d410a6b5&layout=layers) | 공유 색상·폰트와 인스턴스 견본 |
