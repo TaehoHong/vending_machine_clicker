@@ -55,11 +55,16 @@ func set_view(next: int) -> void:
 		rest.add_child(artwork)
 		joint.rotation = deg_to_rad(float(part.rotation))
 		joints[key] = joint
-	arm = "near_arm" if data.near_arm.pivot.x > data.far_arm.pivot.x else "far_arm"
+	arm = "near_arm"
 	drink = Sprite2D.new()
 	drink.texture = load(DRINK)
-	drink.scale = Vector2.ONE * (15.0 / drink.texture.get_width())
+	drink.scale = Vector2.ONE * (12.0 / drink.texture.get_width())
 	drink.position = Vector2(8, 58)
+	if view == 1:
+		# 원본 측면 음료 보행의 소품 중심(82, 160)을 같은 손 관절에 연결한다.
+		drink.position = (Vector2(82, 160) - data.near_arm.pivot).rotated(
+			-deg_to_rad(float(data.near_arm.rotation))
+		)
 	drink.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	joints[arm].add_child(drink)
 	drink.visible = carrying
@@ -73,8 +78,6 @@ func walk(time: float) -> void:
 		joints[key].rotation = lerp_angle(
 			deg_to_rad(float(part.rotation)), deg_to_rad(float(part.walk_target)), phase
 		)
-	if carrying:
-		joints[arm].rotation -= 0.65
 	drink.visible = carrying
 
 
