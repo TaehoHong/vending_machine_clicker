@@ -43,6 +43,9 @@ func set_view(next: int) -> void:
 			(torso if upper else self).add_child(joint)
 			joint.position = part.pivot - (data.torso.pivot if upper else Vector2.ZERO)
 		joint.z_index = i - 4 if key in ["head", "far_arm", "near_arm"] else i
+		# 후면에서는 들어 올린 소매의 절단 경계를 몸통이 가려야 한다.
+		if view == 3 and key == "near_arm":
+			joint.z_index = -1
 		var rest := Node2D.new()
 		rest.rotation = -deg_to_rad(float(part.rotation))
 		joint.add_child(rest)
