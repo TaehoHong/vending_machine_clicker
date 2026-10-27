@@ -32,3 +32,7 @@ var punch_fever_total: float = 5.0
 var punch_fever_pending: bool:
 	get:
 		return pending_purchases.values().has(14)
+
+var facilities: Dictionary = {
+	"alley": preload("res://src/game/automation/facility_rules.gd").DEFAULT.duplicate(true),
+}

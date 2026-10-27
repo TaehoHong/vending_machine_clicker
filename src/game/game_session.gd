@@ -13,6 +13,7 @@ const COINS: Array[int] = [1, 5, 10, 50, 100, 500, 1000, 5000]
 const DRINK_DATA = preload("res://src/data/drink_catalog.gd").DATA
 const ECONOMY = preload("res://src/game/economy/economy_rules.gd")
 const DRINKS = preload("res://src/game/progression/drink_rules.gd")
+const FACILITIES = preload("res://src/game/automation/facility_rules.gd")
 const SEARCH = preload("res://src/game/search/search_rules.gd")
 
 
@@ -70,7 +71,7 @@ func purchasable_drinks() -> Array[int]:
 
 
 func collected_cans() -> int:
-	return DRINKS.collected_cans(self)
+	return DRINKS.collected_cans(self) + int(FACILITIES.state(self).collected_cans)
 
 
 func drink_count(index: int) -> int:
@@ -223,3 +224,31 @@ func advance(delta: float, blocked: bool) -> void:
 		return
 	search_fever_remaining = maxf(0, search_fever_remaining - delta)
 	punch_fever_remaining = maxf(0, punch_fever_remaining - delta)
+
+
+func facility_roll() -> float:
+	return randf()
+
+
+func unlock_facility(kind: String) -> bool:
+	return FACILITIES.unlock(self, kind)
+
+
+func purchase_facility(kind: String) -> bool:
+	return FACILITIES.purchase(self, kind)
+
+
+func upgrade_facility(key: String) -> bool:
+	return FACILITIES.upgrade(self, key)
+
+
+func collect_facility_gold() -> int:
+	return FACILITIES.collect_gold(self)
+
+
+func collect_facility_item(id: int) -> int:
+	return FACILITIES.collect_item(self, id)
+
+
+func advance_facilities(delta: float) -> Dictionary:
+	return FACILITIES.advance(self, delta)

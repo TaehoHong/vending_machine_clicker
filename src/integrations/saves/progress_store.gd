@@ -20,9 +20,11 @@ func summary() -> String:
 	var save := ConfigFile.new()
 	save.load(path)
 	return (
-		"마지막 저장 · ¥%d / 음료 %d개"
+		"마지막 저장 · %s Gold / 음료 %d개"
 		% [
-			int(save.get_value("progress", "money", 0)),
+			preload("res://src/shared/formatting/amount_format.gd").format_gold(
+				int(save.get_value("progress", "money", 0))
+			),
 			int(save.get_value("progress", "drinks", 0)),
 		]
 	)
@@ -58,6 +60,7 @@ func write(state: RefCounted) -> Error:
 		"ion_unlocked",
 		"extra_counts",
 		"unlocked_drinks",
+		"facilities",
 	]:
 		save.set_value("progress", key, state.get(key))
 	return save.save(path)
@@ -116,3 +119,7 @@ func load_into(state: RefCounted) -> void:
 	)
 	if not save.has_section_key("progress", "cans"):
 		state.cans = state.drinks
+
+	state.facilities = preload("res://src/game/automation/facility_rules.gd").normalize(
+		save.get_value("progress", "facilities", {})
+	)
