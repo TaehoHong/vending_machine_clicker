@@ -29,6 +29,7 @@ godot --headless --path . --script res://tests/integrations/progress_store_test.
 godot --headless --path . --script res://tests/integrations/facility_rules_test.gd
 godot --headless --path . --script res://tests/features/facilities_test.gd
 godot --headless --path . --script res://tests/features/settings_test.gd
+godot --headless --path . --script res://tests/features/customer_animation_test.gd
 
 git diff --check
 ```
@@ -63,6 +64,13 @@ git diff --check
 - 시설 규칙 검사는 중복 차감·강화 비용/상한·생산 시점·수령 중복·드롭 소멸·자동 수집·음료 능력과의 분리·저장 복원을 보호한다. 시설 UI 검사는 실제 클릭·미리보기 무차감·모달 입력·ESC를 보호한다. 설정 검사는 오디오 버스·파일 복원·슬라이더·선택 상태·돌아가기를 보호한다.
 - 언어 선택은 기기 설정으로 저장하고 로케일에 적용한다. 전체 문구의 번역 리소스와 일본어/중국어 글리프 전수 검수, 오디오 콘텐츠 제작은 아직 출시 검증 범위 밖이다.
 - sandbox의 macOS 인증서 조회에서 `get_system_ca_certificates` 경고가 출력된다. 스크립트/assertion/리소스 오류와 구분하며, 실제 Metal 실행에서는 이 경고 없이 화면을 확인했다.
+
+## 손님 4종 동작 적용 검증 · 2026-10-27
+
+- 승인된 기본 보행 6포즈와 귀·호흡·쥔 자세를 적용하고 외형 02·03·08도 연결된 상체·공통 하체로 제작했다. 관절 분할 회전과 가로 눌림을 제거하고 4종을 순환한다.
+- `customer_animation_test`는 변경 전 등장 조건에서 실패했고, 변경 뒤 4종·5회 순환, .36초 정지와 후면 대기, 호흡 재생, 수령·퇴장, pause, 생산 이벤트의 fallback, cleanup과 재화 비변경을 통과했다. 기존 시설·시설 규칙·게임플레이·메뉴·구매 가격·저장 호환·음료 화면·동전 회귀도 통과했다.
+- 1152×648 실제 Metal Play를 26초 재생해 최단 5초 생산에서 네 외형의 접근·조작·줍기·수령·퇴장과 방문자 누적 방지를 확인했다. 실제 사용자 저장을 사용하지 않았다.
+- Sol·Terra의 이미지/프레임 검수 후 추가 외형의 허리 띠와 퇴장 골반판을 정리했다. 재검수에서 큰 띠·직선 골반 돌출 해소와 새 투명 틈 없음이 확인됐으며, 작은 옷자락 윤곽은 남아 있다. 연속 재생의 최종 사람 검수와 Windows 릴리스는 아래 범위대로 별도다.
 
 ## 남은 설정·검증 범위
 

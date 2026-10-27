@@ -20,8 +20,7 @@ clicker/
 │   │   ├── main_menu/             # 메뉴 씬·입력·표시
 │   │   ├── play/                  # 플레이 씬·입력·화면 갱신
 │   │   │   └── effects/           # 동전·배출·피버·알림·셰이더
-│   │   ├── penpot/                    # 실제 화면이 참조하는 원본 그래픽·손님 파츠
-│   ├── drinks/                # 음료·능력 씬·스크립트
+│   │   ├── drinks/                # 음료·능력 씬·스크립트
 │   │   ├── facilities/             # 시설 구매·관리·강화와 손님 표현
 │   │   ├── settings/               # 원본 설정 화면·입력
 │   │   └── pause/                 # 독립 일시정지 씬·스크립트
@@ -31,7 +30,7 @@ clicker/
 │   │   ├── ui/design_view.gd       # 원본 메타데이터로 네이티브 UI 연결
 │   │   ├── ui/cursor_theme.gd      # 엔진 전역 커서
 │   │   └── formatting/amount_format.gd
-│   ├── data/                      # drink_catalog.gd · customer_poses.gd
+│   ├── data/drink_catalog.gd       # 단일 런타임 상품 정의
 │   └── integrations/
 │       ├── saves/progress_store.gd
 │       └── settings/preferences_store.gd # 기기별 설정 파일·오디오/창/로케일
@@ -88,7 +87,7 @@ flowchart TD
 - 구매: Play가 일시정지·열린 화면·연출 입력 차단을 확인 → 세션이 가격·잔액·진행 중 구매를 검사하고 차감·구매 횟수·획득을 갱신 → Play의 저장 요청을 앱이 동기 처리 → 기존 배출 연출 → 세션이 피버를 시작한다. 획득을 연출 종료 때 다시 지급하지 않는다.
 - 해금: 음료 화면이 index를 signal로 요청 → 세션이 범위·중복·선행 조건·비용을 다시 검사하고 빈캔·해금을 갱신 → 표시 갱신·저장 요청. 선택·호버는 진행을 바꾸지 않는다.
 - 일시정지: pause 씬은 ESC·저장·종료 요청을 내보낸다. Play가 현재 정보창과 pause 상태에 맞게 처리하므로 pause가 부모의 InfoOverlay를 직접 찾지 않는다.
-- 시설: Play가 세션에 delta를 전달하고, 세션의 automation 규칙이 차감·생산·드롭 소멸·수집을 갱신한다. 시설 UI와 손님 관절 연출은 결과만 표현한다. 시설 상태는 `facilities.alley`에 저장하며 다른 스테이지의 상품 인덱스로 재사용하지 않는다.
+- 시설: Play가 세션에 delta를 전달하고, 세션의 automation 규칙이 차감·생산·드롭 소멸·수집을 갱신한다. 시설 UI와 손님 동작별 프레임 연출은 결과만 표현한다. 시설 상태는 `facilities.alley`에 저장하며 다른 스테이지의 상품 인덱스로 재사용하지 않는다.
 - 기기 설정: Preferences autoload가 `user://settings.cfg`와 오디오 버스·창 모드·로케일을 소유한다. 진행 저장 및 향후 Steam Cloud와 분리한다.
 - 저장: 앱이 저장소를 생성하고 Play의 요청과 연결한다. 테스트 fixture도 같은 세션/저장 경계를 연결한다. 실패 결과는 화면으로 전달하고 기존 종료 차단 동작을 유지한다.
 - 표현: 선택·호버·연출 Tween·레이아웃은 화면 소유다. 골드·빈캔·획득·해금·구매 진행·피버 남은 시간은 세션 소유다. 화면은 타이머를 직접 차감하지 않고 세션에 delta와 차단 여부를 전달한다.

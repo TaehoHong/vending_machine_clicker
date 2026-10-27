@@ -17,7 +17,7 @@
 | Play 표현 | src/features/play/play.tscn, play.gd `_on_shop_button_pressed`, `_finish_action`, `_process` | 입력 차단·세션 호출·화면 갱신·저장 요청·연출 | gameplay, purchase_area, coin_effect, drink_dispense | src/features/play/, src/app/main.gd |
 | 음료·능력 화면 | src/features/drinks/drink_screen.tscn, drink_screen.gd `select_drink`, `update_state` | 표시용 사본과 클릭 선택; 해금은 signal → Play → 세션 | drink_screen, drink_unlock_screen, vending_display | src/features/drinks/, src/features/play/play.gd |
 | 시설 규칙·저장 | src/game/automation/facility_rules.gd, game_session.gd | 첫 골목 해금·구매·강화·생산·드롭·수집, progress_store 정규화 | facility_rules_test.gd | src/game/automation/, src/integrations/saves/, tests/integrations/ |
-| 시설 표현 | src/features/facilities/facility_world.gd, facilities_screen.gd, effects/customer_flow.gd, customer_rig.gd, src/data/customer_poses.gd | 구매·관리·강화·미리보기와 원본 파츠 관절 보간; 지급은 세션 | facilities_test.gd | src/features/facilities/, src/features/play/play.gd |
+| 시설 표현 | src/features/facilities/facility_world.gd, facilities_screen.gd, effects/customer_flow.gd, customer_animation.gd, customer_frames.tres | 구매·관리·강화·미리보기와 원본 포즈의 상태별 프레임 재생; 지급은 세션 | facilities_test.gd, customer_animation_test.gd | src/features/facilities/, src/features/play/play.gd |
 | 기기 설정 | src/features/settings/, src/integrations/settings/preferences_store.gd | 원본 패널·슬라이더, settings.cfg 저장·오디오·창 모드·로케일 | settings_test.gd | project.godot, src/features/settings/, src/integrations/settings/ |
 | 원본 UI 연결 | src/shared/ui/design_view.gd | penpot_name 메타데이터 조회, 기존 pixel_button·테마 상태 재사용, 화면 fit | menu, drink_screen, facilities, settings | src/shared/ui/, src/features/ |
 | 일시정지 | src/features/pause/pause_menu.tscn, pause_menu.gd `set_open` | ESC·포커스·pause, 저장/종료/ESC signal → Play | menu, punch_fever | src/features/pause/, src/features/play/play.gd |
@@ -57,6 +57,8 @@
 | 배출·구매 영역 | tests/features/drink_dispense_test.gd, purchase_area_test.gd | 입력 영역·구매 중 수색/능력·겹친 동전/음료·ID별 그림/피버·순차 알림·pause·저장 재지급 방지 |
 | 음료 상한·확률·추첨 | tests/features/expanded_skills_test.gd | cap 경계·초과 기록 저장/로드·정수 확률 합계/구간·황금 빈캔 해금/보장·피버 중복/반복·빈 후보 차감 방지 |
 | 저장 데이터 호환 | tests/integrations/progress_store_test.gd | 정수 키 획득량·독립 플래그·누락 필드·잘못된 타입/범위 정규화 |
+
+손님 애니메이션은 `customer_animation.gd`의 `show_clip`과 전용 SpriteFrames 리소스가 표현을 소유하고, `customer_flow.gd`가 시설 시계로 걷기·방향 전환·조작·줍기·퇴장 상태를 정한다. 4종 외형 01·02·03·08의 상태별 아틀라스를 순환한다. 호흡 변형은 원본에서 미리 내보내며 게임에는 관절 좌표·런타임 변형 데이터를 두지 않는다. 게임은 발밑 기준을 유지하는 224×248 프레임과 수평 투명 여백 16px를 사용한다. 관련 검사는 `tests/features/customer_animation_test.gd`다.
 
 전체 명령과 한계는 [품질·검증](05-quality-rules.md)을 따른다. 각 파일은 실제 저장을 쓰지 않으며 테스트 캡처는 `.godot/test_artifacts/`에 생성한다.
 
