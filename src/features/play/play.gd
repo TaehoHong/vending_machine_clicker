@@ -501,6 +501,7 @@ func _position_coin_slot() -> void:
 	$Navigation/AbilityButton.size = Vector2(54.4, 54.4) * factor
 	$MenuButton.position = origin + Vector2(1081.6, 577.6) * factor
 	$MenuButton.size = Vector2(54.4, 54.4) * factor
+	_refresh_quest_panel()
 	for entry: Dictionary in _purchase_effects.values():
 		_position_purchase_effect(entry.coin, entry.drink)
 
