@@ -17,7 +17,7 @@
 - [x] 동작 회귀 검사 → 4종 순환, 각 클립 경계/길이, 귀 포함 승인 이미지·발 고정, 수령 물품 유무, 생산 시점·pause·반복 등장·정리, 게임 보상/저장 비변경.
 - [x] 실제 Metal 게임 주기를 재생·캡처 → 자판기 접근/정지/조작/줍기/수령/퇴장과 4종을 실제 크기로 확인.
 - [x] Penpot 편집 원본과 승인 상태·Notion/PRODUCT/DESIGN/design README, 관련 코드 안내·검증 명령 동기화.
-- [ ] Godot 4.7 import/parse, customer_animation/facilities/facility_rules/gameplay/menu/purchase_price/progress_store/drink_screen/coin_effect 회귀, git diff --check → 검증한 기능 단위 커밋 후 로컬 main 통합·재검증.
+- [x] Godot 4.7 import/parse, customer_animation/facilities/facility_rules/gameplay/menu/purchase_price/progress_store/drink_screen/coin_effect 회귀, git diff --check → 검증한 기능 단위 커밋 후 로컬 main 통합·재검증.
 
 Test Value Gate: 실제 변형·상태 경계·순환/중복/cleanup·pause 회귀를 잡는 하나의 고객 동작 검사와 기존 시설/저장 회귀를 사용한다. 단순 파일 존재·상수 복제 테스트는 추가하지 않는다. 시각 자연스러움은 실제 렌더링과 프레임 비교로 확인하며 자동 검사만으로 보장하지 않는다.
 
@@ -30,3 +30,5 @@ Test Value Gate: 실제 변형·상태 경계·순환/중복/cleanup·pause 회�
 원본 동기화: Notion 연결 도구로 승인된 4종·대기·호흡 규칙을 갱신했다. Penpot 새 보드 f128a085-12ce-8061-8008-da762abc6bce에 4종×12포즈의 상체/하체 96개 컴포넌트를 저장했다. MCP 연결 중단 이후에는 브라우저 편집으로 반영·검수했다. 기존 상단 DESIGN 파츠 규칙 수정, .DS_Store, 이전 미승인 계획은 커밋에서 제외한다.
 
 Knowledge Delta: 승인된 4종·정지·호흡 규칙은 PRODUCT/DESIGN과 SSOT에, 재생 소유권·프레임 캔버스·검증은 코드 안내/품질 문서에 반영했다. 별도 troubleshooting 문서는 생략: 이번 변경의 지속 규칙·검증 경계는 기존 소유 문서에 기록했으며 외부 도구 연결 지연을 제품 장애 지식으로 승격하지 않는다.
+
+최종 통합 검증: 기능 커밋 09caa52를 깨끗한 로컬 main에 fast-forward로 통합했다. main에서 Godot 4.7 import와 customer_animation_test, facilities_test, progress_store_test가 모두 exit 0이며 main에 09caa52가 포함됨을 확인했다. Penpot 버전 「손님 4종 · 승인 동작 게임 적용 · 연결 파츠·귀·호흡·파지 검수」 저장 이름과 4종 보드 화면을 확인했다. 런타임 프레임/상태 전환·테스트·소유자 문서를 실제 diff로 검토했고, 이번 작업으로 생긴 미사용 관절 경로를 제거했다. 기존 DESIGN 상단 변경·.DS_Store·이전 미승인 계획은 보존·미포함이다.
