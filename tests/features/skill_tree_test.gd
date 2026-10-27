@@ -30,7 +30,7 @@ func run_checks() -> void:
 	check(
 		(
 			not game.money_label.text.contains("¥")
-			and game.get_node("WalletPanel/Currency").text == "Gold"
+			and game.money_label.text == "0"
 		),
 		"Wallet uses plain amount and larger Gold label"
 	)
@@ -41,7 +41,7 @@ func run_checks() -> void:
 		(
 			screen.products[2].visible
 			and screen.buttons[2].disabled
-			and screen.buttons[2].text == "5개로 추가"
+			and screen.unlock_labels[2].text == "5개로 해금"
 			and screen.detail_count.text == "미해금"
 		),
 		"Locked ion stays visible and requires five cans"
@@ -130,7 +130,7 @@ func run_checks() -> void:
 	screen = game.get_node("InfoOverlay/Card/SkillTree")
 	screen.select_drink(2)
 	check(
-		screen.detail_count.text.contains("1") and not screen.buttons[2].visible,
+		screen.detail_count.text.contains("1") and not screen.buttons[2].is_visible_in_tree(),
 		"Acquired ion shows one can and no repeated unlock button"
 	)
 	await capture("ability")

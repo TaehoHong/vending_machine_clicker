@@ -1,0 +1,107 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/0d4000a2874af92518fd.svg" id="r0"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/3b62d219db32a5cf0933.svg" id="r1"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/fcca923f62520d65adf5.svg" id="r2"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/394410e8973244ce6b52.svg" id="r3"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/88e64fc8c4c1be4bb754.svg" id="r4"]
+
+[node name="Design" type="Control"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 68
+offset_bottom = 68
+mouse_filter = 2
+metadata/penpot_name = "음료 상세 닫기 / normal"
+metadata/penpot_id = "b7760397-d86f-8009-8008-d27201c0c814"
+
+[node name="Shape2" type="Control" parent="."]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 68
+offset_bottom = 68
+mouse_filter = 2
+metadata/penpot_name = "Frame"
+metadata/penpot_id = "b7760397-d86f-8009-8008-d27201c0c815"
+visible = false
+
+[node name="Shape3" type="TextureRect" parent="Shape2"]
+layout_mode = 0
+offset_left = 8
+offset_top = 12
+offset_right = 60
+offset_bottom = 60
+mouse_filter = 2
+metadata/penpot_name = "base"
+metadata/penpot_id = "b7760397-d86f-8009-8008-d27201c0c816"
+texture = ExtResource("r0")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape4" type="TextureRect" parent="Shape2"]
+layout_mode = 0
+offset_left = 8
+offset_top = 8
+offset_right = 60
+offset_bottom = 56
+mouse_filter = 2
+metadata/penpot_name = "surface"
+metadata/penpot_id = "b7760397-d86f-8009-8008-d27201c0c817"
+texture = ExtResource("r1")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape5" type="TextureRect" parent="Shape2"]
+layout_mode = 0
+offset_left = 12
+offset_top = 12
+offset_right = 56
+offset_bottom = 21
+mouse_filter = 2
+metadata/penpot_name = "highlight"
+metadata/penpot_id = "b7760397-d86f-8009-8008-d27201c0c818"
+texture = ExtResource("r2")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape6" type="TextureRect" parent="Shape2"]
+layout_mode = 0
+offset_left = 12
+offset_top = 41
+offset_right = 56
+offset_bottom = 53
+mouse_filter = 2
+metadata/penpot_name = "bevel"
+metadata/penpot_id = "b7760397-d86f-8009-8008-d27201c0c819"
+texture = ExtResource("r3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape7" type="Control" parent="."]
+layout_mode = 0
+offset_left = 18
+offset_top = 16
+offset_right = 50
+offset_bottom = 48
+mouse_filter = 2
+metadata/penpot_name = "Icon"
+metadata/penpot_id = "b7760397-d86f-8009-8008-d27201c0c81a"
+
+[node name="Shape8" type="TextureRect" parent="Shape7"]
+layout_mode = 0
+offset_left = 4
+offset_top = 4
+offset_right = 28
+offset_bottom = 28
+mouse_filter = 2
+metadata/penpot_name = "벡터 면"
+metadata/penpot_id = "b7760397-d86f-8009-8008-d27201c0c81b"
+texture = ExtResource("r4")
+expand_mode = 1
+stretch_mode = 0

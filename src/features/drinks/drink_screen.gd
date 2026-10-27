@@ -4,11 +4,8 @@ signal unlock_requested(drink_index: int)
 signal close_requested
 const DATA = preload("res://src/data/drink_catalog.gd").DATA
 const ORDER: Array[int] = [2,9,4,10,11,8,12,5,3,13,6,14,7]
-const DESIGN_SIZE = Vector2(1200,760)
-const MACHINE_POS = Vector2(408,135)
-const MACHINE_SIZE = Vector2(384,576)
-const MACHINE_SCALE = 384.0 / 1024.0
-const PIXEL_BUTTON = preload("res://src/shared/ui/pixel_button.gd")
+const DESIGN_SIZE = Vector2(1152,648)
+const DESIGN = preload("res://src/shared/ui/design_view.gd")
 const FONT = preload("res://assets/fonts/Cafe24PROUP.ttf")
 const PLAY_PANEL = preload("res://src/shared/ui/themes/quest_style.tres")
 var canvas: Control
@@ -25,6 +22,9 @@ var detail_status: Label
 var detail_count: Label
 var buttons: Dictionary = {}
 var products: Dictionary = {}
+var slot_states: Dictionary = {}
+var unlock_labels: Dictionary = {}
+var has_selected_drink: bool = false
 var selected_index: int = -1
 var current_cans: int = 0
 var unlocked_indices: Array[int] = []
@@ -34,74 +34,38 @@ var applied_counts: Dictionary = {}
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	canvas = preload("res://src/features/drinks/drink_design.tscn").instantiate()
+	add_child(canvas)
+	var design := preload("res://src/shared/ui/design_view.gd")
 	var foreground := get_theme_color("font_color", "Label")
 	var secondary := get_theme_color("secondary_color", "Label")
-	var backdrop := TextureRect.new()
-	backdrop.name = "Backdrop"
-	backdrop.texture = preload("res://assets/alley_arcade_penpot.png")
-	backdrop.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	backdrop.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(backdrop)
-	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var dim := ColorRect.new()
-	dim.name = "Dim"
-	dim.color = Color(0.063,0.106,0.161,0.35)
-	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(dim)
-	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	canvas = Control.new()
-	canvas.name = "Canvas"
-	canvas.size = DESIGN_SIZE
-	canvas.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(canvas)
-	var machine := TextureRect.new()
+	balance = design.shape(canvas, "Label")
+	summary_button = design.action(canvas, "능력 요약 / normal", _toggle_summary)
+	close_button = design.action(canvas, "음료 화면 닫기 / normal", close_requested.emit)
+	var machine: Control = design.shape(
+		canvas, "Clicker / World / Vending / 조작부 확대 · 진열 15종"
+	)
 	machine.name = "Machine"
-	machine.texture = preload("res://assets/vending_approved_15.png")
-	machine.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	machine.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	machine.position = MACHINE_POS
-	machine.size = MACHINE_SIZE
-	machine.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	machine.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	canvas.add_child(machine)
-	_label(canvas,Rect2(30,24,320,50),"음료와 능력",30,foreground)
-	var balance_panel := _panel(Rect2(30,86,210,64),"CanBalance")
-	var can := TextureRect.new()
-	can.texture = preload("res://src/shared/ui/icons/can_icon.svg")
-	can.position = Vector2(20,16)
-	can.size = Vector2(22,30)
-	can.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	can.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	can.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	balance_panel.add_child(can)
-	balance = _label(balance_panel,Rect2(55,14,135,34),"",22,foreground)
-	balance.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	summary_button = _button(canvas,Rect2(894,18,162,72),"능력 요약")
-	summary_button.pressed.connect(_toggle_summary)
-	close_button = _button(canvas,Rect2(1056,18,126,72),"ESC 닫기")
-	close_button.pressed.connect(func() -> void: close_requested.emit())
 	for i in DATA.size():
 		var slot: int = DATA[i].display_slot
-		var col: int = slot % 5
-		var row: int = slot / 5
-		var tops := [269.0,507.0,766.0]
-		var bottoms := [468.0,721.0,955.0]
-		var lefts := [185.0,302.0,422.0,541.0,660.0]
-		var product := Button.new()
-		product.name = DATA[i].key + "Product"
-		product.position = MACHINE_POS + Vector2(lefts[col],tops[row]) * MACHINE_SCALE
-		product.size = Vector2(111,bottoms[row]-tops[row]) * MACHINE_SCALE
-		product.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		product.focus_mode = Control.FOCUS_NONE
-		product.pressed.connect(func() -> void: select_drink(i))
-		canvas.add_child(product)
-		products[i] = product
-	detail_panel = _panel(Rect2(862, 241, 306, 278), "DrinkDetail", &"InfoPanel")
+		slot_states[i] = DESIGN.shape(machine, "진열 상태 / %02d" % (slot + 1))
+		var prefix := "진열 슬롯 / %d행 %d열" % [slot / 5 + 1, slot % 5 + 1]
+		for child: Control in machine.get_children():
+			if str(child.get_meta("penpot_name", "")).begins_with(prefix):
+				var product := Button.new()
+				product.name = DATA[i].key + "Product"
+				product.position = child.position
+				product.size = child.size
+				product.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+				product.focus_mode = Control.FOCUS_NONE
+				product.pressed.connect(select_drink.bind(i))
+				machine.add_child(product)
+				products[i] = product
+				break
+	detail_panel = _panel(Rect2(756, 196, 306, 278), "DrinkDetail", &"InfoPanel")
 	detail_art = TextureRect.new()
 	detail_art.name = "DrinkArt"
-	detail_art.position = Vector2(18, 14)
+	detail_art.position = Vector2(20, 16)
 	detail_art.size = Vector2(40, 60)
 	detail_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	detail_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -109,45 +73,45 @@ func _ready() -> void:
 	detail_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	detail_panel.add_child(detail_art)
 	detail_title = _label(
-		detail_panel, Rect2(74, 10, 166, 62), "", 24, foreground, &"InfoTitle"
+		detail_panel, Rect2(76, 18, 160, 36), "", 24, foreground, &"InfoTitle"
 	)
-	detail_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	detail_title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	var dismiss := _button(detail_panel,Rect2(248,6,52,52),"×", &"PixelIconButton")
-	dismiss.add_theme_font_size_override("font_size",18)
-	dismiss.pressed.connect(dismiss_details)
 	detail_count = _label(
-		detail_panel, Rect2(18, 80, 270, 25), "", 16, secondary, &"InfoTitle"
+		detail_panel, Rect2(76, 54, 160, 32), "", 16, secondary, &"InfoBody"
 	)
-	detail_count.clip_text = true
-	detail_count.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	detail_count.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	detail_effect = _label(
-		detail_panel, Rect2(18, 112, 270, 57), "", 18, foreground, &"InfoBody"
+		detail_panel, Rect2(20, 100, 258, 44), "", 18, foreground, &"InfoBody"
 	)
 	detail_effect.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	detail_status = _label(
-		detail_panel, Rect2(18, 174, 270, 31), "", 15, secondary, &"InfoBody"
+		detail_panel, Rect2(20, 148, 258, 52), "", 16, secondary, &"InfoBody"
 	)
 	detail_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	for i in range(2,DATA.size()):
-		var unlock := _button(detail_panel,Rect2(18,210,270,56),"", &"ActionButton")
-		unlock.name = DATA[i].key + "UnlockButton"
-		unlock.icon = preload("res://src/shared/ui/icons/can_icon.svg")
-		unlock.expand_icon = true
-		unlock.add_theme_constant_override("icon_max_width",18)
-		unlock.pressed.connect(func() -> void: unlock_requested.emit(i))
+	var dismiss_art: Control = preload("res://src/features/drinks/detail_close.tscn").instantiate()
+	dismiss_art.position = Vector2(234, 2)
+	detail_panel.add_child(dismiss_art)
+	DESIGN.action(dismiss_art, "음료 상세 닫기 / normal", dismiss_details)
+	for i in ORDER:
+		var artwork: Control = preload("res://src/features/drinks/unlock_button.tscn").instantiate()
+		artwork.position = Vector2(51, 196)
+		detail_panel.add_child(artwork)
+		var unlock := DESIGN.action(
+			artwork, "음료 추가 / normal", func() -> void: unlock_requested.emit(i)
+		)
 		buttons[i] = unlock
-	summary_panel = _panel(Rect2(840, 88, 328, 252), "AbilitySummary", &"InfoPanel")
+		unlock_labels[i] = DESIGN.shape(artwork, "Label")
+	summary_panel = _panel(Rect2(796, 92, 306, 230), "AbilitySummary", &"InfoPanel")
 	_label(
-		summary_panel, Rect2(18, 14, 290, 35), "현재 적용된 능력", 23, foreground, &"InfoTitle"
+		summary_panel, Rect2(18, 14, 270, 36), "현재 적용된 능력", 24,
+		foreground, &"InfoTitle"
 	)
 	summary_label = _label(
-		summary_panel, Rect2(18, 61, 290, 170), "", 18, secondary, &"InfoBody"
+		summary_panel, Rect2(18, 64, 270, 146), "", 18, secondary, &"InfoBody"
 	)
 	summary_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	resized.connect(_layout)
 	_layout()
-	update_state(0,[])
+	update_state(0, [])
 	reset_selection()
 
 func _panel(bounds: Rect2, title: String, style: StringName = &"") -> Panel:
@@ -183,23 +147,6 @@ func _label(
 	parent.add_child(label)
 	return label
 
-func _button(
-	parent: Node, bounds: Rect2, value: String, style: StringName = &""
-) -> Button:
-	var button := PIXEL_BUTTON.new()
-	button.position = bounds.position
-	button.size = bounds.size
-	button.text = value
-	button.focus_mode = Control.FOCUS_ALL
-	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	button.add_theme_font_override("font",FONT)
-	button.add_theme_font_size_override("font_size",24)
-	button.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	button.theme_type_variation = style
-	button.add_theme_constant_override("outline_size",2)
-	parent.add_child(button)
-	return button
-
 func _layout() -> void:
 	if not is_instance_valid(canvas): return
 	var factor := minf(size.x / DESIGN_SIZE.x,size.y / DESIGN_SIZE.y)
@@ -225,6 +172,7 @@ func _toggle_summary() -> void:
 
 func select_drink(index: int) -> void:
 	if index < 0 or index >= DATA.size(): return
+	has_selected_drink = true
 	selected_index = index
 	summary_panel.hide()
 	_refresh_selection()
@@ -243,19 +191,26 @@ func update_state(
 	_refresh_selection()
 
 func _refresh_selection() -> void:
+	var guide := DESIGN.shape(canvas, "수색 / 픽셀 장갑 / 최초 안내")
+	if guide != null:
+		guide.visible = not has_selected_drink
 	for i in products:
-		for state in ["normal","hover","pressed","focus"]:
-			# Hover never opens or selects an item.
-			var style := StyleBoxFlat.new()
-			style.bg_color = Color.TRANSPARENT
-			style.border_color = Color("67ddea") if selected_index == i else Color.TRANSPARENT
-			style.set_border_width_all(2 if selected_index == i else 0)
-			products[i].add_theme_stylebox_override(state,style)
+		for state in ["normal", "hover", "pressed", "focus"]:
+			products[i].add_theme_stylebox_override(state, StyleBoxEmpty.new())
+		var badge: Control = slot_states.get(i)
+		if badge != null:
+			var acquired: bool = i < 2 or unlocked_indices.has(i)
+			var locked := DESIGN.shape(badge, "State / 미해금")
+			var unlocked := DESIGN.shape(badge, "State / 해금됨")
+			locked.visible = not acquired
+			unlocked.visible = acquired
 	for i in buttons:
 		var acquired: bool = unlocked_indices.has(i)
-		buttons[i].visible = selected_index == i and not acquired
+		buttons[i].get_parent().visible = selected_index == i and not acquired
 		buttons[i].disabled = acquired or current_cans < DATA[i].cost
-		buttons[i].text = "%d개로 추가" % DATA[i].cost
+		var label: Label = DESIGN.shape(buttons[i].get_parent(), "Label")
+		label.text = "%d개로 해금" % DATA[i].cost
+		buttons[i].get_parent().modulate.a = 0.55 if buttons[i].disabled else 1.0
 	detail_panel.visible = selected_index >= 0
 	if selected_index < 0: return
 	var data: Dictionary = DATA[selected_index]

@@ -1,0 +1,92 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/a4f4ae8ea9ea31428c5a.svg" id="r0"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/363790fac9350af6e732.svg" id="r1"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/3f05158ec4122e43e122.svg" id="r2"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/dc9016d61a725fc9882d.svg" id="r3"]
+
+[node name="Design" type="Control"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 48
+offset_bottom = 54
+mouse_filter = 2
+metadata/penpot_name = "수색 / 픽셀 장갑 / 최초 안내"
+metadata/penpot_id = "3c5d6130-1844-804f-8008-d2f26e60a7ab"
+
+[node name="Shape2" type="Control" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0
+offset_right = 48.0
+offset_bottom = 54
+mouse_filter = 2
+metadata/penpot_name = "수색 / 픽셀 장갑 / 최초 안내"
+metadata/penpot_id = "3c5d6130-1844-804f-8008-d2f26e616547"
+
+[node name="Shape3" type="Control" parent="Shape2"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0
+offset_right = 48.0
+offset_bottom = 54
+mouse_filter = 2
+metadata/penpot_name = "base-background"
+metadata/penpot_id = "3c5d6130-1844-804f-8008-d2f26e616548"
+visible = false
+
+[node name="Shape4" type="TextureRect" parent="Shape2"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3
+offset_right = 45.0
+offset_bottom = 51
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "3c5d6130-1844-804f-8008-d2f26e619b65"
+texture = ExtResource("r0")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape5" type="TextureRect" parent="Shape2"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 30
+offset_right = 42.0
+offset_bottom = 48
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "3c5d6130-1844-804f-8008-d2f26e619b66"
+texture = ExtResource("r1")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape6" type="TextureRect" parent="Shape2"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 24
+offset_right = 36.0
+offset_bottom = 36
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "3c5d6130-1844-804f-8008-d2f26e619b67"
+texture = ExtResource("r2")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape7" type="TextureRect" parent="Shape2"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 45
+offset_right = 39.0
+offset_bottom = 45.015
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "3c5d6130-1844-804f-8008-d2f26e619b68"
+texture = ExtResource("r3")
+expand_mode = 1
+stretch_mode = 0

@@ -14,21 +14,29 @@ clicker/
 │   │   ├── progress_state.gd       # 진행·게임 타이머 상태
 │   │   ├── economy/economy_rules.gd
 │   │   ├── progression/drink_rules.gd
-│   │   └── search/search_rules.gd
+│   │   ├── search/search_rules.gd
+│   │   └── automation/facility_rules.gd # 시설 차감·생산·수집 규칙
 │   ├── features/
 │   │   ├── main_menu/             # 메뉴 씬·입력·표시
 │   │   ├── play/                  # 플레이 씬·입력·화면 갱신
 │   │   │   └── effects/           # 동전·배출·피버·알림·셰이더
-│   │   ├── drinks/                # 음료·능력 씬·스크립트
+│   │   ├── penpot/                    # 실제 화면이 참조하는 원본 그래픽·손님 파츠
+│   ├── drinks/                # 음료·능력 씬·스크립트
+│   │   ├── facilities/             # 시설 구매·관리·강화와 손님 표현
+│   │   ├── settings/               # 원본 설정 화면·입력
 │   │   └── pause/                 # 독립 일시정지 씬·스크립트
 │   ├── shared/
 │   │   ├── ui/themes/             # 공통 테마·상태별 스타일
 │   │   ├── ui/icons/              # 공통 UI 이미지
+│   │   ├── ui/design_view.gd       # 원본 메타데이터로 네이티브 UI 연결
 │   │   ├── ui/cursor_theme.gd      # 엔진 전역 커서
 │   │   └── formatting/amount_format.gd
-│   ├── data/drink_catalog.gd       # 단일 런타임 상품 정의
-│   └── integrations/saves/progress_store.gd
+│   ├── data/                      # drink_catalog.gd · customer_poses.gd
+│   └── integrations/
+│       ├── saves/progress_store.gd
+│       └── settings/preferences_store.gd # 기기별 설정 파일·오디오/창/로케일
 ├── assets/                        # 기존 공유 이미지·음료·폰트
+│   ├── penpot/                    # 실제 화면이 참조하는 원본 그래픽·손님 파츠
 │   ├── drinks/
 │   └── fonts/                     # 글꼴·라이선스·출처
 ├── tests/
@@ -42,7 +50,7 @@ clicker/
 └── .claude/
 ```
 
-파일은 기능별로 모으고 씬·스크립트·전용 리소스를 가까이 둔다. 공유 UI는 테마·아이콘·커서로 구현되어 있으며, 별도 공유 씬이 필요해질 때만 `components/`를 만든다. Steam·모바일·오디오·번역·외부 플러그인 폴더도 실제 기능 도입 때 생성한다. 사용하지 않는 빈 디렉터리와 전달 전용 클래스를 만들지 않는다.
+파일은 기능별로 모으고 씬·스크립트·전용 리소스를 가까이 둔다. 공유 UI는 테마·아이콘·커서로 구현되어 있으며, 별도 공유 씬이 필요해질 때만 `components/`를 만든다. Steam·모바일·번역·외부 플러그인 폴더는 실제 기능 도입 때 생성한다. 사용하지 않는 빈 디렉터리와 전달 전용 클래스를 만들지 않는다.
 
 ## 책임·의존성
 
@@ -80,6 +88,8 @@ flowchart TD
 - 구매: Play가 일시정지·열린 화면·연출 입력 차단을 확인 → 세션이 가격·잔액·진행 중 구매를 검사하고 차감·구매 횟수·획득을 갱신 → Play의 저장 요청을 앱이 동기 처리 → 기존 배출 연출 → 세션이 피버를 시작한다. 획득을 연출 종료 때 다시 지급하지 않는다.
 - 해금: 음료 화면이 index를 signal로 요청 → 세션이 범위·중복·선행 조건·비용을 다시 검사하고 빈캔·해금을 갱신 → 표시 갱신·저장 요청. 선택·호버는 진행을 바꾸지 않는다.
 - 일시정지: pause 씬은 ESC·저장·종료 요청을 내보낸다. Play가 현재 정보창과 pause 상태에 맞게 처리하므로 pause가 부모의 InfoOverlay를 직접 찾지 않는다.
+- 시설: Play가 세션에 delta를 전달하고, 세션의 automation 규칙이 차감·생산·드롭 소멸·수집을 갱신한다. 시설 UI와 손님 관절 연출은 결과만 표현한다. 시설 상태는 `facilities.alley`에 저장하며 다른 스테이지의 상품 인덱스로 재사용하지 않는다.
+- 기기 설정: Preferences autoload가 `user://settings.cfg`와 오디오 버스·창 모드·로케일을 소유한다. 진행 저장 및 향후 Steam Cloud와 분리한다.
 - 저장: 앱이 저장소를 생성하고 Play의 요청과 연결한다. 테스트 fixture도 같은 세션/저장 경계를 연결한다. 실패 결과는 화면으로 전달하고 기존 종료 차단 동작을 유지한다.
 - 표현: 선택·호버·연출 Tween·레이아웃은 화면 소유다. 골드·빈캔·획득·해금·구매 진행·피버 남은 시간은 세션 소유다. 화면은 타이머를 직접 차감하지 않고 세션에 delta와 차단 여부를 전달한다.
 
@@ -96,7 +106,7 @@ flowchart TD
 ## 보존한 계약·후속 경계
 
 - 기존 `user://progress.cfg`, progress 키·타입 처리·상한·이전 음료 변환·카탈로그 순서/인덱스·새 게임 백업 경로를 유지한다. 스키마를 새로 정의하거나 진행 데이터를 이동하지 않는다.
-- 기존 테마·상태별 스타일·그림·폰트·화면 수치와 동작을 재사용한다. 새 디자인이나 Penpot 변경은 없다. 현재 Play 씬의 이전 비표시 노드 이름이 남아 있더라도 새 공유 UI의 정규 예시로 확대하지 않는다.
+- 기존 테마·상태별 스타일·그림·폰트·화면 수치와 동작을 재사용한다. Penpot의 현재 게임 화면·에셋을 네이티브 씬과 원본 그래픽으로 적용한다. 현재 Play 씬의 이전 비표시 노드 이름이 남아 있더라도 새 공유 UI의 정규 예시로 확대하지 않는다.
 - `tools/build_scenes.py`는 이전 레이아웃 미리보기 전용이다. `.godot/scene_previews/`에만 출력하며 현재 런타임 카탈로그를 읽는다. 별도 drinks.json 원본은 제거했다.
 - 루트의 기존 `node_2d.tscn`은 이번 실행 경로 밖의 파일이며 새 기능 진입점으로 사용하지 않는다. 관련 없는 기존 파일을 구조 전환 명목으로 삭제하지 않았다.
 - PC 로컬+Steam Cloud 방향, PC·모바일의 별도 진행, 첫 버전 비목표는 [PRODUCT 요약](../PRODUCT.md)과 Notion을 따른다. Steam Cloud·모바일 계정·복구 정책·로그 운영은 구현/확정된 것으로 간주하지 않는다. 토큰·자격 증명은 문서·로그·저장소에 남기지 않는다.

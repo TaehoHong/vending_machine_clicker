@@ -6,10 +6,13 @@ var blocked: bool = false
 var showing: bool = true
 var elapsed: float = 0.0
 var fade: Tween
+var hand: Control
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	size = Vector2(380, 66)
+	size = Vector2(48, 54)
+	hand = preload("res://src/features/play/effects/search_guide.tscn").instantiate()
+	add_child(hand)
 
 func _process(delta: float) -> void:
 	visible = not blocked
@@ -36,9 +39,5 @@ func _set_showing(value: bool) -> void:
 	fade.tween_property(self, "modulate:a", 1.0 if value else 0.0, 0.65).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func _draw() -> void:
-	var bounce := floorf(sin(elapsed * 4.0) * 3.0)
-	var points := PackedVector2Array([Vector2(190, 0), Vector2(202, 12), Vector2(195, 12), Vector2(195, 21), Vector2(185, 21), Vector2(185, 12), Vector2(178, 12)])
-	for i in range(points.size()):
-		points[i].y += bounce
-	draw_colored_polygon(points, Color("ffe48c"))
-	draw_polyline(points + PackedVector2Array([points[0]]), Color("12121d"), 2)
+	var reduced: bool = get_node("/root/Preferences").values.reduce_motion
+	hand.position.y = 0.0 if reduced else floorf(sin(elapsed * 4.0) * 3.0)

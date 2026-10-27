@@ -25,17 +25,16 @@ func run_checks() -> void:
 	game.session.money = 1000
 	game._refresh_ui()
 	await process_frame
-	var machine: TextureRect = game.get_node("VendingMachine")
-	var factor: float = machine.size.x / 1024.0
-	for point in [Vector2(160, 160), Vector2(600, 450), Vector2(850, 1000)]:
+	var design: Control = game.get_node("Design")
+	for point in [Vector2(480, 130), Vector2(560, 240), Vector2(685, 350)]:
 		var before: int = game.session.drinks
-		await tap(machine.position + point * factor)
+		await tap(design.get_global_transform() * point)
 		assert(game.session.inserting_coin and game.session.drinks == before + 1)
 		assert(game._purchase_effects.values()[0].coin.get_child_count() == 0)
 		await FIXTURE.wait_for_purchase_effects(game)
 		assert(not game.result_overlay.visible and not game.session.inserting_coin)
 	var before: int = game.session.drinks
-	await tap(machine.position + Vector2(500, 1200) * factor)
+	await tap(design.get_global_transform() * Vector2(570, 410))
 	assert(
 		game.session.drinks == before and not game.session.inserting_coin,
 		"The dispensing tray must not purchase"

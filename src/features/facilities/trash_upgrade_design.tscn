@@ -1,0 +1,403 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="r0"]
+
+[ext_resource type="FontVariation" path="res://assets/fonts/noto_sans_kr_regular.tres" id="r1"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/c450d3ee5006efb842d6.svg" id="r2"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/55b9af6ad7de48cdbb5a.svg" id="r3"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/f5738b8c68d5a13c4ab0.svg" id="r4"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/c122ad076cfdfd35ee74.svg" id="r5"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/14ba92244ff867f0b08c.svg" id="r6"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/a794d7af2c9e8ca50c01.svg" id="r7"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/ca7145d72be41c9dde41.svg" id="r8"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/18c5030521121d614420.svg" id="r9"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/181bfd05ae125904231d.svg" id="r10"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/7842e5a32bef071138e3.svg" id="r11"]
+
+[sub_resource type="StyleBoxFlat" id="s0"]
+bg_color = Color(0.0431373, 0.0666667, 0.0941176, 0.8392156862745098)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s1"]
+bg_color = Color(0.1254902, 0.2156863, 0.2784314, 1)
+border_color = Color(0.2745098, 0.6, 0.7843137, 1)
+border_width_left = 4
+border_width_right = 4
+border_width_top = 4
+border_width_bottom = 4
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[node name="Design" type="Control"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 1152
+offset_bottom = 648
+mouse_filter = 2
+metadata/penpot_name = "작성 중 / 시설 / 쓰레기통 강화"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6814e84"
+
+[node name="Shape2" type="Control" parent="."]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 1152
+offset_bottom = 648
+mouse_filter = 2
+metadata/penpot_name = "시설 / 쓰레기통 / 강화 패널"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6814e87"
+
+[node name="Shape3" type="Panel" parent="Shape2"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 1152
+offset_bottom = 648
+mouse_filter = 2
+metadata/penpot_name = "PauseMenu / Overlay"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682371b"
+theme_override_styles/panel = SubResource("s0")
+
+[node name="Shape4" type="Control" parent="Shape2"]
+layout_mode = 0
+offset_left = 376
+offset_top = 76
+offset_right = 776
+offset_bottom = 572
+mouse_filter = 2
+metadata/penpot_name = "일시정지 / 연결 패널"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682371c"
+clip_contents = true
+
+[node name="Shape5" type="Panel" parent="Shape2/Shape4"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 400
+offset_bottom = 496
+mouse_filter = 2
+metadata/penpot_name = "Panel / surface"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823725"
+theme_override_styles/panel = SubResource("s1")
+
+[node name="Shape6" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 408
+offset_top = 94
+offset_right = 744
+offset_bottom = 118
+mouse_filter = 2
+metadata/penpot_name = "설정 / 오버라인"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682371d"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 14
+theme_override_constants/outline_size = 0
+text = "UPGRADE"
+theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape7" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 408
+offset_top = 128
+offset_right = 744
+offset_bottom = 172
+mouse_filter = 2
+metadata/penpot_name = "설정 / 제목"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682371e"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 27
+theme_override_constants/outline_size = 0
+text = "쓰레기통 강화"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape8" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 408
+offset_top = 178
+offset_right = 744
+offset_bottom = 206
+mouse_filter = 2
+metadata/penpot_name = "설정 / 설명"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682371f"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "강화할 항목을 선택하세요."
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape9" type="Control" parent="Shape2"]
+layout_mode = 0
+offset_left = 458
+offset_top = 260
+offset_right = 694
+offset_bottom = 336
+mouse_filter = 2
+metadata/penpot_name = "시설 / 수집 확률 / 강화 버튼"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823720"
+
+[node name="Shape10" type="Control" parent="Shape2/Shape9"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 236
+offset_bottom = 76
+mouse_filter = 2
+metadata/penpot_name = "Frame"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823748"
+
+[node name="Shape11" type="TextureRect" parent="Shape2/Shape9/Shape10"]
+layout_mode = 0
+offset_left = 8
+offset_top = 12
+offset_right = 228
+offset_bottom = 68
+mouse_filter = 2
+metadata/penpot_name = "base"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682374b"
+visible = false
+texture = ExtResource("r2")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape12" type="TextureRect" parent="Shape2/Shape9/Shape10"]
+layout_mode = 0
+offset_left = 8
+offset_top = 8
+offset_right = 228
+offset_bottom = 64
+mouse_filter = 2
+metadata/penpot_name = "surface"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682374c"
+texture = ExtResource("r3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape13" type="TextureRect" parent="Shape2/Shape9/Shape10"]
+layout_mode = 0
+offset_left = 12
+offset_top = 12
+offset_right = 224
+offset_bottom = 21
+mouse_filter = 2
+metadata/penpot_name = "highlight"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682374d"
+visible = false
+texture = ExtResource("r4")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape14" type="TextureRect" parent="Shape2/Shape9/Shape10"]
+layout_mode = 0
+offset_left = 12
+offset_top = 49
+offset_right = 224
+offset_bottom = 61
+mouse_filter = 2
+metadata/penpot_name = "bevel"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682374e"
+visible = false
+texture = ExtResource("r5")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape15" type="Control" parent="Shape2/Shape9"]
+layout_mode = 0
+offset_left = 22
+offset_top = 20
+offset_right = 54
+offset_bottom = 52
+mouse_filter = 2
+metadata/penpot_name = "Icon"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823749"
+visible = false
+
+[node name="Shape16" type="TextureRect" parent="Shape2/Shape9/Shape15"]
+layout_mode = 0
+offset_left = 8
+offset_top = 3
+offset_right = 26
+offset_bottom = 27
+mouse_filter = 2
+metadata/penpot_name = "벡터 면"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682374f"
+texture = ExtResource("r6")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape17" type="TextureRect" parent="Shape2/Shape9/Shape15"]
+layout_mode = 0
+offset_left = 10
+offset_top = 7
+offset_right = 12
+offset_bottom = 23
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823750"
+texture = ExtResource("r7")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape18" type="Label" parent="Shape2/Shape9"]
+layout_mode = 0
+offset_left = 0
+offset_top = 12
+offset_right = 236
+offset_bottom = 64
+mouse_filter = 2
+metadata/penpot_name = "Label"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682374a"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 0
+text = "수집 확률 · 50% 골드"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape19" type="Control" parent="Shape2"]
+layout_mode = 0
+offset_left = 458
+offset_top = 356
+offset_right = 694
+offset_bottom = 432
+mouse_filter = 2
+metadata/penpot_name = "시설 / 수집 개수 / 강화 버튼"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823721"
+
+[node name="Shape20" type="Control" parent="Shape2/Shape19"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 236
+offset_bottom = 76
+mouse_filter = 2
+metadata/penpot_name = "저장 / normal / 연결 프레임"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823751"
+
+[node name="Shape21" type="TextureRect" parent="Shape2/Shape19/Shape20"]
+layout_mode = 0
+offset_left = 8
+offset_top = 12
+offset_right = 228
+offset_bottom = 68
+mouse_filter = 2
+metadata/penpot_name = "base"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823753"
+visible = false
+texture = ExtResource("r8")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape22" type="TextureRect" parent="Shape2/Shape19/Shape20"]
+layout_mode = 0
+offset_left = 8
+offset_top = 8
+offset_right = 228
+offset_bottom = 64
+mouse_filter = 2
+metadata/penpot_name = "surface"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823754"
+texture = ExtResource("r9")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape23" type="TextureRect" parent="Shape2/Shape19/Shape20"]
+layout_mode = 0
+offset_left = 12
+offset_top = 12
+offset_right = 224
+offset_bottom = 21
+mouse_filter = 2
+metadata/penpot_name = "highlight"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823755"
+visible = false
+texture = ExtResource("r10")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape24" type="TextureRect" parent="Shape2/Shape19/Shape20"]
+layout_mode = 0
+offset_left = 12
+offset_top = 49
+offset_right = 224
+offset_bottom = 61
+mouse_filter = 2
+metadata/penpot_name = "bevel"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823756"
+visible = false
+texture = ExtResource("r11")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape25" type="Label" parent="Shape2/Shape19"]
+layout_mode = 0
+offset_left = 14
+offset_top = 12
+offset_right = 222
+offset_bottom = 64
+mouse_filter = 2
+metadata/penpot_name = "저장 / normal / 문구"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823752"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 0
+text = "수집 개수 · 1개 골드"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape26" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 400
+offset_top = 462
+offset_right = 752
+offset_bottom = 510
+mouse_filter = 2
+metadata/penpot_name = "설정 / 도움말"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823723"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "보유 골드 1,250"
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape27" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 400
+offset_top = 524
+offset_right = 752
+offset_bottom = 552
+mouse_filter = 2
+metadata/penpot_name = "키보드 조작 / 돌아가기"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823724"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "← 시설 관리로 돌아가기"
+theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
+horizontal_alignment = 0
+vertical_alignment = 1

@@ -50,7 +50,7 @@ func run_checks() -> void:
 	game._refresh_ui()
 	check(
 		(
-			game.can_count_label.text == "빈캔 5"
+			game.can_count_label.text == "5"
 			and game.session.water_count == 2
 			and game.session.green_tea_count == 3
 		),

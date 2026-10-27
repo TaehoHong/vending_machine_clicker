@@ -15,12 +15,12 @@ func run_checks() -> void:
 	game._refresh_ui()
 	assert(game.session.DRINK_DATA.size() == 15)
 	assert(game.session.purchasable_drinks() == [0, 1])
-	assert(game.get_node("VendingMachine").material.get_shader_parameter("unlocked_slots") == 3)
+	assert(FIXTURE.displayed_slots(game) == 3)
 	game.session.water_count = 10
 	game.session.green_tea_count = 10
 	game._refresh_ui()
 	assert(game.session.purchasable_drinks().is_empty())
-	assert(game.get_node("VendingMachine").material.get_shader_parameter("unlocked_slots") == 3)
+	assert(FIXTURE.displayed_slots(game) == 3)
 	if DisplayServer.get_name() != "headless":
 		await process_frame
 		await RenderingServer.frame_post_draw
@@ -43,7 +43,7 @@ func run_checks() -> void:
 		expected_slots |= 1 << int(game.session.DRINK_DATA[index].display_slot)
 		assert(
 			(
-				game.get_node("VendingMachine").material.get_shader_parameter("unlocked_slots")
+				FIXTURE.displayed_slots(game)
 				== expected_slots
 			)
 		)
@@ -63,7 +63,7 @@ func run_checks() -> void:
 	FIXTURE.store_for(game).load_into(game.session)
 	game._refresh_ui()
 	assert(game.session.purchasable_drinks().size() == 15)
-	assert(game.get_node("VendingMachine").material.get_shader_parameter("unlocked_slots") == 32767)
+	assert(FIXTURE.displayed_slots(game) == 32767)
 	game.free()
 	DirAccess.remove_absolute(path)
 	print(

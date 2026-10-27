@@ -6,12 +6,17 @@ signal quit_requested
 const SESSION = preload("res://src/game/game_session.gd")
 const AMOUNTS = preload("res://src/shared/formatting/amount_format.gd")
 const DRINK_DATA = preload("res://src/data/drink_catalog.gd").DATA
+const DESIGN = preload("res://src/shared/ui/design_view.gd")
 const FEVER_COIN_SCALE: float = 2.5
 
 var session: SESSION = SESSION.new()
 var last_save_error: Error = OK
 
 var _purchase_effects: Dictionary = {}
+var display_products: Dictionary[int, Control] = {}
+var display_shadows: Dictionary[int, Control] = {}
+var facilities_screen: Control
+var facility_world: Control
 var ability_toast: Control
 var ability_receipt_tween: Tween
 var search_glow_tween: Tween
@@ -24,16 +29,17 @@ var machine_hit_tween: Tween
 var last_punch_point := Vector2.ZERO
 var punch_coin_phase: float = 0.0
 
-@onready var money_label: Label = $MoneyLabel
+@onready var money_label: Label = DESIGN.shape($Design, "Amount / 골드 / 숫자")
+@onready var price_label: Label = DESIGN.shape($Design, "Amount")
 @onready var earn_button: Button = $EarnButton
 @onready var search_glow: TextureRect = $SearchGlow
-@onready var quest_progress: Label = $QuestPanel/QuestProgress
-@onready var quest_complete_button: Button = $QuestPanel/QuestCompleteButton
-@onready var can_count_label: Label = $WalletPanel/CanCount
+@onready var quest_progress: Label = DESIGN.shape($QuestPanel, "Text / Count")
+var quest_complete_button: Button
+@onready var can_count_label: Label = DESIGN.shape($Design, "Amount / 빈캔 / 숫자")
 @onready var info_overlay: ColorRect = $InfoOverlay
 @onready var shop_button: Button = $CoinSlotButton
-@onready var quest_panel: Panel = $QuestPanel
-@onready var quest_title: Label = $QuestPanel/QuestTitle
+@onready var quest_panel: Control = $QuestPanel
+@onready var quest_title: Label = DESIGN.shape($QuestPanel, "Text / Title")
 @onready var result_overlay: ColorRect = $ResultOverlay
 @onready var result_title: Label = $ResultOverlay/Card/Margin/Contents/DrinkName
 @onready var result_art: TextureRect = $ResultOverlay/Card/Margin/Contents/DrinkArt
@@ -44,6 +50,10 @@ var punch_coin_phase: float = 0.0
 
 
 func _ready() -> void:
+	quest_complete_button = DESIGN.action(
+		$QuestPanel, "Action / Reward", _on_quest_complete_button_pressed
+	)
+	_setup_design()
 	_setup_drink_catalog()
 	pause_menu.escape_requested.connect(_on_escape_requested)
 	$InfoOverlay/Card/SkillTree.close_requested.connect(_on_info_close_pressed)
@@ -85,11 +95,15 @@ func _ready() -> void:
 	_setup_coin_slot()
 	_setup_search_area()
 	resized.connect(_position_coin_slot)
+	_setup_facility_world()
 	_refresh_ui()
 
 
 func _process(delta: float) -> void:
-	var blocked: bool = result_overlay.visible or info_overlay.visible
+	facility_world.advance(delta)
+	var blocked: bool = (
+		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)
+	)
 	search_hint.set(
 		"blocked",
 		blocked or session.search_fever_remaining > 0 or session.punch_fever_remaining > 0
@@ -101,11 +115,12 @@ func _process(delta: float) -> void:
 		_refresh_ui()
 	if punch_was_active and session.punch_fever_remaining == 0:
 		_restore_machine_position()
+	search_fever_fx.set("simultaneous", session.punch_fever_remaining > 0)
 	search_fever_fx.call(
 		"update_state",
 		session.search_fever_remaining,
 		session.search_fever_total,
-		blocked or session.punch_fever_remaining > 0
+		blocked
 	)
 	punch_fever_fx.call(
 		"update_state", session.punch_fever_remaining, session.punch_fever_total, blocked
@@ -133,7 +148,7 @@ func _on_punch_button_pressed() -> void:
 	if (
 		get_tree().paused
 		or result_overlay.visible
-		or info_overlay.visible
+		or info_overlay.visible or is_instance_valid(facilities_screen)
 		or session.punch_fever_remaining <= 0
 	):
 		return
@@ -145,7 +160,10 @@ func _on_punch_button_pressed() -> void:
 	_restore_machine_position()
 	machine_hit_tween = $VendingMachine.create_tween()
 	machine_hit_tween.tween_property(
-		$VendingMachine, "position", machine_home + Vector2(randf_range(-7, 7), -4), 0.035
+		$VendingMachine, "position", machine_home + (
+			Vector2.ZERO if get_node("/root/Preferences").values.reduce_motion
+			else Vector2(randf_range(-7, 7), -4)
+		), 0.035
 	)
 	machine_hit_tween.parallel().tween_property(
 		$VendingMachine, "modulate", Color(1.45, 1.3, 1.2), 0.035
@@ -175,7 +193,7 @@ func _on_earn_button_pressed() -> void:
 	if (
 		get_tree().paused
 		or result_overlay.visible
-		or info_overlay.visible
+		or info_overlay.visible or is_instance_valid(facilities_screen)
 	):
 		return
 	search_hint.call("notify_search_click")
@@ -440,7 +458,7 @@ func _on_quest_complete_button_pressed() -> void:
 	if (
 		get_tree().paused
 		or result_overlay.visible
-		or info_overlay.visible
+		or info_overlay.visible or is_instance_valid(facilities_screen)
 	):
 		return
 	if session.claim_quest():
@@ -455,44 +473,42 @@ func _setup_coin_slot() -> void:
 
 
 func _position_coin_slot() -> void:
-	# 배경의 KEEP_ASPECT_COVER 변환에 맞춰 독립 자판기를 배치한다.
-	var image_size: Vector2 = $TextureRect.texture.get_size()
-	var factor: float = maxf(size.x / image_size.x, size.y / image_size.y)
-	var origin: Vector2 = (size - image_size * factor) * 0.5
-	var machine: TextureRect = $VendingMachine
-	machine.position = origin + Vector2(608, 110) * factor
-	machine.size = Vector2(384, 576) * factor
+	var factor := minf(size.x / 1152.0, size.y / 648.0)
+	var origin := (size - Vector2(1152, 648) * factor) * 0.5
+	DESIGN.fit($Design, size)
+	var machine: Control = $VendingMachine
+	machine.position = origin + Vector2(427.392, 68.04) * factor
+	machine.scale = Vector2.ONE * factor
 	machine_home = machine.position
-	# 첨부 이미지 512×768의 투입구와 발밑에 클릭 영역을 맞춘다.
-	var machine_scale: float = machine.size.x / 512.0
-	punch_button.position = machine.position + Vector2(56, 60) * machine_scale
-	punch_button.size = Vector2(400, 670) * machine_scale
-	punch_fever_fx.size = size
-	# 구매 영역은 실제 본체의 상단부터 음료 배출구 바로 위까지만 포함한다.
-	shop_button.position = machine.position + Vector2(56, 60) * machine_scale
-	shop_button.size = Vector2(400, 500) * machine_scale
-	earn_button.position = machine.position + Vector2(50, 690) * machine_scale
-	earn_button.size = Vector2(412, 120) * machine_scale
-	search_glow.position = machine.position + Vector2(40, 690) * machine_scale
-	search_glow.size = Vector2(432, 110) * machine_scale
-	search_hint.position = Vector2(
-		earn_button.position.x + earn_button.size.x * 0.5 - search_hint.size.x * 0.5,
-		earn_button.position.y + earn_button.size.y * 0.5
-	)
+	punch_button.position = origin + Vector2(459, 110) * factor
+	punch_button.size = Vector2(254, 356) * factor
+	shop_button.position = origin + Vector2(459, 110) * factor
+	shop_button.size = Vector2(254, 270) * factor
+	earn_button.position = origin + Vector2(458.5, 476.28) * factor
+	earn_button.size = Vector2(276.48, 64.8) * factor
+	search_glow.position = origin + Vector2(458.5, 463) * factor
+	search_glow.size = Vector2(276.48, 78) * factor
+	search_hint.position = origin + Vector2(575.74, 478) * factor
+	search_hint.scale = Vector2.ONE * factor
 	search_fever_fx.size = size
+	punch_fever_fx.size = size
 	search_fever_fx.set("source", earn_button.position + earn_button.size * Vector2(0.5, 0.43))
-	var slot_target := coin_insertion_target()
-	$SlotHint.position = slot_target + Vector2(76, -30)
-	$SlotHint.position.x = minf($SlotHint.position.x, size.x - $SlotHint.size.x - 12)
-	ability_toast.position = Vector2((size.x - ability_toast.size.x) * 0.5, 100)
+	ability_toast.position = origin + Vector2(321, 100) * factor
+	ability_toast.scale = Vector2.ONE * factor
+	$Navigation.position = Vector2.ZERO
+	$Navigation.scale = Vector2.ONE
+	$Navigation/AbilityButton.position = origin + Vector2(16, 577.6) * factor
+	$Navigation/AbilityButton.size = Vector2(54.4, 54.4) * factor
+	$MenuButton.position = origin + Vector2(1081.6, 577.6) * factor
+	$MenuButton.size = Vector2(54.4, 54.4) * factor
 	for entry: Dictionary in _purchase_effects.values():
 		_position_purchase_effect(entry.coin, entry.drink)
 
 
 func _position_purchase_effect(coin: Control, drink: Control) -> void:
-	var machine: TextureRect = $VendingMachine
+	var machine: Control = $VendingMachine
 	coin.set("target", coin_insertion_target())
-	drink.set("outlet", machine.position + Vector2(490, 1210) * (machine.size.x / 1024.0))
+	drink.set("outlet", machine.position + Vector2(146, 338) * machine.scale)
 	drink.set("destination", ability_receipt_position())
 
 
@@ -506,7 +522,7 @@ func ability_receipt_position() -> Vector2:
 
 func _show_acquired_ability(drink_index: int) -> void:
 	var data: Dictionary = DRINK_DATA[drink_index]
-	ability_toast.call("present", data.name, data.effect, Color(data.color))
+	ability_toast.call("present", data.name, data.effect, Color(data.color), load(data.asset))
 	var button: Button = $Navigation/AbilityButton
 	if is_instance_valid(ability_receipt_tween):
 		ability_receipt_tween.kill()
@@ -516,8 +532,8 @@ func _show_acquired_ability(drink_index: int) -> void:
 
 
 func coin_insertion_target() -> Vector2:
-	var machine: TextureRect = $VendingMachine
-	return machine.position + Vector2(855, 648) * (machine.size.x / 1024.0)
+	var machine: Control = $VendingMachine
+	return machine.position + Vector2(247, 188.4) * machine.scale
 
 
 func _on_shop_button_pressed() -> void:
@@ -527,7 +543,7 @@ func _on_shop_button_pressed() -> void:
 	if (
 		get_tree().paused
 		or result_overlay.visible
-		or info_overlay.visible
+		or info_overlay.visible or is_instance_valid(facilities_screen)
 	):
 		return
 	var price: int = session.current_draw_price()
@@ -582,11 +598,10 @@ func _finish_purchase_effect(purchase_id: int) -> void:
 
 
 func _refresh_vending_display() -> void:
-	var slots: int = 0
-	for index in range(DRINK_DATA.size()):
-		if session.drink_unlocked(index):
-			slots |= 1 << int(DRINK_DATA[index].display_slot)
-	($VendingMachine.material as ShaderMaterial).set_shader_parameter("unlocked_slots", slots)
+	for index in DRINK_DATA.size():
+		var slot: int = DRINK_DATA[index].display_slot
+		display_products[slot].visible = session.drink_unlocked(index)
+		display_shadows[slot].visible = session.drink_unlocked(index)
 
 
 func _setup_drink_catalog() -> void:
@@ -625,58 +640,27 @@ func _on_result_close_pressed() -> void:
 
 func _refresh_ui() -> void:
 	_refresh_vending_display()
-	money_label.text = AMOUNTS.format_gold(session.money) + " Gold"
+	money_label.text = AMOUNTS.format_gold(session.money)
 	money_label.tooltip_text = "보유 골드: %s Gold" % AMOUNTS.format_amount(session.money)
-	var font: Font = money_label.get_theme_font("font")
-	var font_size: int = 28
-	while (
-		font_size > 18
-		and (
-			font.get_string_size(money_label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x + 6
-			> 158
-		)
-	):
-		font_size -= 1
-	money_label.add_theme_font_size_override("font_size", font_size)
-	var price_label: Label = $SlotHint/Price
+	DESIGN.fit_text(money_label, 80)
 	var price: int = session.current_draw_price()
-	var affordable: bool = session.money >= price
-	price_label.text = AMOUNTS.format_gold(price) + " G"
-	$SlotHint.add_theme_stylebox_override(
-		"panel", get_theme_stylebox("panel" if affordable else "disabled", "PricePlate")
-	)
-	price_label.add_theme_color_override(
-		"font_color", get_theme_color("accent_color" if affordable else "secondary_color", "Label")
-	)
-	var price_font: Font = price_label.get_theme_font("font")
-	var price_font_size: int = 28
-	while (
-		price_font_size > 18
-		and (
-			(
-				(
-					price_font
-					. get_string_size(
-						price_label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, price_font_size
-					)
-					. x
-				)
-				+ 6
-			)
-			> price_label.size.x
-		)
-	):
-		price_font_size -= 1
-	price_label.add_theme_font_size_override("font_size", price_font_size)
+	price_label.text = AMOUNTS.format_gold(price)
+	DESIGN.fit_text(price_label, 56)
+	price_label.tooltip_text = "%s Gold" % AMOUNTS.format_amount(price)
+
 	earn_button.text = ""
 	_refresh_search_glow()
-	can_count_label.text = "빈캔 " + AMOUNTS.format_amount(session.cans)
+	can_count_label.text = AMOUNTS.format_gold(session.cans)
+	can_count_label.tooltip_text = "빈캔 %d개" % session.cans
+	DESIGN.fit_text(can_count_label, 36)
 	_refresh_quest_panel()
 	shop_button.disabled = (
-		result_overlay.visible or info_overlay.visible
+		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)
 		or session.purchasable_drinks().is_empty()
 	)
-	earn_button.disabled = result_overlay.visible or info_overlay.visible
+	earn_button.disabled = (
+		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)
+	)
 	$Navigation/AbilityButton.disabled = result_overlay.visible
 	shop_button.tooltip_text = ""
 
@@ -686,34 +670,30 @@ func _on_menu_button_pressed() -> void:
 
 
 func _refresh_quest_panel() -> void:
-	var minimized: bool = session.quest_reward_claimed and session.can_quest_reward_claimed
+	var complete: bool = session.quest_reward_claimed and session.can_quest_reward_claimed
 	var can_quest: bool = session.quest_reward_claimed
 	var target: int = session.CAN_QUEST_TARGET if can_quest else session.QUEST_TARGET
 	var progress: int = (
 		mini(session.collected_cans(), target) if can_quest else session.quest_clicks
 	)
 	var reward: int = session.CAN_QUEST_REWARD if can_quest else session.QUEST_REWARD
-	$QuestPanel/QuestText.text = "빈캔을 5개 모으시오" if can_quest else "동전 10번 발견하기"
-	$QuestPanel/QuestBar.max_value = target
-	$QuestPanel/QuestBar.value = progress
-	$QuestPanel/RewardHint.text = "보상 ¥%d" % reward
-	quest_progress.text = "%d / %d" % [progress, target]
-	quest_complete_button.disabled = minimized or progress < target
-	quest_complete_button.text = "보상 받기 · ¥%d" % reward
-	$QuestPanel/Divider.visible = not minimized
-	$QuestPanel/QuestText.visible = not minimized
-	$QuestPanel/QuestBar.visible = not minimized
-	$QuestPanel/RewardHint.visible = not minimized and progress < target
-	quest_progress.visible = not minimized
-	quest_complete_button.visible = not minimized and progress >= target
-	quest_title.text = "퀘스트 모두 완료 ✓" if minimized else ("빈캔 수집" if can_quest else "첫 수집 목표")
-	var completed_width := maxf(234.0, quest_title.get_minimum_size().x + 36.0)
-	var completed_height := maxf(64.0, quest_title.get_minimum_size().y + 32.0)
-	quest_panel.offset_left = -28.0 - completed_width if minimized else -290.0
-	quest_panel.offset_top = $WalletPanel.offset_top
-	quest_panel.offset_bottom = quest_panel.offset_top + (completed_height if minimized else 178.0)
-	quest_title.position.y = 12.0
-	quest_title.size.x = quest_panel.size.x - 36.0
+	var description: Label = DESIGN.shape(quest_panel, "Text / Description")
+	var reward_text: Label = DESIGN.shape(quest_panel, "Text / Reward")
+	var fill: Control = DESIGN.shape(quest_panel, "Progress / fill")
+	quest_title.text = "목표 모두 완료" if complete else ("빈캔 수집" if can_quest else "첫 수집 목표")
+	description.text = "모든 목표를 달성했어요" if complete else (
+		"빈캔을 5개 모으세요" if can_quest else "동전 10번 발견하기"
+	)
+	quest_progress.text = "완료" if complete else "%d / %d" % [progress, target]
+	reward_text.text = "모든 보상을 받았습니다." if complete else "보상 %s 골드" % AMOUNTS.format_amount(reward)
+	fill.size.x = 226.0 * minf(1.0, float(progress) / target)
+	quest_complete_button.disabled = complete or progress < target
+	var caption: Label = DESIGN.shape(quest_complete_button.get_parent(), "Label")
+	caption.text = "수령 완료" if complete else "보상 받기"
+	quest_panel.visible = session.quest_clicks > 0 or session.quest_reward_claimed
+	var factor := minf(size.x / 1152.0, size.y / 648.0)
+	quest_panel.position = (size - Vector2(1152, 648) * factor) * 0.5 + Vector2(874, 84) * factor
+	quest_panel.scale = Vector2.ONE * factor
 
 
 func _on_ability_button_pressed() -> void:
@@ -887,7 +867,72 @@ func _exit_tree() -> void:
 
 
 func _on_escape_requested() -> void:
+	if is_instance_valid(facilities_screen):
+		facilities_screen.go_back()
+		return
 	if not pause_menu.overlay.visible and info_overlay.visible:
 		_on_info_close_pressed()
 	else:
 		pause_menu.set_open(not pause_menu.overlay.visible)
+
+
+func _setup_design() -> void:
+	for child: Control in $VendingMachine.get_children():
+		var source_name: String = child.get_meta("penpot_name", "")
+		if source_name.begins_with("진열 슬롯 /"):
+			var place: String = source_name.get_slice(" / ", 1)
+			var slot: int = (int(place.left(1)) - 1) * 5 + int(place.substr(3, 1)) - 1
+			display_products[slot] = child
+		elif source_name.begins_with("접지 /"):
+			display_shadows[int(source_name.get_slice(" / ", 1)) - 1] = child
+	for entry in [
+		[$MenuButton, "HUD / 메뉴 / normal", _on_menu_button_pressed],
+		[$Navigation/AbilityButton, "HUD / 능력 / normal", _on_ability_button_pressed],
+	]:
+		var previous: Button = entry[0]
+		var artwork := DESIGN.shape($Design, entry[1])
+		var button := DESIGN.action($Design, entry[1], entry[2])
+		button.reparent(previous.get_parent(), false)
+		var button_name: String = previous.name
+		previous.get_parent().remove_child(previous)
+		previous.queue_free()
+		button.name = button_name
+		artwork.reparent(button, false)
+		artwork.position = Vector2.ZERO
+	var price_panel := DESIGN.shape($Design, "HUD / 가격 / 기본")
+	price_panel.reparent($VendingMachine, false)
+	price_panel.position = Vector2(220.25, 143.51)
+	$MenuButton.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	$Navigation.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	DESIGN.action($Design, "UI / 버튼 / 시설", _open_facilities)
+
+
+func _open_facilities(initial_page: String = "purchase") -> void:
+	if get_tree().paused or info_overlay.visible or is_instance_valid(facilities_screen):
+		return
+	facilities_screen = preload("res://src/features/facilities/facilities_screen.tscn").instantiate()
+	add_child(facilities_screen)
+	facilities_screen.changed.connect(_on_facilities_changed)
+	facilities_screen.closed.connect(
+		func() -> void:
+			facilities_screen = null
+			_refresh_ui()
+	)
+	facilities_screen.open(session, initial_page)
+	_refresh_ui()
+
+
+func _on_facilities_changed() -> void:
+	facility_world.refresh()
+	_refresh_ui()
+	_save_progress()
+
+
+func _setup_facility_world() -> void:
+	facility_world = preload("res://src/features/facilities/world_design.tscn").instantiate()
+	facility_world.session = session
+	facility_world.name = "FacilityWorld"
+	add_child(facility_world)
+	move_child(facility_world, $VendingMachine.get_index() + 1)
+	facility_world.management_requested.connect(_open_facilities)
+	facility_world.changed.connect(_on_facilities_changed)

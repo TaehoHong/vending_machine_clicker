@@ -23,3 +23,11 @@ static func store_for(game: Control) -> RefCounted:
 static func wait_for_purchase_effects(game: PLAY_SCRIPT) -> void:
 	while game.session.inserting_coin:
 		await game.get_tree().process_frame
+
+
+static func displayed_slots(game: Control) -> int:
+	var slots: int = 0
+	for slot: int in game.display_products:
+		if game.display_products[slot].visible:
+			slots |= 1 << slot
+	return slots

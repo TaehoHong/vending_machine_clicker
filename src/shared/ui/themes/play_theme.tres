@@ -1,7 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://dnyq85vpihoel"]
 
 [ext_resource type="FontFile" uid="uid://uih767dbt883" path="res://assets/fonts/Cafe24PROUP.ttf" id="font"]
-[ext_resource type="FontFile" path="res://assets/fonts/NotoSansKR.ttf" id="body_font"]
+[ext_resource type="FontVariation" path="res://assets/fonts/noto_sans_kr_regular.tres" id="body_font"]
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/136x56_normal.svg" id="f136x56_normal"]
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/136x56_hover.svg" id="f136x56_hover"]
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/136x56_pressed.svg" id="f136x56_pressed"]
@@ -239,11 +239,6 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.274510, 0.600000, 0.784314, 1)
 
-[sub_resource type="FontVariation" id="body_font"]
-base_font = ExtResource("body_font")
-; OpenType wght(글꼴 굵기) 태그.
-variation_opentype = {2003265652: 400.0}
-
 [sub_resource type="StyleBoxFlat" id="info_panel"]
 bg_color = Color(1, 0.94902, 0.85098, 1)
 border_width_left = 1
@@ -307,7 +302,7 @@ InfoTitle/fonts/font = ExtResource("font")
 InfoTitle/colors/font_color = Color(0.07451, 0.141176, 0.2, 1)
 InfoTitle/constants/outline_size = 0
 InfoBody/base_type = &"InfoTitle"
-InfoBody/fonts/font = SubResource("body_font")
+InfoBody/fonts/font = ExtResource("body_font")
 InfoBody/font_sizes/font_size = 18
 PanelContainer/styles/panel = SubResource("pause_panel")
 ProgressBar/styles/background = ExtResource("bar")

@@ -1,0 +1,628 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="r0"]
+
+[ext_resource type="FontVariation" path="res://assets/fonts/noto_sans_kr_regular.tres" id="r1"]
+
+[sub_resource type="StyleBoxFlat" id="s0"]
+bg_color = Color(0.0431373, 0.0666667, 0.0941176, 0.8392156862745098)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s1"]
+bg_color = Color(0.1254902, 0.2156863, 0.2784314, 1)
+border_color = Color(0.2745098, 0.6, 0.7843137, 1)
+border_width_left = 4
+border_width_right = 4
+border_width_top = 4
+border_width_bottom = 4
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s2"]
+bg_color = Color(0.0745098, 0.1411765, 0.2, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s3"]
+bg_color = Color(0.2039216, 0.2784314, 0.3176471, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s4"]
+bg_color = Color(0.3333333, 0.6196078, 0.6039216, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s5"]
+bg_color = Color(0.0745098, 0.1411765, 0.2, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s6"]
+bg_color = Color(1.0, 0.9490196, 0.8509804, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s7"]
+bg_color = Color(0.0745098, 0.1411765, 0.2, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s8"]
+bg_color = Color(0.2039216, 0.2784314, 0.3176471, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s9"]
+bg_color = Color(0.3333333, 0.6196078, 0.6039216, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s10"]
+bg_color = Color(0.0745098, 0.1411765, 0.2, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s11"]
+bg_color = Color(1.0, 0.9490196, 0.8509804, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s12"]
+bg_color = Color(0.0745098, 0.1411765, 0.2, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s13"]
+bg_color = Color(0.2039216, 0.2784314, 0.3176471, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s14"]
+bg_color = Color(0.3333333, 0.6196078, 0.6039216, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s15"]
+bg_color = Color(0.0745098, 0.1411765, 0.2, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s16"]
+bg_color = Color(1.0, 0.9490196, 0.8509804, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s17"]
+bg_color = Color(1.0, 1.0, 1.0, 0.001)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[node name="Design" type="Control"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 1152
+offset_bottom = 648
+mouse_filter = 2
+metadata/penpot_name = "채택 / 설정 / 소리"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b35fb7f"
+
+[node name="Shape2" type="Control" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+metadata/penpot_name = "설정 / 메뉴"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b35fb82"
+
+[node name="Shape3" type="Panel" parent="Shape2"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+metadata/penpot_name = "PauseMenu / Overlay"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b363b57"
+theme_override_styles/panel = SubResource("s0")
+
+[node name="Shape4" type="Control" parent="Shape2"]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 76.0
+offset_right = 776.0
+offset_bottom = 572.0
+mouse_filter = 2
+metadata/penpot_name = "일시정지 / 연결 패널"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b363b58"
+clip_contents = true
+
+[node name="Shape5" type="Panel" parent="Shape2/Shape4"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 400
+offset_bottom = 496
+mouse_filter = 2
+metadata/penpot_name = "Panel / surface"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b363b61"
+theme_override_styles/panel = SubResource("s1")
+
+[node name="Shape6" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 94.0
+offset_right = 744.0
+offset_bottom = 118.0
+mouse_filter = 2
+metadata/penpot_name = "설정 / 오버라인"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b363b59"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 14
+theme_override_constants/outline_size = 0
+text = "SETTINGS"
+theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape7" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 128.0
+offset_right = 744.0
+offset_bottom = 172.0
+mouse_filter = 2
+metadata/penpot_name = "설정 / 제목"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b363b5a"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 27
+theme_override_constants/outline_size = 0
+text = "소리"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape8" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 178.0
+offset_right = 744.0
+offset_bottom = 206.0
+mouse_filter = 2
+metadata/penpot_name = "설정 / 설명"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b363b5b"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "게임 소리를 편안한 크기로 조절하세요."
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape9" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 236.0
+offset_right = 640.0
+offset_bottom = 260.0
+mouse_filter = 2
+metadata/penpot_name = "소리 / 전체 음량 / 라벨"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b363b5f"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "전체 음량"
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape10" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 332.0
+offset_right = 640.0
+offset_bottom = 356.0
+mouse_filter = 2
+metadata/penpot_name = "소리 / 배경음 / 라벨"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4440e06755f"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "배경음"
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape11" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 428.0
+offset_right = 640.0
+offset_bottom = 452.0
+mouse_filter = 2
+metadata/penpot_name = "소리 / 효과음 / 라벨"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d44423957b48"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "효과음"
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape12" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 524.0
+offset_right = 752.0
+offset_bottom = 552.0
+mouse_filter = 2
+metadata/penpot_name = "키보드 조작 / 돌아가기"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b363b60"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "←  설정으로 돌아가기"
+theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape13" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 656.0
+offset_top = 236.0
+offset_right = 720.0
+offset_bottom = 260.0
+mouse_filter = 2
+metadata/penpot_name = "소리 / 전체 음량 / 값"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45bd7ad1c83"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "70%"
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape14" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 656.0
+offset_top = 332.0
+offset_right = 720.0
+offset_bottom = 356.0
+mouse_filter = 2
+metadata/penpot_name = "소리 / 배경음 / 값"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45bd86ed40a"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "70%"
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape15" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 656.0
+offset_top = 428.0
+offset_right = 720.0
+offset_bottom = 452.0
+mouse_filter = 2
+metadata/penpot_name = "소리 / 효과음 / 값"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45bd927b96e"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "70%"
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape16" type="Control" parent="."]
+layout_mode = 0
+offset_left = 432
+offset_top = 268
+offset_right = 720
+offset_bottom = 292
+mouse_filter = 2
+metadata/penpot_name = "소리 / 전체 음량 / 슬라이더"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4438e3c9277"
+
+[node name="Shape17" type="Control" parent="Shape16"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 288
+offset_bottom = 24
+mouse_filter = 2
+metadata/penpot_name = "Clicker / UI / Control / Slider"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4438e529841"
+
+[node name="Shape18" type="Control" parent="Shape16/Shape17"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 288
+offset_bottom = 24
+mouse_filter = 2
+metadata/penpot_name = "base-background"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4438e529842"
+visible = false
+
+[node name="Shape19" type="Panel" parent="Shape16/Shape17"]
+layout_mode = 0
+offset_left = 0
+offset_top = 4
+offset_right = 288
+offset_bottom = 20
+mouse_filter = 2
+metadata/penpot_name = "Track / border"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4438e529843"
+theme_override_styles/panel = SubResource("s2")
+
+[node name="Shape20" type="Panel" parent="Shape16/Shape17"]
+layout_mode = 0
+offset_left = 4
+offset_top = 8
+offset_right = 284
+offset_bottom = 16
+mouse_filter = 2
+metadata/penpot_name = "Track / surface"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4438e529844"
+theme_override_styles/panel = SubResource("s3")
+
+[node name="Shape21" type="Panel" parent="Shape16/Shape17"]
+layout_mode = 0
+offset_left = 4
+offset_top = 8
+offset_right = 200
+offset_bottom = 16
+mouse_filter = 2
+metadata/penpot_name = "Track / fill"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4438e529845"
+theme_override_styles/panel = SubResource("s4")
+
+[node name="Shape22" type="Panel" parent="Shape16/Shape17"]
+layout_mode = 0
+offset_left = 192
+offset_top = 0
+offset_right = 216
+offset_bottom = 24
+mouse_filter = 2
+metadata/penpot_name = "Thumb / border"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4438e529846"
+theme_override_styles/panel = SubResource("s5")
+
+[node name="Shape23" type="Panel" parent="Shape16/Shape17"]
+layout_mode = 0
+offset_left = 196
+offset_top = 4
+offset_right = 212
+offset_bottom = 20
+mouse_filter = 2
+metadata/penpot_name = "Thumb / surface"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4438e529847"
+theme_override_styles/panel = SubResource("s6")
+
+[node name="Shape24" type="Control" parent="."]
+layout_mode = 0
+offset_left = 432
+offset_top = 364
+offset_right = 720
+offset_bottom = 388
+mouse_filter = 2
+metadata/penpot_name = "소리 / 배경음 / 슬라이더"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443a8177aef"
+
+[node name="Shape25" type="Control" parent="Shape24"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 288
+offset_bottom = 24
+mouse_filter = 2
+metadata/penpot_name = "Clicker / UI / Control / Slider"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443a8177af0"
+
+[node name="Shape26" type="Control" parent="Shape24/Shape25"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 288
+offset_bottom = 24
+mouse_filter = 2
+metadata/penpot_name = "base-background"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443a8177af1"
+visible = false
+
+[node name="Shape27" type="Panel" parent="Shape24/Shape25"]
+layout_mode = 0
+offset_left = 0
+offset_top = 4
+offset_right = 288
+offset_bottom = 20
+mouse_filter = 2
+metadata/penpot_name = "Track / border"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443a8177af2"
+theme_override_styles/panel = SubResource("s7")
+
+[node name="Shape28" type="Panel" parent="Shape24/Shape25"]
+layout_mode = 0
+offset_left = 4
+offset_top = 8
+offset_right = 284
+offset_bottom = 16
+mouse_filter = 2
+metadata/penpot_name = "Track / surface"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443a8177af3"
+theme_override_styles/panel = SubResource("s8")
+
+[node name="Shape29" type="Panel" parent="Shape24/Shape25"]
+layout_mode = 0
+offset_left = 4
+offset_top = 8
+offset_right = 200
+offset_bottom = 16
+mouse_filter = 2
+metadata/penpot_name = "Track / fill"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443a8177af4"
+theme_override_styles/panel = SubResource("s9")
+
+[node name="Shape30" type="Panel" parent="Shape24/Shape25"]
+layout_mode = 0
+offset_left = 192
+offset_top = 0
+offset_right = 216
+offset_bottom = 24
+mouse_filter = 2
+metadata/penpot_name = "Thumb / border"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443a8177af5"
+theme_override_styles/panel = SubResource("s10")
+
+[node name="Shape31" type="Panel" parent="Shape24/Shape25"]
+layout_mode = 0
+offset_left = 196
+offset_top = 4
+offset_right = 212
+offset_bottom = 20
+mouse_filter = 2
+metadata/penpot_name = "Thumb / surface"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443a8177af6"
+theme_override_styles/panel = SubResource("s11")
+
+[node name="Shape32" type="Control" parent="."]
+layout_mode = 0
+offset_left = 432
+offset_top = 460
+offset_right = 720
+offset_bottom = 484
+mouse_filter = 2
+metadata/penpot_name = "소리 / 효과음 / 슬라이더"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443cf69fe7a"
+
+[node name="Shape33" type="Control" parent="Shape32"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 288
+offset_bottom = 24
+mouse_filter = 2
+metadata/penpot_name = "Clicker / UI / Control / Slider"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443cf69fe7b"
+
+[node name="Shape34" type="Control" parent="Shape32/Shape33"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 288
+offset_bottom = 24
+mouse_filter = 2
+metadata/penpot_name = "base-background"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443cf69fe7c"
+visible = false
+
+[node name="Shape35" type="Panel" parent="Shape32/Shape33"]
+layout_mode = 0
+offset_left = 0
+offset_top = 4
+offset_right = 288
+offset_bottom = 20
+mouse_filter = 2
+metadata/penpot_name = "Track / border"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443cf69fe7d"
+theme_override_styles/panel = SubResource("s12")
+
+[node name="Shape36" type="Panel" parent="Shape32/Shape33"]
+layout_mode = 0
+offset_left = 4
+offset_top = 8
+offset_right = 284
+offset_bottom = 16
+mouse_filter = 2
+metadata/penpot_name = "Track / surface"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443cf69fe7e"
+theme_override_styles/panel = SubResource("s13")
+
+[node name="Shape37" type="Panel" parent="Shape32/Shape33"]
+layout_mode = 0
+offset_left = 4
+offset_top = 8
+offset_right = 200
+offset_bottom = 16
+mouse_filter = 2
+metadata/penpot_name = "Track / fill"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443cf69fe7f"
+theme_override_styles/panel = SubResource("s14")
+
+[node name="Shape38" type="Panel" parent="Shape32/Shape33"]
+layout_mode = 0
+offset_left = 192
+offset_top = 0
+offset_right = 216
+offset_bottom = 24
+mouse_filter = 2
+metadata/penpot_name = "Thumb / border"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443cf69fe80"
+theme_override_styles/panel = SubResource("s15")
+
+[node name="Shape39" type="Panel" parent="Shape32/Shape33"]
+layout_mode = 0
+offset_left = 196
+offset_top = 4
+offset_right = 212
+offset_bottom = 20
+mouse_filter = 2
+metadata/penpot_name = "Thumb / surface"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d443cf69fe81"
+theme_override_styles/panel = SubResource("s16")
+
+[node name="Shape40" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 432
+offset_top = 260
+offset_right = 464
+offset_bottom = 300
+mouse_filter = 2
+metadata/penpot_name = "프로토타입 / 전체 음량 0%"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d44e0ac7e0c5"
+theme_override_styles/panel = SubResource("s17")

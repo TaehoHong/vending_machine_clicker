@@ -1,0 +1,574 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="r0"]
+
+[ext_resource type="FontVariation" path="res://assets/fonts/noto_sans_kr_regular.tres" id="r1"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/2be41a474215194114c3.svg" id="r2"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/cd00875b44bc58573788.svg" id="r3"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/bc311d4b869993f079c8.svg" id="r4"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/90663b519541dfb4d0a5.svg" id="r5"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/73f38ecd58849dd4fa7c.svg" id="r6"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/db6677d88edfdb6fc47b.svg" id="r7"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/8c104f187d745440ee6d.svg" id="r8"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/11ff1fccdf19bca1df81.svg" id="r9"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/ac78207916f77ab40cf1.svg" id="r10"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/3a6c4bf000c20c71a7dc.svg" id="r11"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/0ea2c29f66049284c118.svg" id="r12"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/9b41e9c808d0da096dd8.svg" id="r13"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/0138ad63ad23e2117195.svg" id="r14"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/88a7e7602ab19a67af66.svg" id="r15"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/13bfd038b6f2a9cdc112.svg" id="r16"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/a89dc5cd4c1cf7b9b103.svg" id="r17"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/d5f51f922e77e76ced09.svg" id="r18"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/f83ec995794097fc815c.svg" id="r19"]
+
+[sub_resource type="StyleBoxFlat" id="s0"]
+bg_color = Color(0.0431373, 0.0666667, 0.0941176, 0.8392156862745098)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s1"]
+bg_color = Color(0.1254902, 0.2156863, 0.2784314, 1)
+border_color = Color(0.2745098, 0.6, 0.7843137, 1)
+border_width_left = 4
+border_width_right = 4
+border_width_top = 4
+border_width_bottom = 4
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[node name="Design" type="Control"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 1152
+offset_bottom = 648
+mouse_filter = 2
+metadata/penpot_name = "채택 / 설정 / 기본"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c44c5eb"
+
+[node name="Shape2" type="Control" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+metadata/penpot_name = "설정 / 메뉴"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c44c5ee"
+
+[node name="Shape3" type="Panel" parent="Shape2"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+metadata/penpot_name = "PauseMenu / Overlay"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c93"
+theme_override_styles/panel = SubResource("s0")
+
+[node name="Shape4" type="Control" parent="Shape2"]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 76.0
+offset_right = 776.0
+offset_bottom = 572.0
+mouse_filter = 2
+metadata/penpot_name = "일시정지 / 연결 패널"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c94"
+clip_contents = true
+
+[node name="Shape5" type="Panel" parent="Shape2/Shape4"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 400
+offset_bottom = 496
+mouse_filter = 2
+metadata/penpot_name = "Panel / surface"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c9d"
+theme_override_styles/panel = SubResource("s1")
+
+[node name="Shape6" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 94.0
+offset_right = 744.0
+offset_bottom = 118.0
+mouse_filter = 2
+metadata/penpot_name = "설정 / 오버라인"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c95"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 14
+theme_override_constants/outline_size = 0
+text = "SETTINGS"
+theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape7" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 128.0
+offset_right = 744.0
+offset_bottom = 172.0
+mouse_filter = 2
+metadata/penpot_name = "설정 / 제목"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c96"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 27
+theme_override_constants/outline_size = 0
+text = "설정"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape8" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 178.0
+offset_right = 744.0
+offset_bottom = 206.0
+mouse_filter = 2
+metadata/penpot_name = "설정 / 설명"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c97"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "편안하게 즐길 수 있도록"
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape9" type="Control" parent="Shape2"]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 212.0
+offset_right = 694.0
+offset_bottom = 288.0
+mouse_filter = 2
+metadata/penpot_name = "설정 / 소리 / 버튼"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c98"
+
+[node name="Shape10" type="Control" parent="Shape2/Shape9"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 236
+offset_bottom = 76
+mouse_filter = 2
+metadata/penpot_name = "Frame"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cc0"
+
+[node name="Shape11" type="TextureRect" parent="Shape2/Shape9/Shape10"]
+layout_mode = 0
+offset_left = 8
+offset_top = 12
+offset_right = 228
+offset_bottom = 68
+mouse_filter = 2
+metadata/penpot_name = "base"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cc3"
+visible = false
+texture = ExtResource("r2")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape12" type="TextureRect" parent="Shape2/Shape9/Shape10"]
+layout_mode = 0
+offset_left = 8
+offset_top = 8
+offset_right = 228
+offset_bottom = 64
+mouse_filter = 2
+metadata/penpot_name = "surface"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cc4"
+texture = ExtResource("r3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape13" type="TextureRect" parent="Shape2/Shape9/Shape10"]
+layout_mode = 0
+offset_left = 12
+offset_top = 12
+offset_right = 224
+offset_bottom = 21
+mouse_filter = 2
+metadata/penpot_name = "highlight"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cc5"
+visible = false
+texture = ExtResource("r4")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape14" type="TextureRect" parent="Shape2/Shape9/Shape10"]
+layout_mode = 0
+offset_left = 12
+offset_top = 49
+offset_right = 224
+offset_bottom = 61
+mouse_filter = 2
+metadata/penpot_name = "bevel"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cc6"
+visible = false
+texture = ExtResource("r5")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape15" type="Control" parent="Shape2/Shape9"]
+layout_mode = 0
+offset_left = 22
+offset_top = 20
+offset_right = 54
+offset_bottom = 52
+mouse_filter = 2
+metadata/penpot_name = "Icon"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cc1"
+visible = false
+
+[node name="Shape16" type="TextureRect" parent="Shape2/Shape9/Shape15"]
+layout_mode = 0
+offset_left = 8
+offset_top = 3
+offset_right = 26
+offset_bottom = 27
+mouse_filter = 2
+metadata/penpot_name = "벡터 면"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cc7"
+texture = ExtResource("r6")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape17" type="TextureRect" parent="Shape2/Shape9/Shape15"]
+layout_mode = 0
+offset_left = 10
+offset_top = 7
+offset_right = 12
+offset_bottom = 23
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cc8"
+texture = ExtResource("r7")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape18" type="Label" parent="Shape2/Shape9"]
+layout_mode = 0
+offset_left = 14
+offset_top = 12
+offset_right = 222
+offset_bottom = 64
+mouse_filter = 2
+metadata/penpot_name = "Label"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cc2"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 0
+text = "소리"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shape19" type="Control" parent="Shape2"]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 292.0
+offset_right = 694.0
+offset_bottom = 368.0
+mouse_filter = 2
+metadata/penpot_name = "설정 / 화면 / 버튼"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c99"
+
+[node name="Shape20" type="Control" parent="Shape2/Shape19"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 236
+offset_bottom = 76
+mouse_filter = 2
+metadata/penpot_name = "저장 / normal / 연결 프레임"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cc9"
+
+[node name="Shape21" type="TextureRect" parent="Shape2/Shape19/Shape20"]
+layout_mode = 0
+offset_left = 8
+offset_top = 12
+offset_right = 228
+offset_bottom = 68
+mouse_filter = 2
+metadata/penpot_name = "base"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450ccb"
+visible = false
+texture = ExtResource("r8")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape22" type="TextureRect" parent="Shape2/Shape19/Shape20"]
+layout_mode = 0
+offset_left = 8
+offset_top = 8
+offset_right = 228
+offset_bottom = 64
+mouse_filter = 2
+metadata/penpot_name = "surface"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450ccc"
+texture = ExtResource("r9")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape23" type="TextureRect" parent="Shape2/Shape19/Shape20"]
+layout_mode = 0
+offset_left = 12
+offset_top = 12
+offset_right = 224
+offset_bottom = 21
+mouse_filter = 2
+metadata/penpot_name = "highlight"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450ccd"
+visible = false
+texture = ExtResource("r10")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape24" type="TextureRect" parent="Shape2/Shape19/Shape20"]
+layout_mode = 0
+offset_left = 12
+offset_top = 49
+offset_right = 224
+offset_bottom = 61
+mouse_filter = 2
+metadata/penpot_name = "bevel"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cce"
+visible = false
+texture = ExtResource("r11")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape25" type="Label" parent="Shape2/Shape19"]
+layout_mode = 0
+offset_left = 14
+offset_top = 12
+offset_right = 222
+offset_bottom = 64
+mouse_filter = 2
+metadata/penpot_name = "저장 / normal / 문구"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cca"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 0
+text = "화면"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape26" type="Control" parent="Shape2"]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 372.0
+offset_right = 694.0
+offset_bottom = 448.0
+mouse_filter = 2
+metadata/penpot_name = "설정 / 언어 / 버튼"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c9a"
+
+[node name="Shape27" type="Control" parent="Shape2/Shape26"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 236
+offset_bottom = 76
+mouse_filter = 2
+metadata/penpot_name = "Frame"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450ccf"
+
+[node name="Shape28" type="TextureRect" parent="Shape2/Shape26/Shape27"]
+layout_mode = 0
+offset_left = 8
+offset_top = 12
+offset_right = 228
+offset_bottom = 68
+mouse_filter = 2
+metadata/penpot_name = "base"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cd2"
+visible = false
+texture = ExtResource("r12")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape29" type="TextureRect" parent="Shape2/Shape26/Shape27"]
+layout_mode = 0
+offset_left = 8
+offset_top = 8
+offset_right = 228
+offset_bottom = 64
+mouse_filter = 2
+metadata/penpot_name = "surface"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cd3"
+texture = ExtResource("r13")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape30" type="TextureRect" parent="Shape2/Shape26/Shape27"]
+layout_mode = 0
+offset_left = 12
+offset_top = 12
+offset_right = 224
+offset_bottom = 21
+mouse_filter = 2
+metadata/penpot_name = "highlight"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cd4"
+visible = false
+texture = ExtResource("r14")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape31" type="TextureRect" parent="Shape2/Shape26/Shape27"]
+layout_mode = 0
+offset_left = 12
+offset_top = 49
+offset_right = 224
+offset_bottom = 61
+mouse_filter = 2
+metadata/penpot_name = "bevel"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cd5"
+visible = false
+texture = ExtResource("r15")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape32" type="Control" parent="Shape2/Shape26"]
+layout_mode = 0
+offset_left = 22
+offset_top = 20
+offset_right = 54
+offset_bottom = 52
+mouse_filter = 2
+metadata/penpot_name = "Icon"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cd0"
+visible = false
+
+[node name="Shape33" type="TextureRect" parent="Shape2/Shape26/Shape32"]
+layout_mode = 0
+offset_left = 6
+offset_top = 2
+offset_right = 26
+offset_bottom = 30
+mouse_filter = 2
+metadata/penpot_name = "벡터 면"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cd6"
+texture = ExtResource("r16")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape34" type="TextureRect" parent="Shape2/Shape26/Shape32"]
+layout_mode = 0
+offset_left = 12
+offset_top = 6
+offset_right = 22
+offset_bottom = 28
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cd7"
+texture = ExtResource("r17")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape35" type="TextureRect" parent="Shape2/Shape26/Shape32"]
+layout_mode = 0
+offset_left = 18
+offset_top = 16
+offset_right = 20
+offset_bottom = 19
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cd8"
+texture = ExtResource("r18")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape36" type="TextureRect" parent="Shape2/Shape26/Shape32"]
+layout_mode = 0
+offset_left = 2
+offset_top = 8
+offset_right = 20
+offset_bottom = 20
+mouse_filter = 2
+metadata/penpot_name = "벡터 면"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cd9"
+texture = ExtResource("r19")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape37" type="Label" parent="Shape2/Shape26"]
+layout_mode = 0
+offset_left = 14
+offset_top = 12
+offset_right = 222
+offset_bottom = 64
+mouse_filter = 2
+metadata/penpot_name = "Label"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450cd1"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 0
+text = "언어"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shape38" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 462.0
+offset_right = 752.0
+offset_bottom = 510.0
+mouse_filter = 2
+metadata/penpot_name = "설정 / 도움말"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c9b"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "소리·화면·언어를 조절하세요."
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape39" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 524.0
+offset_right = 752.0
+offset_bottom = 552.0
+mouse_filter = 2
+metadata/penpot_name = "키보드 조작 / 돌아가기"
+metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c9c"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "ESC  일시정지로 돌아가기"
+theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
+horizontal_alignment = 0
+vertical_alignment = 1

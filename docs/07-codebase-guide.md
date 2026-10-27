@@ -1,6 +1,6 @@
 # 07. 코드 안내
 
-2026-10-20 승인된 구조 전환의 실제 소스를 기준으로 갱신했다. 폴더·책임·의존성은 [아키텍처](06-architecture.md), 작성 전/후 검사는 [개발 규칙](02-development-rules.md#코드-품질-필수-검사)를 따른다.
+2026-10-20 승인된 구조 전환의 실제 소스를 기준으로 갱신했다. 2026-10-27 Penpot 화면·시설·설정 소유자를 추가했다. 폴더·책임·의존성은 [아키텍처](06-architecture.md), 작성 전/후 검사는 [개발 규칙](02-development-rules.md#코드-품질-필수-검사)를 따른다.
 
 ## 탐색 순서
 
@@ -16,6 +16,10 @@
 | 계산·상품 규칙 | src/game/economy/economy_rules.gd, progression/drink_rules.gd, search/search_rules.gd | 세션 상태를 읽는 가격·보너스·상품·클릭·기간 계산 | purchase_price, expanded_skills, search_fever | src/game/, src/data/drink_catalog.gd |
 | Play 표현 | src/features/play/play.tscn, play.gd `_on_shop_button_pressed`, `_finish_action`, `_process` | 입력 차단·세션 호출·화면 갱신·저장 요청·연출 | gameplay, purchase_area, coin_effect, drink_dispense | src/features/play/, src/app/main.gd |
 | 음료·능력 화면 | src/features/drinks/drink_screen.tscn, drink_screen.gd `select_drink`, `update_state` | 표시용 사본과 클릭 선택; 해금은 signal → Play → 세션 | drink_screen, drink_unlock_screen, vending_display | src/features/drinks/, src/features/play/play.gd |
+| 시설 규칙·저장 | src/game/automation/facility_rules.gd, game_session.gd | 첫 골목 해금·구매·강화·생산·드롭·수집, progress_store 정규화 | facility_rules_test.gd | src/game/automation/, src/integrations/saves/, tests/integrations/ |
+| 시설 표현 | src/features/facilities/facility_world.gd, facilities_screen.gd, effects/customer_flow.gd, customer_rig.gd, src/data/customer_poses.gd | 구매·관리·강화·미리보기와 원본 파츠 관절 보간; 지급은 세션 | facilities_test.gd | src/features/facilities/, src/features/play/play.gd |
+| 기기 설정 | src/features/settings/, src/integrations/settings/preferences_store.gd | 원본 패널·슬라이더, settings.cfg 저장·오디오·창 모드·로케일 | settings_test.gd | project.godot, src/features/settings/, src/integrations/settings/ |
+| 원본 UI 연결 | src/shared/ui/design_view.gd | penpot_name 메타데이터 조회, 기존 pixel_button·테마 상태 재사용, 화면 fit | menu, drink_screen, facilities, settings | src/shared/ui/, src/features/ |
 | 일시정지 | src/features/pause/pause_menu.tscn, pause_menu.gd `set_open` | ESC·포커스·pause, 저장/종료/ESC signal → Play | menu, punch_fever | src/features/pause/, src/features/play/play.gd |
 | 시각 효과 | src/features/play/effects/ | 세션의 결과를 표현, 별도 보상 지급 안 함 | coin_effect, drink_dispense, search_fever, punch_fever | src/features/play/effects/, src/features/play/play.gd |
 | 저장·호환 | src/integrations/saves/progress_store.gd `write`, `load_into`, `exists`, `backup` | 기존 ConfigFile 형식·정규화·검사·백업 | menu, purchase_price, progress_store | src/integrations/saves/, src/app/main.gd |

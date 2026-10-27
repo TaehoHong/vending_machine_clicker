@@ -17,6 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Preferences="*res://src/integrations/settings/preferences_store.gd"
+
 CursorTheme="*res://src/shared/ui/cursor_theme.gd"
 
 [display]

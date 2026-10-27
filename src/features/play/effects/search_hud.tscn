@@ -1,0 +1,222 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="r0"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/4ac2e740ef5cac0dcc1b.svg" id="r1"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/10e4a0b1e391a44aad1a.svg" id="r2"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/46ba8d86232be84d21a7.svg" id="r3"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/727031bba86790c6880d.svg" id="r4"]
+
+[sub_resource type="StyleBoxFlat" id="s0"]
+bg_color = Color(0.0941176, 0.1568627, 0.1960784, 1)
+border_color = Color(1.0, 0.545098, 0.1411765, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+border_width_bottom = 2
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s1"]
+bg_color = Color(1.0, 0.545098, 0.1411765, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s2"]
+bg_color = Color(0.2039216, 0.2784314, 0.3176471, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s3"]
+bg_color = Color(1.0, 0.545098, 0.1411765, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[node name="Design" type="Panel"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 300
+offset_bottom = 80
+mouse_filter = 2
+metadata/penpot_name = "HUD / 피버 상태 / search"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d465beea4313"
+theme_override_styles/panel = SubResource("s0")
+
+[node name="Shape2" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 4
+offset_bottom = 80
+mouse_filter = 2
+metadata/penpot_name = "Accent"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d465beea4314"
+theme_override_styles/panel = SubResource("s1")
+
+[node name="Shape3" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 12
+offset_top = 60
+offset_right = 188
+offset_bottom = 68
+mouse_filter = 2
+metadata/penpot_name = "Progress / track"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d465beea4315"
+theme_override_styles/panel = SubResource("s2")
+
+[node name="Shape4" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 12
+offset_top = 60
+offset_right = 188
+offset_bottom = 68
+mouse_filter = 2
+metadata/penpot_name = "Progress / fill"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d465beea4316"
+theme_override_styles/panel = SubResource("s3")
+
+[node name="Shape5" type="Label" parent="."]
+layout_mode = 0
+offset_left = 50
+offset_top = 5
+offset_right = 200
+offset_bottom = 45
+mouse_filter = 2
+metadata/penpot_name = "Title"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d465beea4317"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 34
+theme_override_constants/outline_size = 0
+text = "수색 피버"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape6" type="Label" parent="."]
+layout_mode = 0
+offset_left = 208
+offset_top = 12
+offset_right = 288
+offset_bottom = 40
+mouse_filter = 2
+metadata/penpot_name = "Timer"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d465beea4318"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 19
+theme_override_constants/outline_size = 0
+text = "10.0초"
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape7" type="Label" parent="."]
+layout_mode = 0
+offset_left = 208
+offset_top = 48
+offset_right = 288
+offset_bottom = 76
+mouse_filter = 2
+metadata/penpot_name = "Multiplier"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d465beea4319"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 0
+text = "골드 ×2"
+theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape8" type="Control" parent="."]
+layout_mode = 0
+offset_left = 12
+offset_top = 10
+offset_right = 40
+offset_bottom = 41.5
+mouse_filter = 2
+metadata/penpot_name = "Action / 수색 장갑"
+metadata/penpot_id = "dce37255-a491-80bc-8008-d4ffe7c79429"
+
+[node name="Shape9" type="Control" parent="Shape8"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 28
+offset_bottom = 31.5
+mouse_filter = 2
+metadata/penpot_name = "수색 / 픽셀 장갑 / 최초 안내"
+metadata/penpot_id = "dce37255-a491-80bc-8008-d4ffe7c7942a"
+
+[node name="Shape10" type="Control" parent="Shape8/Shape9"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 28
+offset_bottom = 31.5
+mouse_filter = 2
+metadata/penpot_name = "base-background"
+metadata/penpot_id = "dce37255-a491-80bc-8008-d4ffe7c7942b"
+visible = false
+
+[node name="Shape11" type="TextureRect" parent="Shape8/Shape9"]
+layout_mode = 0
+offset_left = 1.75
+offset_top = 1.75
+offset_right = 26.25
+offset_bottom = 29.75
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "dce37255-a491-80bc-8008-d4ffe7c7942c"
+texture = ExtResource("r1")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape12" type="TextureRect" parent="Shape8/Shape9"]
+layout_mode = 0
+offset_left = 12.25
+offset_top = 17.5
+offset_right = 24.5
+offset_bottom = 28.0
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "dce37255-a491-80bc-8008-d4ffe7c7942d"
+texture = ExtResource("r2")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape13" type="TextureRect" parent="Shape8/Shape9"]
+layout_mode = 0
+offset_left = 8.75
+offset_top = 14
+offset_right = 21.0
+offset_bottom = 21
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "dce37255-a491-80bc-8008-d4ffe7c7942e"
+texture = ExtResource("r3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape14" type="TextureRect" parent="Shape8/Shape9"]
+layout_mode = 0
+offset_left = 10.5
+offset_top = 26.25
+offset_right = 22.75
+offset_bottom = 26.26
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "dce37255-a491-80bc-8008-d4ffe7c7942f"
+texture = ExtResource("r4")
+expand_mode = 1
+stretch_mode = 0

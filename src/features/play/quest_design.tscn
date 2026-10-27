@@ -1,0 +1,298 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="r0"]
+
+[ext_resource type="FontVariation" path="res://assets/fonts/noto_sans_kr_regular.tres" id="r1"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/34bfb2c898ce7ddab82f.svg" id="r2"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/2ed67f583f7bb7220fe6.svg" id="r3"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/18e3ec046f4e34b28b96.svg" id="r4"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/74f632faf6c4e4def2bb.svg" id="r5"]
+
+[sub_resource type="StyleBoxFlat" id="s0"]
+bg_color = Color(0.0745098, 0.1411765, 0.2, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s1"]
+bg_color = Color(0.1019608, 0.2078431, 0.2784314, 1)
+border_color = Color(0.2745098, 0.6, 0.7843137, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+border_width_bottom = 2
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s2"]
+bg_color = Color(0.345098, 0.6862745, 0.854902, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s3"]
+bg_color = Color(0.1568627, 0.3921569, 0.5607843, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s4"]
+bg_color = Color(0.0745098, 0.1411765, 0.2, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s5"]
+bg_color = Color(0.972549, 0.8117647, 0.4823529, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[node name="Design" type="Control"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 262
+offset_bottom = 268
+mouse_filter = 2
+metadata/penpot_name = "HUD / 수집 목표 상세 / 진행 중"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e20"
+clip_contents = true
+
+[node name="Shape2" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 5
+offset_top = 7
+offset_right = 262
+offset_bottom = 268.0
+mouse_filter = 2
+metadata/penpot_name = "Frame / shadow"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e21"
+theme_override_styles/panel = SubResource("s0")
+
+[node name="Shape3" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 257
+offset_bottom = 261.0
+mouse_filter = 2
+metadata/penpot_name = "Frame / face"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e22"
+theme_override_styles/panel = SubResource("s1")
+
+[node name="Shape4" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 5
+offset_top = 5
+offset_right = 252
+offset_bottom = 9
+mouse_filter = 2
+metadata/penpot_name = "Frame / highlight"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e23"
+theme_override_styles/panel = SubResource("s2")
+
+[node name="Shape5" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 5
+offset_top = 251
+offset_right = 252
+offset_bottom = 256
+mouse_filter = 2
+metadata/penpot_name = "Frame / shade"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e24"
+theme_override_styles/panel = SubResource("s3")
+
+[node name="Shape6" type="Label" parent="."]
+layout_mode = 0
+offset_left = 18
+offset_top = 16
+offset_right = 244
+offset_bottom = 44
+mouse_filter = 2
+metadata/penpot_name = "Text / Title"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e25"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 23
+theme_override_constants/outline_size = 0
+text = "첫 수집 목표"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 0
+
+[node name="Shape7" type="Label" parent="."]
+layout_mode = 0
+offset_left = 18
+offset_top = 114
+offset_right = 244
+offset_bottom = 138
+mouse_filter = 2
+metadata/penpot_name = "Text / Count"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e26"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 17
+theme_override_constants/outline_size = 0
+text = "4 / 10"
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 0
+
+[node name="Shape8" type="Label" parent="."]
+layout_mode = 0
+offset_left = 18
+offset_top = 56
+offset_right = 244
+offset_bottom = 82
+mouse_filter = 2
+metadata/penpot_name = "Text / Description"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e27"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "동전 10번 발견하기"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 0
+
+[node name="Shape9" type="Control" parent="."]
+layout_mode = 0
+offset_left = 18
+offset_top = 184
+offset_right = 242
+offset_bottom = 248
+mouse_filter = 2
+metadata/penpot_name = "Action / Reward"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e28"
+clip_contents = true
+
+[node name="Shape10" type="Control" parent="Shape9"]
+layout_mode = 0
+offset_left = -6
+offset_top = -6
+offset_right = 230
+offset_bottom = 70
+mouse_filter = 2
+metadata/penpot_name = "Frame / A / disabled"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45d5dd06710"
+
+[node name="Shape11" type="TextureRect" parent="Shape9/Shape10"]
+layout_mode = 0
+offset_left = 8
+offset_top = 12
+offset_right = 228
+offset_bottom = 68
+mouse_filter = 2
+metadata/penpot_name = "base"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45d5dd06711"
+visible = false
+texture = ExtResource("r2")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape12" type="TextureRect" parent="Shape9/Shape10"]
+layout_mode = 0
+offset_left = 8
+offset_top = 8
+offset_right = 228
+offset_bottom = 64
+mouse_filter = 2
+metadata/penpot_name = "surface"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45d5dd06712"
+texture = ExtResource("r3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape13" type="TextureRect" parent="Shape9/Shape10"]
+layout_mode = 0
+offset_left = 12
+offset_top = 12
+offset_right = 224
+offset_bottom = 21
+mouse_filter = 2
+metadata/penpot_name = "highlight"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45d5dd06713"
+visible = false
+texture = ExtResource("r4")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape14" type="TextureRect" parent="Shape9/Shape10"]
+layout_mode = 0
+offset_left = 12
+offset_top = 49
+offset_right = 224
+offset_bottom = 61
+mouse_filter = 2
+metadata/penpot_name = "bevel"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45d5dd06714"
+visible = false
+texture = ExtResource("r5")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape15" type="Label" parent="Shape9"]
+layout_mode = 0
+offset_left = 0
+offset_top = 18
+offset_right = 224
+offset_bottom = 46
+mouse_filter = 2
+metadata/penpot_name = "Label"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e2b"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 0
+text = "진행 중"
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape16" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 18
+offset_top = 94
+offset_right = 244
+offset_bottom = 102
+mouse_filter = 2
+metadata/penpot_name = "Progress / track"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e2c"
+theme_override_styles/panel = SubResource("s4")
+
+[node name="Shape17" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 18
+offset_top = 94
+offset_right = 108.4
+offset_bottom = 102
+mouse_filter = 2
+metadata/penpot_name = "Progress / fill"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e2d"
+theme_override_styles/panel = SubResource("s5")
+
+[node name="Shape18" type="Label" parent="."]
+layout_mode = 0
+offset_left = 18
+offset_top = 146
+offset_right = 244
+offset_bottom = 170.0
+mouse_filter = 2
+metadata/penpot_name = "Text / Reward"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397bda13e2e"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 0
+text = "보상 5,000 골드"
+theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
+horizontal_alignment = 0
+vertical_alignment = 0

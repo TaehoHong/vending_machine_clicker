@@ -1,0 +1,146 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/d6a9055abbefaa8eac0d.svg" id="r0"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/5009c98b-0fb2-816e-8008-d6373b0d4679.png" id="r1"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/bdfe2e5bcf0a45f424eb.svg" id="r2"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/69adf2326262ff470dd9.svg" id="r3"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/817dbc89f7ef87378a0c.svg" id="r4"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/4417fa78e8eb9d4e1b1d.svg" id="r5"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/41725af0-a889-809a-8008-d8cd65423da8.png" id="r6"]
+
+[ext_resource type="Script" path="res://src/features/facilities/facility_world.gd" id="world_script"]
+
+[node name="Design" type="Control"]
+script = ExtResource("world_script")
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 1152
+offset_bottom = 648
+mouse_filter = 2
+metadata/penpot_name = "시안 / 플레이 / 자동 자판기·쓰레기통 설치 후 · 위치 검토"
+metadata/penpot_id = "50762640-c848-806c-8008-d8c7ba42a837"
+clip_contents = true
+
+[node name="Shape2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 764
+offset_top = 458
+offset_right = 956
+offset_bottom = 471
+mouse_filter = 2
+metadata/penpot_name = "접지 / 자동 자판기"
+metadata/penpot_id = "50762640-c848-806c-8008-d8c7bae95d70"
+texture = ExtResource("r0")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape3" type="Control" parent="."]
+layout_mode = 0
+offset_left = 752
+offset_top = 196
+offset_right = 968
+offset_bottom = 498.4
+mouse_filter = 2
+metadata/penpot_name = "시설 / 자동 자판기 / 설치 · 02 인스턴스"
+metadata/penpot_id = "50762640-c848-806c-8008-d8c7bb93c607"
+
+[node name="Shape4" type="TextureRect" parent="Shape3"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 216
+offset_bottom = 302.4
+mouse_filter = 2
+metadata/penpot_name = "Artwork / 자동 자판기 / 고해상도 1060×1484"
+metadata/penpot_id = "50762640-c848-806c-8008-d8c7bb93c608"
+texture = ExtResource("r1")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
+
+[node name="Shape5" type="TextureRect" parent="Shape3"]
+layout_mode = 0
+offset_left = 289.53704
+offset_top = 733.65741
+offset_right = 290.53704
+offset_bottom = 734.65741
+mouse_filter = 2
+metadata/penpot_name = "기준 / 손님 정지"
+metadata/penpot_id = "e45d1929-def8-80c2-8008-d8ec14161950"
+visible = false
+texture = ExtResource("r2")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape6" type="TextureRect" parent="Shape3"]
+layout_mode = 0
+offset_left = 441.66667
+offset_top = 382.77778
+offset_right = 442.66667
+offset_bottom = 383.77778
+mouse_filter = 2
+metadata/penpot_name = "기준 / 조작부 접촉"
+metadata/penpot_id = "e45d1929-def8-80c2-8008-d8ec14161951"
+visible = false
+texture = ExtResource("r3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape7" type="TextureRect" parent="Shape3"]
+layout_mode = 0
+offset_left = 441.66667
+offset_top = 549.62963
+offset_right = 442.66667
+offset_bottom = 550.62963
+mouse_filter = 2
+metadata/penpot_name = "기준 / 배출구 수령"
+metadata/penpot_id = "e45d1929-def8-80c2-8008-d8ec1416495c"
+visible = false
+texture = ExtResource("r4")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape8" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 992
+offset_top = 462
+offset_right = 1048
+offset_bottom = 470
+mouse_filter = 2
+metadata/penpot_name = "접지 / 쓰레기통"
+metadata/penpot_id = "50762640-c848-806c-8008-d8ca5de5b931"
+texture = ExtResource("r5")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape9" type="Control" parent="."]
+layout_mode = 0
+offset_left = 988
+offset_top = 352
+offset_right = 1052
+offset_bottom = 466.50182
+mouse_filter = 2
+metadata/penpot_name = "시설 / 쓰레기통 / 설치 · 02 인스턴스"
+metadata/penpot_id = "50762640-c848-806c-8008-d8ca5e81e0f6"
+clip_contents = true
+
+[node name="Shape10" type="TextureRect" parent="Shape9"]
+layout_mode = 0
+offset_left = -12.76618
+offset_top = -3.86014
+offset_right = 76.85073
+offset_bottom = 121.60354
+mouse_filter = 2
+metadata/penpot_name = "쓰레기통 / 선명한 픽셀아트 / 원본"
+metadata/penpot_id = "50762640-c848-806c-8008-d8ca5e81e0f7"
+texture = ExtResource("r6")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1

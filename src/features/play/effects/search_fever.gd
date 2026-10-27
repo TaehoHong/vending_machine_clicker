@@ -1,6 +1,5 @@
 extends Control
 
-const FONT = preload("res://assets/fonts/Cafe24PROUP.ttf")
 const GOLD = Color("ffe476")
 const ORANGE = Color("ff8b24")
 const INK = Color("12121d")
@@ -10,30 +9,19 @@ var elapsed: float = 0.0
 var source := Vector2.ZERO
 var pulses: Array[Dictionary] = []
 var coin_trails: Dictionary = {}
+var hud: Control
+var simultaneous: bool = false
 var title: Label
 var timer: Label
-var badge: Label
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	title = _label("SEARCH FEVER", 34, GOLD)
-	timer = _label("", 18, Color.WHITE)
-	badge = _label("GOLD\nx2", 22, GOLD)
-	visible = false
-
-func _label(value: String, font_size: int, color: Color) -> Label:
-	var label := Label.new()
-	label.text = value
-	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	label.add_theme_font_override("font", FONT)
-	label.add_theme_font_size_override("font_size", font_size)
-	label.add_theme_color_override("font_color", color)
-	label.add_theme_color_override("font_outline_color", INK)
-	label.add_theme_constant_override("outline_size", 4)
-	add_child(label)
-	return label
+	hud = preload("res://src/features/play/effects/search_hud.tscn").instantiate()
+	add_child(hud)
+	var design := preload("res://src/shared/ui/design_view.gd")
+	title = design.shape(hud, "Title")
+	timer = design.shape(hud, "Timer")
+	hide()
 
 func update_state(seconds: float, total: float, blocked: bool) -> void:
 	remaining = seconds
@@ -42,14 +30,13 @@ func update_state(seconds: float, total: float, blocked: bool) -> void:
 	if seconds <= 0:
 		pulses.clear()
 		coin_trails.clear()
-	var left := size.x * 0.5 - 230.0
-	title.position = Vector2(left + 4, 10)
-	title.size = Vector2(300, 44)
-	timer.position = Vector2(left + 248, 57)
-	timer.size = Vector2(54, 24)
-	timer.text = "%.1fs" % maxf(0, remaining)
-	badge.position = Vector2(left + 316, 15)
-	badge.size = Vector2(62, 68)
+	var factor := minf(size.x / 1152.0, size.y / 648.0)
+	var origin := (size - Vector2(1152, 648) * factor) * 0.5
+	hud.position = origin + Vector2(268 if simultaneous else 426, 8) * factor
+	hud.scale = Vector2.ONE * factor
+	timer.text = "%.1f초" % maxf(0, remaining)
+	var fill: Control = preload("res://src/shared/ui/design_view.gd").shape(hud, "Progress / fill")
+	fill.size.x = 176.0 * clampf(remaining / maxf(duration, 0.01), 0, 1)
 	queue_redraw()
 
 func add_click(position: Vector2) -> void:
@@ -125,16 +112,3 @@ func _draw() -> void:
 		draw_line(corner, corner + Vector2(direction.x * 30, 0), ORANGE, 5)
 		draw_line(corner, corner + Vector2(0, direction.y * 30), ORANGE, 5)
 		draw_rect(Rect2(corner - Vector2(2, 2), Vector2(4, 4)), GOLD)
-	var left := size.x * 0.5 - 230
-	draw_rect(Rect2(left, 10, 382, 78), INK)
-	draw_rect(Rect2(left, 10, 382, 78), ORANGE, false, 3)
-	draw_rect(Rect2(left + 6, 55, 300, 28), INK)
-	draw_rect(Rect2(left + 9, 58, 232, 21), Color("39312b"))
-	var fill := 232 * clampf(remaining / maxf(duration, 0.01), 0, 1)
-	draw_rect(Rect2(left + 9, 58, fill, 21), ORANGE)
-	draw_rect(Rect2(left + 9, 58, fill, 4), GOLD)
-	for i in range(9):
-		var x := left + 16 + fmod(elapsed * 38 + i * 26, maxf(1, fill - 8))
-		if fill > 8:
-			draw_line(Vector2(x, 75), Vector2(minf(x + 8, left + 9 + fill), 64), Color(1, 0.88, 0.3, 0.6), 2)
-	draw_line(Vector2(left + 311, 15), Vector2(left + 311, 83), ORANGE, 2)

@@ -29,22 +29,26 @@ func run_checks() -> void:
 	await process_frame
 	var tree = game.get_node("InfoOverlay/Card/SkillTree")
 	assert(tree.products.size() == 15)
-	assert(is_equal_approx(tree.get_node("Dim").color.a, 0.35))
+	assert(is_equal_approx(
+		preload("res://src/shared/ui/design_view.gd").shape(
+			tree.canvas, "InfoOverlay / Card / SkillTree / Dim"
+		).get_theme_stylebox("panel").bg_color.a, 89.0 / 255.0
+	))
 	assert(not tree.detail_panel.visible)
 	assert(not game.get_node("InfoOverlay/Card/Title").visible)
 	await tap(tree.products[6])
 	assert(tree.selected_index == 6 and tree.buttons[6].disabled)
 	assert(tree.detail_status.text == "해금 후 자판기에서 등장")
-	assert(tree.buttons[6].text == "10개로 추가", "Cola is blocked only by insufficient cans")
+	assert(tree.unlock_labels[6].text == "10개로 해금", "Cola is blocked only by insufficient cans")
 	await tap(tree.products[2])
 	assert(tree.selected_index == 2 and not tree.buttons[2].disabled)
 	await tap(tree.buttons[2])
 	assert(game.session.ion_unlocked and game.session.cans == 3 and game.session.drinks == 0)
-	assert(tree.buttons[2].disabled and not tree.buttons[2].visible)
+	assert(tree.buttons[2].disabled and not tree.buttons[2].is_visible_in_tree())
 	assert(
 		(
 			(
-				game.get_node("VendingMachine").material.get_shader_parameter("unlocked_slots")
+				FIXTURE.displayed_slots(game)
 				& (1 << 3)
 			)
 			!= 0

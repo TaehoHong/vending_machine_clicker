@@ -26,6 +26,9 @@ godot --headless --path . --script res://tests/features/abilities_test.gd
 godot --headless --path . --script res://tests/features/skill_tree_test.gd
 godot --headless --path . --script res://tests/features/expanded_skills_test.gd
 godot --headless --path . --script res://tests/integrations/progress_store_test.gd
+godot --headless --path . --script res://tests/integrations/facility_rules_test.gd
+godot --headless --path . --script res://tests/features/facilities_test.gd
+godot --headless --path . --script res://tests/features/settings_test.gd
 
 git diff --check
 ```
@@ -51,6 +54,13 @@ git diff --check
 - 실제 렌더러에서 같은 1152×648 크기·수색 안내 애니메이션 위상으로 메뉴·플레이·음료 초기·잠금 선택·요약·pause 6개 화면을 비교해 픽셀 차이가 없음을 확인했다. 이미지·글꼴·라이선스 등 53개 파일의 원본 바이트도 동일하다.
 - 코드/테스트 29개에 임시 gdtoolkit 4.5.0의 `gdformat -l 100 --check`를 적용했다. 단순 이동한 데이터·연출·에셋을 일괄 포맷하지 않았고, 게임/저장소의 패키지 의존성을 추가하지 않았다.
 - 구조 전환 후 회귀 16개 전체와 Godot import·parse를 통과했다. 통합 검증은 [구조 전환 계획](../.codex/pave/plans/2026-10-20-runtime-architecture-refactor.md)에 기록한다.
+
+## Penpot 화면 적용 검증 · 2026-10-27
+
+- 파일 ID를 대조한 Penpot 원본에서 사용하는 그래픽과 네이티브 씬을 추출했다. 1152×648 실제 Metal 렌더러에서 타이틀·플레이·음료·상세·일시정지·설정, 시설 구매·관리·강화·설치, 손님 결제·수령·피버·퀘스트를 확인했다. resize·해금·구매 중첩·입력 차단·저장 경계는 회귀 검사로 확인한다.
+- 시설 규칙 검사는 중복 차감·강화 비용/상한·생산 시점·수령 중복·드롭 소멸·자동 수집·음료 능력과의 분리·저장 복원을 보호한다. 시설 UI 검사는 실제 클릭·미리보기 무차감·모달 입력·ESC를 보호한다. 설정 검사는 오디오 버스·파일 복원·슬라이더·선택 상태·돌아가기를 보호한다.
+- 언어 선택은 기기 설정으로 저장하고 로케일에 적용한다. 전체 문구의 번역 리소스와 일본어/중국어 글리프 전수 검수, 오디오 콘텐츠 제작은 아직 출시 검증 범위 밖이다.
+- sandbox의 macOS 인증서 조회에서 `get_system_ca_certificates` 경고가 출력된다. 스크립트/assertion/리소스 오류와 구분하며, 실제 Metal 실행에서는 이 경고 없이 화면을 확인했다.
 
 ## 남은 설정·검증 범위
 

@@ -34,7 +34,7 @@ func make_menu():
 func run_checks() -> void:
 	var menu = make_menu()
 	check(menu.view.load_button.disabled, "Load disabled without saved game")
-	var start_button: Button = menu.view.get_node("MenuBox/NewGameButton")
+	var start_button: Button = menu.view.new_game_button
 	check(start_button.has_focus(), "New Game starts with keyboard focus")
 	var start_bounds: Rect2 = start_button.get_global_rect()
 	var move := InputEventMouseMotion.new()
@@ -52,7 +52,7 @@ func run_checks() -> void:
 	press.pressed = false
 	root.push_input(press, true)
 	await process_frame
-	check(menu.view.has_node("WalletPanel"), "Click passes through the A frame and starts play")
+	check(menu.view.has_node("VendingMachine"), "Click passes through the A frame and starts play")
 	menu.free()
 	menu = make_menu()
 	var saved := ConfigFile.new()
@@ -77,7 +77,7 @@ func run_checks() -> void:
 	)
 	menu.free()
 	menu = make_menu()
-	menu.view.get_node("MenuBox/NewGameButton").pressed.emit()
+	menu.view.new_game_button.pressed.emit()
 	var backup_path: String = menu.last_backup_path
 	await process_frame
 	game = menu.view
@@ -110,7 +110,7 @@ func run_checks() -> void:
 		game.session.click_stack == 4 and game.session.money == 500,
 		"Paused gameplay cannot change progress"
 	)
-	game.pause_menu.get_node("Overlay/Card/Margin/Buttons/SaveButton").pressed.emit()
+	game.pause_menu.save_button.pressed.emit()
 	var manual := ConfigFile.new()
 	check(
 		(
@@ -147,7 +147,7 @@ func run_checks() -> void:
 	press_escape()
 	await process_frame
 	menu.store.path = "res://.godot/missing_directory/menu_test.cfg"
-	game.pause_menu.get_node("Overlay/Card/Margin/Buttons/QuitButton").pressed.emit()
+	game.pause_menu.quit_button.pressed.emit()
 	check(
 		paused and game.pause_menu.status.text.contains("종료하지 않았습니다"),
 		"Failed save prevents quitting"

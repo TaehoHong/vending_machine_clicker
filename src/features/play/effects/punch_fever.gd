@@ -1,32 +1,21 @@
 extends Control
 
-const RED = Color("ff3b22")
-const GOLD = Color("ffca57")
-const INK = Color("12121d")
 var remaining: float = 0.0
 var duration: float = 5.0
 var elapsed: float = 0.0
 var hits: Array[Dictionary] = []
+var hud: Control
 var title: Label
 var timer: Label
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	title = _label("PUNCH FEVER", 32)
-	timer = _label("", 19)
+	hud = preload("res://src/features/play/effects/punch_hud.tscn").instantiate()
+	add_child(hud)
+	var design := preload("res://src/shared/ui/design_view.gd")
+	title = design.shape(hud, "Title")
+	timer = design.shape(hud, "Timer")
 	hide()
-
-func _label(value: String, font_size: int) -> Label:
-	var label := Label.new()
-	label.text = value
-	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	label.add_theme_font_override("font", preload("res://assets/fonts/Cafe24PROUP.ttf"))
-	label.add_theme_font_size_override("font_size", font_size)
-	label.add_theme_color_override("font_color", GOLD)
-	label.add_theme_color_override("font_outline_color", INK)
-	label.add_theme_constant_override("outline_size", 4)
-	add_child(label)
-	return label
 
 func update_state(seconds: float, total: float, blocked: bool) -> void:
 	remaining = seconds
@@ -34,12 +23,13 @@ func update_state(seconds: float, total: float, blocked: bool) -> void:
 	visible = seconds > 0 and not blocked
 	if seconds <= 0:
 		hits.clear()
-	var left := size.x * 0.5 - 230
-	title.position = Vector2(left + 12, 10)
-	title.size = Vector2(280, 42)
-	timer.position = Vector2(left + 14, 53)
-	timer.size = Vector2(352, 26)
-	timer.text = "%.1fs                       GOLD x3" % maxf(0, seconds)
+	var factor := minf(size.x / 1152.0, size.y / 648.0)
+	var origin := (size - Vector2(1152, 648) * factor) * 0.5
+	hud.position = origin + Vector2(426, 8) * factor
+	hud.scale = Vector2.ONE * factor
+	timer.text = "%.1f초" % maxf(0, remaining)
+	var fill: Control = preload("res://src/shared/ui/design_view.gd").shape(hud, "Progress / fill")
+	fill.size.x = 176.0 * clampf(remaining / maxf(duration, 0.01), 0, 1)
 	queue_redraw()
 
 func add_hit(point: Vector2) -> void:
@@ -105,8 +95,3 @@ func _draw() -> void:
 				var origin := Vector2(0 if side < 0 else size.x, size.y * (0.38 + j * 0.09))
 				var direction := (center - origin).normalized()
 				draw_line(origin, origin + direction * (80 + j * 18), Color(1, 0.12, 0.03, alpha * 0.6), 5, false)
-	var left := size.x * 0.5 - 230
-	draw_rect(Rect2(left - 3, 7, 388, 82), RED)
-	draw_rect(Rect2(left, 10, 382, 76), INK)
-	draw_rect(Rect2(left + 12, 49, 354, 3), Color("6e251a"))
-	draw_rect(Rect2(left + 12, 49, 354 * clampf(remaining / duration, 0, 1), 3), GOLD)

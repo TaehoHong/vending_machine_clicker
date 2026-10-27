@@ -1,0 +1,1090 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/cd444aaf-0d8c-801b-8008-ce975c423d25.png" id="r0"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/da05d154-084a-817e-8008-d2539b524648.png" id="r1"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/4fbe6d83d114e8c66200.svg" id="r2"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/f2d62e1a4327a42cf7b8.svg" id="r3"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/cf36ec5f2e44613e4777.svg" id="r4"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/a3b5a092b62b8af919a7.svg" id="r5"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/ef258f899d6620466570.svg" id="r6"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/5e1ef567b68970a167fa.svg" id="r7"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/c60a76ed22808ab736e9.svg" id="r8"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/5180211c7d86be9ba954.svg" id="r9"]
+
+[ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="r10"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/06882d254e743d02e474.svg" id="r11"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/ddf5af1d67fc18f33e82.svg" id="r12"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/1bed63fe83a13cab7c0b.svg" id="r13"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/cd9c1ba74b21f1f3c81c.svg" id="r14"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/0f87aa090d52e154cb38.svg" id="r15"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/69eb7c02a399e3be5cf4.svg" id="r16"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/4dd32be22799185e43fd.svg" id="r17"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/5d81ecc80794e3d425ca.svg" id="r18"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/8ea348077848f2ad63b0.svg" id="r19"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/6d239abd6f4a3082e0be.svg" id="r20"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/995f95d1ba9b6f3b3949.svg" id="r21"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/c21138458d85cd3b2d49.svg" id="r22"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/06abc476458c39870ba3.svg" id="r23"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/6c3853688b72ca73942c.svg" id="r24"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/05b40b220bba3cee9da8.svg" id="r25"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/8da4c7c7e0693598165f.svg" id="r26"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/116ea023d7fb0bbd502f.svg" id="r27"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/c085985d285b8c723f07.svg" id="r28"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/8a445c33b252625f0f9a.svg" id="r29"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/133f1bb13a8bbe6de8f2.svg" id="r30"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/cfdecd55be645a3b76e7.svg" id="r31"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/5a5d1cedc4a0b3e59695.svg" id="r32"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/47a9b494b4e08ac8385c.svg" id="r33"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/e935e5bcdbeeec59deb0.svg" id="r34"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/9ef3c312fa46a943b4c7.svg" id="r35"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/91ce2b494a6ca9927dcd.svg" id="r36"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/f5f95b5a48bc42a33c81.svg" id="r37"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/e3a95d0638f98ebd2fb7.svg" id="r38"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/202824b30d289030a6ba.svg" id="r39"]
+
+[sub_resource type="StyleBoxFlat" id="s0"]
+bg_color = Color(0.0627451, 0.0745098, 0.1098039, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s1"]
+bg_color = Color(0.0745098, 0.1411765, 0.2, 1)
+border_color = Color(0.0627451, 0.0901961, 0.1137255, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+border_width_bottom = 2
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s2"]
+bg_color = Color(0.8470588, 0.5294118, 0.1803922, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s3"]
+bg_color = Color(0.972549, 0.8117647, 0.4823529, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s4"]
+bg_color = Color(0.7176471, 0.4039216, 0.172549, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s5"]
+bg_color = Color(0.5921569, 0.6784314, 0.7019608, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s6"]
+bg_color = Color(0.8588235, 0.9019608, 0.8352941, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s7"]
+bg_color = Color(0.3843137, 0.4862745, 0.5411765, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s8"]
+bg_color = Color(0.8980392, 0.9098039, 0.8627451, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s9"]
+bg_color = Color(0.2980392, 0.372549, 0.4392157, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s10"]
+bg_color = Color(0.8784314, 0.8901961, 0.7960784, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s11"]
+bg_color = Color(0.2980392, 0.372549, 0.4392157, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s12"]
+bg_color = Color(0.0627451, 0.0901961, 0.1137255, 1)
+border_color = Color(0.2980392, 0.372549, 0.4392157, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+border_width_bottom = 2
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[node name="Design" type="Panel"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 1152
+offset_bottom = 648
+mouse_filter = 2
+metadata/penpot_name = "채택 / 플레이 / 기본"
+metadata/penpot_id = "55aeaacb-aa46-80be-8008-cdca500ac9c3"
+clip_contents = true
+theme_override_styles/panel = SubResource("s0")
+
+[node name="Shape2" type="Control" parent="."]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 1152
+offset_bottom = 648
+mouse_filter = 2
+metadata/penpot_name = "배경"
+metadata/penpot_id = "51ff814c-57a3-802e-8008-d25ac7a9e6ae"
+
+[node name="Shape3" type="Control" parent="Shape2"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 1152
+offset_bottom = 648
+mouse_filter = 2
+metadata/penpot_name = "Clicker / World / Background / 일본풍 골목길"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d38531bb555a"
+
+[node name="Shape4" type="TextureRect" parent="Shape2/Shape3"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 1152
+offset_bottom = 648
+mouse_filter = 2
+metadata/penpot_name = "일본풍 골목길 / image"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d38531bb555b"
+texture = ExtResource("r0")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
+
+[node name="Shape5" type="Control" parent="Shape2"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 1152
+offset_bottom = 648
+mouse_filter = 2
+metadata/penpot_name = "World / 배경 / 화면 음영"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d38531ef1e31"
+modulate = Color(1, 1, 1, 0.200000002980232)
+
+[node name="Shape6" type="TextureRect" parent="Shape2/Shape5"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 1152
+offset_bottom = 648
+mouse_filter = 2
+metadata/penpot_name = "Artwork"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d38531ef1e32"
+texture = ExtResource("r1")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
+
+[node name="Shape7" type="Control" parent="."]
+layout_mode = 0
+offset_left = 1081.6
+offset_top = 577.6
+offset_right = 1136.0
+offset_bottom = 632.0
+mouse_filter = 2
+metadata/penpot_name = "HUD / 메뉴 / normal"
+metadata/penpot_id = "5c99363e-0205-8089-8008-d26be45dfd2f"
+
+[node name="Shape8" type="Control" parent="Shape7"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 54.4
+offset_bottom = 54.4
+mouse_filter = 2
+metadata/penpot_name = "Frame"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d99f"
+
+[node name="Shape9" type="TextureRect" parent="Shape7/Shape8"]
+layout_mode = 0
+offset_left = 6.4
+offset_top = 9.6
+offset_right = 48.0
+offset_bottom = 48.0
+mouse_filter = 2
+metadata/penpot_name = "base"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a0"
+texture = ExtResource("r2")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape10" type="TextureRect" parent="Shape7/Shape8"]
+layout_mode = 0
+offset_left = 6.4
+offset_top = 6.4
+offset_right = 48.0
+offset_bottom = 44.8
+mouse_filter = 2
+metadata/penpot_name = "surface"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a1"
+texture = ExtResource("r3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape11" type="TextureRect" parent="Shape7/Shape8"]
+layout_mode = 0
+offset_left = 9.6
+offset_top = 9.6
+offset_right = 44.8
+offset_bottom = 16.8
+mouse_filter = 2
+metadata/penpot_name = "highlight"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a2"
+texture = ExtResource("r4")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape12" type="TextureRect" parent="Shape7/Shape8"]
+layout_mode = 0
+offset_left = 9.6
+offset_top = 32.8
+offset_right = 44.8
+offset_bottom = 42.4
+mouse_filter = 2
+metadata/penpot_name = "bevel"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a3"
+texture = ExtResource("r5")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape13" type="Control" parent="Shape7"]
+layout_mode = 0
+offset_left = 14.4
+offset_top = 12.8
+offset_right = 40.0
+offset_bottom = 38.4
+mouse_filter = 2
+metadata/penpot_name = "Icon"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a4"
+
+[node name="Shape14" type="TextureRect" parent="Shape7/Shape13"]
+layout_mode = 0
+offset_left = 4.8
+offset_top = 4.0
+offset_right = 9.6
+offset_bottom = 21.6
+mouse_filter = 2
+metadata/penpot_name = "벡터 면"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a5"
+texture = ExtResource("r6")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape15" type="TextureRect" parent="Shape7/Shape13"]
+layout_mode = 0
+offset_left = 16
+offset_top = 4.0
+offset_right = 20.8
+offset_bottom = 21.6
+mouse_filter = 2
+metadata/penpot_name = "벡터 면"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a6"
+texture = ExtResource("r7")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape16" type="TextureRect" parent="Shape7/Shape13"]
+layout_mode = 0
+offset_left = 6.4
+offset_top = 5.6
+offset_right = 8.0
+offset_bottom = 18.4
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a7"
+texture = ExtResource("r8")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape17" type="TextureRect" parent="Shape7/Shape13"]
+layout_mode = 0
+offset_left = 17.6
+offset_top = 5.6
+offset_right = 19.2
+offset_bottom = 18.4
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a8"
+texture = ExtResource("r9")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape18" type="Control" parent="."]
+layout_mode = 0
+offset_left = 16
+offset_top = 16
+offset_right = 232.0
+offset_bottom = 60
+mouse_filter = 2
+metadata/penpot_name = "HUD / 재화 / 연결"
+metadata/penpot_id = "5c99363e-0205-8089-8008-d26be429f44b"
+clip_contents = true
+
+[node name="Shape19" type="Panel" parent="Shape18"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 216
+offset_bottom = 44
+mouse_filter = 2
+metadata/penpot_name = "재화 / 작은 어두운 프레임"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e4"
+theme_override_styles/panel = SubResource("s1")
+
+[node name="Shape20" type="Label" parent="Shape18"]
+layout_mode = 0
+offset_left = 46
+offset_top = 7
+offset_right = 126
+offset_bottom = 37
+mouse_filter = 2
+metadata/penpot_name = "Amount / 골드 / 숫자"
+metadata/penpot_id = "5c99363e-0205-8089-8008-d26be42a1d19"
+theme_override_fonts/font = ExtResource("r10")
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 0
+text = "1,250"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape21" type="Label" parent="Shape18"]
+layout_mode = 0
+offset_left = 168
+offset_top = 7
+offset_right = 204.0
+offset_bottom = 37
+mouse_filter = 2
+metadata/penpot_name = "Amount / 빈캔 / 숫자"
+metadata/penpot_id = "5c99363e-0205-8089-8008-d26be42a1d1a"
+theme_override_fonts/font = ExtResource("r10")
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 0
+text = "18"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape22" type="Control" parent="Shape18"]
+layout_mode = 0
+offset_left = 12.46154
+offset_top = 9
+offset_right = 35.47793
+offset_bottom = 35
+mouse_filter = 2
+metadata/penpot_name = "Icon / 골드 / 원본 연결"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e5"
+
+[node name="Shape23" type="Control" parent="Shape18/Shape22"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0
+offset_right = 23.01639
+offset_bottom = 26
+mouse_filter = 2
+metadata/penpot_name = "재화 / 골드 아이콘 / 기본"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e6"
+
+[node name="Shape24" type="Control" parent="Shape18/Shape22/Shape23"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0
+offset_right = 23.01639
+offset_bottom = 26
+mouse_filter = 2
+metadata/penpot_name = "base-background"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e7"
+visible = false
+
+[node name="Shape25" type="TextureRect" parent="Shape18/Shape22/Shape23"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0
+offset_right = 23.01639
+offset_bottom = 26
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e8"
+texture = ExtResource("r11")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape26" type="TextureRect" parent="Shape18/Shape22/Shape23"]
+layout_mode = 0
+offset_left = 2.55738
+offset_top = 2.88889
+offset_right = 20.45902
+offset_bottom = 23.11111
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e9"
+texture = ExtResource("r12")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape27" type="Panel" parent="Shape18/Shape22/Shape23"]
+layout_mode = 0
+offset_left = 5.7541
+offset_top = 6.5
+offset_right = 17.2623
+offset_bottom = 20.22222
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ea"
+theme_override_styles/panel = SubResource("s2")
+
+[node name="Shape28" type="Panel" parent="Shape18/Shape22/Shape23"]
+layout_mode = 0
+offset_left = 6.39344
+offset_top = 7.22222
+offset_right = 10.86885
+offset_bottom = 18.05556
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8eb"
+theme_override_styles/panel = SubResource("s3")
+
+[node name="Shape29" type="Panel" parent="Shape18/Shape22/Shape23"]
+layout_mode = 0
+offset_left = 15.98361
+offset_top = 6.5
+offset_right = 18.54098
+offset_bottom = 18.05556
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ec"
+theme_override_styles/panel = SubResource("s4")
+
+[node name="Shape30" type="Control" parent="Shape18"]
+layout_mode = 0
+offset_left = 139.15385
+offset_top = 9
+offset_right = 162.17024
+offset_bottom = 35
+mouse_filter = 2
+metadata/penpot_name = "Icon / 빈캔 / 원본 연결"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ed"
+
+[node name="Shape31" type="Control" parent="Shape18/Shape30"]
+layout_mode = 0
+offset_left = 4.69722
+offset_top = 0
+offset_right = 18.31917
+offset_bottom = 26
+mouse_filter = 2
+metadata/penpot_name = "svg"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ee"
+
+[node name="Shape32" type="Control" parent="Shape18/Shape30/Shape31"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0
+offset_right = 13.62195
+offset_bottom = 26
+mouse_filter = 2
+metadata/penpot_name = "base-background"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ef"
+visible = false
+
+[node name="Shape33" type="TextureRect" parent="Shape18/Shape30/Shape31"]
+layout_mode = 0
+offset_left = -1e-05
+offset_top = 0
+offset_right = 13.62196
+offset_bottom = 25.99998
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f0"
+texture = ExtResource("r13")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape34" type="Panel" parent="Shape18/Shape30/Shape31"]
+layout_mode = 0
+offset_left = 1.87889
+offset_top = 3.18367
+offset_right = 11.74306
+offset_bottom = 22.81633
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f1"
+theme_override_styles/panel = SubResource("s5")
+
+[node name="Shape35" type="Panel" parent="Shape18/Shape30/Shape31"]
+layout_mode = 0
+offset_left = 1.87889
+offset_top = 3.71429
+offset_right = 4.2275
+offset_bottom = 20.69388
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f2"
+theme_override_styles/panel = SubResource("s6")
+
+[node name="Shape36" type="Panel" parent="Shape18/Shape30/Shape31"]
+layout_mode = 0
+offset_left = 9.39445
+offset_top = 4.2449
+offset_right = 11.74306
+offset_bottom = 21.7551
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f3"
+theme_override_styles/panel = SubResource("s7")
+
+[node name="Shape37" type="Panel" parent="Shape18/Shape30/Shape31"]
+layout_mode = 0
+offset_left = 2.34861
+offset_top = 1.06122
+offset_right = 11.27334
+offset_bottom = 3.71429
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f4"
+theme_override_styles/panel = SubResource("s8")
+
+[node name="Shape38" type="Panel" parent="Shape18/Shape30/Shape31"]
+layout_mode = 0
+offset_left = 4.69722
+offset_top = 1.59184
+offset_right = 8.92472
+offset_bottom = 2.65306
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f5"
+theme_override_styles/panel = SubResource("s9")
+
+[node name="Shape39" type="Panel" parent="Shape18/Shape30/Shape31"]
+layout_mode = 0
+offset_left = 3.75778
+offset_top = 9.55102
+offset_right = 10.80361
+offset_bottom = 15.91837
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f6"
+theme_override_styles/panel = SubResource("s10")
+
+[node name="Shape40" type="Panel" parent="Shape18/Shape30/Shape31"]
+layout_mode = 0
+offset_left = 2.34861
+offset_top = 22.81633
+offset_right = 10.80361
+offset_bottom = 24.40816
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f7"
+theme_override_styles/panel = SubResource("s11")
+
+[node name="Shape41" type="Control" parent="."]
+layout_mode = 0
+offset_left = 16
+offset_top = 577.6
+offset_right = 70.4
+offset_bottom = 632.0
+mouse_filter = 2
+metadata/penpot_name = "HUD / 능력 / normal"
+metadata/penpot_id = "5c99363e-0205-8089-8008-d26be44ace92"
+
+[node name="Shape42" type="Control" parent="Shape41"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0.0
+offset_right = 54.4
+offset_bottom = 54.4
+mouse_filter = 2
+metadata/penpot_name = "Frame"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80384240d"
+
+[node name="Shape43" type="TextureRect" parent="Shape41/Shape42"]
+layout_mode = 0
+offset_left = 6.4
+offset_top = 9.6
+offset_right = 48.0
+offset_bottom = 48.0
+mouse_filter = 2
+metadata/penpot_name = "base"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80384240e"
+texture = ExtResource("r14")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape44" type="TextureRect" parent="Shape41/Shape42"]
+layout_mode = 0
+offset_left = 6.4
+offset_top = 6.4
+offset_right = 48.0
+offset_bottom = 44.8
+mouse_filter = 2
+metadata/penpot_name = "surface"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80384240f"
+texture = ExtResource("r15")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape45" type="TextureRect" parent="Shape41/Shape42"]
+layout_mode = 0
+offset_left = 9.6
+offset_top = 9.6
+offset_right = 44.8
+offset_bottom = 16.8
+mouse_filter = 2
+metadata/penpot_name = "highlight"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e803842410"
+texture = ExtResource("r16")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape46" type="TextureRect" parent="Shape41/Shape42"]
+layout_mode = 0
+offset_left = 9.6
+offset_top = 32.8
+offset_right = 44.8
+offset_bottom = 42.4
+mouse_filter = 2
+metadata/penpot_name = "bevel"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e803842411"
+texture = ExtResource("r17")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape47" type="Control" parent="Shape41"]
+layout_mode = 0
+offset_left = 14.4
+offset_top = 12.8
+offset_right = 40.0
+offset_bottom = 38.4
+mouse_filter = 2
+metadata/penpot_name = "Icon"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e803842412"
+
+[node name="Shape48" type="TextureRect" parent="Shape41/Shape47"]
+layout_mode = 0
+offset_left = 9.6
+offset_top = 0.8
+offset_right = 17.6
+offset_bottom = 4.8
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e803842413"
+texture = ExtResource("r18")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape49" type="TextureRect" parent="Shape41/Shape47"]
+layout_mode = 0
+offset_left = 11.2
+offset_top = 1.6
+offset_right = 16.0
+offset_bottom = 4.0
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e803842414"
+texture = ExtResource("r19")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape50" type="TextureRect" parent="Shape41/Shape47"]
+layout_mode = 0
+offset_left = 6.4
+offset_top = 4.8
+offset_right = 20.8
+offset_bottom = 24.8
+mouse_filter = 2
+metadata/penpot_name = "벡터 면"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e803842415"
+texture = ExtResource("r20")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape51" type="TextureRect" parent="Shape41/Shape47"]
+layout_mode = 0
+offset_left = 8.8
+offset_top = 12.0
+offset_right = 18.4
+offset_bottom = 21.6
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e803842416"
+texture = ExtResource("r21")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape52" type="TextureRect" parent="Shape41/Shape47"]
+layout_mode = 0
+offset_left = 8.8
+offset_top = 12.0
+offset_right = 11.2
+offset_bottom = 21.6
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e803842417"
+texture = ExtResource("r22")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape53" type="TextureRect" parent="Shape41/Shape47"]
+layout_mode = 0
+offset_left = 12.8
+offset_top = 14.4
+offset_right = 16.8
+offset_bottom = 16.8
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e803842418"
+texture = ExtResource("r23")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape54" type="TextureRect" parent="Shape41/Shape47"]
+layout_mode = 0
+offset_left = 10.4
+offset_top = 22.4
+offset_right = 17.6
+offset_bottom = 24.0
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e803842419"
+texture = ExtResource("r24")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape55" type="TextureRect" parent="Shape41/Shape47"]
+layout_mode = 0
+offset_left = 9.6
+offset_top = 7.2
+offset_right = 12.0
+offset_bottom = 11.2
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80384241a"
+texture = ExtResource("r25")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape56" type="Control" parent="."]
+layout_mode = 0
+offset_left = 647.644
+offset_top = 211.553
+offset_right = 703.644
+offset_bottom = 243.553
+mouse_filter = 2
+metadata/penpot_name = "HUD / 가격 / 기본"
+metadata/penpot_id = "5c99363e-0205-8089-8008-d26be46fa52c"
+
+[node name="Shape57" type="Panel" parent="Shape56"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 56.0
+offset_bottom = 32.0
+mouse_filter = 2
+metadata/penpot_name = "가격 / LCD 프레임"
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e827e78eff"
+theme_override_styles/panel = SubResource("s12")
+
+[node name="Shape58" type="Label" parent="Shape56"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 56.0
+offset_bottom = 32.0
+mouse_filter = 2
+metadata/penpot_name = "Amount"
+metadata/penpot_id = "cdc7492d-ce6d-809e-8008-d2d6e6b0c0a4"
+theme_override_fonts/font = ExtResource("r10")
+theme_override_font_sizes/font_size = 19
+theme_override_constants/outline_size = 0
+text = "100"
+theme_override_colors/font_color = Color(0.7529412, 0.8980392, 0.5490196, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape59" type="Control" parent="."]
+layout_mode = 0
+offset_left = 84
+offset_top = 577.6
+offset_right = 138.4
+offset_bottom = 632.0
+mouse_filter = 2
+metadata/penpot_name = "UI / 버튼 / 시설"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832a"
+
+[node name="Shape60" type="Control" parent="Shape59"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0.0
+offset_right = 54.4
+offset_bottom = 54.4
+mouse_filter = 2
+metadata/penpot_name = "Frame / A / normal"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832b"
+
+[node name="Shape61" type="TextureRect" parent="Shape59/Shape60"]
+layout_mode = 0
+offset_left = 6.4
+offset_top = 9.6
+offset_right = 48.0
+offset_bottom = 48.0
+mouse_filter = 2
+metadata/penpot_name = "base"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832c"
+texture = ExtResource("r26")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape62" type="TextureRect" parent="Shape59/Shape60"]
+layout_mode = 0
+offset_left = 6.4
+offset_top = 6.4
+offset_right = 48.0
+offset_bottom = 44.8
+mouse_filter = 2
+metadata/penpot_name = "surface"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832d"
+texture = ExtResource("r27")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape63" type="TextureRect" parent="Shape59/Shape60"]
+layout_mode = 0
+offset_left = 9.6
+offset_top = 9.6
+offset_right = 44.8
+offset_bottom = 16.8
+mouse_filter = 2
+metadata/penpot_name = "highlight"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832e"
+texture = ExtResource("r28")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape64" type="TextureRect" parent="Shape59/Shape60"]
+layout_mode = 0
+offset_left = 9.6
+offset_top = 32.8
+offset_right = 44.8
+offset_bottom = 42.4
+mouse_filter = 2
+metadata/penpot_name = "bevel"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832f"
+texture = ExtResource("r29")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape65" type="Control" parent="Shape59"]
+layout_mode = 0
+offset_left = 14.4
+offset_top = 12.8
+offset_right = 40.0
+offset_bottom = 38.4
+mouse_filter = 2
+metadata/penpot_name = "UI / 아이콘 / 자동 자판기"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a708330"
+
+[node name="Shape66" type="TextureRect" parent="Shape59/Shape65"]
+layout_mode = 0
+offset_left = 3.2
+offset_top = 0.8
+offset_right = 22.4
+offset_bottom = 24.8
+mouse_filter = 2
+metadata/penpot_name = "벡터 면"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a708331"
+texture = ExtResource("r30")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape67" type="TextureRect" parent="Shape59/Shape65"]
+layout_mode = 0
+offset_left = 5.6
+offset_top = 3.2
+offset_right = 18.4
+offset_bottom = 15.2
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a708332"
+texture = ExtResource("r31")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape68" type="TextureRect" parent="Shape59/Shape65"]
+layout_mode = 0
+offset_left = 7.2
+offset_top = 4.8
+offset_right = 16.8
+offset_bottom = 13.6
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a708333"
+texture = ExtResource("r32")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape69" type="TextureRect" parent="Shape59/Shape65"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.4
+offset_right = 10.4
+offset_bottom = 10.4
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a708334"
+texture = ExtResource("r33")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape70" type="TextureRect" parent="Shape59/Shape65"]
+layout_mode = 0
+offset_left = 12.8
+offset_top = 6.4
+offset_right = 15.2
+offset_bottom = 10.4
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a708335"
+texture = ExtResource("r34")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape71" type="TextureRect" parent="Shape59/Shape65"]
+layout_mode = 0
+offset_left = 7.2
+offset_top = 12.0
+offset_right = 16.8
+offset_bottom = 13.6
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a708336"
+texture = ExtResource("r35")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape72" type="TextureRect" parent="Shape59/Shape65"]
+layout_mode = 0
+offset_left = 19.2
+offset_top = 7.2
+offset_right = 20.8
+offset_bottom = 11.2
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a708337"
+texture = ExtResource("r36")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape73" type="TextureRect" parent="Shape59/Shape65"]
+layout_mode = 0
+offset_left = 6.4
+offset_top = 17.6
+offset_right = 19.2
+offset_bottom = 22.4
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a708338"
+texture = ExtResource("r37")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape74" type="TextureRect" parent="Shape59/Shape65"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 18.4
+offset_right = 17.6
+offset_bottom = 20.0
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a708339"
+texture = ExtResource("r38")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape75" type="TextureRect" parent="Shape59/Shape65"]
+layout_mode = 0
+offset_left = 5.6
+offset_top = 1.6
+offset_right = 19.2
+offset_bottom = 3.2
+mouse_filter = 2
+metadata/penpot_name = "픽셀 면"
+metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70833a"
+texture = ExtResource("r39")
+expand_mode = 1
+stretch_mode = 0
