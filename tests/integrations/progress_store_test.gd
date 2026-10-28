@@ -51,6 +51,8 @@ func _initialize() -> void:
 		restored.quest_reward_claimed and not restored.can_quest_reward_claimed,
 		"Quest flags remain independent"
 	)
+	_check_gold_round_trip(store, source, 1000000001)
+	_check_gold_round_trip(store, source, 9007199254740993)
 
 	var legacy := ConfigFile.new()
 	legacy.set_value("progress", "money", "invalid")
@@ -86,3 +88,13 @@ func _initialize() -> void:
 	DirAccess.remove_absolute(path)
 	print("Progress store checks: %d failures" % failures)
 	quit(1 if failures else 0)
+
+
+func _check_gold_round_trip(store: RefCounted, source: RefCounted, amount: int) -> void:
+	source.money = amount
+	source.facilities.alley.gold = amount
+	check(store.write(source) == OK, "Large Gold balance saves successfully")
+	var restored: RefCounted = SESSION.new()
+	store.load_into(restored)
+	check(restored.money == amount, "Wallet Gold survives loading without truncation")
+	check(restored.facilities.alley.gold == amount, "Unclaimed facility Gold survives loading")

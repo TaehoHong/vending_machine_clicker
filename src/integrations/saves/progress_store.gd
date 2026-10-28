@@ -1,5 +1,7 @@
 extends RefCounted
 
+const FACILITIES = preload("res://src/game/automation/facility_rules.gd")
+
 var path: String
 
 
@@ -60,9 +62,11 @@ func write(state: RefCounted) -> Error:
 		"ion_unlocked",
 		"extra_counts",
 		"unlocked_drinks",
-		"facilities",
 	]:
 		save.set_value("progress", key, state.get(key))
+	var facilities: Dictionary = state.facilities.duplicate(true)
+	facilities[FACILITIES.STAGE].erase("remaining")
+	save.set_value("progress", "facilities", facilities)
 	return save.save(path)
 
 
@@ -73,7 +77,7 @@ func load_into(state: RefCounted) -> void:
 	for key in ["money", "click_stack", "quest_clicks", "drinks", "cans", "machine_level"]:
 		var value: Variant = save.get_value("progress", key, 0)
 		if value is int:
-			state.set(key, clampi(value, 0, 1000000000))
+			state.set(key, maxi(value, 0) if key == "money" else clampi(value, 0, 1000000000))
 	# 이전 버전에서 마신 음료는 물 수집으로 이어받는다.
 	var saved_tea: Variant = save.get_value("progress", "green_tea_count", 0)
 	state.green_tea_count = clampi(saved_tea, 0, 1000000000) if saved_tea is int else 0
@@ -120,6 +124,6 @@ func load_into(state: RefCounted) -> void:
 	if not save.has_section_key("progress", "cans"):
 		state.cans = state.drinks
 
-	state.facilities = preload("res://src/game/automation/facility_rules.gd").normalize(
+	state.facilities = FACILITIES.normalize(
 		save.get_value("progress", "facilities", {})
 	)

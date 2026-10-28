@@ -79,9 +79,16 @@ func run_checks() -> void:
 	var path := "res://.godot/facilities_%d.cfg" % Time.get_ticks_usec()
 	var store := STORE.new(path)
 	assert(store.write(timed) == OK)
+	assert(timed_data.remaining == 5.0, "Saving must not restart the running production cycle")
+	var saved := ConfigFile.new()
+	assert(saved.load(path) == OK)
+	assert(not saved.get_value("progress", "facilities").alley.has("remaining"))
 	var restored := SESSION.new()
 	store.load_into(restored)
-	assert(restored.facilities == timed.facilities)
+	var expected := timed.facilities.duplicate(true)
+	expected.alley.remaining = 10.0
+	assert(restored.facilities == expected, "Loading restarts production and preserves rewards")
+	assert(restored.advance_facilities(1.0).produced == 0)
 	assert(restored.collect_facility_gold() == 30)
 	assert(restored.collect_facility_gold() == 0)
 	assert(restored.facilities.other_stage.remaining == 7.0)
@@ -94,6 +101,15 @@ func run_checks() -> void:
 	assert(RULES.state(restored).auto_owned)
 	assert(not restored.purchase_facility("auto"))
 	assert(restored.money == 777 and restored.cans == 3)
+	var previous := ConfigFile.new()
+	previous.set_value("progress", "facilities", {"alley": {
+		"auto_owned": true, "cycle": 5, "remaining": 1.0, "gold": 30,
+	}})
+	assert(previous.save(path) == OK)
+	store.load_into(restored)
+	assert(RULES.state(restored).remaining == 5.0, "Old timers restart at the upgraded cycle")
+	assert(restored.advance_facilities(1.0).produced == 0)
+	assert(RULES.state(restored).gold == 30)
 	DirAccess.remove_absolute(path)
 	var normalized := RULES.normalize({"alley": {
 		"production": 50, "chance": -2, "drops": [
