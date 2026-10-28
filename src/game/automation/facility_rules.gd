@@ -144,17 +144,15 @@ static func normalize(saved: Variant) -> Dictionary:
 	if not data is Dictionary:
 		return stages
 	for key: String in DEFAULT:
-		if key == "drops":
+		if key in ["drops", "remaining"]:
 			continue
 		var value: Variant = data.get(key, DEFAULT[key])
 		if DEFAULT[key] is bool and value is bool:
 			result[key] = value
 		elif DEFAULT[key] is int and value is int:
 			result[key] = clampi(value, 0, MAX_LEVEL if UPGRADES.has(key) else 1000000000)
-		elif DEFAULT[key] is float and (value is float or value is int):
-			if is_finite(float(value)):
-				result[key] = clampf(float(value), 0.0, 10.0)
-	result.remaining = minf(float(result.remaining), 10.0 - float(result.cycle))
+	# 생산 진행 시간은 복원하지 않고 현재 강화 단계의 전체 주기로 다시 시작한다.
+	result.remaining = 10.0 - float(result.cycle)
 	for kind: String in CATALOG:
 		# 이전 해금 저장은 빈캔 비용을 이미 지불했으므로 바로 보유 상태로 잇는다.
 		if result[kind + "_unlocked"]:

@@ -1,5 +1,7 @@
 extends RefCounted
 
+const FACILITIES = preload("res://src/game/automation/facility_rules.gd")
+
 var path: String
 
 
@@ -60,9 +62,11 @@ func write(state: RefCounted) -> Error:
 		"ion_unlocked",
 		"extra_counts",
 		"unlocked_drinks",
-		"facilities",
 	]:
 		save.set_value("progress", key, state.get(key))
+	var facilities: Dictionary = state.facilities.duplicate(true)
+	facilities[FACILITIES.STAGE].erase("remaining")
+	save.set_value("progress", "facilities", facilities)
 	return save.save(path)
 
 
@@ -120,6 +124,6 @@ func load_into(state: RefCounted) -> void:
 	if not save.has_section_key("progress", "cans"):
 		state.cans = state.drinks
 
-	state.facilities = preload("res://src/game/automation/facility_rules.gd").normalize(
+	state.facilities = FACILITIES.normalize(
 		save.get_value("progress", "facilities", {})
 	)
