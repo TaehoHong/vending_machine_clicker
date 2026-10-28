@@ -150,7 +150,9 @@ static func normalize(saved: Variant) -> Dictionary:
 		if DEFAULT[key] is bool and value is bool:
 			result[key] = value
 		elif DEFAULT[key] is int and value is int:
-			result[key] = clampi(value, 0, MAX_LEVEL if UPGRADES.has(key) else 1000000000)
+			result[key] = maxi(value, 0) if key == "gold" else clampi(
+				value, 0, MAX_LEVEL if UPGRADES.has(key) else 1000000000
+			)
 	# 생산 진행 시간은 복원하지 않고 현재 강화 단계의 전체 주기로 다시 시작한다.
 	result.remaining = 10.0 - float(result.cycle)
 	for kind: String in CATALOG:

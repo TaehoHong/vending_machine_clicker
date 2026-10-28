@@ -39,7 +39,7 @@
 | 음료 해금 | `game_session.unlock`, `drink_screen._refresh_selection`; `drink_catalog.DATA.cost` | 선행 순서 없이 비용만 확인, 세션이 단일 차감·기록 소유; UI는 비용·현재 해금 상태만 표시 |
 | 음료 강화·추첨 | `drink_rules.enhancement_count`, `purchasable_drinks`, `draw_for_roll`; 세션 경유 | 원본 획득 수 보존·효과 상한·최대 강화 제외·피버 반복·황금 해금 후 별도 확률 |
 | 주차장 해금 상태 | `game_session.parking_unlocked` | 저장된 황금 획득 수로 판정; 새 플래그나 스테이지 씬은 없음 |
-| 저장·복구 | `progress_store.write`, `load_into`, `backup`; app 연결 | 기존 키·상품 인덱스·이전 저장 처리 보존. 시설 생산 remaining은 저장에서 제외하고 normalize에서 강화된 전체 주기로 재시작; 보유·강화·생산 보상·물품 소멸 시간은 유지 |
+| 저장·복구 | `progress_store.write`, `load_into`, `backup`; app 연결 | 기존 키·상품 인덱스·이전 저장 처리 보존. 시설 생산 remaining은 저장에서 제외하고 normalize에서 강화된 전체 주기로 재시작; 보유·강화·생산 보상·물품 소멸 시간은 유지. 보유·시설 미수령 골드는 10억 상한 없이 음이 아닌 64비트 정수 그대로 복원 |
 | 금액 표기 | `amount_format.format_amount`, `format_gold`; Play `_refresh_ui`, `_show_wallet_tooltip` | 표기 축약은 실제 잔액·가격 계산에 적용하지 않으며 원본 툴팁에 정수 전체를 표시 |
 | 공유 외형 | `play_theme.tres`의 Button·PixelHudButton·PrimaryButton·SecondaryButton·PixelIconButton·ActionButton·PricePlate·InfoPanel·InfoTitle·InfoBody; `drink_screen._panel`, `_label` | 기존 StyleBox·상태를 재사용, 화면별 새 테마 복제 금지. InfoPanel은 크림색 정보 카드, InfoTitle은 짙은 Cafe24, InfoBody는 외곽선 없는 Noto Sans KR 400 본문. 재화 HUD는 기존 PLAY_PANEL 유지 |
 | 공통 버튼 입력·피드백 | `shared/ui/pixel_button.gd`; MainMenu·Play·DrinkScreen·PauseMenu | 기본 Button이 입력·문구·포커스를 소유한다. 원본 상태는 네이티브 Frame의 색·선·숨김을 유지하고 다른 상태는 같은 family SVG로 90/60/100ms 전환한다. 설정의 선택은 keyboard focus와 별도로 유지하며 클릭 영역은 고정한다 |
