@@ -1,7 +1,6 @@
 extends Control
 
 signal changed
-signal management_requested(page: String)
 
 const DESIGN = preload("res://src/shared/ui/design_view.gd")
 var session: RefCounted
@@ -10,12 +9,6 @@ var gold: Button
 var drops: Dictionary = {}
 
 func _ready() -> void:
-	DESIGN.action(
-		self, "시설 / 자동 자판기 / 설치 · 02 인스턴스", management_requested.emit.bind("auto")
-	)
-	DESIGN.action(
-		self, "시설 / 쓰레기통 / 설치 · 02 인스턴스", management_requested.emit.bind("trash")
-	)
 	customer_flow = preload("res://src/features/facilities/effects/customer_flow.gd").new()
 	customer_flow.session = session
 	add_child(customer_flow)

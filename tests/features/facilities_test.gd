@@ -4,6 +4,7 @@ const SESSION = preload("res://src/game/game_session.gd")
 const RULES = preload("res://src/game/automation/facility_rules.gd")
 const FIXTURE = preload("res://tests/support/game_fixture.gd")
 const SCREEN = preload("res://src/features/facilities/facilities_screen.tscn")
+const DESIGN = preload("res://src/shared/ui/design_view.gd")
 
 func _initialize() -> void:
 	call_deferred("run_checks")
@@ -27,17 +28,34 @@ func run_checks() -> void:
 	assert(session.facilities == before and session.money == money and session.cans == cans)
 	preview.free()
 	var game = FIXTURE.create_game(root)
-	game.session.money = 1000
-	game.session.cans = 10
+	game.session.money = 2200
+	game.session.cans = 25
 	game._open_facilities()
 	var screen: Control = game.facilities_screen
-	var buy: Button = screen.actions.auto
-	await tap(buy)
-	assert(RULES.state(game.session).auto_unlocked and game.session.cans == 0)
-	await tap(buy)
-	assert(RULES.state(game.session).auto_owned and game.session.money == 0)
-	await tap(buy)
-	assert(game.session.money == 0)
+	await tap(screen.actions.auto)
+	assert(RULES.state(game.session).auto_unlocked and game.session.cans == 15)
+	await tap(screen.actions.auto)
+	assert(RULES.state(game.session).auto_owned and game.session.money == 1200)
+	var auto_frame := DESIGN.shape(screen.canvas, "Action / Buy Auto")
+	assert(DESIGN.shape(auto_frame, "Label").text == "업그레이드")
+	await tap(screen.actions.auto)
+	assert(screen.page == "auto_upgrade")
+	await tap(screen.actions.production)
+	assert(RULES.state(game.session).production == 1 and game.session.money == 1100)
+	screen.go_back()
+	assert(screen.page == "purchase")
+	await tap(screen.actions.trash)
+	assert(RULES.state(game.session).trash_unlocked and game.session.cans == 0)
+	await tap(screen.actions.trash)
+	assert(RULES.state(game.session).trash_owned and game.session.money == 600)
+	var trash_frame := DESIGN.shape(screen.canvas, "Action / Buy Trash")
+	assert(DESIGN.shape(trash_frame, "Label").text == "업그레이드")
+	await tap(screen.actions.trash)
+	assert(screen.page == "trash_upgrade")
+	await tap(screen.actions.chance)
+	assert(RULES.state(game.session).chance == 1 and game.session.money == 500)
+	screen.go_back()
+	assert(screen.page == "purchase")
 	var clicks: int = game.session.quest_clicks
 	game._on_earn_button_pressed()
 	game._on_shop_button_pressed()
@@ -48,20 +66,32 @@ func run_checks() -> void:
 	root.push_input(escape)
 	await process_frame
 	assert(game.facilities_screen == null and not paused)
+	var auto_body := DESIGN.shape(
+		game.facility_world, "시설 / 자동 자판기 / 설치 · 02 인스턴스"
+	)
+	var trash_body := DESIGN.shape(
+		game.facility_world, "시설 / 쓰레기통 / 설치 · 02 인스턴스"
+	)
+	await tap(auto_body)
+	assert(game.facilities_screen == null)
+	await tap(trash_body)
+	assert(game.facilities_screen == null)
 	RULES.state(game.session).gold = 10
-	game.facility_world.refresh()
-	await tap(game.facility_world.gold)
-	assert(game.session.money == 10 and RULES.state(game.session).gold == 0)
-	game.facility_world.gold.pressed.emit()
-	assert(game.session.money == 10)
 	RULES.state(game.session).drops = [{"id": 1, "amount": 2, "remaining": 15.0}]
 	game.facility_world.refresh()
-	await tap(game.facility_world.drops[1])
+	await tap(game.facility_world.gold)
+	assert(game.session.money == 510 and RULES.state(game.session).gold == 0)
+	game.facility_world.gold.pressed.emit()
+	assert(game.session.money == 510)
+	var drop: Button = game.facility_world.drops[1]
+	await tap(drop)
 	assert(game.session.cans == 2 and game.session.drinks == 0)
+	assert(game.session.collect_facility_item(1) == 0)
+	assert(game.session.cans == 2)
 	var save_path: String = FIXTURE.store_for(game).path
 	game.free()
 	DirAccess.remove_absolute(save_path)
-	print("Facility purchase, upgrades, production, expiry, collection, save and preview passed.")
+	print("Facility unlock, purchase, upgrades, return and separate world collection passed.")
 	quit()
 
 

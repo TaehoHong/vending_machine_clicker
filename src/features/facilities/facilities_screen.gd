@@ -8,8 +8,6 @@ const RULES = preload("res://src/game/automation/facility_rules.gd")
 const AMOUNTS = preload("res://src/shared/formatting/amount_format.gd")
 const VIEWS = {
 	"purchase": preload("res://src/features/facilities/purchase_design.tscn"),
-	"auto": preload("res://src/features/facilities/auto_design.tscn"),
-	"trash": preload("res://src/features/facilities/trash_design.tscn"),
 	"auto_upgrade": preload("res://src/features/facilities/auto_upgrade_design.tscn"),
 	"trash_upgrade": preload("res://src/features/facilities/trash_upgrade_design.tscn"),
 }
@@ -26,10 +24,10 @@ func _ready() -> void:
 	resized.connect(_layout)
 
 
-func open(game_session: RefCounted, initial_page: String = "purchase") -> void:
+func open(game_session: RefCounted) -> void:
 	session = game_session
 	previous_focus = get_viewport().gui_get_focus_owner()
-	_show_page(initial_page)
+	_show_page("purchase")
 
 
 func _show_page(next: String) -> void:
@@ -68,28 +66,16 @@ func _show_page(next: String) -> void:
 		var close_art := DESIGN.shape(canvas, "음료 화면 닫기 / normal")
 		if close_art != null:
 			DESIGN.action(canvas, "음료 화면 닫기 / normal", close)
-		if page.ends_with("upgrade"):
-			var rows: Array = (
-				[["골드 생산량", "production"], ["생산 주기", "cycle"], ["물품 개수", "items"]]
-				if page == "auto_upgrade"
-				else [["수집 확률", "chance"], ["수집 개수", "capacity"]]
+		var rows: Array = (
+			[["골드 생산량", "production"], ["생산 주기", "cycle"], ["물품 개수", "items"]]
+			if page == "auto_upgrade"
+			else [["수집 확률", "chance"], ["수집 개수", "capacity"]]
+		)
+		for row: Array in rows:
+			actions[row[1]] = DESIGN.action(
+				canvas, "시설 / %s / 강화 버튼" % row[0], _upgrade.bind(row[1])
 			)
-			for row: Array in rows:
-				actions[row[1]] = DESIGN.action(
-					canvas, "시설 / %s / 강화 버튼" % row[0], _upgrade.bind(row[1])
-				)
-		else:
-			var name: String = "자동 자판기" if page == "auto" else "쓰레기통"
-			DESIGN.action(
-				canvas, "시설 / %s / 강화 버튼" % name, _show_page.bind(page + "_upgrade")
-			)
-			var other: String = "쓰레기통" if page == "auto" else "자동 자판기"
-			DESIGN.action(
-				canvas, "시설 / %s / 탭" % other,
-				_show_page.bind("trash" if page == "auto" else "auto")
-			)
-			if DESIGN.shape(canvas, "Action / 수령") != null:
-				actions.claim = DESIGN.action(canvas, "Action / 수령", _collect)
+
 	refresh()
 
 
@@ -113,12 +99,17 @@ func refresh() -> void:
 			currency.visible = not owned
 			for icon: CanvasItem in currency.get_children():
 				icon.visible = not unlocked if icon.name == "UnlockCan" else unlocked
-			label.text = "✓" if owned else ("구매" if unlocked else "해금")
+			label.text = "업그레이드" if owned else ("구매" if unlocked else "해금")
+			if owned:
+				label.position.x = 0
+				label.size.x = frame.size.x
+				label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			price.visible = not owned
 			price.text = "" if owned else str(
 				RULES.CATALOG[kind].price if unlocked else RULES.CATALOG[kind].unlock
 			)
 			DESIGN.fit_text(price, 44, 16)
-			actions[kind].disabled = owned or (
+			actions[kind].disabled = not owned and (
 				session.money < RULES.CATALOG[kind].price if unlocked
 				else session.cans < RULES.CATALOG[kind].unlock
 			)
@@ -153,53 +144,40 @@ func refresh() -> void:
 				level >= RULES.MAX_LEVEL or not data[RULES.UPGRADES[key] + "_owned"]
 				or session.money < RULES.upgrade_price(session, key)
 			)
-	else:
-		var wallet := DESIGN.shape(canvas, "시설 / 골드 잔액 / 연결")
-		var wallet_label: Label = DESIGN.shape(wallet, "Label")
-		wallet_label.text = AMOUNTS.format_gold(session.money)
-		var owned: bool = data[page + "_owned"]
-		_set_text("음료 상세 / 상태", "가동 중" if owned else "설치 전 미리보기")
-		_set_text("음료 상세 / 효과", (
-			"생산량 · %d 골드" % RULES.production(session) if page == "auto"
-			else "자동 수집 · %d%%" % int(round(RULES.collection_chance(session) * 100))
-		))
-		_set_text("음료 상세 / 해금 조건", (
-			"다음 생산까지 %.1f초" % data.remaining if page == "auto"
-			else "수집 개수 · %d개" % RULES.collection_capacity(session)
-		))
-		if page == "trash":
-			_set_text("Amount", "%d개" % int(data.collected_cans))
-			_set_text("Timer", "수집 확률 · %d%%" % int(round(RULES.collection_chance(session) * 100)))
-		if page == "auto":
-			_set_text("Title", "골드 수령 대기" if data.gold > 0 else "골드 생산 중")
-			_set_text("Amount", "%s 골드" % AMOUNTS.format_amount(data.gold))
-			_set_text("Timer", "다음 생산까지 %.1f초" % data.remaining)
-			if actions.has("claim"):
-				actions.claim.disabled = data.gold <= 0
-				var claim_label: Label = DESIGN.shape(actions.claim.get_parent(), "Label")
-				claim_label.text = "수령" if data.gold > 0 else "생산 중"
 
 
-func _preview(kind: String) -> void:
+func _preview(_kind: String) -> void:
 	var gold := DESIGN.shape(canvas, "FX / Produced Gold")
 	var item := DESIGN.shape(canvas, "FX / Dropped Item")
 	var collected := DESIGN.shape(canvas, "FX / Collected Item")
 	if preview_origins.is_empty():
-		preview_origins = {"gold": gold.position, "item": item.position}
+		preview_origins = {"gold": gold.position, "item": item.position, "collected": collected.position}
 	if is_instance_valid(preview_tween):
 		preview_tween.kill()
-	gold.position = preview_origins.gold
-	item.position = preview_origins.item
-	gold.visible = kind == "auto"
+	gold.position = preview_origins.gold + Vector2(0, -8)
+	item.position = preview_origins.item + Vector2(0, 10)
+	collected.position = preview_origins.collected + Vector2(0, 16)
+	gold.show()
 	gold.modulate.a = 1.0
 	item.show()
 	item.modulate.a = 1.0
-	preview_tween = create_tween().set_parallel(true)
-	if kind == "auto":
-		preview_tween.tween_property(gold, "position:y", gold.position.y - 28, 0.5)
-		preview_tween.tween_property(gold, "modulate:a", 0.0, 0.5)
-	preview_tween.tween_property(item, "position", collected.position, 0.9)
-	preview_tween.chain().tween_property(item, "modulate:a", 0.0, 0.15)
+	collected.show()
+	collected.modulate.a = 0.7
+	preview_tween = create_tween()
+	preview_tween.tween_interval(0.24)
+	preview_tween.tween_callback(func() -> void:
+		gold.position.y = preview_origins.gold.y - 24
+		gold.modulate.a = 0.25
+		item.modulate.a = 0.0
+		collected.position.y = preview_origins.collected.y + 30
+		collected.modulate.a = 0.0
+	)
+	preview_tween.tween_interval(1.4)
+	preview_tween.tween_callback(func() -> void:
+		gold.modulate.a = 0.0
+		item.modulate.a = 0.0
+		collected.modulate.a = 0.0
+	)
 
 
 func _set_text(source_name: String, value: String) -> void:
@@ -210,6 +188,9 @@ func _set_text(source_name: String, value: String) -> void:
 
 func _purchase(kind: String) -> void:
 	var data := RULES.state(session)
+	if data[kind + "_owned"]:
+		_show_page(kind + "_upgrade")
+		return
 	var succeeded: bool = (
 		session.purchase_facility(kind) if data[kind + "_unlocked"]
 		else session.unlock_facility(kind)
@@ -225,16 +206,8 @@ func _upgrade(key: String) -> void:
 	refresh()
 
 
-func _collect() -> void:
-	if session.collect_facility_gold() > 0:
-		changed.emit()
-	refresh()
-
-
 func go_back() -> void:
 	if page.ends_with("upgrade"):
-		_show_page(page.trim_suffix("_upgrade"))
-	elif page != "purchase":
 		_show_page("purchase")
 	else:
 		close()
