@@ -3,7 +3,7 @@
 ## 확정 범위와 결정
 - user-confirmed / active F1: 자동 자판기 빈캔 10개, 쓰레기통 15개를 한 번 내면 구매·설치. 1,000/500 Gold 단계 제거.
 - user-confirmed / active F2: 강화는 기존 100 Gold부터 항목별 두 배, 최대 5회 유지.
-- user-confirmed / active F3: 구매 버튼은 빈캔 아이콘+수량, 보유 시설 버튼은 골드 아이콘만 표시하여 강화창 열기. 강화 비용은 강화창에서 표시.
+- user-confirmed / superseded F3 (F6): 구매 버튼은 빈캔 아이콘+수량, 보유 시설 버튼은 골드 아이콘만 표시하여 강화창 열기. 강화 비용은 강화창에서 표시.
 - user-confirmed / active F4: 문구 제거, 재화 묶음 중앙 정렬. 미보유 행은 비활성 외형, 충분한 물품이면 구매 가능.
 - deferred F5: 시설 UI 전반 재설계. 이번에는 현재 목록·패널·동선을 재사용한다.
 - repo-evidenced: 이전 저장 unlocked=true는 이미 빈캔을 지출한 상태. 정규화에서 owned로 이어 추가 차감을 방지한다. 저장 키·잔액·기존 보유·강화·생산은 보존한다.
@@ -36,3 +36,13 @@
 - Penpot API의 source 변경 응답과 원본 강화 화면 캡처를 확인했다. 이후 브라우저가 Mac 잠금으로 중단되어 선택적인 추가 미세 중앙 정렬 요청은 실행되지 않았다. 마지막 확인 원본에서 버튼·행·재화 변경은 반영돼 있다.
 
 - 로컬 main ff9f24b 통합 후 import 및 parse·facilities·facility_rules·progress_store·gameplay 5개 검사 모두 통과. main 작업 트리 깨끗함, 기존 DESIGN.md 고객 원화 지침 수정과 .DS_Store/이전 계획은 이번 커밋에서 제외했다.
+
+## 후속 변경 · 보유 시설 업그레이드 문구
+- user-confirmed / active F6: 구매창의 보유 시설 버튼은 골드 아이콘 대신 ‘업그레이드’ 텍스트. 강화창에서 항목별 Gold 비용을 표시하고 두 시설의 실제 진입 화면을 보여준다. F3의 골드 아이콘 단독 표시를 대체한다. 남은 동작 결정 0, 사용자의 직접 수정 지시 범위로 실행한다.
+- owner-found: facilities_screen.refresh의 보유 상태와 facilities_test 실제 클릭 흐름. 기존 native Label·버튼 프레임·폰트·정렬을 재사용한다. 신규 런타임 파일 없음. 구매 비용·강화 수치·화면 배치 변경 없음.
+- [x] facilities_screen.gd와 기존 facilities_test.gd의 보유 상태 기대값만 수정. 실제 클릭 후 auto/trash 강화창 진입, Gold 차감·복귀 회귀를 확인한다.
+- [x] PRODUCT.md·Notion·DESIGN.md·design/README.md·codebase-guide의 같은 규칙을 갱신한다. Penpot은 연결 복구를 시도했으나 Mac 잠금으로 접근 불가. 보유 2개 보드의 Label 표시·Gold 아이콘 숨김 및 규칙 문구 미동기화를 명시한다.
+- [x] Godot parse·facilities·facility_rules, diff --check 및 Metal 실제 클릭 진입 캡처. 전체 동작 규칙을 변경하지 않아 다른 기능의 전체 회귀 반복은 생략한다.
+
+- 후속 검증: facilities_test·facility_rules_test·parse 및 diff --check 통과. Metal 실제 구매창에서 두 업그레이드 버튼을 각각 클릭해 진입 화면 3장을 캡처했으며, 화면 이동만으로 재화가 변하지 않음을 확인했다. 기획 규칙과 코드 안내는 최신 문구로 갱신했고 Penpot 미동기화 대상을 DESIGN.md에 기록했다.
+- Git: 검증된 후속 변경도 로컬 main에 통합하고 관련 검사를 다시 수행한다.

@@ -94,8 +94,13 @@ func refresh() -> void:
 			var label: Label = DESIGN.shape(frame, "Label")
 			var price: Label = DESIGN.shape(frame, "Price / Value")
 			var owned: bool = data[kind + "_owned"]
-			label.hide()
+			label.visible = owned
+			label.text = "업그레이드"
+			label.position.x = 0
+			label.size.x = frame.size.x
+			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			var currency := DESIGN.shape(frame, "Price / Currency")
+			currency.visible = not owned
 			for icon: CanvasItem in currency.get_children():
 				icon.visible = not owned if icon.name == "UnlockCan" else owned
 			price.visible = not owned
