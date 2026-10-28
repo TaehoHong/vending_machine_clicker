@@ -1,0 +1,72 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="r0"]
+
+[ext_resource type="FontVariation" path="res://assets/fonts/noto_sans_kr_regular.tres" id="r1"]
+
+[sub_resource type="StyleBoxFlat" id="s0"]
+bg_color = Color(0.0745098, 0.1411765, 0.2, 1)
+border_color = Color(0.0627451, 0.0901961, 0.1137255, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+border_width_bottom = 2
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[node name="Design" type="Control"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 216
+offset_bottom = 76
+mouse_filter = 2
+metadata/penpot_name = "HUD / 재화 / 정확한 금액 툴팁"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397be632a56"
+
+[node name="Shape2" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 216
+offset_bottom = 76
+mouse_filter = 2
+metadata/penpot_name = "Frame"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397be632a57"
+theme_override_styles/panel = SubResource("s0")
+
+[node name="Shape3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 12
+offset_top = 10
+offset_right = 204
+offset_bottom = 30
+mouse_filter = 2
+metadata/penpot_name = "Text / Caption"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397be632a58"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 14
+theme_override_constants/outline_size = 0
+text = "보유 골드"
+theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
+horizontal_alignment = 0
+vertical_alignment = 0
+
+[node name="Shape4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 12
+offset_top = 36
+offset_right = 204
+offset_bottom = 62
+mouse_filter = 2
+metadata/penpot_name = "Text / Amount"
+metadata/penpot_id = "b1fb0fb9-8b3e-80e3-8008-d397be632a59"
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 0
+text = "15,550 골드"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 0

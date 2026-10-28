@@ -50,6 +50,36 @@ func run_checks() -> void:
 	assert(game.quest_panel.position.is_equal_approx(
 		design.position + Vector2(874, 84) * design.scale
 	), "Quest detail keeps its original placement when the viewport changes")
+	var caption: Label = game.DESIGN.shape(game.quest_complete_button.get_parent(), "Label")
+	assert(caption.text == "진행 중")
+	game.session.money = 15550
+	game._refresh_ui()
+	var hover := InputEventMouseMotion.new()
+	hover.position = game.money_label.get_global_rect().get_center()
+	root.push_input(hover, true)
+	await process_frame
+	assert(game.wallet_tooltip.visible)
+	assert(game.DESIGN.shape(game.wallet_tooltip, "Text / Amount").text == "15,550 골드")
+	hover.position = Vector2(850, 560)
+	root.push_input(hover, true)
+	await process_frame
+	assert(not game.wallet_tooltip.visible)
+	while game.ability_toast.visible:
+		await process_frame
+	game.session.money = 0
+	before = game.session.purchase_count
+	game._on_shop_button_pressed()
+	assert(game.session.purchase_count == before and game.session.money == 0)
+	assert(game.ability_toast.visible and game.ability_toast.title.text == "골드 부족")
+	assert(game.feedback_label.text.is_empty(), "Shortage uses the original top feedback frame")
+	game.ability_toast.animation.pause()
+	game._on_shop_button_pressed()
+	game._show_acquired_ability(7)
+	game.ability_toast.animation.custom_step(2.0)
+	assert(game.ability_toast.title.text == "골드 부족", "Repeated failures remain in order")
+	game.ability_toast.animation.pause()
+	game.ability_toast.animation.custom_step(2.0)
+	assert(game.ability_toast.title.text == "황금음료 · 오로라 골드")
 	game.free()
 	print("Upper cabinet click coverage, tray exclusion and unnumbered coin checks passed.")
 	quit()

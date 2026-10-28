@@ -5,6 +5,7 @@ var slit: GradientTexture2D
 var spill: GradientTexture2D
 const SPREAD: float = 3.0
 var displayed_progress: float = 0.0
+var fever_active: bool = false
 
 func _ready() -> void:
 	var light := GradientTexture2D.new()
@@ -29,11 +30,18 @@ func set_progress(value: float) -> void:
 	progress = value
 
 func _process(delta: float) -> void:
+	var session: RefCounted = get_parent().get("session")
+	var active: bool = session.search_fever_remaining > 0 or session.punch_fever_remaining > 0
+	if active != fever_active:
+		fever_active = active
+		queue_redraw()
 	if not is_equal_approx(displayed_progress, progress):
 		displayed_progress = lerpf(displayed_progress, progress, 1.0 - exp(-12.0 * delta))
 		queue_redraw()
 
 func _draw() -> void:
+	if fever_active:
+		return
 	# 광원은 본체 아래 안쪽에 고정하고, 클릭할수록 빛의 범위를 넓힌다.
 	var source := size * Vector2(0.5, 0.12)
 	if spill:

@@ -93,6 +93,7 @@ func run_checks() -> void:
 	game._start_punch_fever()
 	assert(game.session.punch_fever_total == 15)
 	game._start_search_fever()
+	assert(not game.search_fever_fx.hud.visible and game.punch_fever_fx.hud.visible)
 	before = game.session.money
 	game._on_punch_button_pressed()
 	assert(
@@ -102,6 +103,7 @@ func run_checks() -> void:
 	game.session.punch_fever_remaining = 0.01
 	game._process(0.02)
 	assert(game.session.punch_fever_remaining == 0 and not game.punch_button.visible)
+	assert(game.search_fever_fx.hud.visible, "Search HUD returns after punch fever ends")
 	assert(not root.get_node("CursorTheme").punch_mode)
 	assert(game.get_node("VendingMachine").position == game.machine_home)
 	game.session.search_fever_remaining = 0

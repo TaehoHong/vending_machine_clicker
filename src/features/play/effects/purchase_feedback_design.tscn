@@ -1,0 +1,255 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="r0"]
+
+[ext_resource type="FontVariation" path="res://assets/fonts/noto_sans_kr_regular.tres" id="r1"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/f4a97317e559f450bc8e.svg" id="r2"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/0c4b0209ae23234b79d6.svg" id="r3"]
+
+[sub_resource type="StyleBoxFlat" id="s0"]
+bg_color = Color(0.0705882, 0.0705882, 0.1137255, 0.5490196078431373)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s1"]
+bg_color = Color(0.0745098, 0.1411765, 0.2, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s2"]
+bg_color = Color(0.1411765, 0.2352941, 0.3137255, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s3"]
+bg_color = Color(0.345098, 0.6862745, 0.854902, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s4"]
+bg_color = Color(0.345098, 0.6862745, 0.854902, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s5"]
+bg_color = Color(0.8470588, 0.5294118, 0.1803922, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s6"]
+bg_color = Color(0.972549, 0.8117647, 0.4823529, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="s7"]
+bg_color = Color(0.7176471, 0.4039216, 0.172549, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[node name="Design" type="Control"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 514
+offset_bottom = 72
+mouse_filter = 2
+metadata/penpot_name = "피드백 / 골드 부족 / 연결"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45e2cd5d3b4"
+
+[node name="Shape2" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 4
+offset_top = 5
+offset_right = 514
+offset_bottom = 72
+mouse_filter = 2
+metadata/penpot_name = "획득 알림 / 그림자"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45e2cd5d3b5"
+theme_override_styles/panel = SubResource("s0")
+
+[node name="Shape3" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 510
+offset_bottom = 67
+mouse_filter = 2
+metadata/penpot_name = "획득 알림 / 외곽"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45e2cd5d3b6"
+theme_override_styles/panel = SubResource("s1")
+
+[node name="Shape4" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 3
+offset_top = 3
+offset_right = 507
+offset_bottom = 64
+mouse_filter = 2
+metadata/penpot_name = "획득 알림 / 배경"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45e2cd5d3b7"
+theme_override_styles/panel = SubResource("s2")
+
+[node name="Shape5" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 510
+offset_bottom = 3
+mouse_filter = 2
+metadata/penpot_name = "획득 알림 / 상단 강조"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45e2cd5d3b8"
+theme_override_styles/panel = SubResource("s3")
+
+[node name="Shape6" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 4
+offset_bottom = 67
+mouse_filter = 2
+metadata/penpot_name = "획득 알림 / 좌측 강조"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45e2cd5d3b9"
+theme_override_styles/panel = SubResource("s4")
+
+[node name="Shape7" type="Label" parent="."]
+layout_mode = 0
+offset_left = 64
+offset_top = 17
+offset_right = 494
+offset_bottom = 51
+mouse_filter = 2
+metadata/penpot_name = "Text / Title"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45e2cd5d3ba"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 21
+theme_override_constants/outline_size = 0
+text = "골드 부족"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Shape8" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16
+offset_top = 38
+offset_right = 494
+offset_bottom = 86
+mouse_filter = 2
+metadata/penpot_name = "Text / Effect"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45e2cd5d3bb"
+visible = false
+theme_override_fonts/font = ExtResource("r1")
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 0
+text = "100 골드가 필요해요. (75 골드 부족)"
+theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shape9" type="Control" parent="."]
+layout_mode = 0
+offset_left = 16
+offset_top = 16
+offset_right = 52
+offset_bottom = 52
+mouse_filter = 2
+metadata/penpot_name = "Clicker / UI / Currency / 골드"
+metadata/penpot_id = "dce37255-a491-80bc-8008-d4ffe8aa4b4a"
+
+[node name="Shape10" type="Control" parent="Shape9"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 36
+offset_bottom = 36
+mouse_filter = 2
+metadata/penpot_name = "재화 / 골드 아이콘 / 기본"
+metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e1"
+
+[node name="Shape11" type="Control" parent="Shape9/Shape10"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 36
+offset_bottom = 36
+mouse_filter = 2
+metadata/penpot_name = "base-background"
+metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e2"
+visible = false
+
+[node name="Shape12" type="TextureRect" parent="Shape9/Shape10"]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 36
+offset_bottom = 36
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e3"
+texture = ExtResource("r2")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape13" type="TextureRect" parent="Shape9/Shape10"]
+layout_mode = 0
+offset_left = 4
+offset_top = 4
+offset_right = 32
+offset_bottom = 32
+mouse_filter = 2
+metadata/penpot_name = "svg-path"
+metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e4"
+texture = ExtResource("r3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Shape14" type="Panel" parent="Shape9/Shape10"]
+layout_mode = 0
+offset_left = 9
+offset_top = 9
+offset_right = 27
+offset_bottom = 28
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e5"
+theme_override_styles/panel = SubResource("s5")
+
+[node name="Shape15" type="Panel" parent="Shape9/Shape10"]
+layout_mode = 0
+offset_left = 10
+offset_top = 10
+offset_right = 17
+offset_bottom = 25
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e6"
+theme_override_styles/panel = SubResource("s6")
+
+[node name="Shape16" type="Panel" parent="Shape9/Shape10"]
+layout_mode = 0
+offset_left = 25
+offset_top = 9
+offset_right = 29
+offset_bottom = 25
+mouse_filter = 2
+metadata/penpot_name = "svg-rect"
+metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e7"
+theme_override_styles/panel = SubResource("s7")

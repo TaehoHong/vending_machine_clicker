@@ -3,6 +3,7 @@ extends SceneTree
 const FIXTURE = preload("res://tests/support/game_fixture.gd")
 
 const COIN = preload("res://src/features/play/effects/search_coin.gd")
+const INSERT = preload("res://src/features/play/effects/coin_insert_fx.gd")
 
 
 class RewardGame:
@@ -20,6 +21,21 @@ func _initialize() -> void:
 
 
 func run_checks() -> void:
+	var insert := INSERT.new()
+	insert.target = Vector2(673, 255)
+	insert.advance(0.0)
+	assert(insert.coin_position.is_equal_approx(Vector2(750, 327)))
+	assert(insert.coin_scale.is_equal_approx(Vector2(1, 1)))
+	assert(is_equal_approx(insert.tilt, deg_to_rad(-10)))
+	insert.advance(0.18)
+	assert(insert.coin_position.is_equal_approx(Vector2(708, 253)))
+	assert(insert.coin_scale.is_equal_approx(Vector2(16.0 / 24, 28.0 / 32)))
+	assert(is_equal_approx(insert.tilt, deg_to_rad(-4)))
+	insert.advance(0.65)
+	assert(insert.coin_position.is_equal_approx(Vector2(673, 255)))
+	assert(insert.coin_scale.is_equal_approx(Vector2(4.0 / 24, 24.0 / 32)))
+	assert(is_equal_approx(insert.opacity, 0.65) and insert.get_child_count() == 0)
+	insert.free()
 	var cases := {
 		0: [0, 0, 0, 0],
 		1: [1, 0, 0, 0],

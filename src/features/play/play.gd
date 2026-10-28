@@ -18,6 +18,7 @@ var display_shadows: Dictionary[int, Control] = {}
 var facilities_screen: Control
 var facility_world: Control
 var ability_toast: Control
+var wallet_tooltip: Control
 var ability_receipt_tween: Tween
 var search_glow_tween: Tween
 var search_hint: Control
@@ -197,11 +198,6 @@ func _on_earn_button_pressed() -> void:
 	):
 		return
 	search_hint.call("notify_search_click")
-	if session.search_fever_remaining > 0:
-		var point := get_local_mouse_position()
-		if not earn_button.get_rect().has_point(point):
-			point = earn_button.position + earn_button.size * Vector2(0.5, 0.35)
-		search_fever_fx.call("add_click", point)
 	var earned: int = session.search()
 	if earned < 0:
 		_refresh_ui()
@@ -492,8 +488,7 @@ func _position_coin_slot() -> void:
 	search_hint.scale = Vector2.ONE * factor
 	search_fever_fx.size = size
 	punch_fever_fx.size = size
-	search_fever_fx.set("source", earn_button.position + earn_button.size * Vector2(0.5, 0.43))
-	ability_toast.position = origin + Vector2(321, 100) * factor
+	ability_toast.position = origin + Vector2(319, 100) * factor
 	ability_toast.scale = Vector2.ONE * factor
 	$Navigation.position = Vector2.ZERO
 	$Navigation.scale = Vector2.ONE
@@ -523,7 +518,7 @@ func ability_receipt_position() -> Vector2:
 
 func _show_acquired_ability(drink_index: int) -> void:
 	var data: Dictionary = DRINK_DATA[drink_index]
-	ability_toast.call("present", data.name, data.effect, Color(data.color), load(data.asset))
+	ability_toast.call("present", data.name, data.effect, load(data.asset), drink_index == 7)
 	var button: Button = $Navigation/AbilityButton
 	if is_instance_valid(ability_receipt_tween):
 		ability_receipt_tween.kill()
@@ -549,10 +544,7 @@ func _on_shop_button_pressed() -> void:
 		return
 	var price: int = session.current_draw_price()
 	if session.money < price:
-		feedback_label.text = (
-			"음료 뽑기에는 %s Gold가 필요합니다. (%s Gold 부족)"
-			% [AMOUNTS.format_amount(price), AMOUNTS.format_amount(price - session.money)]
-		)
+		ability_toast.call("present_shortage", price, price - session.money)
 		return
 	if not session.purchase():
 		return
@@ -642,7 +634,7 @@ func _on_result_close_pressed() -> void:
 func _refresh_ui() -> void:
 	_refresh_vending_display()
 	money_label.text = AMOUNTS.format_gold(session.money)
-	money_label.tooltip_text = "보유 골드: %s Gold" % AMOUNTS.format_amount(session.money)
+	money_label.tooltip_text = ""
 	DESIGN.fit_text(money_label, 80)
 	var price: int = session.current_draw_price()
 	price_label.text = AMOUNTS.format_gold(price)
@@ -652,8 +644,10 @@ func _refresh_ui() -> void:
 	earn_button.text = ""
 	_refresh_search_glow()
 	can_count_label.text = AMOUNTS.format_gold(session.cans)
-	can_count_label.tooltip_text = "빈캔 %d개" % session.cans
+	can_count_label.tooltip_text = ""
 	DESIGN.fit_text(can_count_label, 36)
+	if wallet_tooltip.visible:
+		_show_wallet_tooltip(wallet_tooltip.get_meta("currency", "gold"))
 	_refresh_quest_panel()
 	shop_button.disabled = (
 		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)
@@ -690,7 +684,9 @@ func _refresh_quest_panel() -> void:
 	fill.size.x = 226.0 * minf(1.0, float(progress) / target)
 	quest_complete_button.disabled = complete or progress < target
 	var caption: Label = DESIGN.shape(quest_complete_button.get_parent(), "Label")
-	caption.text = "수령 완료" if complete else "보상 받기"
+	caption.text = "수령 완료" if complete else (
+		"진행 중" if progress < target else "보상 받기"
+	)
 	quest_panel.visible = session.quest_clicks > 0 or session.quest_reward_claimed
 	var factor := minf(size.x / 1152.0, size.y / 648.0)
 	quest_panel.position = (size - Vector2(1152, 648) * factor) * 0.5 + Vector2(874, 84) * factor
@@ -841,13 +837,16 @@ func _save_progress() -> void:
 
 func _on_pause_save_requested() -> void:
 	_save_progress()
-	pause_menu.status.text = "저장했습니다." if last_save_error == OK else "저장하지 못했습니다. 다시 시도해주세요."
+	pause_menu.show_save_status(
+		"저장했습니다." if last_save_error == OK else "저장하지 못했습니다. 다시 시도해주세요.",
+		last_save_error != OK
+	)
 
 
 func _on_pause_quit_requested() -> void:
 	_save_progress()
 	if last_save_error != OK:
-		pause_menu.status.text = "저장하지 못해 종료하지 않았습니다. 다시 시도해주세요."
+		pause_menu.show_save_status("저장하지 못해 종료하지 않았습니다. 다시 시도해주세요.", true)
 		return
 	get_tree().paused = false
 	quit_requested.emit()
@@ -905,10 +904,33 @@ func _setup_design() -> void:
 	price_panel.position = Vector2(220.25, 143.51)
 	$MenuButton.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	$Navigation.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	$Navigation.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	DESIGN.action($Design, "UI / 버튼 / 시설", _open_facilities)
+	wallet_tooltip = preload("res://src/features/play/wallet_tooltip_design.tscn").instantiate()
+	wallet_tooltip.name = "WalletTooltip"
+	wallet_tooltip.position = Vector2(16, 68)
+	$Design.add_child(wallet_tooltip)
+	wallet_tooltip.hide()
+	for entry in [[money_label, "gold"], [can_count_label, "cans"]]:
+		var label: Label = entry[0]
+		label.mouse_filter = Control.MOUSE_FILTER_PASS
+		label.mouse_entered.connect(_show_wallet_tooltip.bind(entry[1]))
+		label.mouse_exited.connect(wallet_tooltip.hide)
 
 
-func _open_facilities(initial_page: String = "purchase") -> void:
+func _show_wallet_tooltip(currency: String) -> void:
+	wallet_tooltip.set_meta("currency", currency)
+	var caption: Label = DESIGN.shape(wallet_tooltip, "Text / Caption")
+	var amount: Label = DESIGN.shape(wallet_tooltip, "Text / Amount")
+	caption.text = "빈캔" if currency == "cans" else "보유 골드"
+	amount.text = (
+		"%d개" % session.cans if currency == "cans"
+		else "%s 골드" % AMOUNTS.format_amount(session.money)
+	)
+	wallet_tooltip.show()
+
+
+func _open_facilities() -> void:
 	if get_tree().paused or info_overlay.visible or is_instance_valid(facilities_screen):
 		return
 	facilities_screen = preload("res://src/features/facilities/facilities_screen.tscn").instantiate()
@@ -919,7 +941,7 @@ func _open_facilities(initial_page: String = "purchase") -> void:
 			facilities_screen = null
 			_refresh_ui()
 	)
-	facilities_screen.open(session, initial_page)
+	facilities_screen.open(session)
 	_refresh_ui()
 
 
@@ -935,5 +957,4 @@ func _setup_facility_world() -> void:
 	facility_world.name = "FacilityWorld"
 	add_child(facility_world)
 	move_child(facility_world, $VendingMachine.get_index() + 1)
-	facility_world.management_requested.connect(_open_facilities)
 	facility_world.changed.connect(_on_facilities_changed)

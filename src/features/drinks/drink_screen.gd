@@ -31,6 +31,7 @@ var unlocked_indices: Array[int] = []
 var counts: Dictionary = {}
 var cumulative_effects: Dictionary = {}
 var applied_counts: Dictionary = {}
+var recently_unlocked_index: int = -1
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -76,15 +77,16 @@ func _ready() -> void:
 		detail_panel, Rect2(76, 18, 160, 36), "", 24, foreground, &"InfoTitle"
 	)
 	detail_count = _label(
-		detail_panel, Rect2(76, 54, 160, 32), "", 16, secondary, &"InfoBody"
+		detail_panel, Rect2(76, 54, 160, 26), "", 16, secondary, &"InfoBody"
 	)
+	detail_count.add_theme_font_override("font", FONT)
 	detail_count.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	detail_effect = _label(
-		detail_panel, Rect2(20, 100, 258, 44), "", 18, foreground, &"InfoBody"
+		detail_panel, Rect2(20, 100, 258, 32), "", 18, foreground, &"InfoBody"
 	)
 	detail_effect.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	detail_status = _label(
-		detail_panel, Rect2(20, 148, 258, 52), "", 16, secondary, &"InfoBody"
+		detail_panel, Rect2(20, 148, 258, 38), "", 15, secondary, &"InfoBody"
 	)
 	detail_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var dismiss_art: Control = preload("res://src/features/drinks/detail_close.tscn").instantiate()
@@ -102,7 +104,7 @@ func _ready() -> void:
 		unlock_labels[i] = DESIGN.shape(artwork, "Label")
 	summary_panel = _panel(Rect2(796, 92, 306, 230), "AbilitySummary", &"InfoPanel")
 	_label(
-		summary_panel, Rect2(18, 14, 270, 36), "현재 적용된 능력", 24,
+		summary_panel, Rect2(18, 14, 270, 36), "현재 적용된 능력", 23,
 		foreground, &"InfoTitle"
 	)
 	summary_label = _label(
@@ -159,6 +161,7 @@ func _gui_input(event: InputEvent) -> void:
 
 func reset_selection() -> void:
 	selected_index = -1
+	recently_unlocked_index = -1
 	if is_instance_valid(summary_panel): summary_panel.hide()
 	_refresh_selection()
 
@@ -172,6 +175,8 @@ func _toggle_summary() -> void:
 
 func select_drink(index: int) -> void:
 	if index < 0 or index >= DATA.size(): return
+	if index != selected_index:
+		recently_unlocked_index = -1
 	has_selected_drink = true
 	selected_index = index
 	summary_panel.hide()
@@ -181,6 +186,11 @@ func update_state(
 	cans: int, unlocked: Array[int], collected: Dictionary = {}, summary: String = "",
 	effects: Dictionary = {}, enhancements: Dictionary = {}
 ) -> void:
+	if (
+		selected_index >= 0 and unlocked.has(selected_index)
+		and not unlocked_indices.has(selected_index)
+	):
+		recently_unlocked_index = selected_index
 	current_cans = cans
 	unlocked_indices = unlocked.duplicate()
 	counts = collected.duplicate()
@@ -216,6 +226,8 @@ func _refresh_selection() -> void:
 	var data: Dictionary = DATA[selected_index]
 	var acquired: bool = selected_index < 2 or unlocked_indices.has(selected_index)
 	detail_title.text = data.name
+	detail_effect.add_theme_font_size_override("font_size", 18 if acquired else 16)
+	detail_status.add_theme_font_size_override("font_size", 15 if acquired else 16)
 	detail_art.texture = load(data.asset)
 	detail_title.add_theme_font_size_override("font_size",20 if data.name.length() > 10 else 24)
 	detail_count.text = "미해금"
@@ -229,7 +241,23 @@ func _refresh_selection() -> void:
 	if acquired:
 		detail_status.text = str(cumulative_effects.get(selected_index,"획득한 음료의 능력이 적용됩니다"))
 	else:
-		detail_status.text = "해금 후 자판기에서 등장"
+		detail_status.text = (
+			"빈캔이 %d개 부족합니다" % (int(data.cost) - current_cans)
+			if current_cans < int(data.cost) else "해금 후 자판기에서 등장"
+		)
+	if (
+		acquired and int(data.max_enhancements) > 1
+		and int(applied_counts.get(selected_index, 0)) >= int(data.max_enhancements)
+	):
+		detail_count.text = "MAX · 최대 강화"
+		detail_effect.text = "능력 강화가 완료됐어요."
+		detail_status.text = "획득 %d개 · 강화 %d/%d\n능력 유지 · 추첨 제외" % [
+			int(counts.get(selected_index, 0)), int(applied_counts.get(selected_index, 0)),
+			int(data.max_enhancements),
+		]
+	elif selected_index == recently_unlocked_index:
+		detail_count.text = "해금 완료 · 등장 대상"
+		detail_status.text = "이제 구매 결과로 등장합니다"
 
 func get_unlock_button(index: int) -> Button:
 	return buttons[index]

@@ -38,13 +38,21 @@ func run_checks() -> void:
 	assert(not game.get_node("InfoOverlay/Card/Title").visible)
 	await tap(tree.products[6])
 	assert(tree.selected_index == 6 and tree.buttons[6].disabled)
-	assert(tree.detail_status.text == "해금 후 자판기에서 등장")
+	assert(tree.detail_status.text == "빈캔이 2개 부족합니다")
 	assert(tree.unlock_labels[6].text == "10개로 해금", "Cola is blocked only by insufficient cans")
+	game.session.cans = 10
+	game._refresh_skill_tree()
+	assert(tree.detail_status.text == "해금 후 자판기에서 등장")
+	assert(not tree.buttons[6].disabled, "Enough cans clear the shortage state")
+	game.session.cans = 8
+	game._refresh_skill_tree()
 	await tap(tree.products[2])
 	assert(tree.selected_index == 2 and not tree.buttons[2].disabled)
 	await tap(tree.buttons[2])
 	assert(game.session.ion_unlocked and game.session.cans == 3 and game.session.drinks == 0)
 	assert(tree.buttons[2].disabled and not tree.buttons[2].is_visible_in_tree())
+	assert(tree.detail_count.text == "해금 완료 · 등장 대상")
+	assert(tree.detail_status.text == "이제 구매 결과로 등장합니다")
 	assert(
 		(
 			(
@@ -54,6 +62,13 @@ func run_checks() -> void:
 			!= 0
 		)
 	)
+	game.session.water_count = 12
+	game._refresh_skill_tree()
+	await tap(tree.products[0])
+	assert(tree.detail_count.text == "MAX · 최대 강화")
+	assert(tree.detail_effect.text == "능력 강화가 완료됐어요.")
+	assert(tree.detail_status.text.contains("획득 12개 · 강화 10/10"))
+	assert(tree.detail_status.text.contains("능력 유지") and tree.detail_status.text.contains("추첨 제외"))
 	var escape := InputEventKey.new()
 	escape.keycode = KEY_ESCAPE
 	escape.pressed = true

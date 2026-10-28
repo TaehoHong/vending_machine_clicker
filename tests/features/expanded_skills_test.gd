@@ -92,8 +92,9 @@ func run_checks() -> void:
 	game._refresh_ui()
 	game._on_ability_button_pressed()
 	tree.select_drink(0)
-	check(tree.detail_count.text.contains("15개"), "Overflow collection remains visible")
-	check(tree.detail_count.text.contains("10/10"), "Applied strength is capped separately")
+	var count_display: String = tree.detail_count.text + tree.detail_status.text
+	check(count_display.contains("15개"), "Overflow collection remains visible")
+	check(count_display.contains("10/10"), "Applied strength is capped separately")
 	check(tree.detail_status.text.contains("추첨 제외"), "Completed normal drinks explain exclusion")
 	await capture("water_capped")
 	tree.select_drink(6)
