@@ -21,7 +21,7 @@
 - [x] 타이틀·저장·설정·음료·목표의 누락된 상태를 기존 소유자에 보완하고 관련 회귀 검증.
 - [x] 최신 사용자 결정으로 관리·보상 9개 화면 제외. 공통 구매창 정보·구매→보유 시 업그레이드→강화→구매창 복귀와 월드 직접 수령을 검증.
 - [x] 수색·구매·피버·황금·승인 손님을 원본과 전수 대조하고 실제 게임 캡처로 검증.
-- [ ] 전체 검증·실제 diff/중복/책임 검토, 관련 문서 갱신·기능별 커밋·로컬 main 통합 검증.
+- [x] 전체 검증·실제 diff/중복/책임 검토, 관련 문서 갱신·기능별 커밋·로컬 main 통합 검증.
 
 ## 결정 기록
 
@@ -56,4 +56,14 @@
 - 코드 품질: 기존 Session/Rules/Store 소유권과 native Scene/테마 재사용, 실제 diff와 참조·새 파일·미사용 관리 경로·중복 스타일 검토. 신규 GDScript 줄 길이와 `git diff --check` 확인. 원래 DESIGN.md의 손님 아트 지침 미커밋 변경은 보존하되 이번 커밋에서 제외한다.
 - Knowledge Delta: 확인된 네이티브 Frame 연결·알림 FIFO·시설 단순 동선을 docs/07과 PRODUCT/Notion/DESIGN/design README에 반영했다. 일회성 변환 로그를 별도 문제 해결 문서로 승격할 필요가 없어 troubleshooting은 추가하지 않았다.
 - Windows 릴리스 export·Steamworks·전체 번역 검증은 기존 설정 공백이며 이번 로컬 화면 적용을 배포 검증으로 확대하지 않는다.
-- 로컬 main 통합과 최종 커밋 기록은 다음 단계에서 완료한다. push/PR은 요청하지 않아 수행하지 않는다.
+- 로컬 main `8999cef`에 아래 기능·문서 커밋을 fast-forward 통합했다. 깨끗한 main 작업 트리에서 import/parse 및 gameplay·menu·drink_screen·facilities·settings 5개 통합 회귀가 모두 exit 0으로 통과했다. main의 소스/리소스는 대조·검증한 커밋과 동일하다. push/PR은 요청하지 않아 수행하지 않았다.
+
+## 완료 커밋
+
+- `f4ab813` 원본 프레임·문단 정렬·외곽선·중복 이미지 합성 보정.
+- `fb078ff` 타이틀 저장·백업·설정 선택·음소거 상태 보정.
+- `76c7ba6` 원본 피버/투입 효과·음료 상세·목표 문구·툴팁·FIFO 알림.
+- `9253f64` 시설 구매창 정보·업그레이드 동선·설치 본체 무동작 및 SSOT 요약.
+- `8999cef` 전수 대조·검증·공유 소유자 기록.
+- 통합 증거: `/private/tmp/clicker-screen-audit/main-verification/results.json`(import/parse + 5개 회귀), `git status --porcelain`은 main에서 비어 있다.
+- 최종 검수 중 정적 상태 주입 직후 버튼 process를 멈추면 이전 프레임이 캡처되는 fixture 문제를 확인했다. 정상 프레임 갱신 후 목표·펀치의 8개 캡처를 다시 만들었다. 생산 코드를 바꾸거나 테스트 기대를 완화하지 않았다.
