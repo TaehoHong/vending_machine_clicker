@@ -30,6 +30,8 @@ mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "b7760397-d86f-8009-8008-d27201c0c815"
 visible = false
+metadata/penpot_frame_family = "56x56"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape3" type="TextureRect" parent="Shape2"]
 layout_mode = 0

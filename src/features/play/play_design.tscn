@@ -271,6 +271,8 @@ offset_bottom = 54.4
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d99f"
+metadata/penpot_frame_family = "56x56"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape9" type="TextureRect" parent="Shape7/Shape8"]
 layout_mode = 0
@@ -672,6 +674,8 @@ offset_bottom = 54.4
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80384240d"
+metadata/penpot_frame_family = "56x56"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape43" type="TextureRect" parent="Shape41/Shape42"]
 layout_mode = 0
@@ -874,7 +878,7 @@ theme_override_font_sizes/font_size = 19
 theme_override_constants/outline_size = 0
 text = "100"
 theme_override_colors/font_color = Color(0.7529412, 0.8980392, 0.5490196, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Shape59" type="Control" parent="."]
@@ -896,6 +900,8 @@ offset_bottom = 54.4
 mouse_filter = 2
 metadata/penpot_name = "Frame / A / normal"
 metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832b"
+metadata/penpot_frame_family = "56x56"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape61" type="TextureRect" parent="Shape59/Shape60"]
 layout_mode = 0

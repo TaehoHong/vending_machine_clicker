@@ -39,6 +39,33 @@ func capture(name: String) -> void:
 
 func run_checks() -> void:
 	root.size = Vector2i(1152, 648)
+	var quest_game = FIXTURE.create_game(root)
+	var quest_frame: Control = quest_game.quest_complete_button.get("source_frame")
+	quest_game.session.quest_clicks = 10
+	quest_game._refresh_ui()
+	await process_frame
+	await process_frame
+	assert(not quest_game.quest_complete_button.disabled and quest_frame.visible,
+		"The first claimable goal keeps the original ready frame")
+	quest_game.quest_complete_button.pressed.emit()
+	await process_frame
+	await process_frame
+	assert(quest_game.session.quest_reward_claimed and quest_game.quest_complete_button.disabled)
+	assert(not quest_frame.visible, "The next incomplete goal uses the disabled frame")
+	quest_game.session.cans = 5
+	quest_game._refresh_ui()
+	await process_frame
+	await process_frame
+	assert(not quest_game.quest_complete_button.disabled and quest_frame.visible,
+		"The can goal keeps the same original ready frame")
+	quest_game.quest_complete_button.pressed.emit()
+	await process_frame
+	await process_frame
+	assert(quest_game.session.can_quest_reward_claimed and quest_game.quest_complete_button.disabled)
+	assert(not quest_frame.visible, "Completed goals use the disabled frame")
+	var quest_save_path: String = FIXTURE.store_for(quest_game).path
+	quest_game.free()
+	DirAccess.remove_absolute(quest_save_path)
 	var game = FIXTURE.create_game(root)
 	game.session.cans = 18
 	game.session.water_count = 6
@@ -49,11 +76,15 @@ func run_checks() -> void:
 	await process_frame
 	await process_frame
 	var screen = game.get_node("InfoOverlay/Card/SkillTree")
+	assert(screen.buttons[2].get_theme_stylebox("normal") is StyleBoxTexture)
+	assert(
+		screen.buttons[2].get_theme_stylebox("normal").texture.resource_path.ends_with(
+			"192x64_normal.svg"
+		),
+		"The source dark frame must not become a larger blue button"
+	)
 	assert(screen.products.size() == 15)
-	assert(screen.summary_button.get_theme_stylebox("normal") is StyleBoxTexture)
-	assert(screen.close_button.get_theme_stylebox("normal") is StyleBoxTexture)
 	assert(screen.canvas.size == Vector2(1152, 648))
-	assert(screen.products.size() == 15)
 	assert(not screen.detail_panel.visible and screen.selected_index == -1)
 	assert(screen.find_children("*", "Line2D", true, false).is_empty())
 	await capture("initial")
@@ -78,6 +109,14 @@ func run_checks() -> void:
 	assert(screen.selected_index == 2 and screen.detail_panel.visible)
 	assert(not screen.buttons[2].disabled and screen.buttons[2].visible)
 	assert(game.session.cans == 18, "Selecting must not spend cans")
+	var unlock_frame := preload("res://src/shared/ui/design_view.gd").shape(
+		screen.buttons[2].get_parent(), "Frame"
+	)
+	assert(unlock_frame.visible)
+	await hover(screen.buttons[2])
+	assert(not unlock_frame.visible, "Hover switches to the same-family interaction frame")
+	await hover(screen.products[0])
+	assert(unlock_frame.visible, "Leaving hover restores the exact source frame")
 	await capture("locked-selected")
 	await hover(screen.products[0])
 	assert(screen.selected_index == 2, "Moving over another drink must not change selection")

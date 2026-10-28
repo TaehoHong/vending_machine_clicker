@@ -1,5 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="148" height="68" viewBox="0 0 148 68"><g transform="translate(6 6)"><g class="game-art" data-state="default"><path class="base" d="M8 2H128V8H134V44H128V50H8V44H2V8H8Z" transform="translate(0 4)" fill="#132433" stroke="#10171D" stroke-width="4"/>
- <g class="moving" transform="translate(0 0)"><path class="surface" d="M8 2H128V8H134V44H128V50H8V44H2V8H8Z" fill="#4699C8" stroke="#10171D" stroke-width="4"/>
- <path class="highlight" d="M10 6H126V10H130V15H126V10H10V15H6V10H10Z" fill="#9FDDFA"/>
- <path class="bevel" d="M6 35H10V44H126V35H130V43H126V47H10V43H6Z" fill="#28648F"/>
- <g ></g></g></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="148" height="68" viewBox="80 458 148 68"><defs></defs><g opacity="1"><g opacity="1"><path d="M94.0,466.0L214.0,466.0L214.0,472.0L220.0,472.0L220.0,508.0L214.0,508.0L214.0,514.0L94.0,514.0L94.0,508.0L88.0,508.0L88.0,472.0L94.0,472.0Z" fill="#132433" fill-opacity="1"/><path d="M94.0,466.0L214.0,466.0L214.0,472.0L220.0,472.0L220.0,508.0L214.0,508.0L214.0,514.0L94.0,514.0L94.0,508.0L88.0,508.0L88.0,472.0L94.0,472.0Z" fill="none" stroke="#10171D" stroke-width="1" stroke-opacity="1"/></g></g></svg>

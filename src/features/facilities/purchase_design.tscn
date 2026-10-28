@@ -724,6 +724,8 @@ mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "530a781c-9b38-80ef-8008-d8aa6be28683"
 visible = false
+metadata/penpot_frame_family = "56x56"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape31" type="TextureRect" parent="Shape3/Shape29/Shape30"]
 layout_mode = 0
@@ -1419,6 +1421,8 @@ offset_bottom = 64
 mouse_filter = 2
 metadata/penpot_name = "Frame / A / normal"
 metadata/penpot_id = "530a781c-9b38-80ef-8008-d8aa6be286b6"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape85" type="TextureRect" parent="Shape3/Shape83/Shape84"]
 layout_mode = 0
@@ -1615,6 +1619,8 @@ offset_bottom = 64
 mouse_filter = 2
 metadata/penpot_name = "Frame / A / normal"
 metadata/penpot_id = "530a781c-9b38-80ef-8008-d8aa6be2f11e"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape101" type="TextureRect" parent="Shape3/Shape99/Shape100"]
 layout_mode = 0

@@ -1,7 +1,5 @@
 [gd_scene format=3]
 
-[ext_resource type="Texture2D" path="res://assets/penpot/db879e1e-2a0e-810a-8008-d413fb7c2681.png" id="r0"]
-
 [ext_resource type="Texture2D" path="res://assets/penpot/da05d154-084a-817e-8008-d2e39ae48a00.png" id="r1"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/e81a866fd68f54a3be9e.svg" id="r2"]
@@ -1738,15 +1736,6 @@ offset_bottom = 423.94
 mouse_filter = 2
 metadata/penpot_name = "자판기 / 빈 본체"
 metadata/penpot_id = "fd28cc9c-8ba4-8092-8008-d2edb5a0782c"
-texture = ExtResource("r0")
-expand_mode = 1
-stretch_mode = 0
-texture_filter = 1
-
-[node name="SourceImage" type="TextureRect" parent="Shape2/Shape3/Shape5"]
-mouse_filter = 2
-offset_right = 278.79999999999995
-offset_bottom = 418.20000000000005
 texture = ExtResource("r1")
 expand_mode = 1
 stretch_mode = 0
@@ -1772,15 +1761,6 @@ offset_bottom = 423.94
 mouse_filter = 2
 metadata/penpot_name = "조작부 / 가로 확대 / 원본 이미지"
 metadata/penpot_id = "fd28cc9c-8ba4-8092-8008-d2edb5a07832"
-texture = ExtResource("r0")
-expand_mode = 1
-stretch_mode = 0
-texture_filter = 1
-
-[node name="SourceImage" type="TextureRect" parent="Shape2/Shape3/Shape6/Shape7"]
-mouse_filter = 2
-offset_right = 669.1199999999999
-offset_bottom = 418.20000000000005
 texture = ExtResource("r1")
 expand_mode = 1
 stretch_mode = 0
@@ -1817,15 +1797,6 @@ offset_bottom = 238.99392
 mouse_filter = 2
 metadata/penpot_name = "조작부 / 투입구·반환 버튼 / 원본 이미지"
 metadata/penpot_id = "fd28cc9c-8ba4-8092-8008-d2edb5a07834"
-texture = ExtResource("r0")
-expand_mode = 1
-stretch_mode = 0
-texture_filter = 1
-
-[node name="SourceImage" type="TextureRect" parent="Shape2/Shape3/Shape9/Shape10"]
-mouse_filter = 2
-offset_right = 266.39339999999913
-offset_bottom = 399.58600000000024
 texture = ExtResource("r1")
 expand_mode = 1
 stretch_mode = 0

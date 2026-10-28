@@ -143,11 +143,12 @@ metadata/penpot_name = "일시정지 / 오버라인"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c11ba2cf1"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 14
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 1
 text = "PAUSED"
 theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape7" type="Label" parent="Shape2"]
 layout_mode = 0
@@ -160,11 +161,12 @@ metadata/penpot_name = "일시정지 / 제목"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c11cfe3a5"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 27
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "잠시 쉬어가세요"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape8" type="Label" parent="Shape2"]
 layout_mode = 0
@@ -180,7 +182,7 @@ theme_override_font_sizes/font_size = 16
 theme_override_constants/outline_size = 0
 text = "골목은 그대로 기다리고 있어요."
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Shape9" type="Control" parent="Shape2"]
@@ -202,6 +204,8 @@ offset_bottom = 76
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c11fb46eb"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape11" type="TextureRect" parent="Shape2/Shape9/Shape10"]
 layout_mode = 0
@@ -305,11 +309,12 @@ metadata/penpot_name = "Label"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c11fb46f3"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 24
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "계속"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 0
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape19" type="Control" parent="Shape2"]
 layout_mode = 0
@@ -330,6 +335,8 @@ offset_bottom = 76
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c122f4a19"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape21" type="TextureRect" parent="Shape2/Shape19/Shape20"]
 layout_mode = 0
@@ -459,11 +466,12 @@ metadata/penpot_name = "Label"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c122f4a23"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 24
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "끝내기"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 0
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape31" type="Label" parent="Shape2"]
 layout_mode = 0
@@ -479,7 +487,7 @@ theme_override_font_sizes/font_size = 16
 theme_override_constants/outline_size = 0
 text = "끝내기를 누르면 저장 후 종료합니다."
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Shape32" type="Label" parent="Shape2"]
@@ -493,11 +501,12 @@ metadata/penpot_name = "키보드 조작 / 돌아가기"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c1253a43e"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 16
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 1
 text = "ESC  게임으로 돌아가기"
 theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape33" type="Control" parent="Shape2"]
 layout_mode = 0
@@ -518,6 +527,8 @@ offset_bottom = 76
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "ecea5d4d-cd0c-804b-8008-d46ce5b18812"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape35" type="TextureRect" parent="Shape2/Shape33/Shape34"]
 layout_mode = 0
@@ -635,11 +646,12 @@ metadata/penpot_name = "Label"
 metadata/penpot_id = "ecea5d4d-cd0c-804b-8008-d46ce5b1881b"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 24
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "저장"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape44" type="Control" parent="Shape2"]
 layout_mode = 0
@@ -660,6 +672,8 @@ offset_bottom = 76
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "ecea5d4d-cd0c-804b-8008-d46ce591f211"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape46" type="TextureRect" parent="Shape2/Shape44/Shape45"]
 layout_mode = 0
@@ -776,8 +790,9 @@ metadata/penpot_name = "Label"
 metadata/penpot_id = "ecea5d4d-cd0c-804b-8008-d46ce5921811"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 24
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "설정"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 0
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)

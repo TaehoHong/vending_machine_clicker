@@ -1,10 +1,8 @@
 [gd_scene format=3]
 
-[ext_resource type="Texture2D" path="res://assets/penpot/cd444aaf-0d8c-801b-8008-ce975c423d25.png" id="r0"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/db879e1e-2a0e-810a-8008-d413fb7c2681.png" id="r1"]
-
 [ext_resource type="Texture2D" path="res://assets/penpot/da05d154-084a-817e-8008-d2e39ae48a00.png" id="r2"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/cd444aaf-0d8c-801b-8008-ce975c423d25.png" id="r0"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/7ec22c0fd75b1c1758f8.svg" id="r3"]
 
@@ -1855,15 +1853,6 @@ offset_bottom = 517
 mouse_filter = 2
 metadata/penpot_name = "자판기 / 빈 본체"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45934074561"
-texture = ExtResource("r1")
-expand_mode = 1
-stretch_mode = 0
-texture_filter = 1
-
-[node name="SourceImage" type="TextureRect" parent="Shape2/Shape5/Shape6/Shape7/Shape9"]
-mouse_filter = 2
-offset_right = 340
-offset_bottom = 510
 texture = ExtResource("r2")
 expand_mode = 1
 stretch_mode = 0
@@ -1889,15 +1878,6 @@ offset_bottom = 517
 mouse_filter = 2
 metadata/penpot_name = "조작부 / 가로 확대 / 원본 이미지"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45934074564"
-texture = ExtResource("r1")
-expand_mode = 1
-stretch_mode = 0
-texture_filter = 1
-
-[node name="SourceImage" type="TextureRect" parent="Shape2/Shape5/Shape6/Shape7/Shape10/Shape11"]
-mouse_filter = 2
-offset_right = 816
-offset_bottom = 510
 texture = ExtResource("r2")
 expand_mode = 1
 stretch_mode = 0
@@ -1934,15 +1914,6 @@ offset_bottom = 291.456
 mouse_filter = 2
 metadata/penpot_name = "조작부 / 투입구·반환 버튼 / 원본 이미지"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45934074568"
-texture = ExtResource("r1")
-expand_mode = 1
-stretch_mode = 0
-texture_filter = 1
-
-[node name="SourceImage" type="TextureRect" parent="Shape2/Shape5/Shape6/Shape7/Shape13/Shape14"]
-mouse_filter = 2
-offset_right = 324.8699999999999
-offset_bottom = 487.3000000000002
 texture = ExtResource("r2")
 expand_mode = 1
 stretch_mode = 0
@@ -6344,11 +6315,12 @@ metadata/penpot_name = "Main / Brand / 夜の路地 / BACKSTREET"
 metadata/penpot_id = "51ff814c-57a3-802e-8008-d25b0cca5315"
 theme_override_fonts/font = ExtResource("r49")
 theme_override_font_sizes/font_size = 12
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 1
 text = "夜の路地 / BACKSTREET"
 theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
 horizontal_alignment = 0
 vertical_alignment = 0
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape409" type="Control" parent="."]
 layout_mode = 0
@@ -6382,11 +6354,12 @@ metadata/penpot_name = "MenuBox / TitleLabel / BACKSTREET · CLICKER"
 metadata/penpot_id = "51ff814c-57a3-802e-8008-d25b0cd85fc9"
 theme_override_fonts/font = ExtResource("r50")
 theme_override_font_sizes/font_size = 30
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "BACKSTREET\nCLICKER"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 0
 vertical_alignment = 0
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape412" type="Label" parent="Shape409"]
 layout_mode = 0
@@ -6399,11 +6372,12 @@ metadata/penpot_name = "MenuBox / Subtitle / 골목의 작은 동전으로, 나�
 metadata/penpot_id = "51ff814c-57a3-802e-8008-d25b0ce16e43"
 theme_override_fonts/font = ExtResource("r49")
 theme_override_font_sizes/font_size = 18
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 1
 text = "골목의 작은 동전으로, 나만의 자판기를."
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
 horizontal_alignment = 0
 vertical_alignment = 0
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape413" type="Label" parent="Shape409"]
 layout_mode = 0
@@ -6421,6 +6395,24 @@ text = "저장된 게임이 없습니다."
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
 horizontal_alignment = 0
 vertical_alignment = 0
+
+[node name="BackupStatus" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 320.0
+offset_top = 420.0
+offset_right = 804.0
+offset_bottom = 448.0
+mouse_filter = 2
+metadata/penpot_name = "MenuBox / Status / 기존 저장을 백업하지 못했습니다. 다시 시도해주세요."
+metadata/penpot_id = "51ff814c-57a3-802e-8008-d25b0f827a75"
+theme_type_variation = &"AccentLabel"
+theme_override_fonts/font = ExtResource("r49")
+theme_override_font_sizes/font_size = 15
+theme_override_constants/outline_size = 1
+text = "백업 실패"
+tooltip_text = "기존 저장을 백업하지 못했습니다. 다시 시도해주세요."
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape414" type="Control" parent="Shape409"]
 layout_mode = 0
@@ -6441,6 +6433,8 @@ offset_bottom = 76
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c1449ac84"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape416" type="TextureRect" parent="Shape409/Shape414/Shape415"]
 layout_mode = 0
@@ -6544,11 +6538,12 @@ metadata/penpot_name = "Label"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c1449ec16"
 theme_override_fonts/font = ExtResource("r50")
 theme_override_font_sizes/font_size = 24
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "새 게임"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 0
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape424" type="Control" parent="Shape409"]
 layout_mode = 0
@@ -6569,6 +6564,8 @@ offset_bottom = 76.0
 mouse_filter = 2
 metadata/penpot_name = "이어하기 / disabled / 연결 프레임"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c145952e9"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "disabled"
 
 [node name="Shape426" type="TextureRect" parent="Shape409/Shape424/Shape425"]
 layout_mode = 0
@@ -6636,11 +6633,12 @@ metadata/penpot_name = "이어하기 / disabled / 문구"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c14625012"
 theme_override_fonts/font = ExtResource("r50")
 theme_override_font_sizes/font_size = 24
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "이어하기"
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape431" type="Control" parent="Shape409"]
 layout_mode = 0
@@ -6661,6 +6659,8 @@ offset_bottom = 76
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d459fcda1870"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape433" type="TextureRect" parent="Shape409/Shape431/Shape432"]
 layout_mode = 0
@@ -6777,11 +6777,12 @@ metadata/penpot_name = "Label"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d459fcda63c1"
 theme_override_fonts/font = ExtResource("r50")
 theme_override_font_sizes/font_size = 24
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "설정"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 0
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape442" type="Control" parent="Shape409"]
 layout_mode = 0
@@ -6802,6 +6803,8 @@ offset_bottom = 76
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c148fc25a"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape444" type="TextureRect" parent="Shape409/Shape442/Shape443"]
 layout_mode = 0
@@ -6931,11 +6934,12 @@ metadata/penpot_name = "Label"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c148fc264"
 theme_override_fonts/font = ExtResource("r50")
 theme_override_font_sizes/font_size = 24
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "종료"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 0
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape454" type="Label" parent="."]
 layout_mode = 0
@@ -6948,8 +6952,9 @@ metadata/penpot_name = "Main / Footer / 拾う。飲む。育てる。"
 metadata/penpot_id = "51ff814c-57a3-802e-8008-d25b0d2a4d9e"
 theme_override_fonts/font = ExtResource("r49")
 theme_override_font_sizes/font_size = 12
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 1
 text = "拾う。飲む。育てる。"
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
 horizontal_alignment = 0
 vertical_alignment = 0
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)

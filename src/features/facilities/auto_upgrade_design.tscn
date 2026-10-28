@@ -123,11 +123,12 @@ metadata/penpot_name = "설정 / 오버라인"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4562a7ecbdc"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 14
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 1
 text = "UPGRADE"
 theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape7" type="Label" parent="Shape2"]
 layout_mode = 0
@@ -140,11 +141,12 @@ metadata/penpot_name = "설정 / 제목"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4562a7ecbdd"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 27
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "자동 자판기 강화"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape8" type="Label" parent="Shape2"]
 layout_mode = 0
@@ -160,7 +162,7 @@ theme_override_font_sizes/font_size = 16
 theme_override_constants/outline_size = 0
 text = "강화할 항목을 선택하세요."
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Shape9" type="Control" parent="Shape2"]
@@ -182,6 +184,8 @@ offset_bottom = 76
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4562a7ecc07"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape11" type="TextureRect" parent="Shape2/Shape9/Shape10"]
 layout_mode = 0
@@ -286,11 +290,12 @@ metadata/penpot_name = "Label"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4562a7ecc09"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 24
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "골드 생산량 · 10 골드"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape19" type="Control" parent="Shape2"]
 layout_mode = 0
@@ -311,6 +316,8 @@ offset_bottom = 76
 mouse_filter = 2
 metadata/penpot_name = "저장 / normal / 연결 프레임"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4562a7ecc10"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape21" type="TextureRect" parent="Shape2/Shape19/Shape20"]
 layout_mode = 0
@@ -378,11 +385,12 @@ metadata/penpot_name = "저장 / normal / 문구"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4562a7ecc11"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 24
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "생산 주기 · 100 골드"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape26" type="Control" parent="Shape2"]
 layout_mode = 0
@@ -403,6 +411,8 @@ offset_bottom = 76
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4562a7ecc16"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape28" type="TextureRect" parent="Shape2/Shape26/Shape27"]
 layout_mode = 0
@@ -533,11 +543,12 @@ metadata/penpot_name = "Label"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4562a7ecc18"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 24
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "물품 개수 · 100 골드"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape38" type="Label" parent="Shape2"]
 layout_mode = 0
@@ -553,7 +564,7 @@ theme_override_font_sizes/font_size = 16
 theme_override_constants/outline_size = 0
 text = "보유 골드 1,250"
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Shape39" type="Label" parent="Shape2"]
@@ -567,8 +578,9 @@ metadata/penpot_name = "키보드 조작 / 돌아가기"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4562a7ecbe3"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 16
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 1
 text = "← 시설 관리로 돌아가기"
 theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)

@@ -13,6 +13,12 @@
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/224x64_pressed.svg" id="f224x64_pressed"]
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/224x64_disabled.svg" id="f224x64_disabled"]
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/224x64_focus.svg" id="f224x64_focus"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/192x64_normal.svg" id="f192x64_normal"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/192x64_hover.svg" id="f192x64_hover"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/192x64_pressed.svg" id="f192x64_pressed"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/192x64_disabled.svg" id="f192x64_disabled"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/192x64_focus.svg" id="f192x64_focus"]
+
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/56x56_normal.svg" id="f56x56_normal"]
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/56x56_hover.svg" id="f56x56_hover"]
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/56x56_pressed.svg" id="f56x56_pressed"]
@@ -172,6 +178,41 @@ content_margin_bottom = 20.0
 
 
 
+[sub_resource type="StyleBoxTexture" id="f192x64_normal"]
+texture = ExtResource("f192x64_normal")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 22.0
+
+[sub_resource type="StyleBoxTexture" id="f192x64_hover"]
+texture = ExtResource("f192x64_hover")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 22.0
+
+[sub_resource type="StyleBoxTexture" id="f192x64_pressed"]
+texture = ExtResource("f192x64_pressed")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 22.0
+
+[sub_resource type="StyleBoxTexture" id="f192x64_disabled"]
+texture = ExtResource("f192x64_disabled")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 22.0
+
+[sub_resource type="StyleBoxTexture" id="f192x64_focus"]
+texture = ExtResource("f192x64_focus")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 22.0
+
 [sub_resource type="StyleBoxTexture" id="f56x56_normal"]
 texture = ExtResource("f56x56_normal")
 texture_margin_left = 18.0
@@ -281,6 +322,12 @@ PrimaryButton/styles/hover = SubResource("f224x64_hover")
 PrimaryButton/styles/pressed = SubResource("f224x64_pressed")
 PrimaryButton/styles/disabled = SubResource("f224x64_disabled")
 PrimaryButton/styles/focus = SubResource("f224x64_focus")
+SecondaryButton/base_type = &"Button"
+SecondaryButton/styles/normal = SubResource("f192x64_normal")
+SecondaryButton/styles/hover = SubResource("f192x64_hover")
+SecondaryButton/styles/pressed = SubResource("f192x64_pressed")
+SecondaryButton/styles/disabled = SubResource("f192x64_disabled")
+SecondaryButton/styles/focus = SubResource("f192x64_focus")
 PixelIconButton/base_type = &"Button"
 PixelIconButton/styles/normal = SubResource("f56x56_normal")
 PixelIconButton/styles/hover = SubResource("f56x56_hover")

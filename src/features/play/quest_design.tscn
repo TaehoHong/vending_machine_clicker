@@ -4,13 +4,13 @@
 
 [ext_resource type="FontVariation" path="res://assets/fonts/noto_sans_kr_regular.tres" id="r1"]
 
-[ext_resource type="Texture2D" path="res://assets/penpot/34bfb2c898ce7ddab82f.svg" id="r2"]
+[ext_resource type="Texture2D" path="res://assets/penpot/58a80b5c40a0162f0a1d.svg" id="r2"]
 
-[ext_resource type="Texture2D" path="res://assets/penpot/2ed67f583f7bb7220fe6.svg" id="r3"]
+[ext_resource type="Texture2D" path="res://assets/penpot/27891de92ca8969af296.svg" id="r3"]
 
-[ext_resource type="Texture2D" path="res://assets/penpot/18e3ec046f4e34b28b96.svg" id="r4"]
+[ext_resource type="Texture2D" path="res://assets/penpot/492ab5311ae325221494.svg" id="r4"]
 
-[ext_resource type="Texture2D" path="res://assets/penpot/74f632faf6c4e4def2bb.svg" id="r5"]
+[ext_resource type="Texture2D" path="res://assets/penpot/8c598a321da841cf84f3.svg" id="r5"]
 
 [sub_resource type="StyleBoxFlat" id="s0"]
 bg_color = Color(0.0745098, 0.1411765, 0.2, 1)
@@ -183,8 +183,10 @@ offset_top = -6
 offset_right = 230
 offset_bottom = 70
 mouse_filter = 2
-metadata/penpot_name = "Frame / A / disabled"
-metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45d5dd06710"
+metadata/penpot_name = "Frame / A / normal"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45f2bdce9e1"
+metadata/penpot_frame_family = "224x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape11" type="TextureRect" parent="Shape9/Shape10"]
 layout_mode = 0
@@ -194,7 +196,7 @@ offset_right = 228
 offset_bottom = 68
 mouse_filter = 2
 metadata/penpot_name = "base"
-metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45d5dd06711"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45f2bdce9e2"
 visible = false
 texture = ExtResource("r2")
 expand_mode = 1
@@ -208,7 +210,7 @@ offset_right = 228
 offset_bottom = 64
 mouse_filter = 2
 metadata/penpot_name = "surface"
-metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45d5dd06712"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45f2bdce9e3"
 texture = ExtResource("r3")
 expand_mode = 1
 stretch_mode = 0
@@ -221,7 +223,7 @@ offset_right = 224
 offset_bottom = 21
 mouse_filter = 2
 metadata/penpot_name = "highlight"
-metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45d5dd06713"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45f2bdce9e4"
 visible = false
 texture = ExtResource("r4")
 expand_mode = 1
@@ -235,7 +237,7 @@ offset_right = 224
 offset_bottom = 61
 mouse_filter = 2
 metadata/penpot_name = "bevel"
-metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45d5dd06714"
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d45f2bdce9e5"
 visible = false
 texture = ExtResource("r5")
 expand_mode = 1
@@ -255,7 +257,7 @@ theme_override_font_sizes/font_size = 18
 theme_override_constants/outline_size = 0
 text = "진행 중"
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Shape16" type="Panel" parent="."]

@@ -135,6 +135,9 @@ corner_radius_top_right = 0
 corner_radius_bottom_right = 0
 corner_radius_bottom_left = 0
 
+[sub_resource type="StyleBoxFlat" id="muted_fill"]
+bg_color = Color(0.5176471, 0.5921569, 0.6274510, 1)
+
 [node name="Design" type="Control"]
 layout_mode = 0
 offset_left = 0
@@ -144,6 +147,8 @@ offset_bottom = 648
 mouse_filter = 2
 metadata/penpot_name = "채택 / 설정 / 소리"
 metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b35fb7f"
+metadata/sound_fill = SubResource("s4")
+metadata/muted_fill = SubResource("muted_fill")
 
 [node name="Shape2" type="Control" parent="."]
 layout_mode = 0
@@ -199,11 +204,12 @@ metadata/penpot_name = "설정 / 오버라인"
 metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b363b59"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 14
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 1
 text = "SETTINGS"
 theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape7" type="Label" parent="Shape2"]
 layout_mode = 0
@@ -216,11 +222,12 @@ metadata/penpot_name = "설정 / 제목"
 metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b363b5a"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 27
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "소리"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape8" type="Label" parent="Shape2"]
 layout_mode = 0
@@ -236,7 +243,7 @@ theme_override_font_sizes/font_size = 16
 theme_override_constants/outline_size = 0
 text = "게임 소리를 편안한 크기로 조절하세요."
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Shape9" type="Label" parent="Shape2"]
@@ -301,11 +308,12 @@ metadata/penpot_name = "키보드 조작 / 돌아가기"
 metadata/penpot_id = "03693e9a-af4d-8035-8008-d4428b363b60"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 16
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 1
 text = "←  설정으로 돌아가기"
 theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape13" type="Label" parent="Shape2"]
 layout_mode = 0
@@ -321,7 +329,7 @@ theme_override_font_sizes/font_size = 16
 theme_override_constants/outline_size = 0
 text = "70%"
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
-horizontal_alignment = 0
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Shape14" type="Label" parent="Shape2"]
@@ -338,7 +346,7 @@ theme_override_font_sizes/font_size = 16
 theme_override_constants/outline_size = 0
 text = "70%"
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
-horizontal_alignment = 0
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Shape15" type="Label" parent="Shape2"]
@@ -355,7 +363,7 @@ theme_override_font_sizes/font_size = 16
 theme_override_constants/outline_size = 0
 text = "70%"
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
-horizontal_alignment = 0
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Shape16" type="Control" parent="."]

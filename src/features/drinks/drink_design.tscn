@@ -1,12 +1,10 @@
 [gd_scene format=3]
 
+[ext_resource type="Texture2D" path="res://assets/penpot/da05d154-084a-817e-8008-d2e39ae48a00.png" id="r3"]
+
 [ext_resource type="Texture2D" path="res://assets/penpot/cd444aaf-0d8c-801b-8008-ce975c423d25.png" id="r0"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/da05d154-084a-817e-8008-d2539b524648.png" id="r1"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/db879e1e-2a0e-810a-8008-d413fb7c2681.png" id="r2"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/da05d154-084a-817e-8008-d2e39ae48a00.png" id="r3"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/5a1d6aa74a76f4a84c15.svg" id="r4"]
 
@@ -3741,15 +3739,6 @@ offset_bottom = 423.94
 mouse_filter = 2
 metadata/penpot_name = "자판기 / 빈 본체"
 metadata/penpot_id = "3c5d6130-1844-804f-8008-d2f8ad5bbf65"
-texture = ExtResource("r2")
-expand_mode = 1
-stretch_mode = 0
-texture_filter = 1
-
-[node name="SourceImage" type="TextureRect" parent="Shape7/Shape8/Shape9/Shape10/Shape12"]
-mouse_filter = 2
-offset_right = 278.79999999999995
-offset_bottom = 418.1999999999989
 texture = ExtResource("r3")
 expand_mode = 1
 stretch_mode = 0
@@ -3775,15 +3764,6 @@ offset_bottom = 423.94
 mouse_filter = 2
 metadata/penpot_name = "조작부 / 가로 확대 / 원본 이미지"
 metadata/penpot_id = "3c5d6130-1844-804f-8008-d2f8ad5bbf6b"
-texture = ExtResource("r2")
-expand_mode = 1
-stretch_mode = 0
-texture_filter = 1
-
-[node name="SourceImage" type="TextureRect" parent="Shape7/Shape8/Shape9/Shape10/Shape13/Shape14"]
-mouse_filter = 2
-offset_right = 669.1199999999999
-offset_bottom = 418.1999999999989
 texture = ExtResource("r3")
 expand_mode = 1
 stretch_mode = 0
@@ -3820,15 +3800,6 @@ offset_bottom = 238.99392
 mouse_filter = 2
 metadata/penpot_name = "조작부 / 투입구·반환 버튼 / 원본 이미지"
 metadata/penpot_id = "3c5d6130-1844-804f-8008-d2f8ad5bbf6d"
-texture = ExtResource("r2")
-expand_mode = 1
-stretch_mode = 0
-texture_filter = 1
-
-[node name="SourceImage" type="TextureRect" parent="Shape7/Shape8/Shape9/Shape10/Shape16/Shape17"]
-mouse_filter = 2
-offset_right = 266.39339999999913
-offset_bottom = 399.58599999999933
 texture = ExtResource("r3")
 expand_mode = 1
 stretch_mode = 0
@@ -8240,6 +8211,8 @@ offset_bottom = 54.4
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "3c5d6130-1844-804f-8008-d2f8ad5bbfaa"
+metadata/penpot_frame_family = "56x56"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape411" type="TextureRect" parent="Shape7/Shape409/Shape410"]
 layout_mode = 0
@@ -8641,6 +8614,8 @@ offset_bottom = 54.4
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "3c5d6130-1844-804f-8008-d2f8ad5bbfca"
+metadata/penpot_frame_family = "56x56"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape445" type="TextureRect" parent="Shape7/Shape443/Shape444"]
 layout_mode = 0
@@ -8843,7 +8818,7 @@ theme_override_font_sizes/font_size = 19
 theme_override_constants/outline_size = 0
 text = "100"
 theme_override_colors/font_color = Color(0.7529412, 0.8980392, 0.5490196, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Shape461" type="Control" parent="Shape7"]
@@ -9051,15 +9026,6 @@ offset_bottom = 623.55725
 mouse_filter = 2
 metadata/penpot_name = "자판기 / 빈 본체"
 metadata/penpot_id = "3c5d6130-1844-804f-8008-d37bedcb7b8a"
-texture = ExtResource("r2")
-expand_mode = 1
-stretch_mode = 0
-texture_filter = 1
-
-[node name="SourceImage" type="TextureRect" parent="Shape470/Shape475/Shape476/Shape477/Shape479"]
-mouse_filter = 2
-offset_right = 410.07633587786256
-offset_bottom = 615.1145038167942
 texture = ExtResource("r3")
 expand_mode = 1
 stretch_mode = 0
@@ -9085,15 +9051,6 @@ offset_bottom = 623.55725
 mouse_filter = 2
 metadata/penpot_name = "조작부 / 가로 확대 / 원본 이미지"
 metadata/penpot_id = "3c5d6130-1844-804f-8008-d37bedcb7b8d"
-texture = ExtResource("r2")
-expand_mode = 1
-stretch_mode = 0
-texture_filter = 1
-
-[node name="SourceImage" type="TextureRect" parent="Shape470/Shape475/Shape476/Shape477/Shape480/Shape481"]
-mouse_filter = 2
-offset_right = 984.1832061068702
-offset_bottom = 615.1145038167942
 texture = ExtResource("r3")
 expand_mode = 1
 stretch_mode = 0
@@ -9130,15 +9087,6 @@ offset_bottom = 351.52708
 mouse_filter = 2
 metadata/penpot_name = "조작부 / 투입구·반환 버튼 / 원본 이미지"
 metadata/penpot_id = "3c5d6130-1844-804f-8008-d37bedcb7b91"
-texture = ExtResource("r2")
-expand_mode = 1
-stretch_mode = 0
-texture_filter = 1
-
-[node name="SourceImage" type="TextureRect" parent="Shape470/Shape475/Shape476/Shape477/Shape483/Shape484"]
-mouse_filter = 2
-offset_right = 391.82793893129656
-offset_bottom = 587.7358778625967
 texture = ExtResource("r3")
 expand_mode = 1
 stretch_mode = 0
@@ -13527,11 +13475,12 @@ metadata/penpot_name = "제목 / 음료와 능력"
 metadata/penpot_id = "b7760397-d86f-8009-8008-d271f616c517"
 theme_override_fonts/font = ExtResource("r57")
 theme_override_font_sizes/font_size = 30
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 2
 text = "음료와 능력"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 0
 vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape877" type="Control" parent="Shape470"]
 layout_mode = 0
@@ -13552,6 +13501,8 @@ offset_bottom = 76
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "b7760397-d86f-8009-8008-d271f62cba4f"
+metadata/penpot_frame_family = "192x64"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape879" type="TextureRect" parent="Shape470/Shape877/Shape878"]
 layout_mode = 0
@@ -13828,6 +13779,8 @@ offset_bottom = 68.0
 mouse_filter = 2
 metadata/penpot_name = "능력 요약 / normal / 연결 프레임"
 metadata/penpot_id = "b7760397-d86f-8009-8008-d271f647cad5"
+metadata/penpot_frame_family = "136x56"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape901" type="TextureRect" parent="Shape470/Shape899/Shape900"]
 layout_mode = 0
@@ -13898,7 +13851,7 @@ theme_override_font_sizes/font_size = 24
 theme_override_constants/outline_size = 0
 text = "능력 요약"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Shape906" type="Control" parent="Shape470"]
@@ -13920,6 +13873,8 @@ offset_bottom = 68.0
 mouse_filter = 2
 metadata/penpot_name = "음료 화면 닫기 / normal / 연결 프레임"
 metadata/penpot_id = "b7760397-d86f-8009-8008-d271f66ef14c"
+metadata/penpot_frame_family = "136x56"
+metadata/penpot_frame_state = "normal"
 
 [node name="Shape908" type="TextureRect" parent="Shape470/Shape906/Shape907"]
 layout_mode = 0
@@ -13990,5 +13945,5 @@ theme_override_font_sizes/font_size = 24
 theme_override_constants/outline_size = 0
 text = "ESC 닫기"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
-horizontal_alignment = 0
+horizontal_alignment = 1
 vertical_alignment = 1
