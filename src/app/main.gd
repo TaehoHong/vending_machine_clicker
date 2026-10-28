@@ -28,7 +28,7 @@ func _start_game(is_new_game: bool) -> void:
 	if is_new_game and store.has_file():
 		last_backup_path = store.backup()
 		if last_backup_path.is_empty():
-			view.menu_status.text = "기존 저장을 백업하지 못했습니다. 다시 시도해주세요."
+			view.show_backup_failure()
 			return
 	starting_game = true
 	session = SESSION.new()

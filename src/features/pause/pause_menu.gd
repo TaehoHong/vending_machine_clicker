@@ -49,13 +49,21 @@ func _input(event: InputEvent) -> void:
 func set_open(open: bool) -> void:
 	if open:
 		previous_focus = get_viewport().gui_get_focus_owner()
-		status.text = "끝내기를 누르면 저장 후 종료합니다."
+		show_save_status("끝내기를 누르면 저장 후 종료합니다.", false)
 	overlay.visible = open
 	get_tree().paused = open
 	if open:
 		resume_button.grab_focus()
 	elif is_instance_valid(previous_focus) and previous_focus.is_visible_in_tree():
 		previous_focus.grab_focus()
+
+
+func show_save_status(message: String, failed: bool) -> void:
+	status.text = message.replace(" 다시 시도해주세요.", "\n다시 시도해주세요.") if failed else message
+	status.add_theme_color_override(
+		"font_color",
+		DESIGN.THEME.get_color("accent_color" if failed else "secondary_color", "Label")
+	)
 
 
 func _on_resume_pressed() -> void:

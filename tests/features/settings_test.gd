@@ -30,9 +30,40 @@ func run_checks() -> void:
 	root.add_child(screen)
 	screen.open(true)
 	screen._show_page("display")
+	var window_art := DESIGN.shape(screen.canvas, "화면 / 창 모드 / 선택됨")
+	var window_frame := DESIGN.shape(window_art, "Frame")
+	assert(window_frame.visible, "The selected native frame is retained without keyboard focus")
+	screen._set_preference("fullscreen", true)
+	var fullscreen_art := DESIGN.shape(screen.canvas, "화면 / 전체 화면")
+	assert(not window_art.get_node("Action").get("selected"))
+	assert(fullscreen_art.get_node("Action").get("selected"))
+	screen._set_preference("fullscreen", false)
 	var selected := DESIGN.shape(screen.canvas, "화면 / 흔들림 줄이기 / 켬")
 	assert(DESIGN.shape(selected, "Label").text.contains("선택됨"))
+	assert(DESIGN.shape(selected, "Label").text.contains("흔들림 줄이기"))
+	screen._show_page("language")
+	var japanese := DESIGN.shape(screen.canvas, "언어 / 日本語 / 버튼")
+	var korean := DESIGN.shape(screen.canvas, "언어 / 한국어 · 선택됨 / 버튼")
+	assert(japanese.get_node("Action").get("selected"))
+	assert(not korean.get_node("Action").get("selected"))
 	screen._show_page("sound")
+	assert(
+		DESIGN.shape(screen.canvas, "설정 / 설명").text
+		== "전체 음량이 0이면 모든 소리가 꺼져요."
+	)
+	var music := DESIGN.shape(screen.canvas, "소리 / 배경음 / 슬라이더")
+	var music_fill: Panel = DESIGN.shape(music, "Track / fill")
+	assert(music_fill.get_theme_stylebox("panel").bg_color.is_equal_approx(Color("#8497a0")))
+	var master := DESIGN.shape(screen.canvas, "소리 / 전체 음량 / 슬라이더")
+	var master_input: HSlider = master.find_children("*", "HSlider", false, false)[0]
+	master_input.value = 70
+	assert(
+		DESIGN.shape(screen.canvas, "설정 / 설명").text
+		== "게임 소리를 편안한 크기로 조절하세요."
+	)
+	assert(music_fill.get_theme_stylebox("panel").bg_color.is_equal_approx(Color("#559e9a")))
+	assert(DESIGN.shape(master, "Thumb / border").position.x == 192.0)
+	assert(DESIGN.shape(master, "Track / fill").size.x == 196.0)
 	var slider := DESIGN.shape(screen.canvas, "소리 / 효과음 / 슬라이더")
 	var input: HSlider
 	for child: Node in slider.get_children():
@@ -41,6 +72,14 @@ func run_checks() -> void:
 	input.value = 82
 	assert(settings.values.effects == 82.0)
 	assert(DESIGN.shape(screen.canvas, "소리 / 효과음 / 값").text == "82%")
+	var thumb: Control = DESIGN.shape(slider, "Thumb / border")
+	input.value = 0
+	assert(thumb.position.x >= 0.0, "Zero volume keeps the whole thumb inside the slider")
+	input.value = 100
+	assert(
+		thumb.position.x + thumb.size.x <= slider.size.x,
+		"Maximum volume keeps the whole thumb inside the slider"
+	)
 	screen.go_back()
 	assert(screen.page == "base" and screen.visible)
 	screen.go_back()

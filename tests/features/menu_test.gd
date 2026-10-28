@@ -1,6 +1,16 @@
 extends SceneTree
 
 const FIXTURE = preload("res://tests/support/game_fixture.gd")
+const DESIGN = preload("res://src/shared/ui/design_view.gd")
+
+
+class BackupFailureStore extends "res://src/integrations/saves/progress_store.gd":
+
+	var fail_backup: bool = true
+
+
+	func backup() -> String:
+		return "" if fail_backup else super.backup()
 
 var failures: int = 0
 var test_path: String = "res://.godot/menu_test_%d.cfg" % Time.get_ticks_usec()
@@ -34,8 +44,18 @@ func make_menu():
 func run_checks() -> void:
 	var menu = make_menu()
 	check(menu.view.load_button.disabled, "Load disabled without saved game")
+	check(
+		menu.view.new_game_button.get_global_rect().position.y
+		< menu.view.load_button.get_global_rect().position.y,
+		"Without a save, New Game appears above Continue"
+	)
 	var start_button: Button = menu.view.new_game_button
 	check(start_button.has_focus(), "New Game starts with keyboard focus")
+	var menu_box: Control = DESIGN.shape(menu.view.get_node("Design"), "MenuBox")
+	menu.view._open_settings()
+	check(not menu_box.visible, "Title settings show the world without the title menu")
+	menu.view.settings.go_back()
+	check(menu_box.visible, "Leaving title settings restores the menu")
 	var start_bounds: Rect2 = start_button.get_global_rect()
 	var move := InputEventMouseMotion.new()
 	move.position = start_bounds.get_center()
@@ -64,6 +84,11 @@ func run_checks() -> void:
 	menu.free()
 	menu = make_menu()
 	check(not menu.view.load_button.disabled, "Load enabled with valid save")
+	check(
+		menu.view.load_button.get_global_rect().position.y
+		< menu.view.new_game_button.get_global_rect().position.y,
+		"With a save, Continue appears above New Game"
+	)
 	menu.view.load_button.pressed.emit()
 	await process_frame
 	var game = menu.view
@@ -77,6 +102,23 @@ func run_checks() -> void:
 	)
 	menu.free()
 	menu = make_menu()
+	var failing_store := BackupFailureStore.new(test_path)
+	menu.store = failing_store
+	var saved_summary: String = menu.view.save_summary.text
+	menu.view.new_game_button.pressed.emit()
+	check(not menu.starting_game, "Backup failure leaves the current save and menu intact")
+	check(menu.view.save_summary.text == saved_summary, "Backup error preserves the save summary")
+	check(
+		menu.view.menu_status.text == "백업 실패" and menu.view.menu_status.visible,
+		"Backup failure has a separate visible status"
+	)
+	var retry_label: Label = DESIGN.shape(menu.view.new_game_button.get_parent(), "Label")
+	check(retry_label.text == "다시 시도", "Failed backup offers the original retry action")
+	menu.view._open_settings()
+	check(not menu.view.menu_status.visible, "Title settings hide the prior backup warning")
+	menu.view.settings.go_back()
+	check(menu.view.menu_status.visible, "Returning from settings preserves the backup warning")
+	failing_store.fail_backup = false
 	menu.view.new_game_button.pressed.emit()
 	var backup_path: String = menu.last_backup_path
 	await process_frame
@@ -104,6 +146,22 @@ func run_checks() -> void:
 	press_escape()
 	await process_frame
 	check(paused and game.pause_menu.overlay.visible, "ESC opens pause menu and pauses game")
+	game.pause_menu.show_save_status("저장하지 못했습니다. 다시 시도해주세요.", true)
+	check(
+		game.pause_menu.status.text == "저장하지 못했습니다.\n다시 시도해주세요."
+		and game.pause_menu.status.get_theme_color("font_color").is_equal_approx(
+			DESIGN.THEME.get_color("accent_color", "Label")
+		),
+		"Pause save failure uses the original two-line warning"
+	)
+	game.pause_menu.show_save_status("저장했습니다.", false)
+	check(
+		game.pause_menu.status.text == "저장했습니다."
+		and game.pause_menu.status.get_theme_color("font_color").is_equal_approx(
+			DESIGN.THEME.get_color("secondary_color", "Label")
+		),
+		"Successful save clears the previous warning presentation"
+	)
 	game._on_earn_button_pressed()
 	game._on_shop_button_pressed()
 	check(
