@@ -34,6 +34,7 @@ func run_checks() -> void:
 		assert(game._purchase_effects.values()[0].coin.get_child_count() == 0)
 		await FIXTURE.wait_for_purchase_effects(game)
 		assert(not game.result_overlay.visible and not game.session.inserting_coin)
+		assert(not game.ability_toast.visible, "Successful purchases have no acquisition toast")
 	var before: int = game.session.drinks
 	await tap(design.get_global_transform() * Vector2(570, 410))
 	assert(
@@ -74,12 +75,12 @@ func run_checks() -> void:
 	assert(game.feedback_label.text.is_empty(), "Shortage uses the original top feedback frame")
 	game.ability_toast.animation.pause()
 	game._on_shop_button_pressed()
-	game._show_acquired_ability(7)
+	game._show_acquired_ability()
 	game.ability_toast.animation.custom_step(2.0)
 	assert(game.ability_toast.title.text == "골드 부족", "Repeated failures remain in order")
 	game.ability_toast.animation.pause()
 	game.ability_toast.animation.custom_step(2.0)
-	assert(game.ability_toast.title.text == "황금음료 · 오로라 골드")
+	assert(not game.ability_toast.visible, "Ability receipt never queues an acquisition toast")
 	game.free()
 	print("Upper cabinet click coverage, tray exclusion and unnumbered coin checks passed.")
 	quit()

@@ -69,8 +69,8 @@ func run_checks() -> void:
 		"Purchase completes without a popup"
 	)
 	check(
-		not game.shop_button.disabled and game.ability_toast.title.text.contains("물"),
-		"Drink reaches ability button and its effect is shown"
+		not game.shop_button.disabled and not game.ability_toast.visible,
+		"Drink reaches ability button without an acquisition toast"
 	)
 	game.session.forced_drink = 1
 	game.shop_button.pressed.emit()
@@ -87,8 +87,8 @@ func run_checks() -> void:
 	await FIXTURE.wait_for_purchase_effects(game)
 	await process_frame
 	check(
-		not game.result_overlay.visible and game.ability_toast.title.text.contains("녹차"),
-		"Tea arrives and its effect is shown"
+		not game.result_overlay.visible and not game.ability_toast.visible,
+		"Tea arrives without an acquisition toast"
 	)
 	game.session.forced_drink = 0
 	game.shop_button.pressed.emit()

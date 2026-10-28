@@ -516,9 +516,7 @@ func ability_receipt_position() -> Vector2:
 	)
 
 
-func _show_acquired_ability(drink_index: int) -> void:
-	var data: Dictionary = DRINK_DATA[drink_index]
-	ability_toast.call("present", data.name, data.effect, load(data.asset), drink_index == 7)
+func _show_acquired_ability() -> void:
 	var button: Button = $Navigation/AbilityButton
 	if is_instance_valid(ability_receipt_tween):
 		ability_receipt_tween.kill()
@@ -577,7 +575,6 @@ func _start_purchase_effect(purchase_id: int, drink_index: int) -> void:
 func _finish_purchase_effect(purchase_id: int) -> void:
 	if not _purchase_effects.has(purchase_id):
 		return
-	var drink_index: int = session.pending_purchases[purchase_id]
 	var entry: Dictionary = _purchase_effects[purchase_id]
 	entry.coin.hide()
 	entry.drink.hide()
@@ -585,7 +582,7 @@ func _finish_purchase_effect(purchase_id: int) -> void:
 	entry.drink.queue_free()
 	_purchase_effects.erase(purchase_id)
 	if session.finish_purchase(purchase_id):
-		_show_acquired_ability(drink_index)
+		_show_acquired_ability()
 	_process(0)
 	_refresh_ui()
 
