@@ -230,10 +230,6 @@ func facility_roll() -> float:
 	return randf()
 
 
-func unlock_facility(kind: String) -> bool:
-	return FACILITIES.unlock(self, kind)
-
-
 func purchase_facility(kind: String) -> bool:
 	return FACILITIES.purchase(self, kind)
 

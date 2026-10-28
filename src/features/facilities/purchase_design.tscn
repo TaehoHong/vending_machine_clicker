@@ -1477,6 +1477,7 @@ expand_mode = 1
 stretch_mode = 0
 
 [node name="Shape89" type="Label" parent="Shape3/Shape83"]
+visible = false
 layout_mode = 0
 offset_left = 16
 offset_top = 12
@@ -1495,9 +1496,9 @@ vertical_alignment = 1
 
 [node name="Shape90" type="Control" parent="Shape3/Shape83"]
 layout_mode = 0
-offset_left = 94
+offset_left = 64
 offset_top = 22
-offset_right = 114
+offset_right = 84
 offset_bottom = 42
 mouse_filter = 2
 metadata/penpot_name = "Price / Currency"
@@ -1585,17 +1586,17 @@ theme_override_styles/panel = SubResource("s17")
 
 [node name="Shape98" type="Label" parent="Shape3/Shape83"]
 layout_mode = 0
-offset_left = 122
+offset_left = 92
 offset_top = 12
-offset_right = 152
+offset_right = 108
 offset_bottom = 52
 mouse_filter = 2
 metadata/penpot_name = "Price / Value"
 metadata/penpot_id = "530a781c-9b38-80ef-8008-d8aa6be2f11c"
 theme_override_fonts/font = ExtResource("r10")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 16
 theme_override_constants/outline_size = 0
-text = "—"
+text = "10"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 0
 vertical_alignment = 1
@@ -1675,6 +1676,7 @@ expand_mode = 1
 stretch_mode = 0
 
 [node name="Shape105" type="Label" parent="Shape3/Shape99"]
+visible = false
 layout_mode = 0
 offset_left = 16
 offset_top = 12
@@ -1693,9 +1695,9 @@ vertical_alignment = 1
 
 [node name="Shape106" type="Control" parent="Shape3/Shape99"]
 layout_mode = 0
-offset_left = 94
+offset_left = 64
 offset_top = 22
-offset_right = 114
+offset_right = 84
 offset_bottom = 42
 mouse_filter = 2
 metadata/penpot_name = "Price / Currency"
@@ -1783,17 +1785,17 @@ theme_override_styles/panel = SubResource("s20")
 
 [node name="Shape114" type="Label" parent="Shape3/Shape99"]
 layout_mode = 0
-offset_left = 122
+offset_left = 92
 offset_top = 12
-offset_right = 152
+offset_right = 108
 offset_bottom = 52
 mouse_filter = 2
 metadata/penpot_name = "Price / Value"
 metadata/penpot_id = "530a781c-9b38-80ef-8008-d8aa6be2f12c"
 theme_override_fonts/font = ExtResource("r10")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 16
 theme_override_constants/outline_size = 0
-text = "—"
+text = "15"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 0
 vertical_alignment = 1

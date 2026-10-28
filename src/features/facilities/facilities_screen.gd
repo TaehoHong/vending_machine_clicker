@@ -93,26 +93,26 @@ func refresh() -> void:
 			var frame := DESIGN.shape(canvas, "Action / Buy " + entry[0])
 			var label: Label = DESIGN.shape(frame, "Label")
 			var price: Label = DESIGN.shape(frame, "Price / Value")
-			var unlocked: bool = data[kind + "_unlocked"]
 			var owned: bool = data[kind + "_owned"]
+			label.hide()
 			var currency := DESIGN.shape(frame, "Price / Currency")
-			currency.visible = not owned
 			for icon: CanvasItem in currency.get_children():
-				icon.visible = not unlocked if icon.name == "UnlockCan" else unlocked
-			label.text = "업그레이드" if owned else ("구매" if unlocked else "해금")
-			if owned:
-				label.position.x = 0
-				label.size.x = frame.size.x
-				label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+				icon.visible = not owned if icon.name == "UnlockCan" else owned
 			price.visible = not owned
-			price.text = "" if owned else str(
-				RULES.CATALOG[kind].price if unlocked else RULES.CATALOG[kind].unlock
+			price.text = str(RULES.CATALOG[kind].cost)
+			_layout_cost(frame, currency, price)
+			actions[kind].disabled = not owned and session.cans < RULES.CATALOG[kind].cost
+			actions[kind].tooltip_text = (
+				"%s 강화" % ("자동 자판기" if kind == "auto" else "쓰레기통") if owned
+				else "빈캔 %d개로 구매·설치" % RULES.CATALOG[kind].cost
 			)
-			DESIGN.fit_text(price, 44, 16)
-			actions[kind].disabled = not owned and (
-				session.money < RULES.CATALOG[kind].price if unlocked
-				else session.cans < RULES.CATALOG[kind].unlock
-			)
+			for item: Control in frame.get_parent().get_children():
+				var source_name: String = item.get_meta("penpot_name", "")
+				if source_name.begins_with(entry[0] + " /") or (
+					source_name == "Preview / " + entry[0]
+				):
+					item.modulate.a = 1.0 if owned else 0.55
+
 		_set_text("Auto / Production / Value", "%d /회" % RULES.production(session))
 		_set_text("Auto / Cycle / Value", "%d 초" % int(RULES.cycle(session)))
 		_set_text("Auto / Drop / Value", "20 %")
@@ -126,24 +126,35 @@ func refresh() -> void:
 			var button: Button = actions[key]
 			var frame: Control = button.get_parent()
 			var label: Label = DESIGN.shape(frame, "Label")
-			if label == null:
-				label = DESIGN.shape(frame, "저장 / normal / 문구")
 			var level: int = data[key]
-			var title: String = {
-				"production": "골드 생산량", "cycle": "생산 주기", "items": "물품 개수",
-				"chance": "수집 확률", "capacity": "수집 개수",
-			}[key]
-			label.text = "%s · 최대 강화" % title if level >= RULES.MAX_LEVEL else (
-				"%s · %d 골드" % [title, RULES.upgrade_price(session, key)]
+			var title: String = frame.get_meta("penpot_name").split(" / ")[1]
+			_set_text("시설 / %s / 항목" % title, title + (
+				"\n최대 강화" if level >= RULES.MAX_LEVEL else ""
+			))
+			var currency := DESIGN.shape(frame, "Price / Currency")
+			label.text = "" if level >= RULES.MAX_LEVEL else str(RULES.upgrade_price(session, key))
+			currency.visible = level < RULES.MAX_LEVEL
+			_layout_cost(frame, currency, label)
+			button.tooltip_text = "최대 강화" if level >= RULES.MAX_LEVEL else (
+				"%d 골드로 강화" % RULES.upgrade_price(session, key)
 			)
-			label.position.x = 14
-			label.size.x = 208
-			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			label.add_theme_font_size_override("font_size", 18)
+
 			button.disabled = (
 				level >= RULES.MAX_LEVEL or not data[RULES.UPGRADES[key] + "_owned"]
 				or session.money < RULES.upgrade_price(session, key)
 			)
+
+
+func _layout_cost(frame: Control, currency: Control, value: Label) -> void:
+	var text_width := value.get_theme_font("font").get_string_size(
+		value.text, HORIZONTAL_ALIGNMENT_LEFT, -1, value.get_theme_font_size("font_size")
+	).x if value.visible else 0.0
+	var gap := 8.0 if text_width > 0 else 0.0
+	var left := (frame.size.x - currency.size.x - gap - text_width) * 0.5
+	currency.position.x = left
+	value.position.x = left + currency.size.x + gap
+	value.size.x = text_width
+	value.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 
 
 func _preview(_kind: String) -> void:
@@ -191,10 +202,7 @@ func _purchase(kind: String) -> void:
 	if data[kind + "_owned"]:
 		_show_page(kind + "_upgrade")
 		return
-	var succeeded: bool = (
-		session.purchase_facility(kind) if data[kind + "_unlocked"]
-		else session.unlock_facility(kind)
-	)
+	var succeeded: bool = session.purchase_facility(kind)
 	if succeeded:
 		changed.emit()
 	refresh()

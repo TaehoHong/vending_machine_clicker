@@ -24,6 +24,8 @@
 
 [ext_resource type="Texture2D" path="res://assets/penpot/7842e5a32bef071138e3.svg" id="r11"]
 
+[ext_resource type="PackedScene" path="res://src/shared/ui/icons/gold_icon.tscn" id="currency_gold"]
+
 [sub_resource type="StyleBoxFlat" id="s0"]
 bg_color = Color(0.0431373, 0.0666667, 0.0941176, 0.8392156862745098)
 corner_radius_top_left = 0
@@ -151,10 +153,10 @@ vertical_alignment = 1
 
 [node name="Shape9" type="Control" parent="Shape2"]
 layout_mode = 0
-offset_left = 458
-offset_top = 260
-offset_right = 694
-offset_bottom = 336
+offset_left = 576
+offset_top = 266
+offset_right = 748
+offset_bottom = 330
 mouse_filter = 2
 metadata/penpot_name = "시설 / 수집 확률 / 강화 버튼"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823720"
@@ -163,8 +165,8 @@ metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823720"
 layout_mode = 0
 offset_left = 0
 offset_top = 0
-offset_right = 236
-offset_bottom = 76
+offset_right = 172
+offset_bottom = 64
 mouse_filter = 2
 metadata/penpot_name = "Frame"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823748"
@@ -173,10 +175,10 @@ metadata/penpot_frame_state = "normal"
 
 [node name="Shape11" type="TextureRect" parent="Shape2/Shape9/Shape10"]
 layout_mode = 0
-offset_left = 8
-offset_top = 12
-offset_right = 228
-offset_bottom = 68
+offset_left = 5.8305085
+offset_top = 10.1052632
+offset_right = 166.1694915
+offset_bottom = 57.2631579
 mouse_filter = 2
 metadata/penpot_name = "base"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682374b"
@@ -187,10 +189,10 @@ stretch_mode = 0
 
 [node name="Shape12" type="TextureRect" parent="Shape2/Shape9/Shape10"]
 layout_mode = 0
-offset_left = 8
-offset_top = 8
-offset_right = 228
-offset_bottom = 64
+offset_left = 5.8305085
+offset_top = 6.7368421
+offset_right = 166.1694915
+offset_bottom = 53.8947368
 mouse_filter = 2
 metadata/penpot_name = "surface"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682374c"
@@ -200,10 +202,10 @@ stretch_mode = 0
 
 [node name="Shape13" type="TextureRect" parent="Shape2/Shape9/Shape10"]
 layout_mode = 0
-offset_left = 12
-offset_top = 12
-offset_right = 224
-offset_bottom = 21
+offset_left = 8.7457627
+offset_top = 10.1052632
+offset_right = 163.2542373
+offset_bottom = 17.6842105
 mouse_filter = 2
 metadata/penpot_name = "highlight"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682374d"
@@ -214,10 +216,10 @@ stretch_mode = 0
 
 [node name="Shape14" type="TextureRect" parent="Shape2/Shape9/Shape10"]
 layout_mode = 0
-offset_left = 12
-offset_top = 49
-offset_right = 224
-offset_bottom = 61
+offset_left = 8.7457627
+offset_top = 41.2631579
+offset_right = 163.2542373
+offset_bottom = 51.3684211
 mouse_filter = 2
 metadata/penpot_name = "bevel"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682374e"
@@ -265,28 +267,28 @@ stretch_mode = 0
 
 [node name="Shape18" type="Label" parent="Shape2/Shape9"]
 layout_mode = 0
-offset_left = 0
+offset_left = 86.5
 offset_top = 12
-offset_right = 236
-offset_bottom = 64
+offset_right = 113.5
+offset_bottom = 52
 mouse_filter = 2
 metadata/penpot_name = "Label"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b682374a"
 theme_override_fonts/font = ExtResource("r0")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 18
 theme_override_constants/outline_size = 2
-text = "수집 확률 · 50% 골드"
+text = "100"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
-horizontal_alignment = 1
+horizontal_alignment = 0
 vertical_alignment = 1
 theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape19" type="Control" parent="Shape2"]
 layout_mode = 0
-offset_left = 458
-offset_top = 356
-offset_right = 694
-offset_bottom = 432
+offset_left = 576
+offset_top = 362
+offset_right = 748
+offset_bottom = 426
 mouse_filter = 2
 metadata/penpot_name = "시설 / 수집 개수 / 강화 버튼"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823721"
@@ -295,8 +297,8 @@ metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823721"
 layout_mode = 0
 offset_left = 0
 offset_top = 0
-offset_right = 236
-offset_bottom = 76
+offset_right = 172
+offset_bottom = 64
 mouse_filter = 2
 metadata/penpot_name = "저장 / normal / 연결 프레임"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823751"
@@ -305,10 +307,10 @@ metadata/penpot_frame_state = "normal"
 
 [node name="Shape21" type="TextureRect" parent="Shape2/Shape19/Shape20"]
 layout_mode = 0
-offset_left = 8
-offset_top = 12
-offset_right = 228
-offset_bottom = 68
+offset_left = 5.8305085
+offset_top = 10.1052632
+offset_right = 166.1694915
+offset_bottom = 57.2631579
 mouse_filter = 2
 metadata/penpot_name = "base"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823753"
@@ -319,10 +321,10 @@ stretch_mode = 0
 
 [node name="Shape22" type="TextureRect" parent="Shape2/Shape19/Shape20"]
 layout_mode = 0
-offset_left = 8
-offset_top = 8
-offset_right = 228
-offset_bottom = 64
+offset_left = 5.8305085
+offset_top = 6.7368421
+offset_right = 166.1694915
+offset_bottom = 53.8947368
 mouse_filter = 2
 metadata/penpot_name = "surface"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823754"
@@ -332,10 +334,10 @@ stretch_mode = 0
 
 [node name="Shape23" type="TextureRect" parent="Shape2/Shape19/Shape20"]
 layout_mode = 0
-offset_left = 12
-offset_top = 12
-offset_right = 224
-offset_bottom = 21
+offset_left = 8.7457627
+offset_top = 10.1052632
+offset_right = 163.2542373
+offset_bottom = 17.6842105
 mouse_filter = 2
 metadata/penpot_name = "highlight"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823755"
@@ -346,10 +348,10 @@ stretch_mode = 0
 
 [node name="Shape24" type="TextureRect" parent="Shape2/Shape19/Shape20"]
 layout_mode = 0
-offset_left = 12
-offset_top = 49
-offset_right = 224
-offset_bottom = 61
+offset_left = 8.7457627
+offset_top = 41.2631579
+offset_right = 163.2542373
+offset_bottom = 51.3684211
 mouse_filter = 2
 metadata/penpot_name = "bevel"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823756"
@@ -360,19 +362,19 @@ stretch_mode = 0
 
 [node name="Shape25" type="Label" parent="Shape2/Shape19"]
 layout_mode = 0
-offset_left = 14
+offset_left = 86.5
 offset_top = 12
-offset_right = 222
-offset_bottom = 64
+offset_right = 113.5
+offset_bottom = 52
 mouse_filter = 2
-metadata/penpot_name = "저장 / normal / 문구"
+metadata/penpot_name = "Label"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823752"
 theme_override_fonts/font = ExtResource("r0")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 18
 theme_override_constants/outline_size = 2
-text = "수집 개수 · 1개 골드"
+text = "100"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
-horizontal_alignment = 1
+horizontal_alignment = 0
 vertical_alignment = 1
 theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
@@ -410,3 +412,62 @@ theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
+[node name="Currency수집확률" type="Control" parent="Shape2/Shape9"]
+layout_mode = 0
+offset_left = 58.5
+offset_top = 22
+offset_right = 78.5
+offset_bottom = 42
+mouse_filter = 2
+metadata/penpot_id = "eb1d83d1-2566-809d-8008-d456b6823749"
+metadata/penpot_name = "Price / Currency"
+
+[node name="Gold" parent="Shape2/Shape9/Currency수집확률" instance=ExtResource("currency_gold")]
+scale = Vector2(0.868946, 0.769231)
+
+[node name="Title수집확률" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 404
+offset_top = 272
+offset_right = 560
+offset_bottom = 324
+mouse_filter = 2
+metadata/penpot_id = "1318be01-f331-8042-8008-db713b4997ed"
+metadata/penpot_name = "시설 / 수집 확률 / 항목"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 2
+theme_override_colors/font_color = Color(1, 0.9490196, 0.8509804, 1)
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
+text = "수집 확률"
+vertical_alignment = 1
+
+[node name="Currency수집개수" type="Control" parent="Shape2/Shape19"]
+layout_mode = 0
+offset_left = 58.5
+offset_top = 22
+offset_right = 78.5
+offset_bottom = 42
+mouse_filter = 2
+metadata/penpot_id = "1318be01-f331-8042-8008-db713eca54d7"
+metadata/penpot_name = "Price / Currency"
+
+[node name="Gold" parent="Shape2/Shape19/Currency수집개수" instance=ExtResource("currency_gold")]
+scale = Vector2(0.868946, 0.769231)
+
+[node name="Title수집개수" type="Label" parent="Shape2"]
+layout_mode = 0
+offset_left = 404
+offset_top = 368
+offset_right = 560
+offset_bottom = 420
+mouse_filter = 2
+metadata/penpot_id = "1318be01-f331-8042-8008-db713d54284d"
+metadata/penpot_name = "시설 / 수집 개수 / 항목"
+theme_override_fonts/font = ExtResource("r0")
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 2
+theme_override_colors/font_color = Color(1, 0.9490196, 0.8509804, 1)
+theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
+text = "수집 개수"
+vertical_alignment = 1

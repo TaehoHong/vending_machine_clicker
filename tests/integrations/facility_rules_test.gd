@@ -18,18 +18,30 @@ func _initialize() -> void:
 
 
 func run_checks() -> void:
+	var no_gold := SESSION.new()
+	no_gold.cans = 10
+	assert(no_gold.purchase_facility("auto"))
+	assert(RULES.state(no_gold).auto_owned and no_gold.money == 0 and no_gold.cans == 0)
 	var session := FixedSession.new()
 	assert(not session.purchase_facility("auto"))
-	assert(not session.unlock_facility("auto"))
-	session.cans = 25
+	session.cans = 9
 	session.money = 1500
-	assert(session.unlock_facility("auto"))
-	assert(not session.unlock_facility("auto"))
-	assert(session.purchase_facility("auto"))
 	assert(not session.purchase_facility("auto"))
-	assert(session.unlock_facility("trash"))
+	assert(session.cans == 9 and session.money == 1500)
+	session.cans = 25
+	assert(session.purchase_facility("auto"))
+	assert(RULES.state(session).auto_owned and session.cans == 15)
+	assert(not session.purchase_facility("auto"))
 	assert(session.purchase_facility("trash"))
+	assert(not session.purchase_facility("trash"))
+	assert(session.money == 1500 and session.cans == 0)
+	session.money = 99
+	assert(not session.upgrade_facility("production"))
+	assert(session.money == 99 and session.cans == 0)
+	session.money = 100
+	assert(session.upgrade_facility("production"))
 	assert(session.money == 0 and session.cans == 0)
+	RULES.state(session).production = 0
 	session.rolls = [0.1, 0.4]
 	var event: Dictionary = session.advance_facilities(10.0)
 	assert(event.produced == 10 and event.collected == 1)
@@ -73,6 +85,15 @@ func run_checks() -> void:
 	assert(restored.collect_facility_gold() == 30)
 	assert(restored.collect_facility_gold() == 0)
 	assert(restored.facilities.other_stage.remaining == 7.0)
+	var legacy := SESSION.new()
+	legacy.money = 777
+	legacy.cans = 3
+	RULES.state(legacy).auto_unlocked = true
+	assert(store.write(legacy) == OK)
+	store.load_into(restored)
+	assert(RULES.state(restored).auto_owned)
+	assert(not restored.purchase_facility("auto"))
+	assert(restored.money == 777 and restored.cans == 3)
 	DirAccess.remove_absolute(path)
 	var normalized := RULES.normalize({"alley": {
 		"production": 50, "chance": -2, "drops": [
@@ -84,6 +105,10 @@ func run_checks() -> void:
 	assert(normalized.alley.production == 5 and normalized.alley.chance == 0)
 	assert(normalized.alley.drops.size() == 1)
 	assert(RULES.normalize({}).alley == RULES.DEFAULT)
+	var unlocked_save := {"alley": {"auto_unlocked": true, "trash_unlocked": true}}
+	normalized = RULES.normalize(unlocked_save)
+	assert(normalized.alley.auto_owned and normalized.alley.trash_owned)
+	assert(RULES.normalize(normalized) == normalized)
 
 	print("Facility rules, production, expiry, upgrades and save compatibility passed.")
 	quit()

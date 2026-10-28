@@ -3,8 +3,8 @@ extends RefCounted
 # 첫 골목 스테이지의 확정 수치. 다른 스테이지의 상품·시설 인덱스로 재사용하지 않는다.
 const STAGE: String = "alley"
 const CATALOG: Dictionary = {
-	"auto": {"unlock": 10, "price": 1000},
-	"trash": {"unlock": 15, "price": 500},
+	"auto": {"cost": 10},
+	"trash": {"cost": 15},
 }
 const UPGRADES: Dictionary = {
 	"production": "auto", "cycle": "auto", "items": "auto",
@@ -49,26 +49,14 @@ static func upgrade_price(session: RefCounted, key: String) -> int:
 	return 100 * (1 << int(state(session)[key]))
 
 
-static func unlock(session: RefCounted, kind: String) -> bool:
-	if not CATALOG.has(kind):
-		return false
-	var data := state(session)
-	if data[kind + "_unlocked"] or session.cans < CATALOG[kind].unlock:
-		return false
-	session.cans -= int(CATALOG[kind].unlock)
-	data[kind + "_unlocked"] = true
-	return true
-
-
 static func purchase(session: RefCounted, kind: String) -> bool:
 	if not CATALOG.has(kind):
 		return false
 	var data := state(session)
-	if not data[kind + "_unlocked"] or data[kind + "_owned"]:
+	if data[kind + "_owned"] or session.cans < CATALOG[kind].cost:
 		return false
-	if session.money < CATALOG[kind].price:
-		return false
-	session.money -= int(CATALOG[kind].price)
+	session.cans -= int(CATALOG[kind].cost)
+	data[kind + "_unlocked"] = true
 	data[kind + "_owned"] = true
 	return true
 
@@ -168,6 +156,9 @@ static func normalize(saved: Variant) -> Dictionary:
 				result[key] = clampf(float(value), 0.0, 10.0)
 	result.remaining = minf(float(result.remaining), 10.0 - float(result.cycle))
 	for kind: String in CATALOG:
+		# 이전 해금 저장은 빈캔 비용을 이미 지불했으므로 바로 보유 상태로 잇는다.
+		if result[kind + "_unlocked"]:
+			result[kind + "_owned"] = true
 		if result[kind + "_owned"]:
 			result[kind + "_unlocked"] = true
 	var drops: Variant = data.get("drops", [])

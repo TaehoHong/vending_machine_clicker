@@ -43,7 +43,7 @@
 | 금액 표기 | `amount_format.format_amount`, `format_gold`; Play `_refresh_ui`, `_show_wallet_tooltip` | 표기 축약은 실제 잔액·가격 계산에 적용하지 않으며 원본 툴팁에 정수 전체를 표시 |
 | 공유 외형 | `play_theme.tres`의 Button·PixelHudButton·PrimaryButton·SecondaryButton·PixelIconButton·ActionButton·PricePlate·InfoPanel·InfoTitle·InfoBody; `drink_screen._panel`, `_label` | 기존 StyleBox·상태를 재사용, 화면별 새 테마 복제 금지. InfoPanel은 크림색 정보 카드, InfoTitle은 짙은 Cafe24, InfoBody는 외곽선 없는 Noto Sans KR 400 본문. 재화 HUD는 기존 PLAY_PANEL 유지 |
 | 공통 버튼 입력·피드백 | `shared/ui/pixel_button.gd`; MainMenu·Play·DrinkScreen·PauseMenu | 기본 Button이 입력·문구·포커스를 소유한다. 원본 상태는 네이티브 Frame의 색·선·숨김을 유지하고 다른 상태는 같은 family SVG로 90/60/100ms 전환한다. 설정의 선택은 keyboard focus와 별도로 유지하며 클릭 영역은 고정한다 |
-| 시설 구매·강화 | `facilities_screen._purchase`, `_show_page`, `go_back`; `facility_world` | 미보유는 기존 해금→구매, 보유는 업그레이드. 강화에서 구매창으로 복귀하며 별도 관리·보상 카드는 없다. 설치 본체는 입력을 연결하지 않고 골드·빈캔만 각각 클릭 수령한다 |
+| 시설 구매·강화 | `facilities_screen._purchase`, `_show_page`, `go_back`; `facility_world` | 미보유는 빈캔 10/15개 한 번 결제로 설치, 보유는 골드 아이콘으로 강화창 진입. 강화 비용은 Gold이며 이전 unlocked 저장은 추가 차감 없이 owned로 정규화한다. 강화에서 구매창으로 복귀하며 별도 관리·보상 카드는 없다. 설치 본체는 입력을 연결하지 않고 골드·빈캔만 각각 클릭 수령한다 |
 | 외부 의존성 연결 | app의 세션 주입·save_requested 연결; tests/support/game_fixture | UI는 파일 저장소를 직접 생성/호출하지 않음 |
 | 테스트 대역 | tests/features의 Session 하위 클래스 | 랜덤 결과만 통제하고 실제 진행 계산을 mock하지 않음 |
 
@@ -57,7 +57,7 @@
 | 수색·연출·피버 | tests/features/search_test.gd, coin_effect_test.gd, search_fever_test.gd, punch_fever_test.gd | 정확한 지급·꽝·이펙트·pause·기간·중첩·종료 |
 | 배출·구매 영역 | tests/features/drink_dispense_test.gd, purchase_area_test.gd | 입력 영역·구매 중 수색/능력·겹친 동전/음료·ID별 그림/피버·부족/획득 발생 순서 알림·pause·저장 재지급 방지 |
 | 음료 상한·확률·추첨 | tests/features/expanded_skills_test.gd | cap 경계·초과 기록 저장/로드·정수 확률 합계/구간·황금 빈캔 해금/보장·피버 중복/반복·빈 후보 차감 방지 |
-| 시설·설정 상태 | tests/features/facilities_test.gd, settings_test.gd | 해금→구매→강화→구매창 복귀·본체 무동작·골드/빈캔 독립 클릭·중복 지급 방지, 음소거·선택 상태·슬라이더 범위 |
+| 시설·설정 상태 | tests/features/facilities_test.gd, settings_test.gd | 빈캔 단일 구매→골드 강화→구매창 복귀·본체 무동작·골드/빈캔 독립 클릭·중복 지급 방지, 음소거·선택 상태·슬라이더 범위 |
 | 저장 데이터 호환 | tests/integrations/progress_store_test.gd | 정수 키 획득량·독립 플래그·누락 필드·잘못된 타입/범위 정규화 |
 
 수색 피버 링과 펀치 타격은 `assets/penpot/search_fever_ring.svg`, `punch_fever_impact.svg`의 원본 벡터를 사용한다. 동전 투입과 피버 발광은 원본 PNG를 사용하며 UI 연출에서 보상 규칙을 재구현하지 않는다.
