@@ -42,39 +42,21 @@ func _show_page(next: String) -> void:
 	canvas = VIEWS[page].instantiate()
 	add_child(canvas)
 	_layout()
+	DESIGN.action(canvas, "Action / Close", close)
 	if page == "purchase":
-		DESIGN.action(canvas, "Action / Close", close)
 		for entry in [["Auto", "auto"], ["Trash", "trash"]]:
 			actions[entry[1]] = DESIGN.action(
 				canvas, "Action / Buy " + entry[0], _purchase.bind(entry[1])
 			)
 			DESIGN.action(canvas, "Preview / " + entry[0], _preview.bind(entry[1]))
-			var frame := DESIGN.shape(canvas, "Action / Buy " + entry[0])
-			var currency := DESIGN.shape(frame, "Price / Currency")
-			var can := TextureRect.new()
-			can.name = "UnlockCan"
-			can.texture = preload("res://src/shared/ui/icons/hud_buttons/icons/can.svg")
-			can.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			can.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			can.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			currency.add_child(can)
-			can.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	else:
-		var hint := DESIGN.shape(canvas, "키보드 조작 / 돌아가기")
-		if hint != null:
-			DESIGN.action(canvas, "키보드 조작 / 돌아가기", go_back)
-		var close_art := DESIGN.shape(canvas, "음료 화면 닫기 / normal")
-		if close_art != null:
-			DESIGN.action(canvas, "음료 화면 닫기 / normal", close)
-		var rows: Array = (
-			[["골드 생산량", "production"], ["생산 주기", "cycle"], ["물품 개수", "items"]]
-			if page == "auto_upgrade"
-			else [["수집 확률", "chance"], ["수집 개수", "capacity"]]
+		DESIGN.action(canvas, "Action / Back", go_back)
+		var keys: Array = (
+			["production", "cycle", "items"] if page == "auto_upgrade"
+			else ["chance", "capacity"]
 		)
-		for row: Array in rows:
-			actions[row[1]] = DESIGN.action(
-				canvas, "시설 / %s / 강화 버튼" % row[0], _upgrade.bind(row[1])
-			)
+		for key: String in keys:
+			actions[key] = DESIGN.action(canvas, "Upgrade / " + key + " / Buy", _upgrade.bind(key))
 
 	refresh()
 
@@ -86,74 +68,117 @@ func _process(_delta: float) -> void:
 
 func refresh() -> void:
 	var data := RULES.state(session)
+	_set_text("Header / Wallet", AMOUNTS.format_gold(session.money))
+	_set_text("Header / Cans", AMOUNTS.format_gold(session.cans))
+	DESIGN.fit_text(DESIGN.shape(canvas, "Header / Wallet"), 90, 24, 9)
+	DESIGN.fit_text(DESIGN.shape(canvas, "Header / Cans"), 45)
 	if page == "purchase":
-		_set_text("Header / Wallet", AMOUNTS.format_gold(session.money))
 		for entry in [["Auto", "auto"], ["Trash", "trash"]]:
 			var kind: String = entry[1]
 			var frame := DESIGN.shape(canvas, "Action / Buy " + entry[0])
+			var owned: bool = data[kind + "_owned"]
+			var cost: int = RULES.CATALOG[kind].cost
 			var label: Label = DESIGN.shape(frame, "Label")
 			var price: Label = DESIGN.shape(frame, "Price / Value")
-			var owned: bool = data[kind + "_owned"]
-			label.visible = owned
-			label.text = "업그레이드"
-			label.position.x = 0
-			label.size.x = frame.size.x
-			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			var currency := DESIGN.shape(frame, "Price / Currency")
+			label.visible = owned
 			currency.visible = not owned
-			for icon: CanvasItem in currency.get_children():
-				icon.visible = not owned if icon.name == "UnlockCan" else owned
 			price.visible = not owned
-			price.text = str(RULES.CATALOG[kind].cost)
+			price.text = str(cost)
 			_layout_cost(frame, currency, price)
-			actions[kind].disabled = not owned and session.cans < RULES.CATALOG[kind].cost
+			actions[kind].disabled = not owned and session.cans < cost
 			actions[kind].tooltip_text = (
 				"%s 강화" % ("자동 자판기" if kind == "auto" else "쓰레기통") if owned
-				else "빈캔 %d개로 구매·설치" % RULES.CATALOG[kind].cost
+				else "빈캔 %d개로 구매·설치" % cost
 			)
-			for item: Control in frame.get_parent().get_children():
-				var source_name: String = item.get_meta("penpot_name", "")
-				if source_name.begins_with(entry[0] + " /") or (
-					source_name == "Preview / " + entry[0]
-				):
-					item.modulate.a = 1.0 if owned else 0.55
-
-		_set_text("Auto / Production / Value", "%d /회" % RULES.production(session))
-		_set_text("Auto / Cycle / Value", "%d 초" % int(RULES.cycle(session)))
-		_set_text("Auto / Drop / Value", "20 %")
+			DESIGN.shape(canvas, entry[0] + " / Content").modulate.a = 1.0 if owned else 0.55
+			var shortage: Label = DESIGN.shape(canvas, entry[0] + " / Shortage")
+			shortage.visible = not owned and session.cans < cost
+			shortage.text = "빈캔 %s개 부족" % AMOUNTS.format_amount(cost - session.cans)
+		_set_text("Auto / Production / Value", _production_summary())
+		_set_text("Auto / Drop / Value", "빈캔 %d개 · 드롭 20%%" % RULES.item_count(session))
+		_set_text("Auto / Lifetime / Value", "드롭 후 %d초 동안 수령 가능" % int(RULES.DROP_LIFETIME))
+		_set_text("Trash / Summary / Value", "자동 수집 %d%% · 최대 %d개" % [
+			int(round(RULES.collection_chance(session) * 100)), RULES.collection_capacity(session),
+		])
+	else:
+		_set_text("Current / Production", _production_summary())
+		_set_text("Current / Drop", (
+			"빈캔 %d개 · 드롭 20%%" if page == "auto_upgrade" else "현재 자판기 드롭 · 빈캔 %d개"
+		) % RULES.item_count(session))
 		_set_text(
-			"Trash / Chance / Value", "%d %%" % int(round(RULES.collection_chance(session) * 100))
+			"Current / Chance", "수집 확률 %d%%" % int(round(RULES.collection_chance(session) * 100))
 		)
-		_set_text("Trash / Count / Value", "%d 개" % RULES.collection_capacity(session))
-	elif page.ends_with("upgrade"):
-		_set_text("설정 / 도움말", "보유 골드 %s" % AMOUNTS.format_amount(session.money))
+		_set_text("Current / Capacity", "최대 %d개 / 드롭" % RULES.collection_capacity(session))
 		for key: String in actions:
-			var button: Button = actions[key]
-			var frame: Control = button.get_parent()
-			var label: Label = DESIGN.shape(frame, "Label")
-			var level: int = data[key]
-			var title: String = frame.get_meta("penpot_name").split(" / ")[1]
-			_set_text("시설 / %s / 항목" % title, title + (
-				"\n최대 강화" if level >= RULES.MAX_LEVEL else ""
-			))
-			var currency := DESIGN.shape(frame, "Price / Currency")
-			label.text = "" if level >= RULES.MAX_LEVEL else str(RULES.upgrade_price(session, key))
-			currency.visible = level < RULES.MAX_LEVEL
-			_layout_cost(frame, currency, label)
-			button.tooltip_text = "최대 강화" if level >= RULES.MAX_LEVEL else (
-				"%d 골드로 강화" % RULES.upgrade_price(session, key)
-			)
+			_refresh_upgrade(key, data)
 
-			button.disabled = (
-				level >= RULES.MAX_LEVEL or not data[RULES.UPGRADES[key] + "_owned"]
-				or session.money < RULES.upgrade_price(session, key)
-			)
+
+func _production_summary() -> String:
+	return "%d Gold / %d초" % [RULES.production(session), int(RULES.cycle(session))]
+
+
+func _refresh_upgrade(key: String, data: Dictionary) -> void:
+	var prefix := "Upgrade / " + key + " / "
+	var level: int = data[key]
+	var maximum: bool = level >= RULES.MAX_LEVEL
+	var cost: int = RULES.upgrade_price(session, key)
+	var button: Button = actions[key]
+	var frame: Control = button.get_parent()
+	var price: Label = DESIGN.shape(frame, "Label")
+	price.text = AMOUNTS.format_amount(cost)
+	_layout_cost(frame, DESIGN.shape(frame, "Price / Currency"), price)
+	frame.visible = not maximum
+	DESIGN.shape(canvas, prefix + "Max").visible = maximum
+	_set_text(prefix + "Level", "%d/%d" % [level, RULES.MAX_LEVEL])
+	var current: Label = DESIGN.shape(canvas, prefix + "Current")
+	var arrow: Label = DESIGN.shape(canvas, prefix + "Arrow")
+	var next: Label = DESIGN.shape(canvas, prefix + "Next")
+	var values: Array = []
+	match key:
+		"production":
+			values = [RULES.production(session), RULES.production(session) + 10, " Gold/회"]
+		"cycle":
+			values = [int(RULES.cycle(session)), int(RULES.cycle(session)) - 1, "초"]
+		"items":
+			values = [RULES.item_count(session), RULES.item_count(session) + 1, "개"]
+		"chance":
+			var chance := int(round(RULES.collection_chance(session) * 100))
+			values = [chance, chance + 10, "%"]
+		"capacity":
+			values = [RULES.collection_capacity(session), RULES.collection_capacity(session) + 1, "개"]
+	var unit: String = values[2]
+	current.text = str(values[0]) + (unit if maximum or key == "chance" else "")
+	next.text = str(values[1]) + unit
+	arrow.visible = not maximum
+	next.visible = not maximum
+	arrow.position.x = current.position.x + _text_width(current) + 16.0
+	next.position.x = arrow.position.x + _text_width(arrow) + 16.0
+	button.disabled = (
+		maximum or not data[RULES.UPGRADES[key] + "_owned"] or session.money < cost
+	)
+	button.tooltip_text = (
+		"최대 강화" if maximum else "%s 골드로 강화" % AMOUNTS.format_amount(cost)
+	)
+	var shortage: Label = DESIGN.shape(canvas, prefix + "Shortage")
+	shortage.visible = not maximum and session.money < cost
+	shortage.text = "%s Gold 부족" % AMOUNTS.format_amount(cost - session.money)
+	if key == "capacity":
+		var hint: Label = DESIGN.shape(canvas, prefix + "Hint")
+		hint.visible = (
+			not maximum and RULES.collection_capacity(session) >= RULES.item_count(session)
+		)
+		hint.text = "현재 드롭 %d개 · 수집량 증가 없음" % RULES.item_count(session)
+
+
+func _text_width(label: Label) -> float:
+	return label.get_theme_font("font").get_string_size(
+		label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, label.get_theme_font_size("font_size")
+	).x
 
 
 func _layout_cost(frame: Control, currency: Control, value: Label) -> void:
-	var text_width := value.get_theme_font("font").get_string_size(
-		value.text, HORIZONTAL_ALIGNMENT_LEFT, -1, value.get_theme_font_size("font_size")
-	).x if value.visible else 0.0
+	var text_width := _text_width(value) if value.visible else 0.0
 	var gap := 8.0 if text_width > 0 else 0.0
 	var left := (frame.size.x - currency.size.x - gap - text_width) * 0.5
 	currency.position.x = left

@@ -5,6 +5,7 @@ const PIXEL_BUTTON = preload("res://src/shared/ui/pixel_button.gd")
 const THEME = preload("res://src/shared/ui/themes/play_theme.tres")
 const FRAME_TYPES = {
 	"136x56": &"Button",
+	"176x64": &"PixelHudButton",
 	"192x64": &"SecondaryButton",
 	"224x64": &"PrimaryButton",
 	"56x56": &"PixelIconButton",
@@ -57,7 +58,14 @@ static func action(root: Node, source_name: String, callback: Callable) -> Butto
 			for edge in ["left", "top", "right", "bottom"]:
 				var property: String = "texture_margin_" + edge
 				var scale: float = factor.x if edge in ["left", "right"] else factor.y
-				style.set(property, float(style.get(property)) * scale)
+				if family == "176x64":
+					# 이 프레임의 SVG는 실제 버튼 바깥에 6px 투명 여백을 포함한다.
+					var expand: float = (style.texture.get_width() - frame.size.x) * 0.5 if (
+						edge in ["left", "right"]
+					) else (style.texture.get_height() - frame.size.y) * 0.5
+					style.set("expand_margin_" + edge, expand)
+				else:
+					style.set(property, float(style.get(property)) * scale)
 			button.add_theme_stylebox_override(state, style)
 	artwork.add_child(button)
 	artwork.move_child(button, 0)
@@ -71,7 +79,7 @@ static func action(root: Node, source_name: String, callback: Callable) -> Butto
 
 
 static func fit(canvas: Control, viewport_size: Vector2) -> void:
-	var design_size := Vector2(1152, 648)
+	var design_size := canvas.size
 	var factor := minf(viewport_size.x / design_size.x, viewport_size.y / design_size.y)
 	canvas.scale = Vector2.ONE * factor
 	canvas.position = (viewport_size - design_size * factor) * 0.5

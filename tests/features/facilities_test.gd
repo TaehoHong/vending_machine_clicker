@@ -18,6 +18,21 @@ func run_checks() -> void:
 	var preview: Control = SCREEN.instantiate()
 	root.add_child(preview)
 	preview.open(session)
+	var can_wallet := DESIGN.shape(preview.canvas, "Header / Cans")
+	assert(can_wallet != null, "시설 구매창 안에서 구매 재화의 보유량을 표시해야 합니다.")
+	assert(can_wallet.text == "25")
+	session.money = 9223372036854775807
+	session.cans = 1000000000
+	preview.refresh()
+	for name: String in ["Header / Wallet", "Header / Cans"]:
+		var value: Label = DESIGN.shape(preview.canvas, name)
+		var rendered_width := value.get_theme_font("font").get_string_size(
+			value.text, HORIZONTAL_ALIGNMENT_LEFT, -1, value.get_theme_font_size("font_size")
+		).x
+		assert(rendered_width <= value.size.x, "큰 보유량도 재화 단위까지 잘리지 않아야 합니다.")
+	session.money = 1500
+	session.cans = 25
+	preview.refresh()
 	var before := session.facilities.duplicate(true)
 	var money: int = session.money
 	var cans: int = session.cans
@@ -41,8 +56,15 @@ func run_checks() -> void:
 	assert(not DESIGN.shape(auto_frame, "Price / Value").visible)
 	await tap(screen.actions.auto)
 	assert(screen.page == "auto_upgrade")
+	assert(DESIGN.shape(screen.canvas, "Upgrade / production / Current").text == "10")
+	assert(DESIGN.shape(screen.canvas, "Upgrade / production / Next").text == "20 Gold/회")
 	await tap(screen.actions.production)
 	assert(RULES.state(game.session).production == 1 and game.session.money == 2100)
+	assert(DESIGN.shape(screen.canvas, "Upgrade / production / Current").text == "20")
+	assert(DESIGN.shape(screen.canvas, "Upgrade / production / Next").text == "30 Gold/회")
+	assert(DESIGN.shape(screen.canvas, "Upgrade / production / Level").text == "1/5")
+	assert(DESIGN.shape(screen.actions.production.get_parent(), "Label").text == "200")
+	assert(DESIGN.shape(screen.canvas, "Header / Cans").text == "15")
 	screen.go_back()
 	assert(screen.page == "purchase")
 	await tap(screen.actions.trash)
@@ -54,8 +76,27 @@ func run_checks() -> void:
 	assert(not DESIGN.shape(trash_frame, "Price / Value").visible)
 	await tap(screen.actions.trash)
 	assert(screen.page == "trash_upgrade")
+	var collection_hint := DESIGN.shape(screen.canvas, "Upgrade / capacity / Hint")
+	assert(collection_hint.visible)
+	RULES.state(game.session).items = 1
+	screen.refresh()
+	assert(not collection_hint.visible)
 	await tap(screen.actions.chance)
 	assert(RULES.state(game.session).chance == 1 and game.session.money == 2000)
+	assert(DESIGN.shape(screen.canvas, "Upgrade / chance / Current").text == "60%")
+	assert(DESIGN.shape(screen.canvas, "Upgrade / chance / Next").text == "70%")
+	game.session.money = 199
+	screen.refresh()
+	assert(screen.actions.chance.disabled)
+	assert(DESIGN.shape(screen.canvas, "Upgrade / chance / Shortage").visible)
+	await tap(screen.actions.chance)
+	assert(game.session.money == 199 and RULES.state(game.session).chance == 1)
+	RULES.state(game.session).chance = 5
+	screen.refresh()
+	assert(DESIGN.shape(screen.canvas, "Upgrade / chance / Max").visible)
+	assert(not screen.actions.chance.get_parent().visible)
+	assert(not DESIGN.shape(screen.canvas, "Upgrade / chance / Next").visible)
+	game.session.money = 2000
 	screen.go_back()
 	assert(screen.page == "purchase")
 	var clicks: int = game.session.quest_clicks
