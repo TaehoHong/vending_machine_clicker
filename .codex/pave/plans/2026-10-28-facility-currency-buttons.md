@@ -21,7 +21,7 @@
 - [x] facilities_screen.gd와 네이티브 씬 3개에서 재화만 버튼에 표시, 미보유 행 비활성, 보유 아이콘→강화창→항목별 Gold 차감. facilities_test로 실제 클릭·모달·월드 수령 회귀 검증.
 - [x] 편집 가능한 Penpot 공통 원본·6개 상태·강화 2개 보드·규칙 문구, Notion의 해당 문단 동기화. PRODUCT.md, DESIGN.md, design/README.md, docs/07-codebase-guide.md 관련 규칙만 갱신.
 - [x] Godot4.7 import/parse, facility_rules/facilities/progress_store 및 선언된 게임 회귀, git diff --check. Metal 실제 미보유·구매 직후·강화·잔액 부족·한도 상태 캡처 검수.
-- [ ] 기능별 커밋, 기존 사용자 DESIGN.md 수정 제외. 로컬 main에 머지 후 관련 통합 검증. push/PR 없음.
+- [x] 기능별 커밋, 기존 사용자 DESIGN.md 수정 제외. 로컬 main에 머지 후 관련 통합 검증. push/PR 없음.
 
 ## 비범위
 손님 애니메이션·생산 수치·설치 위치·오프라인 생산·다음 스테이지·시설 관리 화면 추가·전면 재설계.
@@ -34,3 +34,5 @@
 - import-final.log와 parse.log, 실제 Metal capture.log count=7. 부족·미보유·각 시설 보유·각 강화·한도 화면을 확인했다. 최종 diff에서 신규 런타임 파일·추가 규칙 소유자·중복 테마 없음.
 - 사용자 확정 구매/강화 재화와 저장 호환을 Notion+PRODUCT.md, 버튼·행 상태를 Penpot+DESIGN.md+design/README.md, 변경된 구매 진입을 codebase-guide, 검증을 quality-rules에 반영했다. 새 troubleshooting 문서는 단순 정책 변경이므로 만들지 않는다.
 - Penpot API의 source 변경 응답과 원본 강화 화면 캡처를 확인했다. 이후 브라우저가 Mac 잠금으로 중단되어 선택적인 추가 미세 중앙 정렬 요청은 실행되지 않았다. 마지막 확인 원본에서 버튼·행·재화 변경은 반영돼 있다.
+
+- 로컬 main ff9f24b 통합 후 import 및 parse·facilities·facility_rules·progress_store·gameplay 5개 검사 모두 통과. main 작업 트리 깨끗함, 기존 DESIGN.md 고객 원화 지침 수정과 .DS_Store/이전 계획은 이번 커밋에서 제외했다.
