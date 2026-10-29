@@ -2,32 +2,24 @@ extends Control
 
 signal changed
 
+const COIN = preload("res://src/features/play/effects/search_coin.gd")
+const AMOUNTS = preload("res://src/shared/formatting/amount_format.gd")
 const DESIGN = preload("res://src/shared/ui/design_view.gd")
 var session: RefCounted
 var customer_flow: Node2D
-var gold: Button
+var gold: Control
+var gold_animation: Tween
 var drops: Dictionary = {}
 
 func _ready() -> void:
 	customer_flow = preload("res://src/features/facilities/effects/customer_flow.gd").new()
 	customer_flow.session = session
 	add_child(customer_flow)
-	gold = Button.new()
-	gold.position = Vector2(832, 404)
-	gold.size = Vector2(36, 36)
-	gold.z_index = 20
-	var gold_art: Control = preload("res://src/shared/ui/icons/gold_icon.tscn").instantiate()
-	gold_art.scale = Vector2(1.5, 1.5)
-	gold.add_child(gold_art)
-	gold.expand_icon = true
-	for state in ["normal", "hover", "pressed", "focus"]:
-		gold.add_theme_stylebox_override(state, StyleBoxEmpty.new())
+	gold = Control.new()
+	gold.name = "FacilityGoldFX"
+	gold.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(gold)
-	gold.pressed.connect(
-		func() -> void:
-			if session.collect_facility_gold() > 0:
-				changed.emit()
-	)
+	gold.hide()
 	refresh()
 
 
@@ -53,17 +45,16 @@ func refresh() -> void:
 			child.visible = data.auto_owned
 		elif source_name.contains("쓰레기통"):
 			child.visible = data.trash_owned
-	gold.visible = data.gold > 0
-	gold.tooltip_text = "%d Gold 수령" % data.gold
+	if data.gold > 0 and gold_animation == null:
+		_show_gold_reward(data.gold)
 	var live: Array[int] = []
 	for drop: Dictionary in data.drops:
 		var id: int = drop.id
 		live.append(id)
 		if not drops.has(id):
 			var item := Button.new()
-			item.position = Vector2(908 + (id % 3) * 10, 432)
+			item.position = Vector2(908 + (id % 3) * 10, 404)
 			item.size = Vector2(28, 39)
-			item.z_index = 20
 			item.icon = preload("res://src/shared/ui/icons/can_icon.svg")
 			item.expand_icon = true
 			for state in ["normal", "hover", "pressed", "focus"]:
@@ -74,6 +65,8 @@ func refresh() -> void:
 					if session.collect_facility_item(id) > 0:
 						changed.emit()
 			)
+			var fall: Tween = item.create_tween()
+			fall.tween_property(item, "position:y", 432.0, 0.24).set_trans(Tween.TRANS_BOUNCE)
 			drops[id] = item
 		var item: Button = drops[id]
 		item.tooltip_text = "빈캔 %d개 · %.1f초 후 소멸" % [drop.amount, drop.remaining]
@@ -82,3 +75,51 @@ func refresh() -> void:
 		if not live.has(id):
 			drops[id].queue_free()
 			drops.erase(id)
+
+
+func _show_gold_reward(amount: int) -> void:
+	gold.position = customer_flow.reward_origin()
+	var origin: Vector2 = gold.position
+	gold.modulate = Color.WHITE
+	gold.show()
+	var counts: Array[int] = COIN.breakdown(amount)
+	var index: int = 0
+	for tier in range(counts.size()):
+		# Old saves can contain very large pending amounts; only visual particles are bounded.
+		for _piece in range(mini(counts[tier], 8)):
+			var coin: Control = COIN.new()
+			coin.tier = tier
+			coin.size = Vector2(26, 26)
+			coin.position = Vector2((index % 5) * 12 - 24, (index / 5) * -8)
+			coin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			gold.add_child(coin)
+			index += 1
+	var amount_label := Label.new()
+	amount_label.text = "+" + AMOUNTS.format_amount(amount)
+	amount_label.theme_type_variation = &"AccentLabel"
+	amount_label.position = Vector2(-32, -34)
+	amount_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	gold.add_child(amount_label)
+	var reduced: bool = get_node("/root/Preferences").values.reduce_motion
+	gold_animation = create_tween()
+	gold_animation.tween_property(
+		gold, "position:y", origin.y if reduced else origin.y - 36.0, 0.18
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	gold_animation.tween_property(gold, "modulate:a", 0.0, 0.16)
+	gold_animation.tween_callback(_complete_gold_reward)
+
+
+func _complete_gold_reward() -> void:
+	if gold_animation == null:
+		return
+	gold_animation = null
+	gold.hide()
+	for child: Node in gold.get_children():
+		child.queue_free()
+	if session.collect_facility_gold() > 0:
+		changed.emit()
+
+
+func _exit_tree() -> void:
+	if gold_animation != null:
+		gold_animation.kill()

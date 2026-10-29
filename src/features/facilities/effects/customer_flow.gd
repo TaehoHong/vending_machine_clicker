@@ -72,6 +72,16 @@ func _advance_passers(delta: float) -> void:
 		passer_remaining = randf_range(4.5, 7.5)
 
 
+func reward_origin() -> Vector2:
+	if not pending.is_empty():
+		var actor: AnimatedSprite2D = pending.actor
+		var frame: Texture2D = actor.sprite_frames.get_frame_texture(actor.animation, actor.frame)
+		return actor.position + actor.offset + frame.get_size() * Vector2(0.5, 1.0)
+	var frame: Texture2D = ACTOR.FRAMES.get_frame_texture(&"01_rear_idle", 0)
+	# Existing arrival position and sprite offset also anchor rewards restored from a save.
+	return Vector2(774, 261) + Vector2(-16, 0) + frame.get_size() * Vector2(0.5, 1.0)
+
+
 func produced() -> void:
 	if pending.is_empty():
 		_spawn()

@@ -122,18 +122,68 @@ func run_checks() -> void:
 	RULES.state(game.session).gold = 10
 	RULES.state(game.session).drops = [{"id": 1, "amount": 2, "remaining": 15.0}]
 	game.facility_world.refresh()
-	await tap(game.facility_world.gold)
+	assert(not game.facility_world.gold is Button, "Facility Gold needs no click")
+	assert(game.session.money == 2000, "Gold remains pending until the pop finishes")
+	game.facility_world.gold_animation.pause()
+	var start: Vector2 = game.facility_world.gold.position
+	game.facility_world.gold_animation.custom_step(0.1)
+	assert(game.facility_world.gold.position.y < start.y)
+	if DisplayServer.get_name() != "headless":
+		await process_frame
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png("res://.godot/test_artifacts/facility-gold-pop.png")
+	var origin: Vector2 = game.facility_world.gold.position
+	game.facility_world.gold_animation.play()
+	game.pause_menu.set_open(true)
+	await create_timer(0.05).timeout
+	assert(game.facility_world.gold.position == origin and game.session.money == 2000)
+	game.pause_menu.set_open(false)
+	game.facility_world.gold_animation.pause()
+	game.facility_world.gold_animation.custom_step(1.0)
 	assert(game.session.money == 2010 and RULES.state(game.session).gold == 0)
-	game.facility_world.gold.pressed.emit()
-	assert(game.session.money == 2010)
+	game.facility_world._complete_gold_reward()
+	assert(game.session.money == 2010, "Completion cannot pay twice")
+	assert(game.session.cans == 0, "A dropped can needs a click without trash collection")
 	var drop: Button = game.facility_world.drops[1]
 	await tap(drop)
 	assert(game.session.cans == 2 and game.session.drinks == 0)
 	assert(game.session.collect_facility_item(1) == 0)
 	assert(game.session.cans == 2)
+	# Interrupted pops keep pending Gold in the existing save contract.
+	RULES.state(game.session).gold = 30
+	game.facility_world.refresh()
+	game._save_progress()
+	var store: RefCounted = FIXTURE.store_for(game)
+	game.free()
+	game = FIXTURE.create_game(root)
+	store.load_into(game.session)
+	game.facility_world.refresh()
+	assert(game.session.money == 2010 and game.facility_world.gold.visible)
+	await game.facility_world.gold_animation.finished
+	assert(game.session.money == 2040 and RULES.state(game.session).gold == 0)
+	var restored: RefCounted = SESSION.new()
+	FIXTURE.store_for(game).load_into(restored)
+	assert(restored.money == 2040 and RULES.state(restored).gold == 0)
+	DirAccess.remove_absolute(store.path)
 	var save_path: String = FIXTURE.store_for(game).path
 	game.free()
 	DirAccess.remove_absolute(save_path)
+	var production_game = FIXTURE.create_game(root)
+	var production: Dictionary = RULES.state(production_game.session)
+	production.auto_owned = true
+	production.remaining = 0.01
+	production_game.facility_world.advance(0.01)
+	assert(production.gold == 10 and production_game.session.money == 0)
+	assert(production_game.facility_world.gold.visible)
+	await production_game.facility_world.gold_animation.finished
+	assert(production_game.session.money == 10 and production.gold == 0)
+	production_game.facility_world.advance(20.0)
+	assert(production.gold == 20, "Multiple elapsed cycles share the existing pending amount")
+	await production_game.facility_world.gold_animation.finished
+	assert(production_game.session.money == 30 and production.gold == 0)
+	var production_path: String = FIXTURE.store_for(production_game).path
+	production_game.free()
+	DirAccess.remove_absolute(production_path)
 	print("Facility item purchase, gold upgrades, return and separate world collection passed.")
 	quit()
 

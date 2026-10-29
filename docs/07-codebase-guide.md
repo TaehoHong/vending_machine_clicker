@@ -46,7 +46,7 @@
 | 공유 외형 | `play_theme.tres`의 Button·PixelHudButton·PrimaryButton·SecondaryButton·PixelIconButton·ActionButton·PricePlate·InfoPanel·InfoTitle·InfoBody; `drink_screen._panel`, `_label` | 기존 StyleBox·상태를 재사용, 화면별 새 테마 복제 금지. InfoPanel은 크림색 정보 카드, InfoTitle은 짙은 Cafe24, InfoBody는 외곽선 없는 Noto Sans KR 400 본문. 재화 HUD는 기존 PLAY_PANEL 유지 |
 | 공통 버튼 입력·피드백 | `shared/ui/pixel_button.gd`; MainMenu·Play·DrinkScreen·PauseMenu | 기본 Button이 입력·문구·포커스를 소유한다. 원본 상태는 네이티브 Frame의 색·선·숨김을 유지하고 다른 상태는 같은 family SVG로 90/60/100ms 전환한다. 설정의 선택은 keyboard focus와 별도로 유지하며 클릭 영역은 고정한다 |
 | 플레이 HUD 정렬·배율 | Play `_position_coin_slot`, `_layout_quests`; `play_design.tscn`, `quests/hud_design.tscn` | 정사각 HUD는 공유 `56x56_normal.svg`·PixelButton 상태를 재사용한다. Design 밖으로 옮긴 능력·메뉴 버튼도 원본 size를 유지하고 scale로 자식 아트·상태 프레임·입력 영역을 함께 확대한다. 투명 여백을 제외한 게임 영역 가장자리·버튼 간격은 16px다 |
-| 시설 구매·강화 | `facilities_screen._purchase`, `_show_page`, `go_back`; `facility_world` | 미보유는 빈캔 10/15개 한 번 결제로 설치, 보유는 ‘업그레이드’ 텍스트 버튼으로 강화창 진입. 강화 비용은 Gold이며 이전 unlocked 저장은 추가 차감 없이 owned로 정규화한다. `_refresh_upgrade`가 현재/다음 값·단계·다음 비용·부족/최대·수집량 조건과 왼쪽 성능을 갱신한다. 강화에서 구매창으로 복귀하며 별도 관리·보상 카드는 없다. 설치 본체는 입력을 연결하지 않고 골드·빈캔만 각각 클릭 수령한다 |
+| 시설 구매·강화 | `facilities_screen._purchase`, `_show_page`, `go_back`; `facility_world` | 미보유는 빈캔 10/15개 한 번 결제로 설치, 보유는 ‘업그레이드’ 텍스트 버튼으로 강화창 진입. 강화 비용은 Gold이며 이전 unlocked 저장은 추가 차감 없이 owned로 정규화한다. `_refresh_upgrade`가 현재/다음 값·단계·다음 비용·부족/최대·수집량 조건과 왼쪽 성능을 갱신한다. 강화에서 구매창으로 복귀하며 별도 관리·보상 카드는 없다. 설치 본체는 입력을 연결하지 않는다. facility_world는 기존 search_coin 아트로 발생·상승을 표현하고 완료 시 세션의 골드를 한 번 자동 수령한다. 빈캔만 클릭 수령하며 미수령 골드 저장과 쓰레기통 수집은 유지한다 |
 | 외부 의존성 연결 | app의 세션 주입·save_requested 연결; tests/support/game_fixture | UI는 파일 저장소를 직접 생성/호출하지 않음 |
 | 테스트 대역 | tests/features의 Session 하위 클래스 | 랜덤 결과만 통제하고 실제 진행 계산을 mock하지 않음 |
 
@@ -66,7 +66,7 @@
 
 수색 피버 링과 펀치 타격은 `assets/penpot/search_fever_ring.svg`, `punch_fever_impact.svg`의 원본 벡터를 사용한다. 동전 투입과 피버 발광은 원본 PNG를 사용하며 UI 연출에서 보상 규칙을 재구현하지 않는다.
 
-손님 애니메이션은 `customer_animation.gd`의 `show_clip`과 전용 SpriteFrames 리소스가 표현을 소유하고, `customer_flow.gd`가 시설 시계로 구매 손님의 걷기·방향 전환·조작·줍기·퇴장 상태를 정한다. 같은 소유자의 `_advance_passers`는 자동 자판기 설치 후 별도 등장 시계로 비구매 행인의 빈손 보행·통과·정리를 표현한다. 행인은 생산 이벤트의 `pending` 손님과 분리하고 세션·보상·저장을 변경하지 않는다. 4종 외형 01·02·03·08의 상태별 아틀라스를 순환한다. 호흡 변형은 원본에서 미리 내보내며 게임에는 관절 좌표·런타임 변형 데이터를 두지 않는다. 게임은 발밑 기준을 유지하는 224×248 프레임과 수평 투명 여백 16px를 사용한다. 관련 검사는 `tests/features/customer_animation_test.gd`이며 설치 조건·구매/비구매 분리·빈손 통과·반복 등장·일시정지·퇴장 정리·재화 비변경을 보호한다.
+손님 애니메이션은 `customer_animation.gd`의 `show_clip`과 전용 SpriteFrames 리소스가 표현을 소유하고, `customer_flow.gd`가 시설 시계로 구매 손님의 걷기·방향 전환·조작·줍기·퇴장 상태를 정한다. `reward_origin`은 기존 스프라이트 프레임·offset·위치로 생산 골드의 발밑 시작점을 제공한다. 같은 소유자의 `_advance_passers`는 자동 자판기 설치 후 별도 등장 시계로 비구매 행인의 빈손 보행·통과·정리를 표현한다. 행인은 생산 이벤트의 `pending` 손님과 분리하고 세션·보상·저장을 변경하지 않는다. 4종 외형 01·02·03·08의 상태별 아틀라스를 순환한다. 호흡 변형은 원본에서 미리 내보내며 게임에는 관절 좌표·런타임 변형 데이터를 두지 않는다. 게임은 발밑 기준을 유지하는 224×248 프레임과 수평 투명 여백 16px를 사용한다. 관련 검사는 `tests/features/customer_animation_test.gd`이며 설치 조건·구매/비구매 분리·빈손 통과·반복 등장·일시정지·퇴장 정리·재화 비변경을 보호한다.
 
 전체 명령과 한계는 [품질·검증](05-quality-rules.md)을 따른다. 각 파일은 실제 저장을 쓰지 않으며 테스트 캡처는 `.godot/test_artifacts/`에 생성한다.
 
