@@ -468,7 +468,7 @@ func _claim_quest(quest_id: String) -> void:
 	effect.z_index = 110
 	add_child(effect)
 	effect.start(
-		Vector2(576, 58.4), money_label, quest.reward,
+		Vector2(576, 48.8), money_label, quest.reward,
 		get_node("/root/Preferences").values.reduce_motion
 	)
 
@@ -695,8 +695,8 @@ func _layout_quests() -> void:
 	$QuestHud.position = origin + Vector2(1081.6, 10) * factor
 	$QuestHud.scale = Vector2.ONE * 0.8 * factor
 	if is_instance_valid(quest_toast):
-		quest_toast.position = origin + Vector2(358.4, 20) * factor
-		quest_toast.scale = Vector2.ONE * 0.8 * factor
+		quest_toast.position = origin + Vector2(412.8, 20) * factor
+		quest_toast.scale = Vector2.ONE * 0.6 * factor
 
 
 func _refresh_quests() -> void:
