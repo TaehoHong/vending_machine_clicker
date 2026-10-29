@@ -34,14 +34,11 @@ func sync() -> void:
 		current_id = pending.pop_front()
 		remaining = DURATION
 		var quest: Dictionary = session.quest_status(current_id)
-		DESIGN.shape(self, "Goal / Gold").visible = current_id == "coin"
-		DESIGN.shape(self, "Goal / Can").visible = current_id == "can"
 		var title: Label = DESIGN.shape(self, "Text / Goal")
 		title.text = quest.title
-		var kind: Label = DESIGN.shape(self, "Text / Kind")
-		kind.text = "퀘스트 달성 · " + quest.kind
-		var amount: Label = DESIGN.shape(self, "Reward / Amount")
-		amount.text = AMOUNTS.format_amount(quest.reward)
+		var reward: Control = DESIGN.shape(self, "Reward / Static")
+		var amount: Label = DESIGN.shape(reward, "Reward / Amount")
+		amount.text = "+" + AMOUNTS.format_amount(quest.reward)
 		claim_button.accessibility_name = quest.title + " 보상 받기"
 		show()
 
