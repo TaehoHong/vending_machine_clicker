@@ -33,6 +33,8 @@
 
 음료 구매의 [획득 단계](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=51ff814c-57a3-802e-8008-d25b59048df7)와 [능력 버튼 강조 복귀 단계](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=b1fb0fb9-8b3e-80e3-8008-d3a32e8c5197)는 상단 획득 배너를 사용하지 않는다. 황금 음료에도 같은 기준을 적용하며 골드 부족 안내와 능력 버튼 강조는 유지한다.
 
+[구매하지 않는 행인 통과](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=f6962d3e-df95-808a-8008-dc89cf2e13a7)는 01 게임 화면의 편집 가능한 이동 견본이다. 진입·자판기 통과·퇴장의 위치를 자동으로 연결하며 자판기 앞에서도 멈춤·조작·수령을 넣지 않는다. 기존 4종 외형과 빈손 보행은 `customer_animation.gd`·`customer_frames.tres`를 재사용하고, 별도 등장·퇴장은 `src/features/facilities/effects/customer_flow.gd`가 담당한다. 구매 손님의 생산 연동과 보상은 유지한다.
+
 ## 퀘스트 목록 검토 시안
 
 [열기·보상 수령 시연](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=790bd3fd-c08b-804e-8008-dc86cb7edd26&zoom=fit) · [목록창 편집](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=790bd3fd-c08b-804e-8008-dc86ccd331b6&layout=layers).
