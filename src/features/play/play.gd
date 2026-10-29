@@ -480,8 +480,9 @@ func _position_coin_slot() -> void:
 	punch_button.size = Vector2(254, 356) * factor
 	shop_button.position = origin + Vector2(459, 110) * factor
 	shop_button.size = Vector2(254, 270) * factor
-	earn_button.position = origin + Vector2(458.5, 476.28) * factor
-	earn_button.size = Vector2(276.48, 64.8) * factor
+	# 투명 여백을 제외한 자판기 높이의 하단 2%부터 수색할 수 있다.
+	earn_button.position = origin + Vector2(458.5, 458.54) * factor
+	earn_button.size = Vector2(276.48, 82.54) * factor
 	search_glow.position = origin + Vector2(458.5, 463) * factor
 	search_glow.size = Vector2(276.48, 78) * factor
 	search_hint.position = origin + Vector2(575.74, 478) * factor
