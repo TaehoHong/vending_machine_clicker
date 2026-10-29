@@ -62,7 +62,7 @@
 
 수색 피버 링과 펀치 타격은 `assets/penpot/search_fever_ring.svg`, `punch_fever_impact.svg`의 원본 벡터를 사용한다. 동전 투입과 피버 발광은 원본 PNG를 사용하며 UI 연출에서 보상 규칙을 재구현하지 않는다.
 
-손님 애니메이션은 `customer_animation.gd`의 `show_clip`과 전용 SpriteFrames 리소스가 표현을 소유하고, `customer_flow.gd`가 시설 시계로 걷기·방향 전환·조작·줍기·퇴장 상태를 정한다. 4종 외형 01·02·03·08의 상태별 아틀라스를 순환한다. 호흡 변형은 원본에서 미리 내보내며 게임에는 관절 좌표·런타임 변형 데이터를 두지 않는다. 게임은 발밑 기준을 유지하는 224×248 프레임과 수평 투명 여백 16px를 사용한다. 관련 검사는 `tests/features/customer_animation_test.gd`다.
+손님 애니메이션은 `customer_animation.gd`의 `show_clip`과 전용 SpriteFrames 리소스가 표현을 소유하고, `customer_flow.gd`가 시설 시계로 구매 손님의 걷기·방향 전환·조작·줍기·퇴장 상태를 정한다. 같은 소유자의 `_advance_passers`는 자동 자판기 설치 후 별도 등장 시계로 비구매 행인의 빈손 보행·통과·정리를 표현한다. 행인은 생산 이벤트의 `pending` 손님과 분리하고 세션·보상·저장을 변경하지 않는다. 4종 외형 01·02·03·08의 상태별 아틀라스를 순환한다. 호흡 변형은 원본에서 미리 내보내며 게임에는 관절 좌표·런타임 변형 데이터를 두지 않는다. 게임은 발밑 기준을 유지하는 224×248 프레임과 수평 투명 여백 16px를 사용한다. 관련 검사는 `tests/features/customer_animation_test.gd`이며 설치 조건·구매/비구매 분리·빈손 통과·반복 등장·일시정지·퇴장 정리·재화 비변경을 보호한다.
 
 전체 명령과 한계는 [품질·검증](05-quality-rules.md)을 따른다. 각 파일은 실제 저장을 쓰지 않으며 테스트 캡처는 `.godot/test_artifacts/`에 생성한다.
 

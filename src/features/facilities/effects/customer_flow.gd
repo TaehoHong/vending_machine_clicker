@@ -4,8 +4,12 @@ const ACTOR = preload("res://src/features/facilities/effects/customer_animation.
 const RULES = preload("res://src/game/automation/facility_rules.gd")
 const ARRIVAL_LEAD: float = 4.72
 const DEPARTURE_END: float = 4.8
+const PASS_DURATION: float = 4.0
 var session: RefCounted
 var customers: Array[Dictionary] = []
+var passers: Array[Dictionary] = []
+var passer_remaining: float = 1.0
+var next_passer_variant: int = 0
 var pending: Dictionary = {}
 var next_variant: int = 0
 var spawned_for_cycle: bool = false
@@ -17,6 +21,7 @@ func _process(delta: float) -> void:
 	var state := RULES.state(session)
 	if not state.auto_owned:
 		return
+	_advance_passers(delta)
 	if state.remaining > ARRIVAL_LEAD:
 		spawned_for_cycle = false
 	if state.remaining <= ARRIVAL_LEAD and not spawned_for_cycle:
@@ -35,12 +40,36 @@ func _process(delta: float) -> void:
 
 
 func _spawn() -> void:
-	var actor := ACTOR.new()
-	actor.variant = next_variant
+	var actor := _create_actor(next_variant)
 	next_variant = (next_variant + 1) % ACTOR.APPEARANCES.size()
-	add_child(actor)
 	pending = {"actor": actor, "departure": -1.0}
 	customers.append(pending)
+
+
+func _create_actor(variant: int) -> Node2D:
+	var actor := ACTOR.new()
+	actor.variant = variant
+	add_child(actor)
+	return actor
+
+
+func _advance_passers(delta: float) -> void:
+	for entry: Dictionary in passers.duplicate():
+		entry.elapsed += delta
+		var actor: Node2D = entry.actor
+		actor.show_clip(&"walk", entry.elapsed)
+		actor.position.x = lerpf(-192, 1190, clampf(entry.elapsed / PASS_DURATION, 0, 1))
+		if entry.elapsed >= PASS_DURATION:
+			actor.queue_free()
+			passers.erase(entry)
+	passer_remaining -= delta
+	if passer_remaining <= 0:
+		var actor := _create_actor(next_passer_variant)
+		next_passer_variant = (next_passer_variant + 1) % ACTOR.APPEARANCES.size()
+		actor.position = Vector2(-192, 261)
+		actor.z_index = 1
+		passers.append({"actor": actor, "elapsed": 0.0})
+		passer_remaining = randf_range(4.5, 7.5)
 
 
 func produced() -> void:
