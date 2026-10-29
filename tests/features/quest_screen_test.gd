@@ -118,10 +118,26 @@ func run_checks() -> void:
 		"The notification dot clears when all rewards have been claimed")
 	await tap(DESIGN.shape(game.quest_screen.canvas, "Action / Close").get_global_rect().get_center())
 	check(not is_instance_valid(game.quest_screen), "The original X button closes the list")
-	for resolution: Vector2i in [Vector2i(1280, 720), Vector2i(1600, 900)]:
+	for resolution: Vector2i in [
+		Vector2i(1152, 648), Vector2i(1280, 720), Vector2i(1600, 900), Vector2i(1440, 900),
+	]:
 		root.size = resolution
 		await process_frame
 		await process_frame
+		for entry: Array in [
+			[game.get_node("Navigation/AbilityButton"), "HUD / 능력 / normal"],
+			[game.get_node("MenuButton"), "HUD / 메뉴 / normal"],
+			[game.get_node("Design"), "UI / 버튼 / 시설"],
+		]:
+			var source: String = entry[1]
+			var artwork := DESIGN.shape(entry[0], source)
+			check(artwork.get_global_rect().size.is_equal_approx(hud.get_global_rect().size),
+				"All HUD artwork scales together after resizing: " + source)
+			var button: Button = artwork.get_parent() if artwork.get_parent() is Button else (
+				artwork.get_node("Action")
+			)
+			check(button.get_global_rect().is_equal_approx(artwork.get_global_rect()),
+				"The HUD artwork and input area keep the same bounds: " + source)
 		check(hud.get_global_rect().end.x < resolution.x,
 			"The uniformly scaled memo stays inside the resized viewport")
 		game.quest_button.pressed.emit()

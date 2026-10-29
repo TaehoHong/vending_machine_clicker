@@ -505,10 +505,11 @@ func _position_coin_slot() -> void:
 	ability_toast.scale = Vector2.ONE * factor
 	$Navigation.position = Vector2.ZERO
 	$Navigation.scale = Vector2.ONE
-	$Navigation/AbilityButton.position = origin + Vector2(16, 577.6) * factor
-	$Navigation/AbilityButton.size = Vector2(54.4, 54.4) * factor
-	$MenuButton.position = origin + Vector2(1081.6, 577.6) * factor
-	$MenuButton.size = Vector2(54.4, 54.4) * factor
+	# 공통 프레임의 투명 여백 4.8px를 제외한 화면 가장자리를 16px에 맞춘다.
+	$Navigation/AbilityButton.position = origin + Vector2(11.2, 582.4) * factor
+	$Navigation/AbilityButton.scale = Vector2.ONE * factor
+	$MenuButton.position = origin + Vector2(1086.4, 582.4) * factor
+	$MenuButton.scale = Vector2.ONE * factor
 	_layout_quests()
 	for entry: Dictionary in _purchase_effects.values():
 		_position_purchase_effect(entry.coin, entry.drink)
@@ -692,7 +693,7 @@ func _setup_quests() -> void:
 func _layout_quests() -> void:
 	var factor := minf(size.x / 1152.0, size.y / 648.0)
 	var origin := (size - Vector2(1152, 648) * factor) * 0.5
-	$QuestHud.position = origin + Vector2(1081.6, 10) * factor
+	$QuestHud.position = origin + Vector2(1086.4, 11.2) * factor
 	$QuestHud.scale = Vector2.ONE * 0.8 * factor
 	if is_instance_valid(quest_toast):
 		quest_toast.position = origin + Vector2(412.8, 20) * factor

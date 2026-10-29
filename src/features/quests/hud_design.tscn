@@ -35,10 +35,10 @@ metadata/penpot_frame_state = "normal"
 [node name="Memo" parent="." type="TextureRect"]
 layout_mode = 0
 mouse_filter = 2
-offset_left = 18
-offset_top = 14
-offset_right = 50
-offset_bottom = 54
+offset_left = 22
+offset_top = 17
+offset_right = 46
+offset_bottom = 47
 metadata/penpot_name = "Icon / Memo"
 texture = ExtResource("r1")
 expand_mode = 1

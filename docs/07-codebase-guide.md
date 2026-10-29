@@ -45,6 +45,7 @@
 | 금액 표기 | `amount_format.format_amount`, `format_gold`; Play `_refresh_ui`, `_show_wallet_tooltip` | 표기 축약은 실제 잔액·가격 계산에 적용하지 않으며 원본 툴팁에 정수 전체를 표시 |
 | 공유 외형 | `play_theme.tres`의 Button·PixelHudButton·PrimaryButton·SecondaryButton·PixelIconButton·ActionButton·PricePlate·InfoPanel·InfoTitle·InfoBody; `drink_screen._panel`, `_label` | 기존 StyleBox·상태를 재사용, 화면별 새 테마 복제 금지. InfoPanel은 크림색 정보 카드, InfoTitle은 짙은 Cafe24, InfoBody는 외곽선 없는 Noto Sans KR 400 본문. 재화 HUD는 기존 PLAY_PANEL 유지 |
 | 공통 버튼 입력·피드백 | `shared/ui/pixel_button.gd`; MainMenu·Play·DrinkScreen·PauseMenu | 기본 Button이 입력·문구·포커스를 소유한다. 원본 상태는 네이티브 Frame의 색·선·숨김을 유지하고 다른 상태는 같은 family SVG로 90/60/100ms 전환한다. 설정의 선택은 keyboard focus와 별도로 유지하며 클릭 영역은 고정한다 |
+| 플레이 HUD 정렬·배율 | Play `_position_coin_slot`, `_layout_quests`; `play_design.tscn`, `quests/hud_design.tscn` | 정사각 HUD는 공유 `56x56_normal.svg`·PixelButton 상태를 재사용한다. Design 밖으로 옮긴 능력·메뉴 버튼도 원본 size를 유지하고 scale로 자식 아트·상태 프레임·입력 영역을 함께 확대한다. 투명 여백을 제외한 게임 영역 가장자리·버튼 간격은 16px다 |
 | 시설 구매·강화 | `facilities_screen._purchase`, `_show_page`, `go_back`; `facility_world` | 미보유는 빈캔 10/15개 한 번 결제로 설치, 보유는 ‘업그레이드’ 텍스트 버튼으로 강화창 진입. 강화 비용은 Gold이며 이전 unlocked 저장은 추가 차감 없이 owned로 정규화한다. `_refresh_upgrade`가 현재/다음 값·단계·다음 비용·부족/최대·수집량 조건과 왼쪽 성능을 갱신한다. 강화에서 구매창으로 복귀하며 별도 관리·보상 카드는 없다. 설치 본체는 입력을 연결하지 않고 골드·빈캔만 각각 클릭 수령한다 |
 | 외부 의존성 연결 | app의 세션 주입·save_requested 연결; tests/support/game_fixture | UI는 파일 저장소를 직접 생성/호출하지 않음 |
 | 테스트 대역 | tests/features의 Session 하위 클래스 | 랜덤 결과만 통제하고 실제 진행 계산을 mock하지 않음 |
@@ -55,7 +56,7 @@
 | --- | --- | --- |
 | 구매·저장·가격 | tests/features/gameplay_test.gd, purchase_price_test.gd | 연속 구매별 단일 차감·잔액 부족 무차감·획득 즉시 저장·가격·이전 구매 횟수 |
 | 메뉴·백업·저장 오류 | tests/features/menu_test.gd | A 프레임을 통과하는 실제 클릭·초기 포커스·고정 클릭 영역, 새 게임 백업·로드·ESC·수동 저장·실패 시 종료 차단 |
-| 퀘스트·달성 알림 | tests/features/quest_screen_test.gd | 실제 HUD/행/알림/X/ESC 클릭·독립 수령·중복 지급/로드 재수령 방지·시설 1회 집계·소비 후 진행 유지·20초 만료와 미수령 유지·모달/피버·resize·골드 낙하/흡입/정리·연출 중 수색 |
+| 퀘스트·달성 알림 | tests/features/quest_screen_test.gd | 실제 HUD/행/알림/X/ESC 클릭·독립 수령·중복 지급/로드 재수령 방지·시설 1회 집계·소비 후 진행 유지·20초 만료와 미수령 유지·모달/피버·4개 해상도의 HUD 균등 배율과 아트/클릭 영역 일치·골드 낙하/흡입/정리·연출 중 수색 |
 | 음료·해금·표시 | tests/features/drink_screen_test.gd, drink_unlock_screen_test.gd, vending_display_test.gd | 클릭 선택·선택 음료의 상세 그림 전환·무반응 hover·독립 해금·콜라10/에너지15 비용·정확한 차감·강화 완료 후 해금 진열 유지·resize |
 | 수색·연출·피버 | tests/features/search_test.gd, coin_effect_test.gd, search_fever_test.gd, punch_fever_test.gd | 정확한 지급·꽝·이펙트·pause·기간·중첩·종료 |
 | 배출·구매 영역 | tests/features/drink_dispense_test.gd, purchase_area_test.gd | 입력 영역·구매 중 수색/능력·겹친 동전/음료·ID별 그림/피버·획득 알림 없음·반복 부족 알림 순서·pause·저장 재지급 방지 |

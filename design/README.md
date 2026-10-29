@@ -4,6 +4,10 @@
 
 [게임 화면·애니메이션 재생](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&index=3)에서 상단 화면 목록이나 플로우를 선택해 확인한다.
 
+HUD 정렬은 기본 게임 영역의 보이는 가장자리·버튼 사이 간격 16px, 정사각 프레임 외곽 44.8px, 아이콘 높이 24px를 적용한다. [공통 HUD 원본](hud-buttons/README.md)과 퀘스트 열기 HUD를 사용하며 화면 크기에 맞춰 내부 그림·상태 프레임·입력 영역을 함께 확대한다.
+
+미동기화(2026-10-29): 게임의 HUD 통일과 Penpot 기본 플레이 화면의 세 버튼 간격은 반영했다. 02의 메모지·일시정지·재화 아이콘 크기 및 01의 퀘스트/골드 단계별 HUD 배치는 전체 반영·검증이 남아 있다. MCP 플러그인은 heartbeat 오류와 재실행 오류로 사용할 수 없었으며, 네이티브 편집기의 컨테이너 크기 변경만으로 내부 벡터가 함께 축소되지 않아 아이콘 변형 시도는 복원했다. 원본 동기화 완료로 간주하지 않는다.
+
 수색 클릭 영역은 [수색 시작 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=b1fb0fb9-8b3e-80e3-8008-d39cd4a94a32)의 투명 클릭 도형에서 편집한다. 투명 여백을 제외한 자판기 높이의 하단 2%부터 기존 바닥 영역까지 포함하며, 이어지는 수색 상태도 같은 경계를 사용한다.
 
 [시설 구매 동선](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=794452ab-8261-80e1-8008-dbc02d6bcd4a&zoom=fit)은 메인 하단의 시설 아이콘에서 시작한다. 현재 편집 원본은 [시설 구매창](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&layout=layers&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=ab3ae66f-886e-80f5-8008-dbae482dc81b), [자동 자판기 강화](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&layout=layers&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=ab3ae66f-886e-80f5-8008-dbae482dc87c), [쓰레기통 강화](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&layout=layers&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=ab3ae66f-886e-80f5-8008-dbae482e09e1)이며 02 에셋 페이지의 공통 컴포넌트를 수정한다. 01 게임 화면의 ‘채택 / 시설 v2’ 보드들은 이 원본에 연결된 인스턴스다.
