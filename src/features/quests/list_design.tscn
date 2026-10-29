@@ -1,0 +1,132 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/56x56_normal.svg" id="r0"]
+
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/icons/close.svg" id="r1"]
+
+[ext_resource type="PackedScene" path="res://src/features/quests/row_design.tscn" id="r2"]
+
+[ext_resource type="Theme" path="res://src/shared/ui/themes/play_theme.tres" id="r3"]
+
+[node name="Design" type="Control"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 0
+offset_top = 0
+offset_right = 720
+offset_bottom = 368
+metadata/penpot_name = "UI / 퀘스트 / 목록창"
+metadata/penpot_id = "790bd3fd-c08b-804e-8008-dc86345ae2d3"
+theme = ExtResource("r3")
+
+[node name="Panel" parent="." type="PanelContainer"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 0
+offset_top = 0
+offset_right = 720
+offset_bottom = 368
+metadata/penpot_name = "Panel / 공유 오버레이"
+
+[node name="Title" parent="." type="Label"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 28
+offset_top = 12
+offset_right = 284
+offset_bottom = 52
+metadata/penpot_name = "Header / Title"
+theme_type_variation = &"Label"
+theme_override_font_sizes/font_size = 30
+text = "퀘스트"
+vertical_alignment = 1
+horizontal_alignment = 0
+
+[node name="Ready" parent="." type="Label"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 432
+offset_top = 18
+offset_right = 640
+offset_bottom = 48
+metadata/penpot_name = "Header / Ready"
+theme_type_variation = &"SecondaryLabel"
+theme_override_font_sizes/font_size = 16
+text = "받을 보상 1개"
+vertical_alignment = 1
+horizontal_alignment = 2
+
+[node name="Close" parent="." type="Control"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 660
+offset_top = 5
+offset_right = 714.4
+offset_bottom = 59.4
+metadata/penpot_name = "Action / Close"
+
+[node name="Frame" parent="Close" type="TextureRect"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 0
+offset_top = 0
+offset_right = 54.4
+offset_bottom = 54.4
+metadata/penpot_name = "Frame / normal"
+texture = ExtResource("r0")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
+metadata/penpot_frame_family = "56x56"
+metadata/penpot_frame_state = "normal"
+
+[node name="Icon" parent="Close" type="TextureRect"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 14.4
+offset_top = 12.8
+offset_right = 40.0
+offset_bottom = 38.400000000000006
+metadata/penpot_name = "Icon"
+texture = ExtResource("r1")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
+
+[node name="Coin" parent="." instance=ExtResource("r2")]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 24
+offset_top = 80
+offset_right = 696
+offset_bottom = 192
+metadata/penpot_name = "Quest / Coin"
+
+[node name="Can" parent="." instance=ExtResource("r2")]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 24
+offset_top = 208
+offset_right = 696
+offset_bottom = 320
+metadata/penpot_name = "Quest / Can"
+
+[node name="Gold" parent="Can" index="1"]
+visible = false
+
+[node name="Can" parent="Can" index="2"]
+visible = true
+
+[node name="Footer" parent="." type="Label"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 544
+offset_top = 330
+offset_right = 692
+offset_bottom = 354
+metadata/penpot_name = "Footer / Close"
+theme_type_variation = &"SecondaryLabel"
+theme_override_font_sizes/font_size = 15
+text = "ESC  닫기"
+vertical_alignment = 1
+horizontal_alignment = 2

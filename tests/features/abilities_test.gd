@@ -29,16 +29,16 @@ func run_checks() -> void:
 	FIXTURE.store_for(game).path = "res://.godot/ability_test_%d.cfg" % Time.get_ticks_usec()
 	check(not game.has_node("ShopPanel"), "Old collection panel removed")
 	game.session.quest_clicks = 10
-	game._on_quest_complete_button_pressed()
+	game._claim_quest("coin")
 	check(
 		(
 			game.session.quest_reward_claimed
 			and not game.session.can_quest_reward_claimed
-			and game.quest_progress.visible
+			and game.quest_button.visible
 		),
-		"First quest advances to can collection without collapsing"
+		"First quest preserves the memo entry and the unclaimed can goal"
 	)
-	game._on_quest_complete_button_pressed()
+	game._claim_quest("can")
 	check(
 		game.session.money == 5000 and not game.session.can_quest_reward_claimed,
 		"Can quest cannot be claimed early"
@@ -57,7 +57,7 @@ func run_checks() -> void:
 		"HUD shows total cans independently from drink type"
 	)
 	check(
-		not game.quest_complete_button.disabled and game.quest_complete_button.visible,
+		game.session.quest_status("can").ready and game.quest_button.visible,
 		"Five cans unlock second quest reward"
 	)
 	await capture("hud")
@@ -91,16 +91,16 @@ func run_checks() -> void:
 	)
 	await capture("skill")
 	screen.close_button.pressed.emit()
-	game._on_quest_complete_button_pressed()
-	game._on_quest_complete_button_pressed()
+	game._claim_quest("can")
+	game._claim_quest("can")
 	check(
 		(
 			game.session.money == 5100
 			and game.session.cans == 5
 			and game.session.can_quest_reward_claimed
-			and game.quest_panel.size.y >= 64
+			and game.quest_button.visible
 		),
-		"Can quest pays once, keeps cans, and collapses after both quests"
+		"Can quest pays once, keeps cans, and preserves the memo entry"
 	)
 	check(game.feedback_label.text.is_empty(), "Quest completion does not show bottom text")
 	var saved := ConfigFile.new()

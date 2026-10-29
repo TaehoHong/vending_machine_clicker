@@ -88,7 +88,7 @@ func run_checks() -> void:
 	game.session.quest_reward_claimed = true
 	game._refresh_ui()
 	check(
-		not game.quest_complete_button.disabled,
+		game.session.quest_status("can").ready,
 		"Spending cans does not lose the five-can quest milestone"
 	)
 	var found_ion: bool = false

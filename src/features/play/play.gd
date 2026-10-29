@@ -16,6 +16,9 @@ var _purchase_effects: Dictionary = {}
 var display_products: Dictionary[int, Control] = {}
 var display_shadows: Dictionary[int, Control] = {}
 var facilities_screen: Control
+var quest_screen: Control
+var quest_toast: Control
+var quest_button: Button
 var facility_world: Control
 var ability_toast: Control
 var wallet_tooltip: Control
@@ -34,13 +37,9 @@ var punch_coin_phase: float = 0.0
 @onready var price_label: Label = DESIGN.shape($Design, "Amount")
 @onready var earn_button: Button = $EarnButton
 @onready var search_glow: TextureRect = $SearchGlow
-@onready var quest_progress: Label = DESIGN.shape($QuestPanel, "Text / Count")
-var quest_complete_button: Button
 @onready var can_count_label: Label = DESIGN.shape($Design, "Amount / 빈캔 / 숫자")
 @onready var info_overlay: ColorRect = $InfoOverlay
 @onready var shop_button: Button = $CoinSlotButton
-@onready var quest_panel: Control = $QuestPanel
-@onready var quest_title: Label = DESIGN.shape($QuestPanel, "Text / Title")
 @onready var result_overlay: ColorRect = $ResultOverlay
 @onready var result_title: Label = $ResultOverlay/Card/Margin/Contents/DrinkName
 @onready var result_art: TextureRect = $ResultOverlay/Card/Margin/Contents/DrinkArt
@@ -51,9 +50,6 @@ var quest_complete_button: Button
 
 
 func _ready() -> void:
-	quest_complete_button = DESIGN.action(
-		$QuestPanel, "Action / Reward", _on_quest_complete_button_pressed
-	)
 	_setup_design()
 	_setup_drink_catalog()
 	pause_menu.escape_requested.connect(_on_escape_requested)
@@ -97,6 +93,7 @@ func _ready() -> void:
 	_setup_search_area()
 	resized.connect(_position_coin_slot)
 	_setup_facility_world()
+	_setup_quests()
 	_refresh_ui()
 
 
@@ -104,7 +101,9 @@ func _process(delta: float) -> void:
 	facility_world.advance(delta)
 	var blocked: bool = (
 		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)
+		or is_instance_valid(quest_screen)
 	)
+	quest_toast.advance(delta, blocked)
 	search_hint.set(
 		"blocked",
 		blocked or session.search_fever_remaining > 0 or session.punch_fever_remaining > 0
@@ -150,6 +149,7 @@ func _on_punch_button_pressed() -> void:
 		get_tree().paused
 		or result_overlay.visible
 		or info_overlay.visible or is_instance_valid(facilities_screen)
+		or is_instance_valid(quest_screen)
 		or session.punch_fever_remaining <= 0
 	):
 		return
@@ -195,6 +195,7 @@ func _on_earn_button_pressed() -> void:
 		get_tree().paused
 		or result_overlay.visible
 		or info_overlay.visible or is_instance_valid(facilities_screen)
+		or is_instance_valid(quest_screen)
 	):
 		return
 	search_hint.call("notify_search_click")
@@ -450,15 +451,26 @@ func _refresh_search_glow() -> void:
 	search_glow_tween.tween_property(search_glow, "modulate:a", brightness, 0.18)
 
 
-func _on_quest_complete_button_pressed() -> void:
+func _claim_quest(quest_id: String) -> void:
 	if (
-		get_tree().paused
-		or result_overlay.visible
-		or info_overlay.visible or is_instance_valid(facilities_screen)
+		get_tree().paused or result_overlay.visible or info_overlay.visible
+		or is_instance_valid(facilities_screen)
 	):
 		return
-	if session.claim_quest():
-		_finish_action("")
+	var quest: Dictionary = session.quest_status(quest_id)
+	if not session.claim_quest(quest_id):
+		return
+	_finish_action("")
+	if is_instance_valid(quest_screen):
+		quest_screen.refresh()
+	var effect := preload("res://src/features/quests/reward_fx.gd").new()
+	effect.name = "QuestRewardFX"
+	effect.z_index = 110
+	add_child(effect)
+	effect.start(
+		Vector2(576, 64.8), money_label, quest.reward,
+		get_node("/root/Preferences").values.reduce_motion
+	)
 
 
 func _setup_coin_slot() -> void:
@@ -497,7 +509,7 @@ func _position_coin_slot() -> void:
 	$Navigation/AbilityButton.size = Vector2(54.4, 54.4) * factor
 	$MenuButton.position = origin + Vector2(1081.6, 577.6) * factor
 	$MenuButton.size = Vector2(54.4, 54.4) * factor
-	_refresh_quest_panel()
+	_layout_quests()
 	for entry: Dictionary in _purchase_effects.values():
 		_position_purchase_effect(entry.coin, entry.drink)
 
@@ -539,6 +551,7 @@ func _on_shop_button_pressed() -> void:
 		get_tree().paused
 		or result_overlay.visible
 		or info_overlay.visible or is_instance_valid(facilities_screen)
+		or is_instance_valid(quest_screen)
 	):
 		return
 	var price: int = session.current_draw_price()
@@ -646,49 +659,73 @@ func _refresh_ui() -> void:
 	DESIGN.fit_text(can_count_label, 36)
 	if wallet_tooltip.visible:
 		_show_wallet_tooltip(wallet_tooltip.get_meta("currency", "gold"))
-	_refresh_quest_panel()
+	_refresh_quests()
 	shop_button.disabled = (
 		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)
+		or is_instance_valid(quest_screen)
 		or session.purchasable_drinks().is_empty()
 	)
 	earn_button.disabled = (
 		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)
+		or is_instance_valid(quest_screen)
 	)
 	$Navigation/AbilityButton.disabled = result_overlay.visible
 	shop_button.tooltip_text = ""
 
 
 func _on_menu_button_pressed() -> void:
-	pause_menu.set_open(true)
+	if not is_instance_valid(quest_screen):
+		pause_menu.set_open(true)
 
 
-func _refresh_quest_panel() -> void:
-	var complete: bool = session.quest_reward_claimed and session.can_quest_reward_claimed
-	var can_quest: bool = session.quest_reward_claimed
-	var target: int = session.CAN_QUEST_TARGET if can_quest else session.QUEST_TARGET
-	var progress: int = (
-		mini(session.collected_cans(), target) if can_quest else session.quest_clicks
-	)
-	var reward: int = session.CAN_QUEST_REWARD if can_quest else session.QUEST_REWARD
-	var description: Label = DESIGN.shape(quest_panel, "Text / Description")
-	var reward_text: Label = DESIGN.shape(quest_panel, "Text / Reward")
-	var fill: Control = DESIGN.shape(quest_panel, "Progress / fill")
-	quest_title.text = "목표 모두 완료" if complete else ("빈캔 수집" if can_quest else "첫 수집 목표")
-	description.text = "모든 목표를 달성했어요" if complete else (
-		"빈캔을 5개 모으세요" if can_quest else "동전 10번 발견하기"
-	)
-	quest_progress.text = "완료" if complete else "%d / %d" % [progress, target]
-	reward_text.text = "모든 보상을 받았습니다." if complete else "보상 %s 골드" % AMOUNTS.format_amount(reward)
-	fill.size.x = 226.0 * minf(1.0, float(progress) / target)
-	quest_complete_button.disabled = complete or progress < target
-	var caption: Label = DESIGN.shape(quest_complete_button.get_parent(), "Label")
-	caption.text = "수령 완료" if complete else (
-		"진행 중" if progress < target else "보상 받기"
-	)
-	quest_panel.visible = session.quest_clicks > 0 or session.quest_reward_claimed
+func _setup_quests() -> void:
+	quest_button = DESIGN.action($QuestHud, "Action / Open Quests", _open_quests)
+	quest_button.accessibility_name = "퀘스트"
+	quest_button.tooltip_text = "퀘스트"
+	quest_toast = preload("res://src/features/quests/toast_design.tscn").instantiate()
+	quest_toast.session = session
+	add_child(quest_toast)
+	quest_toast.claim_requested.connect(_claim_quest)
+	_layout_quests()
+
+
+func _layout_quests() -> void:
 	var factor := minf(size.x / 1152.0, size.y / 648.0)
-	quest_panel.position = (size - Vector2(1152, 648) * factor) * 0.5 + Vector2(874, 84) * factor
-	quest_panel.scale = Vector2.ONE * factor
+	var origin := (size - Vector2(1152, 648) * factor) * 0.5
+	$QuestHud.position = origin + Vector2(1081.6, 10) * factor
+	$QuestHud.scale = Vector2.ONE * 0.8 * factor
+	if is_instance_valid(quest_toast):
+		quest_toast.position = origin + Vector2(307.2, 20) * factor
+		quest_toast.scale = Vector2.ONE * 0.8 * factor
+
+
+func _refresh_quests() -> void:
+	if not is_instance_valid(quest_toast):
+		return
+	var ready: bool = false
+	for id: String in session.QUEST_IDS:
+		ready = ready or session.quest_status(id).ready
+	DESIGN.shape($QuestHud, "Badge / Claimable").visible = ready
+	quest_toast.sync()
+	_layout_quests()
+
+
+func _open_quests() -> void:
+	if (
+		get_tree().paused or result_overlay.visible or info_overlay.visible
+		or is_instance_valid(facilities_screen) or is_instance_valid(quest_screen)
+	):
+		return
+	quest_button.grab_focus()
+	quest_screen = preload("res://src/features/quests/quest_screen.tscn").instantiate()
+	add_child(quest_screen)
+	quest_screen.claim_requested.connect(_claim_quest)
+	quest_screen.closed.connect(func() -> void:
+		quest_screen = null
+		_refresh_ui()
+	)
+	quest_screen.open(session)
+	_refresh_ui()
 
 
 func _on_ability_button_pressed() -> void:
@@ -696,7 +733,7 @@ func _on_ability_button_pressed() -> void:
 
 
 func _on_skill_button_pressed() -> void:
-	if get_tree().paused or result_overlay.visible:
+	if get_tree().paused or result_overlay.visible or is_instance_valid(quest_screen):
 		return
 	_set_info_layout(true)
 	$InfoOverlay/Card/Title.text = "음료수 추가"
@@ -865,6 +902,9 @@ func _exit_tree() -> void:
 
 
 func _on_escape_requested() -> void:
+	if is_instance_valid(quest_screen):
+		quest_screen.close()
+		return
 	if is_instance_valid(facilities_screen):
 		facilities_screen.go_back()
 		return
@@ -929,7 +969,10 @@ func _show_wallet_tooltip(currency: String) -> void:
 
 
 func _open_facilities() -> void:
-	if get_tree().paused or info_overlay.visible or is_instance_valid(facilities_screen):
+	if (
+		get_tree().paused or info_overlay.visible or is_instance_valid(facilities_screen)
+		or is_instance_valid(quest_screen)
+	):
 		return
 	facilities_screen = preload("res://src/features/facilities/facilities_screen.tscn").instantiate()
 	add_child(facilities_screen)

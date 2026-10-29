@@ -288,6 +288,18 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.07451, 0.141176, 0.2, 1)
 
+[sub_resource type="StyleBoxFlat" id="quest_row"]
+bg_color = Color(1, 0.94902, 0.85098, 1)
+
+[sub_resource type="StyleBoxFlat" id="quest_track"]
+bg_color = Color(0.741176, 0.8, 0.819608, 1)
+
+[sub_resource type="StyleBoxFlat" id="quest_fill"]
+bg_color = Color(0.333333, 0.619608, 0.603922, 1)
+
+[sub_resource type="StyleBoxFlat" id="quest_badge"]
+bg_color = Color(0.972549, 0.811765, 0.482353, 1)
+
 [resource]
 default_font = ExtResource("font")
 default_font_size = 18
@@ -343,6 +355,14 @@ ActionButton/styles/disabled = ExtResource("action_disabled")
 ActionButton/styles/focus = ExtResource("action_focus")
 Panel/styles/panel = ExtResource("panel")
 InfoPanel/base_type = &"Panel"
+QuestRow/base_type = &"Panel"
+QuestRow/styles/panel = SubResource("quest_row")
+QuestTrack/base_type = &"Panel"
+QuestTrack/styles/panel = SubResource("quest_track")
+QuestFill/base_type = &"Panel"
+QuestFill/styles/panel = SubResource("quest_fill")
+QuestBadge/base_type = &"Panel"
+QuestBadge/styles/panel = SubResource("quest_badge")
 InfoPanel/styles/panel = SubResource("info_panel")
 InfoTitle/base_type = &"Label"
 InfoTitle/fonts/font = ExtResource("font")

@@ -30,6 +30,7 @@ godot --headless --path . --script res://tests/integrations/facility_rules_test.
 godot --headless --path . --script res://tests/features/facilities_test.gd
 godot --headless --path . --script res://tests/features/settings_test.gd
 godot --headless --path . --script res://tests/features/customer_animation_test.gd
+godot --headless --path . --script res://tests/features/quest_screen_test.gd
 
 git diff --check
 ```
@@ -45,6 +46,12 @@ git diff --check
 - 입력·피버·일시정지: 클릭 영역과 클릭 위치, 꽝·보상·기간·중첩·pause·정상 복귀를 검증한다. viewport 로컬 좌표를 보내는 테스트는 `push_input(..., true)`로 좌표계를 명시한다.
 - 디자인: 기존 공통 테마·상태 리소스·폰트 재사용과 선택·잠김·초기화·resize를 검사한다. headless만으로 실제 렌더링·글리프·가독성·조작 감각을 보장하지 않는다.
 - 구조: 세션/규칙에 씬·Control·파일 I/O 의존이 없는지, UI가 직접 저장하지 않는지, 중복 진행 원장·규칙·스타일을 만들지 않았는지 실제 diff와 참조를 검토한다.
+
+## 퀘스트 목록·달성 알림 적용 검증 · 2026-10-29
+
+- 메모지 HUD 누락과 시설 빈캔 중복 집계를 기존 코드에서 재현한 뒤 수정했다. 실제 클릭으로 목록·독립 행·상단 카드의 수령, 20초 만료 뒤 목록 수령, 중복 지급·저장 후 재수령 거절, X/ESC와 포커스·모달 입력·피버 정지·resize를 확인했다. 음료 정보창에서는 달성 카드와 표시 시간을 보류하여 버튼을 가리지 않는다.
+- 골드 입자는 기존 `search_coin.gd` 아트를 재사용한다. 수령 즉시 지급·저장하고, 입자의 폭발·바닥 낙하·HUD 흡입·정리와 연출 중 수색을 검사했다. 기존 저장 필드를 유지했다.
+- 위 21개 회귀가 모두 통과했다. 실제 Metal 렌더러에서 1152×648·1280×720·1600×900의 목록/수령 상태와 상단 카드·골드 연출을 확인했다. 이 작업은 `/private/tmp/clicker-godot-passers-4.7/Godot.app/Contents/MacOS/Godot`를 사용했고 `--log-file /private/tmp/<검사명>.log`로 로그를 분리했다. 릴리스 export·린터 미설정은 그대로다.
 
 ## 구조 전환 검증 기록 · 2026-10-20
 

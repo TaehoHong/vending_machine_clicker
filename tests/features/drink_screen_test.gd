@@ -40,29 +40,31 @@ func capture(name: String) -> void:
 func run_checks() -> void:
 	root.size = Vector2i(1152, 648)
 	var quest_game = FIXTURE.create_game(root)
-	var quest_frame: Control = quest_game.quest_complete_button.get("source_frame")
 	quest_game.session.quest_clicks = 10
 	quest_game._refresh_ui()
+	quest_game.quest_button.pressed.emit()
+	await process_frame
+	var coin_claim: Button = quest_game.quest_screen.actions["coin"]
+	var quest_frame: Control = coin_claim.get("source_frame")
+	assert(not coin_claim.disabled and quest_frame.visible,
+		"The coin row keeps the original ready frame")
+	coin_claim.pressed.emit()
 	await process_frame
 	await process_frame
-	assert(not quest_game.quest_complete_button.disabled and quest_frame.visible,
-		"The first claimable goal keeps the original ready frame")
-	quest_game.quest_complete_button.pressed.emit()
-	await process_frame
-	await process_frame
-	assert(quest_game.session.quest_reward_claimed and quest_game.quest_complete_button.disabled)
-	assert(not quest_frame.visible, "The next incomplete goal uses the disabled frame")
+	assert(quest_game.session.quest_reward_claimed and coin_claim.disabled)
+	assert(not quest_frame.visible, "Claimed rows hide their action frame")
 	quest_game.session.cans = 5
 	quest_game._refresh_ui()
 	await process_frame
+	var can_claim: Button = quest_game.quest_screen.actions["can"]
+	quest_frame = can_claim.get("source_frame")
+	assert(not can_claim.disabled and quest_frame.visible,
+		"The independent can row keeps the same original ready frame")
+	can_claim.pressed.emit()
 	await process_frame
-	assert(not quest_game.quest_complete_button.disabled and quest_frame.visible,
-		"The can goal keeps the same original ready frame")
-	quest_game.quest_complete_button.pressed.emit()
 	await process_frame
-	await process_frame
-	assert(quest_game.session.can_quest_reward_claimed and quest_game.quest_complete_button.disabled)
-	assert(not quest_frame.visible, "Completed goals use the disabled frame")
+	assert(quest_game.session.can_quest_reward_claimed and can_claim.disabled)
+	assert(not quest_frame.visible, "Completed rows hide their action frame")
 	var quest_save_path: String = FIXTURE.store_for(quest_game).path
 	quest_game.free()
 	DirAccess.remove_absolute(quest_save_path)

@@ -1,0 +1,49 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://src/features/quests/row_design.tscn" id="r0"]
+
+[ext_resource type="Script" path="res://src/features/quests/quest_toast.gd" id="r1"]
+
+[ext_resource type="Theme" path="res://src/shared/ui/themes/play_theme.tres" id="r2"]
+
+[node name="QuestToast" instance=ExtResource("r0")]
+layout_mode = 0
+mouse_filter = 2
+metadata/penpot_name = "UI / 퀘스트 / 달성 알림"
+metadata/penpot_id = "febdd74e-ff21-8006-8008-dc9ed7671440"
+script = ExtResource("r1")
+z_index = 50
+theme = ExtResource("r2")
+
+[node name="Track" parent="." index="4"]
+visible = false
+
+[node name="Fill" parent="." index="5"]
+visible = false
+
+[node name="Count" parent="." index="6"]
+visible = false
+
+[node name="Static" parent="." index="8"]
+visible = false
+
+[node name="Goal" parent="." index="3"]
+offset_top = 38.0
+offset_bottom = 74.0
+
+[node name="Claim" parent="." index="7"]
+visible = true
+
+[node name="Kind" parent="." type="Label"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 80
+offset_top = 10
+offset_right = 456
+offset_bottom = 34
+metadata/penpot_name = "Text / Kind"
+theme_type_variation = &"InfoTitle"
+theme_override_font_sizes/font_size = 16
+text = "퀘스트 달성 · 동전 수집"
+vertical_alignment = 1
+horizontal_alignment = 0
