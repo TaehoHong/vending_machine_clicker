@@ -122,7 +122,13 @@ func run_checks() -> void:
 	await capture("locked-selected")
 	await hover(screen.products[0])
 	assert(screen.selected_index == 2, "Moving over another drink must not change selection")
+	var ion_art: Control = preload("res://src/shared/ui/design_view.gd").shape(
+		screen.products[2].get_parent(), "진열 슬롯 / 1행 4열 / 이온음료"
+	)
+	assert(ion_art.modulate.a < 1.0, "Locked drinks keep the source dimming")
 	await tap(screen.buttons[2])
+	assert(is_equal_approx(ion_art.modulate.a, 1.0), "Unlock immediately restores full opacity")
+	await capture("unlocked-clear")
 	assert(game.session.ion_unlocked and game.session.cans == 13 and game.session.drinks == 0)
 	assert(not screen.buttons[2].is_visible_in_tree(), "Unlocked drinks have no purchase button")
 	game._on_unlock_drink_requested(2)
@@ -140,6 +146,7 @@ func run_checks() -> void:
 	game._on_info_close_pressed()
 	game._on_ability_button_pressed()
 	assert(screen.visible and not screen.detail_panel.visible and screen.selected_index == -1)
+	assert(is_equal_approx(ion_art.modulate.a, 1.0), "Unlocked art stays clear after reopening")
 	await hover(screen.products[2])
 	assert(not screen.detail_panel.visible, "Reopening resets prior selection")
 	root.size = Vector2i(800, 600)

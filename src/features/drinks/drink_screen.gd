@@ -22,6 +22,8 @@ var detail_status: Label
 var detail_count: Label
 var buttons: Dictionary = {}
 var products: Dictionary = {}
+var product_artwork: Dictionary[int, Control] = {}
+var locked_opacity: Dictionary[int, float] = {}
 var slot_states: Dictionary = {}
 var unlock_labels: Dictionary = {}
 var has_selected_drink: bool = false
@@ -62,6 +64,8 @@ func _ready() -> void:
 				product.pressed.connect(select_drink.bind(i))
 				machine.add_child(product)
 				products[i] = product
+				product_artwork[i] = child
+				locked_opacity[i] = child.modulate.a
 				break
 	detail_panel = _panel(Rect2(756, 196, 306, 278), "DrinkDetail", &"InfoPanel")
 	detail_art = TextureRect.new()
@@ -207,9 +211,10 @@ func _refresh_selection() -> void:
 	for i in products:
 		for state in ["normal", "hover", "pressed", "focus"]:
 			products[i].add_theme_stylebox_override(state, StyleBoxEmpty.new())
+		var acquired: bool = i < 2 or unlocked_indices.has(i)
+		product_artwork[i].modulate.a = 1.0 if acquired else locked_opacity[i]
 		var badge: Control = slot_states.get(i)
 		if badge != null:
-			var acquired: bool = i < 2 or unlocked_indices.has(i)
 			var locked := DESIGN.shape(badge, "State / 미해금")
 			var unlocked := DESIGN.shape(badge, "State / 해금됨")
 			locked.visible = not acquired
