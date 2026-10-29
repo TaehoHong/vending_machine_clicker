@@ -145,10 +145,34 @@ func run_checks() -> void:
 	assert(game.session.money == 2010, "Completion cannot pay twice")
 	assert(game.session.cans == 0, "A dropped can needs a click without trash collection")
 	var drop: Button = game.facility_world.drops[1]
+	var drop_start: Vector2 = drop.position
+	game.pause_menu.set_open(true)
+	await create_timer(0.05).timeout
+	assert(drop.position == drop_start, "Can motion follows the gameplay pause")
+	game.pause_menu.set_open(false)
+	await create_timer(0.85).timeout
+	assert(drop.position.x < drop_start.x, "The can rolls sideways after falling")
+	assert(is_equal_approx(drop.rotation, -TAU - PI * 0.5), "The can settles lying down")
+	var bottom: float = drop.position.y + drop.pivot_offset.y + drop.size.x * 0.5
+	assert(is_equal_approx(bottom, game.facility_world.customer_flow.reward_origin().y))
+	if DisplayServer.get_name() != "headless":
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png("res://.godot/test_artifacts/facility-can-roll.png")
 	await tap(drop)
 	assert(game.session.cans == 2 and game.session.drinks == 0)
 	assert(game.session.collect_facility_item(1) == 0)
 	assert(game.session.cans == 2)
+	var preferences: Node = root.get_node("Preferences")
+	var reduced: bool = preferences.values.reduce_motion
+	preferences.values.reduce_motion = true
+	RULES.state(game.session).drops = [{"id": 2, "amount": 1, "remaining": 15.0}]
+	game.facility_world.refresh()
+	var still_drop: Button = game.facility_world.drops[2]
+	assert(is_equal_approx(still_drop.rotation, -PI * 0.5))
+	assert(still_drop.position.y > 450, "Reduced motion uses the same floor without falling")
+	preferences.values.reduce_motion = reduced
+	RULES.state(game.session).drops.clear()
+	game.facility_world.refresh()
 	# Interrupted pops keep pending Gold in the existing save contract.
 	RULES.state(game.session).gold = 30
 	game.facility_world.refresh()
@@ -189,7 +213,7 @@ func run_checks() -> void:
 
 
 func tap(control: Control) -> void:
-	var point := control.get_global_rect().get_center()
+	var point: Vector2 = control.get_global_transform() * (control.size * 0.5)
 	for down in [true, false]:
 		var event := InputEventMouseButton.new()
 		event.position = point

@@ -65,8 +65,7 @@ func refresh() -> void:
 					if session.collect_facility_item(id) > 0:
 						changed.emit()
 			)
-			var fall: Tween = item.create_tween()
-			fall.tween_property(item, "position:y", 432.0, 0.24).set_trans(Tween.TRANS_BOUNCE)
+			_animate_can_drop(item)
 			drops[id] = item
 		var item: Button = drops[id]
 		item.tooltip_text = "빈캔 %d개 · %.1f초 후 소멸" % [drop.amount, drop.remaining]
@@ -75,6 +74,29 @@ func refresh() -> void:
 		if not live.has(id):
 			drops[id].queue_free()
 			drops.erase(id)
+
+
+func _animate_can_drop(item: Button) -> void:
+	item.pivot_offset = item.size * 0.5
+	var floor_y: float = customer_flow.reward_origin().y
+	var landing := Vector2(item.position.x - 44, floor_y - item.size.y * 0.5 - item.size.x * 0.5)
+	if get_node("/root/Preferences").values.reduce_motion:
+		item.position = landing
+		item.rotation = -PI * 0.5
+		return
+	var fall: Tween = item.create_tween()
+	fall.tween_property(item, "position:y", landing.y, 0.28).set_trans(
+		Tween.TRANS_QUAD
+	).set_ease(Tween.EASE_IN)
+	fall.parallel().tween_property(item, "rotation", -PI / 3, 0.28)
+	fall.tween_property(item, "position:y", landing.y - 10, 0.07).set_ease(Tween.EASE_OUT)
+	fall.tween_property(item, "position:y", landing.y, 0.09).set_ease(Tween.EASE_IN)
+	fall.tween_property(item, "position:x", landing.x, 0.32).set_trans(
+		Tween.TRANS_QUAD
+	).set_ease(Tween.EASE_OUT)
+	fall.parallel().tween_property(item, "rotation", -TAU - PI * 0.5, 0.32).set_trans(
+		Tween.TRANS_QUAD
+	).set_ease(Tween.EASE_OUT)
 
 
 func _show_gold_reward(amount: int) -> void:
