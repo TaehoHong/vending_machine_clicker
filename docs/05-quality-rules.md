@@ -51,6 +51,7 @@ git diff --check
 
 - 메모지 HUD 누락과 시설 빈캔 중복 집계를 기존 코드에서 재현한 뒤 수정했다. 실제 클릭으로 목록·독립 행·상단 카드의 수령, 20초 만료 뒤 목록 수령, 중복 지급·저장 후 재수령 거절, X/ESC와 포커스·모달 입력·피버 정지·resize를 확인했다. 음료 정보창에서는 달성 카드와 표시 시간을 보류하여 버튼을 가리지 않는다.
 - 골드 입자는 기존 `search_coin.gd` 아트를 재사용한다. 수령 즉시 지급·저장하고, 입자의 폭발·바닥 낙하·HUD 흡입·정리와 연출 중 수색을 검사했다. 기존 저장 필드를 유지했다.
+- 로컬 main에 `ff8b1fd`를 반영한 뒤 import·parse와 quest_screen/gameplay/drink_screen/menu/progress_store 5개 통합 회귀를 다시 통과했다.
 - 위 21개 회귀가 모두 통과했다. 실제 Metal 렌더러에서 1152×648·1280×720·1600×900의 목록/수령 상태와 상단 카드·골드 연출을 확인했다. 이 작업은 `/private/tmp/clicker-godot-passers-4.7/Godot.app/Contents/MacOS/Godot`를 사용했고 `--log-file /private/tmp/<검사명>.log`로 로그를 분리했다. 릴리스 export·린터 미설정은 그대로다.
 
 ## 구조 전환 검증 기록 · 2026-10-20
