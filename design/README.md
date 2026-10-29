@@ -30,3 +30,11 @@
 [손님 4종 승인 동작 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&layout=layers&board-id=f128a085-12ce-8061-8008-da762abc6bce)은 기본 01과 추가 02·03·08의 연결된 상체·하체 파츠, 보행·정지·조작·줍기·수령·퇴장 견본을 담는다. 팔꿈치·무릎 분할 회전 없이 그림을 교체하며, 호흡은 공유 정점 메시로 상체를 변형하고 발을 고정한다. 기본 6보행은 기존 승인 원본을 유지한다.
 
 음료 구매의 [획득 단계](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=51ff814c-57a3-802e-8008-d25b59048df7)와 [능력 버튼 강조 복귀 단계](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=b1fb0fb9-8b3e-80e3-8008-d3a32e8c5197)는 상단 획득 배너를 사용하지 않는다. 황금 음료에도 같은 기준을 적용하며 골드 부족 안내와 능력 버튼 강조는 유지한다.
+
+## 퀘스트 목록 검토 시안
+
+[열기·보상 수령 시연](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=790bd3fd-c08b-804e-8008-dc86cb7edd26&zoom=fit) · [목록창 편집](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=790bd3fd-c08b-804e-8008-dc86ccd331b6&layout=layers).
+
+고양이와 스프의 목록형 정보 배치를 참고한 검토 시안이다. 01의 퀘스트 v1 구역에서 진행 중·수령 가능·수령 후 화면을 비교한다. 게임 적용 전이며 목표·보상 수치는 기존 구현의 임시 견본이다.
+
+공통 편집 원본은 02의 [퀘스트 목록창](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=790bd3fd-c08b-804e-8008-dc86345ae2d3&layout=layers)과 인접한 목록 행·열기 버튼이다. 기존 공유 오버레이·버튼·재화 아이콘·색상·타이포그래피를 재사용하며 문구는 네이티브 Text로 편집한다.
