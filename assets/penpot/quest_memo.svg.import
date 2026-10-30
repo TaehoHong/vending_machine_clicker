@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8qhie5r78w2i"
-path="res://.godot/imported/a3b5a092b62b8af919a7.svg-aea610150048d33d7cbc2e4f1412c862.ctex"
+uid="uid://bn6g2lysnam0p"
+path="res://.godot/imported/quest_memo.svg-760a957bbae24e84a3a520dbdb57dd81.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/penpot/a3b5a092b62b8af919a7.svg"
-dest_files=["res://.godot/imported/a3b5a092b62b8af919a7.svg-aea610150048d33d7cbc2e4f1412c862.ctex"]
+source_file="res://assets/penpot/quest_memo.svg"
+dest_files=["res://.godot/imported/quest_memo.svg-760a957bbae24e84a3a520dbdb57dd81.ctex"]
 
 [params]
 

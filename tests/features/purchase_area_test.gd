@@ -27,6 +27,23 @@ func run_checks() -> void:
 	game._refresh_ui()
 	await process_frame
 	var design: Control = game.get_node("Design")
+	for viewport_size: Vector2i in [Vector2i(1152, 648), Vector2i(1280, 800)]:
+		root.size = viewport_size
+		await process_frame
+		await process_frame
+		game.session.click_stack = 0
+		await tap(design.get_global_transform() * Vector2(590, 458))
+		assert(game.session.click_stack == 0, "Above the bottom 2% must not search")
+		await tap(design.get_global_transform() * Vector2(590, 459))
+		assert(game.session.click_stack == 1, "The bottom 2% of the cabinet must search")
+		await tap(design.get_global_transform() * Vector2(590, 540))
+		assert(game.session.click_stack == 2, "The existing floor region must still search")
+		await tap(design.get_global_transform() * Vector2(590, 542))
+		assert(game.session.click_stack == 2, "Below the floor region must not search")
+	game.session.click_stack = 0
+	root.size = Vector2i(1152, 648)
+	await process_frame
+	await process_frame
 	for point in [Vector2(480, 130), Vector2(560, 240), Vector2(685, 350)]:
 		var before: int = game.session.drinks
 		await tap(design.get_global_transform() * point)
@@ -47,12 +64,12 @@ func run_checks() -> void:
 	root.size = Vector2i(1280, 720)
 	await process_frame
 	await process_frame
-	assert(game.quest_panel.scale.is_equal_approx(design.scale))
-	assert(game.quest_panel.position.is_equal_approx(
-		design.position + Vector2(874, 84) * design.scale
-	), "Quest detail keeps its original placement when the viewport changes")
-	var caption: Label = game.DESIGN.shape(game.quest_complete_button.get_parent(), "Label")
-	assert(caption.text == "진행 중")
+	var quest_hud: Control = game.get_node("QuestHud")
+	assert(quest_hud.scale.is_equal_approx(design.scale * 0.8))
+	assert(quest_hud.position.is_equal_approx(
+		design.position + Vector2(1081.6, 10) * design.scale
+	), "Memo HUD keeps its original corner placement after resizing")
+	assert(not game.DESIGN.shape(quest_hud, "Badge / Claimable").visible)
 	game.session.money = 15550
 	game._refresh_ui()
 	var hover := InputEventMouseMotion.new()

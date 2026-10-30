@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" path="res://src/features/play/play_design.tscn" id="penpot_design"]
 [ext_resource type="PackedScene" path="res://src/features/play/vending_machine.tscn" id="penpot_machine"]
 
-[ext_resource type="PackedScene" path="res://src/features/play/quest_design.tscn" id="penpot_quest"]
+[ext_resource type="PackedScene" path="res://src/features/quests/hud_design.tscn" id="penpot_quest"]
 [ext_resource type="Script" uid="uid://ch5cd5h4pkguo" path="res://src/features/play/play.gd" id="1"]
 [ext_resource type="Material" uid="uid://dkq1f7krtwqnj" path="res://src/features/play/effects/search_glow.tres" id="glow_material"]
 [ext_resource type="Texture2D" uid="uid://3jfhu2ntswmr" path="res://src/features/play/effects/reward_halo.svg" id="halo"]
@@ -41,7 +41,8 @@ script = ExtResource("1")
 
 [node name="VendingMachine" parent="." instance=ExtResource("penpot_machine")]
 
-[node name="QuestPanel" parent="." instance=ExtResource("penpot_quest")]
+[node name="QuestHud" parent="." instance=ExtResource("penpot_quest")]
+z_index = 30
 
 [node name="MenuButton" type="Button" parent="." unique_id=102149763]
 layout_mode = 0

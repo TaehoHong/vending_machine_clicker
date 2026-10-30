@@ -1,0 +1,74 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/56x56_normal.svg" id="r0"]
+
+[ext_resource type="Texture2D" path="res://assets/penpot/quest_memo.svg" id="r1"]
+
+[ext_resource type="Theme" path="res://src/shared/ui/themes/play_theme.tres" id="r2"]
+
+[node name="QuestHud" type="Control"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 0
+offset_top = 0
+offset_right = 68
+offset_bottom = 68
+metadata/penpot_name = "Action / Open Quests"
+metadata/penpot_id = "790bd3fd-c08b-804e-8008-dc86331ca4af"
+theme = ExtResource("r2")
+
+[node name="Frame" parent="." type="TextureRect"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 0
+offset_top = 0
+offset_right = 68
+offset_bottom = 68
+metadata/penpot_name = "Frame / normal"
+texture = ExtResource("r0")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
+metadata/penpot_frame_family = "56x56"
+metadata/penpot_frame_state = "normal"
+
+[node name="Memo" parent="." type="TextureRect"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 22
+offset_top = 17
+offset_right = 46
+offset_bottom = 47
+metadata/penpot_name = "Icon / Memo"
+texture = ExtResource("r1")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
+
+[node name="Badge" parent="." type="Control"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 52
+offset_top = 4
+offset_right = 64
+offset_bottom = 16
+metadata/penpot_name = "Badge / Claimable"
+visible = false
+
+[node name="Horizontal" parent="Badge" type="Panel"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 0
+offset_top = 2
+offset_right = 12
+offset_bottom = 10
+theme_type_variation = &"QuestBadge"
+
+[node name="Vertical" parent="Badge" type="Panel"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 2
+offset_top = 0
+offset_right = 10
+offset_bottom = 12
+theme_type_variation = &"QuestBadge"

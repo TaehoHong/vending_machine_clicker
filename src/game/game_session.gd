@@ -6,6 +6,7 @@ const QUEST_TARGET: int = 10
 const QUEST_REWARD: int = 5000
 const CAN_QUEST_TARGET: int = 5
 const CAN_QUEST_REWARD: int = 100
+const QUEST_IDS: Array[String] = ["coin", "can"]
 const DRAW_PRICE: int = 100
 const ION_UNLOCK_COST: int = 5
 const MAX_MACHINE_LEVEL: int = 4
@@ -71,7 +72,8 @@ func purchasable_drinks() -> Array[int]:
 
 
 func collected_cans() -> int:
-	return DRINKS.collected_cans(self) + int(FACILITIES.state(self).collected_cans)
+	var lifetime: int = drinks + int(FACILITIES.state(self).collected_cans)
+	return maxi(DRINKS.collected_cans(self), lifetime)
 
 
 func drink_count(index: int) -> int:
@@ -181,19 +183,32 @@ func unlock(index: int) -> bool:
 	return true
 
 
-func claim_quest() -> bool:
-	if not quest_reward_claimed:
-		if quest_clicks < QUEST_TARGET:
-			return false
-		quest_reward_claimed = true
-		money += QUEST_REWARD
-	elif not can_quest_reward_claimed:
-		if collected_cans() < CAN_QUEST_TARGET:
-			return false
-		can_quest_reward_claimed = true
-		money += CAN_QUEST_REWARD
-	else:
+func quest_status(quest_id: String) -> Dictionary:
+	if not QUEST_IDS.has(quest_id):
+		return {}
+	var is_can := quest_id == "can"
+	var target: int = CAN_QUEST_TARGET if is_can else QUEST_TARGET
+	var progress: int = mini(collected_cans() if is_can else quest_clicks, target)
+	var claimed: bool = can_quest_reward_claimed if is_can else quest_reward_claimed
+	return {
+		"id": quest_id,
+		"title": "빈캔 %d개 모으기" % target if is_can else "동전 %d번 발견하기" % target,
+		"kind": "빈캔 수집" if is_can else "동전 수집",
+		"progress": progress, "target": target,
+		"reward": CAN_QUEST_REWARD if is_can else QUEST_REWARD,
+		"claimed": claimed, "ready": not claimed and progress >= target,
+	}
+
+
+func claim_quest(quest_id: String) -> bool:
+	var quest := quest_status(quest_id)
+	if quest.is_empty() or not quest.ready:
 		return false
+	if quest_id == "coin":
+		quest_reward_claimed = true
+	else:
+		can_quest_reward_claimed = true
+	money += int(quest.reward)
 	return true
 
 

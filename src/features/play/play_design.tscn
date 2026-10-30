@@ -1,16 +1,10 @@
 [gd_scene format=3]
 
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/56x56_normal.svg" id="hud_frame"]
+
 [ext_resource type="Texture2D" path="res://assets/penpot/cd444aaf-0d8c-801b-8008-ce975c423d25.png" id="r0"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/da05d154-084a-817e-8008-d2539b524648.png" id="r1"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/4fbe6d83d114e8c66200.svg" id="r2"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/f2d62e1a4327a42cf7b8.svg" id="r3"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/cf36ec5f2e44613e4777.svg" id="r4"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/a3b5a092b62b8af919a7.svg" id="r5"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/ef258f899d6620466570.svg" id="r6"]
 
@@ -28,14 +22,6 @@
 
 [ext_resource type="Texture2D" path="res://assets/penpot/1bed63fe83a13cab7c0b.svg" id="r13"]
 
-[ext_resource type="Texture2D" path="res://assets/penpot/cd9c1ba74b21f1f3c81c.svg" id="r14"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/0f87aa090d52e154cb38.svg" id="r15"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/69eb7c02a399e3be5cf4.svg" id="r16"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/4dd32be22799185e43fd.svg" id="r17"]
-
 [ext_resource type="Texture2D" path="res://assets/penpot/5d81ecc80794e3d425ca.svg" id="r18"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/8ea348077848f2ad63b0.svg" id="r19"]
@@ -51,14 +37,6 @@
 [ext_resource type="Texture2D" path="res://assets/penpot/6c3853688b72ca73942c.svg" id="r24"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/05b40b220bba3cee9da8.svg" id="r25"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/8da4c7c7e0693598165f.svg" id="r26"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/116ea023d7fb0bbd502f.svg" id="r27"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/c085985d285b8c723f07.svg" id="r28"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/8a445c33b252625f0f9a.svg" id="r29"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/133f1bb13a8bbe6de8f2.svg" id="r30"]
 
@@ -254,15 +232,15 @@ texture_filter = 1
 
 [node name="Shape7" type="Control" parent="."]
 layout_mode = 0
-offset_left = 1081.6
-offset_top = 577.6
-offset_right = 1136.0
-offset_bottom = 632.0
+offset_left = 1086.4
+offset_top = 582.4
+offset_right = 1140.8
+offset_bottom = 636.8
 mouse_filter = 2
 metadata/penpot_name = "HUD / 메뉴 / normal"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26be45dfd2f"
 
-[node name="Shape8" type="Control" parent="Shape7"]
+[node name="Shape8" type="TextureRect" parent="Shape7"]
 layout_mode = 0
 offset_left = 0.0
 offset_top = 0.0
@@ -273,58 +251,10 @@ metadata/penpot_name = "Frame"
 metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d99f"
 metadata/penpot_frame_family = "56x56"
 metadata/penpot_frame_state = "normal"
-
-[node name="Shape9" type="TextureRect" parent="Shape7/Shape8"]
-layout_mode = 0
-offset_left = 6.4
-offset_top = 9.6
-offset_right = 48.0
-offset_bottom = 48.0
-mouse_filter = 2
-metadata/penpot_name = "base"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a0"
-texture = ExtResource("r2")
+texture = ExtResource("hud_frame")
 expand_mode = 1
 stretch_mode = 0
-
-[node name="Shape10" type="TextureRect" parent="Shape7/Shape8"]
-layout_mode = 0
-offset_left = 6.4
-offset_top = 6.4
-offset_right = 48.0
-offset_bottom = 44.8
-mouse_filter = 2
-metadata/penpot_name = "surface"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a1"
-texture = ExtResource("r3")
-expand_mode = 1
-stretch_mode = 0
-
-[node name="Shape11" type="TextureRect" parent="Shape7/Shape8"]
-layout_mode = 0
-offset_left = 9.6
-offset_top = 9.6
-offset_right = 44.8
-offset_bottom = 16.8
-mouse_filter = 2
-metadata/penpot_name = "highlight"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a2"
-texture = ExtResource("r4")
-expand_mode = 1
-stretch_mode = 0
-
-[node name="Shape12" type="TextureRect" parent="Shape7/Shape8"]
-layout_mode = 0
-offset_left = 9.6
-offset_top = 32.8
-offset_right = 44.8
-offset_bottom = 42.4
-mouse_filter = 2
-metadata/penpot_name = "bevel"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a3"
-texture = ExtResource("r5")
-expand_mode = 1
-stretch_mode = 0
+texture_filter = 1
 
 [node name="Shape13" type="Control" parent="Shape7"]
 layout_mode = 0
@@ -338,10 +268,10 @@ metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a4"
 
 [node name="Shape14" type="TextureRect" parent="Shape7/Shape13"]
 layout_mode = 0
-offset_left = 4.8
-offset_top = 4.0
+offset_left = 3.2
+offset_top = 0.8
 offset_right = 9.6
-offset_bottom = 21.6
+offset_bottom = 24.8
 mouse_filter = 2
 metadata/penpot_name = "벡터 면"
 metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a5"
@@ -352,9 +282,9 @@ stretch_mode = 0
 [node name="Shape15" type="TextureRect" parent="Shape7/Shape13"]
 layout_mode = 0
 offset_left = 16
-offset_top = 4.0
-offset_right = 20.8
-offset_bottom = 21.6
+offset_top = 0.8
+offset_right = 22.4
+offset_bottom = 24.8
 mouse_filter = 2
 metadata/penpot_name = "벡터 면"
 metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a6"
@@ -364,10 +294,10 @@ stretch_mode = 0
 
 [node name="Shape16" type="TextureRect" parent="Shape7/Shape13"]
 layout_mode = 0
-offset_left = 6.4
-offset_top = 5.6
-offset_right = 8.0
-offset_bottom = 18.4
+offset_left = 4.8
+offset_top = 2.4
+offset_right = 6.4
+offset_bottom = 20
 mouse_filter = 2
 metadata/penpot_name = "픽셀 면"
 metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a7"
@@ -378,9 +308,9 @@ stretch_mode = 0
 [node name="Shape17" type="TextureRect" parent="Shape7/Shape13"]
 layout_mode = 0
 offset_left = 17.6
-offset_top = 5.6
+offset_top = 2.4
 offset_right = 19.2
-offset_bottom = 18.4
+offset_bottom = 20
 mouse_filter = 2
 metadata/penpot_name = "픽셀 면"
 metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80827d9a8"
@@ -446,13 +376,14 @@ vertical_alignment = 1
 
 [node name="Shape22" type="Control" parent="Shape18"]
 layout_mode = 0
-offset_left = 12.46154
-offset_top = 9
-offset_right = 35.47793
-offset_bottom = 35
+offset_left = 13.34679
+offset_top = 10
+offset_right = 36.36318
+offset_bottom = 36
 mouse_filter = 2
 metadata/penpot_name = "Icon / 골드 / 원본 연결"
 metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e5"
+scale = Vector2(0.9230769, 0.9230769)
 
 [node name="Shape23" type="Control" parent="Shape18/Shape22"]
 layout_mode = 0
@@ -536,13 +467,14 @@ theme_override_styles/panel = SubResource("s4")
 
 [node name="Shape30" type="Control" parent="Shape18"]
 layout_mode = 0
-offset_left = 139.15385
-offset_top = 9
-offset_right = 162.17024
-offset_bottom = 35
+offset_left = 140.0391
+offset_top = 10
+offset_right = 163.05549
+offset_bottom = 36
 mouse_filter = 2
 metadata/penpot_name = "Icon / 빈캔 / 원본 연결"
 metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ed"
+scale = Vector2(0.9230769, 0.9230769)
 
 [node name="Shape31" type="Control" parent="Shape18/Shape30"]
 layout_mode = 0
@@ -657,15 +589,15 @@ theme_override_styles/panel = SubResource("s11")
 
 [node name="Shape41" type="Control" parent="."]
 layout_mode = 0
-offset_left = 16
-offset_top = 577.6
-offset_right = 70.4
-offset_bottom = 632.0
+offset_left = 11.2
+offset_top = 582.4
+offset_right = 65.6
+offset_bottom = 636.8
 mouse_filter = 2
 metadata/penpot_name = "HUD / 능력 / normal"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26be44ace92"
 
-[node name="Shape42" type="Control" parent="Shape41"]
+[node name="Shape42" type="TextureRect" parent="Shape41"]
 layout_mode = 0
 offset_left = 0
 offset_top = 0.0
@@ -676,58 +608,10 @@ metadata/penpot_name = "Frame"
 metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80384240d"
 metadata/penpot_frame_family = "56x56"
 metadata/penpot_frame_state = "normal"
-
-[node name="Shape43" type="TextureRect" parent="Shape41/Shape42"]
-layout_mode = 0
-offset_left = 6.4
-offset_top = 9.6
-offset_right = 48.0
-offset_bottom = 48.0
-mouse_filter = 2
-metadata/penpot_name = "base"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80384240e"
-texture = ExtResource("r14")
+texture = ExtResource("hud_frame")
 expand_mode = 1
 stretch_mode = 0
-
-[node name="Shape44" type="TextureRect" parent="Shape41/Shape42"]
-layout_mode = 0
-offset_left = 6.4
-offset_top = 6.4
-offset_right = 48.0
-offset_bottom = 44.8
-mouse_filter = 2
-metadata/penpot_name = "surface"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e80384240f"
-texture = ExtResource("r15")
-expand_mode = 1
-stretch_mode = 0
-
-[node name="Shape45" type="TextureRect" parent="Shape41/Shape42"]
-layout_mode = 0
-offset_left = 9.6
-offset_top = 9.6
-offset_right = 44.8
-offset_bottom = 16.8
-mouse_filter = 2
-metadata/penpot_name = "highlight"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e803842410"
-texture = ExtResource("r16")
-expand_mode = 1
-stretch_mode = 0
-
-[node name="Shape46" type="TextureRect" parent="Shape41/Shape42"]
-layout_mode = 0
-offset_left = 9.6
-offset_top = 32.8
-offset_right = 44.8
-offset_bottom = 42.4
-mouse_filter = 2
-metadata/penpot_name = "bevel"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e803842411"
-texture = ExtResource("r17")
-expand_mode = 1
-stretch_mode = 0
+texture_filter = 1
 
 [node name="Shape47" type="Control" parent="Shape41"]
 layout_mode = 0
@@ -883,15 +767,15 @@ vertical_alignment = 1
 
 [node name="Shape59" type="Control" parent="."]
 layout_mode = 0
-offset_left = 84
-offset_top = 577.6
-offset_right = 138.4
-offset_bottom = 632.0
+offset_left = 72
+offset_top = 582.4
+offset_right = 126.4
+offset_bottom = 636.8
 mouse_filter = 2
 metadata/penpot_name = "UI / 버튼 / 시설"
 metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832a"
 
-[node name="Shape60" type="Control" parent="Shape59"]
+[node name="Shape60" type="TextureRect" parent="Shape59"]
 layout_mode = 0
 offset_left = 0
 offset_top = 0.0
@@ -902,58 +786,10 @@ metadata/penpot_name = "Frame / A / normal"
 metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832b"
 metadata/penpot_frame_family = "56x56"
 metadata/penpot_frame_state = "normal"
-
-[node name="Shape61" type="TextureRect" parent="Shape59/Shape60"]
-layout_mode = 0
-offset_left = 6.4
-offset_top = 9.6
-offset_right = 48.0
-offset_bottom = 48.0
-mouse_filter = 2
-metadata/penpot_name = "base"
-metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832c"
-texture = ExtResource("r26")
+texture = ExtResource("hud_frame")
 expand_mode = 1
 stretch_mode = 0
-
-[node name="Shape62" type="TextureRect" parent="Shape59/Shape60"]
-layout_mode = 0
-offset_left = 6.4
-offset_top = 6.4
-offset_right = 48.0
-offset_bottom = 44.8
-mouse_filter = 2
-metadata/penpot_name = "surface"
-metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832d"
-texture = ExtResource("r27")
-expand_mode = 1
-stretch_mode = 0
-
-[node name="Shape63" type="TextureRect" parent="Shape59/Shape60"]
-layout_mode = 0
-offset_left = 9.6
-offset_top = 9.6
-offset_right = 44.8
-offset_bottom = 16.8
-mouse_filter = 2
-metadata/penpot_name = "highlight"
-metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832e"
-texture = ExtResource("r28")
-expand_mode = 1
-stretch_mode = 0
-
-[node name="Shape64" type="TextureRect" parent="Shape59/Shape60"]
-layout_mode = 0
-offset_left = 9.6
-offset_top = 32.8
-offset_right = 44.8
-offset_bottom = 42.4
-mouse_filter = 2
-metadata/penpot_name = "bevel"
-metadata/penpot_id = "a4035161-685a-8060-8008-d6386a70832f"
-texture = ExtResource("r29")
-expand_mode = 1
-stretch_mode = 0
+texture_filter = 1
 
 [node name="Shape65" type="Control" parent="Shape59"]
 layout_mode = 0

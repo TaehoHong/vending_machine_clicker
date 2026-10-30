@@ -104,15 +104,15 @@ func run_checks() -> void:
 	check(game.session.clicks_required() == 10, "Water changes Gold, never search clicks")
 	check(not game.has_node("ShopPanel/Margin/Items/UpgradeButton"), "Upgrade remains removed")
 	game.session.quest_clicks = 10
-	game._on_quest_complete_button_pressed()
-	game._on_quest_complete_button_pressed()
+	game._claim_quest("coin")
+	game._claim_quest("coin")
 	check(
 		(
 			game.session.money == 5000
-			and game.quest_progress.visible
+			and game.quest_button.visible
 			and not game.session.can_quest_reward_claimed
 		),
-		"First quest pays once and advances to can quest"
+		"First quest pays once without claiming the other row"
 	)
 	game._save_progress()
 	game.session.water_count = 0

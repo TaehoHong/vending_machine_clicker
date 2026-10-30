@@ -1,0 +1,203 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://src/shared/ui/icons/gold_icon.tscn" id="r0"]
+
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/icons/can.svg" id="r1"]
+
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/136x56_normal.svg" id="r2"]
+
+[ext_resource type="Theme" path="res://src/shared/ui/themes/play_theme.tres" id="r3"]
+
+[node name="QuestRow" type="Control"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 0
+offset_top = 0
+offset_right = 672
+offset_bottom = 112
+metadata/penpot_name = "Quest / Row"
+metadata/penpot_id = "790bd3fd-c08b-804e-8008-dc862f8066b4"
+theme = ExtResource("r3")
+
+[node name="Surface" parent="." type="Panel"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 0
+offset_top = 0
+offset_right = 672
+offset_bottom = 112
+metadata/penpot_name = "Surface / Cream"
+theme_type_variation = &"QuestRow"
+
+[node name="Gold" parent="." instance=ExtResource("r0")]
+layout_mode = 0
+mouse_filter = 2
+metadata/penpot_name = "Goal / Gold"
+position = Vector2(24, 36)
+scale = Vector2(1.3903135982662789, 1.2307692307692308)
+
+[node name="Can" parent="." type="TextureRect"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 28
+offset_top = 30
+offset_right = 52
+offset_bottom = 64
+metadata/penpot_name = "Goal / Can"
+texture = ExtResource("r1")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
+visible = false
+
+[node name="Goal" parent="." type="Label"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 80
+offset_top = 12
+offset_right = 456
+offset_bottom = 48
+metadata/penpot_name = "Text / Goal"
+theme_type_variation = &"InfoTitle"
+theme_override_font_sizes/font_size = 23
+text = "동전 10번 발견하기"
+vertical_alignment = 1
+horizontal_alignment = 0
+
+[node name="Track" parent="." type="Panel"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 80
+offset_top = 60
+offset_right = 432
+offset_bottom = 68
+metadata/penpot_name = "Progress / Track"
+theme_type_variation = &"QuestTrack"
+
+[node name="Fill" parent="." type="Panel"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 80
+offset_top = 60
+offset_right = 80
+offset_bottom = 68
+metadata/penpot_name = "Progress / Fill"
+theme_type_variation = &"QuestFill"
+
+[node name="Count" parent="." type="Label"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 80
+offset_top = 76
+offset_right = 280
+offset_bottom = 100
+metadata/penpot_name = "Text / Count"
+theme_type_variation = &"InfoTitle"
+theme_override_font_sizes/font_size = 17
+text = "0 / 10"
+vertical_alignment = 1
+horizontal_alignment = 0
+
+[node name="Claim" parent="." type="Control"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 504
+offset_top = 22
+offset_right = 652
+offset_bottom = 90
+metadata/penpot_name = "Action / Claim"
+visible = false
+
+[node name="Frame" parent="Claim" type="TextureRect"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 0
+offset_top = 0
+offset_right = 148
+offset_bottom = 68
+metadata/penpot_name = "Frame / normal"
+texture = ExtResource("r2")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
+metadata/penpot_frame_family = "136x56"
+metadata/penpot_frame_state = "normal"
+
+[node name="Gold" parent="Claim" instance=ExtResource("r0")]
+layout_mode = 0
+mouse_filter = 2
+metadata/penpot_name = "Reward / Icon"
+position = Vector2(26, 13)
+scale = Vector2(0.7820513990247818, 0.6923076923076923)
+
+[node name="Amount" parent="Claim" type="Label"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 50
+offset_top = 7
+offset_right = 130
+offset_bottom = 35
+metadata/penpot_name = "Reward / Amount"
+theme_type_variation = &"Label"
+theme_override_font_sizes/font_size = 17
+text = "5,000"
+vertical_alignment = 1
+horizontal_alignment = 0
+
+[node name="Label" parent="Claim" type="Label"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 8
+offset_top = 33
+offset_right = 140
+offset_bottom = 57
+metadata/penpot_name = "Label / Claim"
+theme_type_variation = &"Label"
+theme_override_font_sizes/font_size = 18
+text = "받기"
+vertical_alignment = 1
+horizontal_alignment = 1
+
+[node name="Static" parent="." type="Control"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 504
+offset_top = 20
+offset_right = 652
+offset_bottom = 92
+metadata/penpot_name = "Reward / Static"
+
+[node name="Gold" parent="Static" instance=ExtResource("r0")]
+layout_mode = 0
+mouse_filter = 2
+metadata/penpot_name = "Reward / Icon"
+position = Vector2(26, 10)
+scale = Vector2(0.7820513990247818, 0.6923076923076923)
+
+[node name="Amount" parent="Static" type="Label"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 50
+offset_top = 3
+offset_right = 130
+offset_bottom = 35
+metadata/penpot_name = "Reward / Amount"
+theme_type_variation = &"InfoTitle"
+theme_override_font_sizes/font_size = 17
+text = "5,000"
+vertical_alignment = 1
+horizontal_alignment = 0
+
+[node name="Status" parent="Static" type="Label"]
+layout_mode = 0
+mouse_filter = 2
+offset_left = 0
+offset_top = 37
+offset_right = 148
+offset_bottom = 65
+metadata/penpot_name = "Label / Status"
+theme_type_variation = &"InfoBody"
+theme_override_font_sizes/font_size = 15
+text = "진행 중"
+vertical_alignment = 1
+horizontal_alignment = 1
