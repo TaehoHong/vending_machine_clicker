@@ -82,11 +82,11 @@ func _ready() -> void:
 	detail_count.add_theme_font_override("font", FONT)
 	detail_count.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	detail_effect = _label(
-		detail_panel, Rect2(20, 100, 258, 32), "", 18, foreground, &"InfoBody"
+		detail_panel, Rect2(20, 96, 258, 64), "", 18, foreground, &"InfoBody"
 	)
 	detail_effect.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	detail_status = _label(
-		detail_panel, Rect2(20, 148, 258, 38), "", 15, secondary, &"InfoBody"
+		detail_panel, Rect2(20, 168, 258, 28), "", 15, secondary, &"InfoBody"
 	)
 	detail_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var dismiss_art: Control = preload("res://src/features/drinks/detail_close.tscn").instantiate()
@@ -237,7 +237,7 @@ func _refresh_selection() -> void:
 			int(data.max_enhancements),
 		]
 	detail_count.tooltip_text = detail_count.text
-	detail_effect.text = data.effect
+	detail_effect.text = str(data.effect).replace(" · ", "\n")
 	if acquired:
 		detail_status.text = str(cumulative_effects.get(selected_index,"획득한 음료의 능력이 적용됩니다"))
 	else:
