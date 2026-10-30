@@ -8,9 +8,9 @@ GUI 샌드박스 내 실행은 출력 없이 exit 134였으며 권한 상승 후
 
 ## 발견 사항
 
-- **F-02 / P1 / 기획 불일치:** 최신 Notion은 시설 골드의 짧은 튀어오름 후 자동 획득을 명시한다. 실제로 생산량 20 Gold/10초 강화 상태에서 HUD 2,536이 10초 이상 유지되었고 생산물 클릭 후 2,616으로 증가했다. 누적 수동 수령을 1회 직접 확인했으며 2회 재현은 하지 않았다. [수령 전](../.godot/test_artifacts/terra-user-test/clicker-terra-overlap.png), [후](../.godot/test_artifacts/terra-user-test/clicker-terra-gold-click.png). 로컬 PRODUCT 및 구현은 수동 수령을 기술하므로 최신 원문과 별개로 판정한다. 관련 `src/features/facilities/facility_world.gd`.
-- **F-01 / P2 / UX·시각:** 시설 생산 골드·빈캔 및 행인이 정보 화면 앞으로 나타나 내용과 버튼을 가린다. 재현: 자동 자판기 설치 후 생산물이 남은 상태에서 시설창 또는 음료창을 연다. 시설 목록의 쓰레기통 버튼 위 골드, 콜라 해금 카드 위 골드·빈캔, 음료 자판기 위 행인을 관찰했다. 두 화면에서 2/2 확인. [시설](../.godot/test_artifacts/terra-user-test/clicker-terra-overlap.png), [음료](../.godot/test_artifacts/terra-user-test/clicker-terra-cola.png). 클릭 차단은 입증되지 않았다. 관련 소유 경로 `src/features/facilities/facility_world.gd`의 골드·물품 z_index 20, `src/features/facilities/effects/customer_flow.gd`의 actor z_index 1; 레이어 관계는 원인 후보이며 수정 전 확인 필요.
-- **F-03 / P2 / 가독성:** 콜라 상세의 ‘반복 획득 가능’이 글자 단위로 줄바꿈되어 마지막 한 글자가 다음 줄로 밀리고, 해금 후에는 다음 안내와 수직으로 붙는다. 1152×648과 1280×720에서 확인했다. [해금 전](../.godot/test_artifacts/terra-user-test/clicker-terra-cola.png), [후](../.godot/test_artifacts/terra-user-test/clicker-terra-cola-unlock.png), [1280](../.godot/test_artifacts/terra-user-test/cola-1280.png). 관련 소유 경로는 `src/features/drinks/drink_screen.gd`의 상세 effect/status 레이블이며 구체적 수정안은 미확정이다.
+- **F-02 / P1 / 기획 불일치:** 최신 Notion은 시설 골드의 짧은 튀어오름 후 자동 획득을 명시한다. 실제로 생산량 20 Gold/10초 강화 상태에서 HUD 2,536이 10초 이상 유지되었고 생산물 클릭 후 2,616으로 증가했다. 누적 수동 수령을 1회 직접 확인했으며 2회 재현은 하지 않았다. [수령 전](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-overlap.png), [후](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-gold-click.png). 로컬 PRODUCT 및 구현은 수동 수령을 기술하므로 최신 원문과 별개로 판정한다. 관련 `src/features/facilities/facility_world.gd`.
+- **F-01 / P2 / UX·시각:** 시설 생산 골드·빈캔 및 행인이 정보 화면 앞으로 나타나 내용과 버튼을 가린다. 재현: 자동 자판기 설치 후 생산물이 남은 상태에서 시설창 또는 음료창을 연다. 시설 목록의 쓰레기통 버튼 위 골드, 콜라 해금 카드 위 골드·빈캔, 음료 자판기 위 행인을 관찰했다. 두 화면에서 2/2 확인. [시설](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-overlap.png), [음료](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-cola.png). 클릭 차단은 입증되지 않았다. 관련 소유 경로 `src/features/facilities/facility_world.gd`의 골드·물품 z_index 20, `src/features/facilities/effects/customer_flow.gd`의 actor z_index 1; 레이어 관계는 원인 후보이며 수정 전 확인 필요.
+- **F-03 / P2 / 가독성:** 콜라 상세의 ‘반복 획득 가능’이 글자 단위로 줄바꿈되어 마지막 한 글자가 다음 줄로 밀리고, 해금 후에는 다음 안내와 수직으로 붙는다. 1152×648과 1280×720에서 확인했다. [해금 전](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-cola.png), [후](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-cola-unlock.png), [1280](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/cola-1280.png). 관련 소유 경로는 `src/features/drinks/drink_screen.gd`의 상세 effect/status 레이블이며 구체적 수정안은 미확정이다.
 
 ## 기능 여정
 
@@ -23,27 +23,27 @@ PASS는 해당 행의 전 조건 전체를 검증한 경우만 사용한다. 부
 | TC-03 | OBSERVED | 바닥 연속 클릭으로 재화와 진행 확인. 경계별 정량 비교 및 10단계 밝기 확인은 미실행. |
 | TC-04 | OBSERVED | 수색 반복 후 0→1→62→75 Gold; 개별 성공·꽝 전후와 동전은 분리 관찰하지 못함. |
 | TC-05 | OBSERVED | 0에서 본체 연타 후 가격 100과 잔액 유지. 알림 3건 순서 미확인. 이후 5회 구매 5,075→4,552, 캔 0→5, 다음 가격 111. 각 결제 순간과 저장 개별 확인 미실행. |
-| TC-06 | OBSERVED | 5연속 구매 후 여러 음료가 화면에 겹쳐 배출됨. 가격·캔과 합산 차감 확인. 배출 중 수색·창 열기는 분리 검증하지 못함. [증거](../.godot/test_artifacts/terra-user-test/clicker-terra-five-purchases.png). |
+| TC-06 | OBSERVED | 5연속 구매 후 여러 음료가 화면에 겹쳐 배출됨. 가격·캔과 합산 차감 확인. 배출 중 수색·창 열기는 분리 검증하지 못함. [증거](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-five-purchases.png). |
 | TC-07 | OBSERVED | 잠긴 이온 선택에서 0캔 그대로, 부족 문구. 콜라 선택은 10캔 유지, 해금은 10→0, 획득 대상 표시. 에너지·황금·중복 및 hover 미검증. |
 | TC-08 | OBSERVED | 물·녹차 기본, 잠긴 이온과 콜라 상세 관찰; 콜라 본문 줄바꿈 F-03. 전체 음료·최대 상태 미검증. |
 | TC-09 | OBSERVED | 물·녹차 20개까지 구매 후 추가 연타에서 캔 20과 가격 149 유지, 두 음료 진열 유지. 후보 없음 차감 없음의 개별 수치 및 황금 조건 미검증. |
-| TC-10 | OBSERVED | 물·녹차 최대 후 콜라 해금, 유일 후보 구매 2,776→2,627, 캔 0→1, 다음 가격 152. 배출 후 수색 피버 및 Gold×2 HUD 확인. 10초·필요 클릭·종료 복귀 정량 미검증. [피버](../.godot/test_artifacts/terra-user-test/clicker-terra-fever.png). |
-| TC-11 | OBSERVED | E1에서 에너지 구매 10,000→9,851, 캔 50→51, 다음 가격 152. 이후 재구매 뒤 펀치 HUD 4.7초·Gold×3 확인. 3회 타격 후 잔액 증가·가격 158 유지. 종료 후 일반 구매 복귀는 뒤에 다시 구매된 사실로 관찰했으나 정확한 5초는 미측정. [타격](../.godot/test_artifacts/terra-user-test/punch-hit.png). |
-| TC-12 | OBSERVED | E1 펀치 발동 직후 음료창을 4초 이상 열고 닫았을 때 3.8초가 남아 정지·재개를 관찰했다. 열기 직전 정확한 값, 배경 클릭 및 다른 창·ESC는 미검증. [재개](../.godot/test_artifacts/terra-user-test/punch-resume.png). |
+| TC-10 | OBSERVED | 물·녹차 최대 후 콜라 해금, 유일 후보 구매 2,776→2,627, 캔 0→1, 다음 가격 152. 배출 후 수색 피버 및 Gold×2 HUD 확인. 10초·필요 클릭·종료 복귀 정량 미검증. [피버](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-fever.png). |
+| TC-11 | OBSERVED | E1에서 에너지 구매 10,000→9,851, 캔 50→51, 다음 가격 152. 이후 재구매 뒤 펀치 HUD 4.7초·Gold×3 확인. 3회 타격 후 잔액 증가·가격 158 유지. 종료 후 일반 구매 복귀는 뒤에 다시 구매된 사실로 관찰했으나 정확한 5초는 미측정. [타격](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/punch-hit.png). |
+| TC-12 | OBSERVED | E1 펀치 발동 직후 음료창을 4초 이상 열고 닫았을 때 3.8초가 남아 정지·재개를 관찰했다. 열기 직전 정확한 값, 배경 클릭 및 다른 창·ESC는 미검증. [재개](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/punch-resume.png). |
 | TC-13 | NOT RUN | 동시 피버 및 배출 중첩 상태 미준비. |
-| TC-14 | OBSERVED | 수색 10회 목표 달성 카드에서 5,000 수령 75→5,075. 캔 5개 목표는 목록에서 100 수령 2,676→2,776, 두 행 수령 완료 및 위치 유지. 중복 클릭·재화 소비 후 진행 별도 비교 미실행. [목록](../.godot/test_artifacts/terra-user-test/clicker-terra-quest-claimed.png). |
+| TC-14 | OBSERVED | 수색 10회 목표 달성 카드에서 5,000 수령 75→5,075. 캔 5개 목표는 목록에서 100 수령 2,676→2,776, 두 행 수령 완료 및 위치 유지. 중복 클릭·재화 소비 후 진행 별도 비교 미실행. [목록](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-quest-claimed.png). |
 | TC-15 | OBSERVED | 첫 카드, 다음 캔 카드 순서로 출현, 수령 후 사라짐. 20초 대기·정보창 보류는 측정하지 못함. |
-| TC-16 | OBSERVED | 5,000 수령 즉시 잔액 증가, 다수 동전 바닥 낙하 관찰. 흡입 끝·동시 수색·모션 감소 비교는 미실행. [연출](../.godot/test_artifacts/terra-user-test/clicker-terra-quest-fx.png). |
+| TC-16 | OBSERVED | 5,000 수령 즉시 잔액 증가, 다수 동전 바닥 낙하 관찰. 흡입 끝·동시 수색·모션 감소 비교는 미실행. [연출](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-quest-fx.png). |
 | TC-17 | OBSERVED | 캔 20에서 자동 자판기 구매 후 10, 즉시 설치; 쓰레기통은 15 필요·5 부족 비활성. 다른 경계값·중복·그림 선택 미검증. |
 | TC-18 | OBSERVED | 자동 자판기 골드 생산량 100 Gold 강화: 2,636→2,536, 0/5→1/5, 10→20, 다음 비용 200. 나머지 항목·최대 미검증. |
 | TC-19 | FAIL | 20 Gold/10초 강화 상태로 여러 주기 방치해 잔액 2,536 유지, 클릭 시 2,616. 현 구현의 수동 수령은 관찰됐으나 최신 Notion 자동 획득과 다름(F-02). 기본 10 Gold 조건은 미실행. |
 | TC-20 | NOT RUN | 빈캔 개별 낙하·반복 클릭·15초 만료 및 쓰레기통 자동 수집을 확실히 추적하지 못함. |
 | TC-21 | OBSERVED | 설치 후 90초 이상 경과하며 여러 손님·행인, 정지/등돌림/수령·퇴장과 통과 장면 관찰. 개별 인물의 전체 경로와 보상 독립성은 연속 추적하지 못함. |
-| TC-22 | OBSERVED | E1 구매·타격 후 프로세스 종료·이어하기에서 9,509 Gold, 캔 54, 다음 가격 161과 에너지 진열이 그대로였고 추가 지급은 보이지 않았다. 시설·퀘스트 수령 flag는 이 재실행에서 미검증. [재진입](../.godot/test_artifacts/terra-user-test/reload.png). |
+| TC-22 | OBSERVED | E1 구매·타격 후 프로세스 종료·이어하기에서 9,509 Gold, 캔 54, 다음 가격 161과 에너지 진열이 그대로였고 추가 지급은 보이지 않았다. 시설·퀘스트 수령 flag는 이 재실행에서 미검증. [재진입](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/reload.png). |
 | TC-23 | NOT RUN | 연출 중 종료·재진입과 백업 미검증. |
 | TC-24 | NOT RUN | 지정 잔액 fixture와 tooltip 미준비. |
 | TC-25 | NOT RUN | 설정 변경·재진입 및 모션 감소 미검증. |
-| TC-26 | OBSERVED | 1152×648과 1280×720에서 F-01/F-03 재현. 1600×900·비16:9 미실행. [1280 시설](../.godot/test_artifacts/terra-user-test/overlap-1280.png), [콜라](../.godot/test_artifacts/terra-user-test/cola-1280.png). |
+| TC-26 | OBSERVED | 1152×648과 1280×720에서 F-01/F-03 재현. 1600×900·비16:9 미실행. [1280 시설](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/overlap-1280.png), [콜라](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/cola-1280.png). |
 | TC-27 | OBSERVED | ESC로 음료 닫기, 시설 강화→목록→게임 복귀 확인. Tab·Enter·포커스 전체 미검증. |
 | TC-28 | OBSERVED | 연속 구매 배출 및 손님과 생산물 겹침 관찰; 모달 시각 겹침 F-01. 모든 FX 동시 중첩과 FPS 미검증. |
 
