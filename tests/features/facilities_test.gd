@@ -119,22 +119,76 @@ func run_checks() -> void:
 	assert(game.facilities_screen == null)
 	await tap(trash_body)
 	assert(game.facilities_screen == null)
-	RULES.state(game.session).gold = 10
 	RULES.state(game.session).drops = [{"id": 1, "amount": 2, "remaining": 15.0}]
 	game.facility_world.refresh()
-	await tap(game.facility_world.gold)
-	assert(game.session.money == 2010 and RULES.state(game.session).gold == 0)
-	game.facility_world.gold.pressed.emit()
-	assert(game.session.money == 2010)
 	var drop: Button = game.facility_world.drops[1]
+	game._open_facilities()
+	await tap(drop)
+	assert(game.session.cans == 0 and RULES.state(game.session).drops.size() == 1,
+		"시설창 뒤에 있는 빈캔은 모달 위에서 클릭해도 수령하지 않아야 합니다.")
+	game.facilities_screen.close()
+	await process_frame
 	await tap(drop)
 	assert(game.session.cans == 2 and game.session.drinks == 0)
 	assert(game.session.collect_facility_item(1) == 0)
 	assert(game.session.cans == 2)
+	game.set_process(false)
+	var receipts: Array[Vector2i] = []
+	game.facility_world.changed.connect(func() -> void:
+		if game.session.money > 2000:
+			receipts.append(Vector2i(game.session.money, RULES.state(game.session).gold))
+	)
+	game.facility_world.advance(10.0)
+	game.facility_world.advance(10.0)
+	assert(game.session.money == 2000 and RULES.state(game.session).gold == 40)
+	await create_timer(1.0).timeout
+	assert(game.session.money == 2040, "생산 골드는 클릭 없이 연출 후 자동 수령해야 합니다.")
+	assert(receipts == [Vector2i(2020, 20), Vector2i(2040, 0)],
+		"각 연출은 뒤 생산분을 먼저 수령하지 않고 자신의 금액만 지급해야 합니다.")
+	var saved := ConfigFile.new()
 	var save_path: String = FIXTURE.store_for(game).path
+	assert(saved.load(save_path) == OK)
+	assert(saved.get_value("progress", "money") == 2040)
+	assert(saved.get_value("progress", "facilities").alley.gold == 0)
+	game.facility_world.advance(10.0)
+	assert(saved.load(save_path) == OK)
+	assert(saved.get_value("progress", "money") == 2040)
+	assert(saved.get_value("progress", "facilities").alley.gold == 20)
 	game.free()
+	var app: Control = preload("res://src/app/main.tscn").instantiate()
+	app.save_path = save_path
+	root.add_child(app)
+	app._start_game(false)
+	assert(app.session.money == 2060 and RULES.state(app.session).gold == 0,
+		"연출 중 종료한 골드는 재진입 때 한 번 자동 수령해야 합니다.")
+	app.free()
+	app = preload("res://src/app/main.tscn").instantiate()
+	app.save_path = save_path
+	root.add_child(app)
+	app._start_game(false)
+	assert(app.session.money == 2060 and RULES.state(app.session).gold == 0,
+		"복구 후 다시 재진입해도 같은 골드를 중복 지급하지 않아야 합니다.")
+	var preferences: Node = root.get_node("Preferences")
+	var reduced_before: bool = preferences.values.reduce_motion
+	preferences.values.reduce_motion = true
+	app.view.set_process(false)
+	app.view.facility_world.advance(10.0)
+	await create_timer(1.0).timeout
+	assert(app.session.money == 2080 and RULES.state(app.session).gold == 0,
+		"모션 감소에서도 같은 생산액을 클릭 없이 한 번만 지급해야 합니다.")
+	app.view.facility_world.advance(10.0)
+	paused = true
+	await create_timer(0.3).timeout
+	assert(app.session.money == 2080 and RULES.state(app.session).gold == 20,
+		"ESC 일시정지 중에는 진행 중인 골드 연출과 수령을 보류해야 합니다.")
+	paused = false
+	await create_timer(1.0).timeout
+	assert(app.session.money == 2100 and RULES.state(app.session).gold == 0,
+		"재개한 골드 연출은 같은 보상을 한 번만 지급해야 합니다.")
+	preferences.values.reduce_motion = reduced_before
+	app.free()
 	DirAccess.remove_absolute(save_path)
-	print("Facility item purchase, gold upgrades, return and separate world collection passed.")
+	print("Facility purchase, upgrades, automatic gold, overlapping payouts and reload passed.")
 	quit()
 
 

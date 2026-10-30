@@ -80,6 +80,7 @@ func run_checks() -> void:
 	saved.set_value("progress", "water_count", 6)
 	saved.set_value("progress", "green_tea_count", 2)
 	saved.set_value("progress", "cans", 8)
+	saved.set_value("progress", "facilities", {"alley": {"gold": 1000000001}})
 	saved.save(test_path)
 	menu.free()
 	menu = make_menu()
@@ -94,12 +95,18 @@ func run_checks() -> void:
 	var game = menu.view
 	check(
 		(
-			game.session.money == 734
+			game.session.money == 1000000735
 			and game.session.water_count == 6
 			and game.session.green_tea_count == 2
 		),
 		"Load Game restores saved progress"
 	)
+	check(game.session.facilities.alley.gold == 0, "Continue claims old pending Gold once")
+	check(saved.load(test_path) == OK, "Recovered facility Gold saves immediately")
+	check(saved.get_value("progress", "money") == 1000000735,
+		"Recovery preserves more than one billion Gold without truncation")
+	check(saved.get_value("progress", "facilities").alley.gold == 0,
+		"Wallet increase and pending removal persist together")
 	menu.free()
 	menu = make_menu()
 	var failing_store := BackupFailureStore.new(test_path)
@@ -133,7 +140,7 @@ func run_checks() -> void:
 	)
 	var backup := ConfigFile.new()
 	check(
-		backup.load(backup_path) == OK and backup.get_value("progress", "money") == 734,
+		backup.load(backup_path) == OK and backup.get_value("progress", "money") == 1000000735,
 		"New Game preserves previous save in separate backup"
 	)
 	var fresh := ConfigFile.new()

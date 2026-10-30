@@ -94,6 +94,8 @@ func _ready() -> void:
 	resized.connect(_position_coin_slot)
 	_setup_facility_world()
 	_setup_quests()
+	if session.collect_facility_gold() > 0:
+		_save_progress()
 	_refresh_ui()
 
 

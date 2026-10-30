@@ -253,8 +253,8 @@ func upgrade_facility(key: String) -> bool:
 	return FACILITIES.upgrade(self, key)
 
 
-func collect_facility_gold() -> int:
-	return FACILITIES.collect_gold(self)
+func collect_facility_gold(amount: int = -1) -> int:
+	return FACILITIES.collect_gold(self, amount)
 
 
 func collect_facility_item(id: int) -> int:
