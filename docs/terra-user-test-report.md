@@ -8,9 +8,9 @@ GUI 샌드박스 내 실행은 출력 없이 exit 134였으며 권한 상승 후
 
 ## 발견 사항
 
-- **F-02 / P1 / 기획 불일치:** 최신 Notion은 시설 골드의 짧은 튀어오름 후 자동 획득을 명시한다. 실제로 생산량 20 Gold/10초 강화 상태에서 HUD 2,536이 10초 이상 유지되었고 생산물 클릭 후 2,616으로 증가했다. 누적 수동 수령을 1회 직접 확인했으며 2회 재현은 하지 않았다. [수령 전](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-overlap.png), [후](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-gold-click.png). 로컬 PRODUCT 및 구현은 수동 수령을 기술하므로 최신 원문과 별개로 판정한다. 관련 `src/features/facilities/facility_world.gd`.
-- **F-01 / P2 / UX·시각:** 시설 생산 골드·빈캔 및 행인이 정보 화면 앞으로 나타나 내용과 버튼을 가린다. 재현: 자동 자판기 설치 후 생산물이 남은 상태에서 시설창 또는 음료창을 연다. 시설 목록의 쓰레기통 버튼 위 골드, 콜라 해금 카드 위 골드·빈캔, 음료 자판기 위 행인을 관찰했다. 두 화면에서 2/2 확인. [시설](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-overlap.png), [음료](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-cola.png). 클릭 차단은 입증되지 않았다. 관련 소유 경로 `src/features/facilities/facility_world.gd`의 골드·물품 z_index 20, `src/features/facilities/effects/customer_flow.gd`의 actor z_index 1; 레이어 관계는 원인 후보이며 수정 전 확인 필요.
-- **F-03 / P2 / 가독성:** 콜라 상세의 ‘반복 획득 가능’이 글자 단위로 줄바꿈되어 마지막 한 글자가 다음 줄로 밀리고, 해금 후에는 다음 안내와 수직으로 붙는다. 1152×648과 1280×720에서 확인했다. [해금 전](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-cola.png), [후](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-cola-unlock.png), [1280](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/cola-1280.png). 관련 소유 경로는 `src/features/drinks/drink_screen.gd`의 상세 effect/status 레이블이며 구체적 수정안은 미확정이다.
+- **F-02 / P2 / 기획 불일치:** 최신 Notion은 시설 골드의 짧은 튀어오름 후 자동 획득을 명시한다. 실제로 생산량 20 Gold/10초 강화 상태에서 HUD 2,536이 10초 이상 유지되었고 생산물 클릭 후 2,616으로 증가했다. 누적 수동 수령을 1회 직접 확인했으며 2회 재현은 하지 않았다. [수령 전](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-overlap.png), [후](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-gold-click.png). 로컬 PRODUCT 및 구현은 수동 수령을 기술하므로 최신 원문과 별개로 판정한다. 관련 `src/features/facilities/facility_world.gd`. Sol 재검토로 P1에서 P2로 조정했다. 수동으로 전액 수령할 수 있고 미수령액은 저장되므로 생산 중단·진행 손실로 분류하지 않는다.
+- **F-01 / P2 / UX·시각:** 시설·음료 화면에서 시설 생산 골드·빈캔이 버튼 위에, 행인이 확대 진열대 앞에 나타난다. 재현: 자동 자판기 설치 후 생산물이 남은 상태에서 시설창 또는 음료창을 연다. 시설 목록의 쓰레기통 버튼 위 골드, 콜라 해금 카드 위 골드·빈캔, 음료 자판기 위 행인을 관찰했다. 두 화면에서 2/2 확인. [시설](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-overlap.png), [음료](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-cola.png). 클릭 차단과 행인의 상세 본문 가림은 입증되지 않았다. Sol은 동일 canvas의 시설·음료 화면보다 골드·물품 z_index 20과 행인 z_index 1이 앞서는 구조를 확인했다. 별도 CanvasLayer를 사용하는 ESC 일시정지 화면까지 일반화하지 않는다.
+- **F-03 / P3 / 가독성:** 콜라 상세의 ‘반복 획득 가능’이 어색하게 나뉜다. 미해금 화면은 ‘능’만 다음 줄에 남고, 해금 직후 화면은 ‘득 가능’이 다음 줄로 밀려 상태 안내와의 간격이 좁다. 미해금 상태는 1152×648과 1280×720에서 확인했다. [해금 전](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-cola.png), [후](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/clicker-terra-cola-unlock.png), [1280](/Users/hongtaeho/clicker/.godot/test_artifacts/terra-user-test/cola-1280.png). 글자 잘림이나 글자끼리의 겹침은 확인되지 않았다. Sol 재검토로 P2에서 P3로 조정했다. 관련 소유 경로는 `src/features/drinks/drink_screen.gd`의 상세 effect/status 레이블이며 구체적 수정안은 미확정이다.
 
 ## 기능 여정
 
@@ -70,14 +70,15 @@ PASS는 해당 행의 전 조건 전체를 검증한 경우만 사용한다. 부
 
 ### 모션 보강 제안 · 시설 골드 자동 획득
 
-현재 생산 아이콘이 고정 대기하고 직접 클릭해야 하는 상태(F-02)를 최신 기획에 맞추는 것이 우선이다. 아래 HUD 이동 방식과 시간·강도는 미확정 제안이다.
+현재 생산 아이콘이 고정 대기하고 직접 클릭해야 하는 상태(F-02)를 최신 기획에 맞추는 것이 우선이다. Sol 재검토에서 짧은 튀어오름 뒤 자동 획득은 이미 확정된 요구이며, 아래 HUD 이동 방식과 시간·강도는 미확정 선택안임을 확인했다.
 
 - **효과:** 자동화로 생긴 보상이 지급됐음을 클릭 없이 이해하게 한다.
 - **발생 조건·재사용:** 시설 생산 시 기존 골드 아트와 `facility_world.gd`의 표현 책임을 사용한다. 지급은 기존 세션·저장 소유 경계를 따른다.
 - **동작:** 생산 → 짧게 튀어오름 → 골드 HUD로 이동 → 종료·정리.
-- **중첩·정보창:** 여러 생산이 겹쳐도 각 지급은 한 번이며 정보창 위에 아트를 표시하지 않는다.
-- **모션 감소:** 짧은 이동 또는 즉시 표시로 같은 지급 정보를 전달한다.
-- **재검수:** 3주기 무입력 잔액 증가·중복 지급 없음·정보창과 감소 모드에서도 동일한 지급을 확인한다.
+- **중첩·정보창:** 기존 `collect_gold`는 미수령액 전부를 비운다. 여러 생산 연출이 겹칠 때 먼저 끝난 연출이 뒤 생산분까지 수령하지 않도록, 지급 시점과 연출별 금액의 대응을 기존 세션 소유자에서 정해야 한다. 정보창 위 가림은 캔·행인 계층도 함께 확인한다.
+- **저장·복구:** 원문은 연출 중 종료 시 미수령 골드 보존과 재진입 한 번 자동 수령까지 요구한다. 자동 수령 후 늘어난 money와 비워진 pending gold를 함께 저장해야 한다. 기존 미수령 저장과 생산 주기 재시작 계약도 유지한다.
+- **모션 감소 선택안:** 짧은 이동 또는 즉시 표시로 같은 지급 정보를 전달한다. 원문의 즉시 착지 표시는 빈캔 문맥이며 골드의 특정 대체 동작까지 확정한 것은 아니다.
+- **재검수:** 기본·강화 상태 각각 3주기 무입력 잔액 증가, 생산 중첩, 연출 중 종료, 기존 pending 저장 로드, 반복 재진입, 10억 초과 금액에서 중복·손실 없음을 확인한다. 정보창·감소 모드와 캔의 별도 수집도 회귀 확인한다.
 
 손님 캡처는 0/5/10초 시점의 서로 다른 인물이어서 한 사람의 전 동작을 판정할 수 없다. 손님 모션의 새 변경 제안은 보류한다.
 
@@ -94,3 +95,18 @@ PASS는 해당 행의 전 조건 전체를 검증한 경우만 사용한다. 부
 - 기존 전체 회귀 21개와 import/parse는 메인 에이전트가 독립 실행했다. 각 완료 문구·종료 0과 스크립트/파싱/assertion 오류 없음을 확인했다. 모든 프로세스에 나타난 macOS 인증서 조회 엔진 오류는 별도로 남겼으며 원인 해결을 주장하지 않는다.
 - 이번 저장소 변경은 요청한 검수 지시서와 결과 문서다. 게임 소스·테스트·에셋은 실행 기준 커밋과 동일하다. 모션 보강 방향은 미확정 제안이며 Notion·Penpot에 새 디자인 결정으로 반영하지 않았다.
 - Knowledge Delta: 검수 결과와 재현 증거를 요청 산출물로 보존했다. 제품·디자인·아키텍처의 새 규칙이나 코드 소유권 변화는 없어 정규 문서·코드 안내에 추가 승격하지 않았다.
+
+## GPT-6.1 Sol 독립 재검토 · 2026-10-30
+
+사용자 요청으로 다른 모델인 GPT-6.1 Sol이 Terra의 세 지적과 개선안을 읽기 전용으로 재판정했다. 결론은 **수정 후 채택**이다. 위 발견 사항과 제안에는 이 판정을 반영했다. 게임 코드는 Terra 실행 기준 `a282352`와 동일하다.
+
+| 항목 | 재판정 | 근거·보완 |
+| --- | --- | --- |
+| F-01 | 확인 · P2 유지 | PNG에서 시설·음료 화면의 시각 겹침을 확인했다. [골드 z](/Users/hongtaeho/clicker/src/features/facilities/facility_world.gd:18)·[캔 z](/Users/hongtaeho/clicker/src/features/facilities/facility_world.gd:66)·[행인 z](/Users/hongtaeho/clicker/src/features/facilities/effects/customer_flow.gd:70)와 기본 canvas의 [시설창](/Users/hongtaeho/clicker/src/features/facilities/facilities_screen.tscn:6)·[음료 overlay](/Users/hongtaeho/clicker/src/features/play/play.tscn:231)를 대조했다. [PauseMenu](/Users/hongtaeho/clicker/src/features/pause/pause_menu.tscn:6)는 별도 layer 20이다. 클릭 영향은 별도 입력 검증이 필요하다. |
+| F-02 | 확인 · P1 → P2 | [Notion 원문](https://app.notion.com/p/3fcb6b9ead24800aa7bce8a1e1b045de)을 직접 재조회했다. 생산은 [pending 누적](/Users/hongtaeho/clicker/src/game/automation/facility_rules.gd:118)이며 잔액 증가는 [collect_gold](/Users/hongtaeho/clicker/src/game/automation/facility_rules.gd:79)에서만 일어난다. 실제 호출자는 [Button.pressed](/Users/hongtaeho/clicker/src/features/facilities/facility_world.gd:26)다. 현상은 자동 획득 기획과 다르지만 현재 증거는 계산 오류·진행 손실을 보이지 않는다. |
+| F-03 | 표현 수정 · P2 → P3 | 미해금·해금 직후 PNG를 구분해 ‘능’/‘득 가능’ 줄바꿈을 확인했다. 잘림·글자 겹침은 아니다. [상세 레이아웃](/Users/hongtaeho/clicker/src/features/drinks/drink_screen.gd:84)과 [상태별 16/18px 전환](/Users/hongtaeho/clicker/src/features/drinks/drink_screen.gd:229)이 관련 소유자다. |
+| 모션 보강안 | 저장 계약 보완 후 채택 | 자동 획득·종료 후 한 번 복구는 확정 요구, HUD 이동은 선택안이다. 기존 [시설 골드 아트](/Users/hongtaeho/clicker/src/features/facilities/facility_world.gd:19)·[수색 튀어오름](/Users/hongtaeho/clicker/src/features/play/play.gd:255)·[퀘스트 HUD 이동 예시](/Users/hongtaeho/clicker/src/features/quests/reward_fx.gd:53)를 재사용할 근거가 있다. 범용 새 효과 프레임워크나 퀘스트의 대량 폭발·바닥 대기를 그대로 복제할 근거는 없다. |
+
+Sol은 기존 PNG 5개를 직접 보고 소스·호출자·저장·기존 회귀의 기대를 읽었으며 Notion 연결 도구로 2회 조회했다. 반환 원문의 마지막 편집은 `2026-10-29T16:51:28.864Z`다. GUI 재실행·자동 테스트·클릭 재현·Penpot 재조회는 수행하지 않았다. 이 검토를 Terra가 미검증으로 남긴 동작의 통과 근거로 사용하지 않는다.
+
+메인 에이전트도 표시 계층·수령 호출 경로·저장 코드와 해금 직후 캡처를 대조했다. 새 기획·디자인을 확정하거나 제품 코드를 수정한 작업은 아니므로, HUD 이동 선택안은 사용자 채택과 원본 디자인 반영 전까지 미확정으로 유지한다.
