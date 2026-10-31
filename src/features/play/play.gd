@@ -16,7 +16,6 @@ var _purchase_effects: Dictionary = {}
 var display_products: Dictionary[int, Control] = {}
 var display_shadows: Dictionary[int, Control] = {}
 var facilities_screen: Control
-var quest_toast: Control
 var facility_world: Control
 var ability_toast: Control
 var wallet_tooltip: Control
@@ -102,7 +101,6 @@ func _process(delta: float) -> void:
 	var blocked: bool = (
 		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)
 	)
-	quest_toast.advance(delta, blocked)
 	search_hint.set(
 		"blocked",
 		blocked or session.search_fever_remaining > 0 or session.punch_fever_remaining > 0
@@ -452,6 +450,7 @@ func _claim_quest(quest_id: String) -> void:
 	if (
 		get_tree().paused or result_overlay.visible or info_overlay.visible
 		or is_instance_valid(facilities_screen)
+		or quest_id != $QuestHud.current_id
 	):
 		return
 	var quest: Dictionary = session.quest_status(quest_id)
@@ -673,10 +672,6 @@ func _on_menu_button_pressed() -> void:
 func _setup_quests() -> void:
 	$QuestHud.setup(session)
 	$QuestHud.claim_requested.connect(_claim_quest)
-	quest_toast = preload("res://src/features/quests/toast_design.tscn").instantiate()
-	quest_toast.session = session
-	add_child(quest_toast)
-	quest_toast.claim_requested.connect(_claim_quest)
 	_layout_quests()
 
 
@@ -685,16 +680,10 @@ func _layout_quests() -> void:
 	var origin := (size - Vector2(1152, 648) * factor) * 0.5
 	$QuestHud.position = origin + Vector2(832, 16) * factor
 	$QuestHud.scale = Vector2.ONE * factor
-	if is_instance_valid(quest_toast):
-		quest_toast.position = origin + Vector2(412.8, 20) * factor
-		quest_toast.scale = Vector2.ONE * 0.6 * factor
 
 
 func _refresh_quests() -> void:
-	if not is_instance_valid(quest_toast):
-		return
 	$QuestHud.refresh()
-	quest_toast.sync()
 	_layout_quests()
 
 

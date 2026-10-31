@@ -47,14 +47,16 @@ HUD 정렬은 기본 게임 영역의 보이는 가장자리·버튼 사이 간�
 
 ## 퀘스트 UI
 
-[상시 진행·보상 수령 시연](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=790bd3fd-c08b-804e-8008-dc86c6a2af83&zoom=fit)에서 진행 → 보상 가능 → 동전/빈캔 독립 수령 → 완료를 확인한다. [보상 가능 화면](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=790bd3fd-c08b-804e-8008-dc86ccd331b6&layout=layers)은 같은 공통 HUD의 연결 인스턴스다.
+[순차 진행·보상 수령 시연](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=790bd3fd-c08b-804e-8008-dc86c6a2af83&zoom=fit)에서 동전 진행 → 동전 받기 → 빈캔 진행 → 빈캔 받기 → HUD 숨김을 확인한다. [동전 보상 가능 화면](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=790bd3fd-c08b-804e-8008-dc86ccd331b6&layout=layers)은 같은 공통 HUD의 연결 인스턴스다. 진행 화면의 자동 전환은 시연용이며 실제 게임은 누적 진행과 수동 수령을 따른다.
 
-우측 상단에 두 목표를 작은 두 줄로 상시 표시한다. 각 줄은 공통 코인·빈캔 아이콘, 짧은 목표명, 현재/목표를 묶고 달성 후 ‘받기’, 수령 후 체크·완료를 표시한다. 메모지 열기 버튼·목록창·배경 음영·퀘스트 모달은 사용하지 않는다. 기존 크림 패널·픽셀 버튼·공유 글자 스타일을 재사용하며 글자는 네이티브 Text로 유지한다. 목표·보상 수치는 기존 구현의 임시 견본이다.
+우측 상단의 304×44 한 줄에 현재 퀘스트 한 개만 표시한다. 공통 코인·빈캔 아이콘, 짧은 목표명, 현재/목표를 묶고 달성 후 ‘받기’를 표시한다. 동전 → 빈캔 순서로 수령 후 다음 미수령 목표로 교체하며 모두 수령하면 HUD를 숨긴다. 메모지 열기 버튼·목록창·배경 음영·퀘스트 모달은 사용하지 않는다. 기존 크림 패널·픽셀 버튼·공유 글자 스타일을 재사용하며 글자는 네이티브 Text로 유지한다. 게임 적용은 `src/features/quests/hud_design.tscn`·`hud_row_design.tscn`과 `quest_hud.gd`를 따른다. 목표·보상 수치는 기존 구현의 임시 견본이다.
 
-[20초 달성 알림·골드 수령 시연](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=f9a292a6-d0a9-8009-8008-dca1ee034db6&zoom=fit)과 02의 [달성 카드 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=febdd74e-ff21-8006-8008-dc9ed7671440&layout=layers)은 유지한다. 544×96 원본을 0.6 균등 배율로 표시하고 이름 아래 골드 아이콘·보상 금액, 오른쪽 ‘받기’를 배치한다. 20초 후 카드가 사라져도 상시 HUD에서 미수령 보상을 받을 수 있다. 수령 시 골드 폭발 → 바닥 낙하·대기 → 골드 HUD 흡입을 재생하며 상시 HUD와 연출은 배경 수색·구매·피버를 차단하지 않는다.
+중앙 상단 퀘스트 달성 카드는 제거한다. 이전 카드 원본·사용 인스턴스는 숨기고 관련 시연은 [중앙 알림 없는 보상 가능 화면](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=f9a292a6-d0a9-8009-8008-dca1ee034db6&layout=layers)으로 변경한다. 기존 골드 폭발 → 바닥 낙하·대기 → 골드 HUD 흡입은 유지하며 상시 HUD와 연출은 배경 수색·구매·피버를 차단하지 않는다.
 
 시설 보상 연출은 손님 발밑을 기준으로 한다. 골드는 기존 수색 동전 아트와 금액 표기로 튀어오르며 각 생산분만 자동 수령한다. 빈캔은 발밑 높이의 바닥에 떨어져 한 번 튄 뒤 옆으로 굴러 누우며 직접 클릭해 수령한다. 모션 감소 시 같은 착지 상태를 즉시 표시하고, 일시정지·모달 입력 차단·15초 소멸·쓰레기통 자동 수집 규칙을 유지한다.
 
 ## 미동기화·검수 대기
 
-Penpot 공통 재화·상시 HUD 원본과 핵심 퀘스트 상태 화면은 수정했다. 전체 플레이·애니메이션 보드의 HUD 배치·기존 퀘스트 창 제거와 독립 수령 프로토타입의 최종 저장·동작 재검수는 미완료다. 편집 탭이 반복 비정상 종료되고 새 편집 탭·내장 MCP·기존 플러그인 재연결이 실패하여 전체 동기화를 완료로 처리하지 않는다. 대상은 연결 파일 `cd444aaf-0d8c-801b-8008-cda246e18650`의 01 게임 화면·02 재화/퀘스트 공통 원본이다. 연결 복구 후 해당 사용처를 재확인하고 이 대기 항목을 해소한다.
+연결 복구 후 순차 퀘스트 공통 원본·플레이/애니메이션의 한 줄 HUD와 중앙 카드·목표 상세 패널 제거를 저장했다. 새 보기 탭에서 동전 → 빈캔 → 모두 완료 후 HUD 숨김을 확인했으며 이전 독립 수령 시연은 대체했다.
+
+지난 재화 통일 작업의 전체 사용처 시각 전수 대조는 별도 대기다. 대상은 연결 파일 `cd444aaf-0d8c-801b-8008-cda246e18650`의 01 게임 화면·02 재화 공통 원본이며, 이번 퀘스트 저장·동작 확인을 재화 전체 사용처의 시각 검수 완료로 확대하지 않는다.

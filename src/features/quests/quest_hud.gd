@@ -6,6 +6,7 @@ const DESIGN = preload("res://src/shared/ui/design_view.gd")
 
 var session: RefCounted
 var actions: Dictionary[String, Button] = {}
+var current_id: String = ""
 
 
 func setup(game_session: RefCounted) -> void:
@@ -18,14 +19,17 @@ func setup(game_session: RefCounted) -> void:
 
 
 func refresh() -> void:
+	current_id = ""
 	for id: String in session.QUEST_IDS:
 		var quest: Dictionary = session.quest_status(id)
+		if current_id.is_empty() and not quest.claimed:
+			current_id = id
+		var active: bool = id == current_id
 		var row := DESIGN.shape(self, "Quest / " + id.capitalize())
+		row.visible = active
 		var count: Label = DESIGN.shape(row, "Text / Count")
 		count.text = "%d/%d" % [quest.progress, quest.target]
 		var claim := DESIGN.shape(row, "Action / Claim")
-		claim.visible = quest.ready
-		actions[id].disabled = not quest.ready
-		var status: Label = DESIGN.shape(row, "Label / Status")
-		status.visible = quest.claimed
-		status.text = "✓ 완료"
+		claim.visible = active and quest.ready
+		actions[id].disabled = not active or not quest.ready
+	visible = not current_id.is_empty()

@@ -36,7 +36,7 @@ func run_checks() -> void:
 			and not game.session.can_quest_reward_claimed
 			and game.get_node("QuestHud").visible
 		),
-		"First quest preserves the memo entry and the unclaimed can goal"
+		"First quest advances to the unclaimed can goal"
 	)
 	game._claim_quest("can")
 	check(
@@ -98,9 +98,9 @@ func run_checks() -> void:
 			game.session.money == 5100
 			and game.session.cans == 5
 			and game.session.can_quest_reward_claimed
-			and game.get_node("QuestHud").visible
+			and not game.get_node("QuestHud").visible
 		),
-		"Can quest pays once, keeps cans, and preserves the memo entry"
+		"The final quest pays once, keeps cans, and hides the HUD"
 	)
 	check(game.feedback_label.text.is_empty(), "Quest completion does not show bottom text")
 	var saved := ConfigFile.new()

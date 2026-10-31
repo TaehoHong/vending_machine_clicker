@@ -92,16 +92,3 @@ text = "받기"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/penpot_name = "Label / Claim"
-
-[node name="Status" parent="." type="Label"]
-offset_left = 228.0
-offset_top = 8.0
-offset_right = 296.0
-offset_bottom = 36.0
-mouse_filter = 2
-theme_type_variation = &"InfoBody"
-theme_override_font_sizes/font_size = 14
-text = "✓ 완료"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/penpot_name = "Label / Status"

@@ -5,7 +5,7 @@
 
 [node name="QuestHud" type="Control"]
 offset_right = 304.0
-offset_bottom = 92.0
+offset_bottom = 44.0
 mouse_filter = 2
 script = ExtResource("script")
 metadata/penpot_name = "UI / 퀘스트 / 상시 진행 HUD"
@@ -15,8 +15,8 @@ metadata/penpot_id = "790bd3fd-c08b-804e-8008-dc86331ca4af"
 metadata/penpot_name = "Quest / Coin"
 
 [node name="Can" parent="." instance=ExtResource("row")]
-offset_top = 48.0
-offset_bottom = 92.0
+offset_top = 0.0
+offset_bottom = 44.0
 metadata/penpot_name = "Quest / Can"
 
 [node name="Gold" parent="Can" index="1"]

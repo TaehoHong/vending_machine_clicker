@@ -58,7 +58,7 @@ func run_checks() -> void:
 	var can_claim: Button = quest_game.get_node("QuestHud").actions["can"]
 	quest_frame = can_claim.get("source_frame")
 	assert(not can_claim.disabled and quest_frame.visible,
-		"The independent can row keeps the same original ready frame")
+		"The next can row keeps the same original ready frame")
 	can_claim.pressed.emit()
 	await process_frame
 	await process_frame
