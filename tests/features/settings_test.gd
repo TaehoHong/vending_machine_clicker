@@ -17,6 +17,12 @@ func run_checks() -> void:
 	settings.path = "res://.godot/settings_%d.cfg" % Time.get_ticks_usec()
 	assert(settings.set_preference("master", 0.0) == OK)
 	assert(AudioServer.is_bus_mute(AudioServer.get_bus_index("Master")))
+	assert(settings.set_preference("music", 0.0) == OK)
+	assert(AudioServer.is_bus_mute(AudioServer.get_bus_index("Music")))
+	assert(settings.set_preference("music", 40.0) == OK)
+	assert(is_equal_approx(db_to_linear(
+		AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music"))
+	), 0.4))
 	assert(settings.set_preference("effects", 35.0) == OK)
 	assert(settings.set_preference("reduce_motion", true) == OK)
 	assert(settings.set_preference("locale", "ja") == OK)

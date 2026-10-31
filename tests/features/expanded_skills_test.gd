@@ -264,11 +264,12 @@ func _check_new_rules() -> void:
 	outcome.money = 1000
 	outcome.ion_unlocked = true
 	outcome.unlocked_drinks.assign([6, 14])
+	outcome.punch_fever_remaining = 0
 	for drink in [6, 6, 14, 14]:
 		outcome.forced_drink = drink
 		check(outcome.purchase(), "Repeated fever drinks remain purchasable")
 		outcome.finish_purchase(outcome.purchase_count)
 		check(
-			outcome.search_fever_remaining > 0 if drink == 6 else outcome.punch_fever_remaining > 0,
-			"Repeated receipt triggers the matching fever"
+			outcome.search_fever_remaining > 0 if drink == 6 else outcome.queued_punch_fevers > 0,
+			"Repeated receipt extends search or queues punch until search finishes"
 		)

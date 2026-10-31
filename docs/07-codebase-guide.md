@@ -6,11 +6,19 @@
 
 관련 행의 근거 경로에 커밋·staged·unstaged 변경이 있는지 먼저 확인한다. 대상 소유자·직접 호출자/피호출자·공유 예시·테스트를 읽고 소유권이 없거나 모순될 때만 검색을 넓힌다. 예: 구매 가격은 `game_session.purchase` → `economy_rules.current_draw_price` → Play 구매 요청 → 구매/저장 테스트 순서로 확인한다. 예전 루트 game.gd·ui/ 경로에 새 기능을 만들지 않는다. 게임에 연결된 A HUD SVG는 `src/shared/ui/icons/hud_buttons/`에 있으며 연결 안내는 `design/hud-buttons/README.md`다.
 
+BGM은 `src/app/main.gd`의 `background_music`이 소유하고 `assets/audio/neon_stroll_loop.wav`의 import 반복 설정을 사용한다. 메뉴→Play에서 재생기를 교체하지 않으며 `PROCESS_MODE_ALWAYS`로 ESC에서도 재생을 유지한다. 볼륨/음소거는 기존 Preferences의 Music/Master 버스가 소유한다. `menu_test.gd`는 실제 루프 경계·재생기 유지·pause 진행을, `settings_test.gd`는 Music 음소거·게인을 검증한다.
+
+수색 클릭음은 `play.tscn`의 `SearchClick`이 `assets/audio/mixkit_arrow_whoosh_1491.wav`를 Effects 버스로 재생한다. `_on_earn_button_pressed`의 기존 차단/펀치 분기 이후에만 재생하며 최대 8개 중첩을 허용한다. 원본/라이선스는 `assets/audio/LICENSES.md`를 따른다. `search_test.gd`는 허용 입력·정보창/일시정지/펀치 차단을 보호하며, 오디오를 재생한 회귀는 종료 전 믹서 정리를 기다린다.
+
+수색 성공음은 같은 씬의 `SearchCoin`이 `assets/audio/mixkit_coins_handling_1939.wav`를 Effects 버스로 단발 재생한다. `_on_earn_button_pressed`의 양수 결과 분기에서만 호출하고 펀치와 공유하는 `_show_coin_reward`에는 연결하지 않는다. `search_test.gd`는 진행/꽝/공유 연출의 무재생·성공 재생·차단/펀치 무재생을 확인한다.
+
+펀치 타격음은 `play.tscn`의 `PunchHit`이 `assets/audio/mixkit_soft_quick_punch_2151.wav`를 Effects 버스로 단발 재생한다. `_on_punch_button_pressed`의 피버/모달/pause 차단 검사 뒤에만 호출하므로 꽝도 재생하고 일반 구매·수색은 재생하지 않는다. 기존 SearchClick과 동일한 최대 8중첩·기본 게인을 사용한다. `punch_fever_test.gd`가 실제 자판기 영역 타격·꽝 재생과 비피버/차단 무재생을 보호한다. 원본 24비트 WAV는 Godot 호환 16비트 PCM으로 변환하며 출처는 audio/LICENSES.md를 따른다.
+
 ## 모듈 맵
 
 | 영역 | 경로·진입점 | 책임·호출 방향 | 관련 검증 | Evidence paths |
 | --- | --- | --- | --- | --- |
-| 실행·연결 | src/app/main.tscn, main.gd `_ready`, `_start_game`, `_save_game` | 메뉴·Play·세션·저장 생성/연결, 백업·저장 결과 처리 | menu_test.gd | project.godot, src/app/ |
+| 실행·연결 | src/app/main.tscn, main.gd `_ready`, `_start_game`, `_save_game` | 메뉴·Play·세션·저장 생성/연결, 백업·저장 결과 처리, 앱 수명의 BackgroundMusic 한 개를 Music 버스에서 연속 재생 | menu_test.gd | project.godot, src/app/ |
 | 메뉴 | src/features/main_menu/main_menu.tscn, main_menu.gd `update_save_status` | 저장 가능 상태 표시, 시작/종료 signal | menu_test.gd | src/features/main_menu/, src/app/main.gd |
 | 실제 진행 | src/game/game_session.gd, progress_state.gd | 구매·수색·해금·퀘스트·피버 상태 변경; UI/I/O 없음 | gameplay, purchase_price, search, search_fever, punch_fever | src/game/, src/features/play/play.gd |
 | 계산·상품 규칙 | src/game/economy/economy_rules.gd, progression/drink_rules.gd, search/search_rules.gd | 세션 상태를 읽는 가격·보너스·상품·클릭·기간 계산 | purchase_price, expanded_skills, search_fever | src/game/, src/data/drink_catalog.gd |
@@ -37,7 +45,7 @@
 | 진행 변경 | `game_session.purchase`, `search`, `punch`, `unlock`, `claim_quest`; Play 호출 | 실제 잔액·획득·해금은 세션 하나에만 존재 |
 | 가격·보상 | `economy_rules.current_draw_price`, `calculate_reward`; 세션 경유 | 가격 2% 증가·최종 정수 처리·피버 곱을 UI에서 복제하지 않음 |
 | 퀘스트 진행·수령 | `game_session.quest_status(id)`, `claim_quest(id)`, `collected_cans`; QuestHud `current_id`; Play `_claim_quest` | HUD는 coin → can의 첫 미수령 목표를 선택하고 Play는 현재 ID만 수령 요청으로 허용한다. 세션의 기존 지급·flag·저장 호환은 유지한다. 음료+시설 누적량과 이전 저장의 보유량 fallback을 비교하여 시설분 중복·소비 후 진행 손실을 막는다. UI/연출은 지급하지 않는다 |
-| 연속 구매·배출 | `game_session.purchase`, `finish_purchase`; `progress_state.pending_purchases`; Play `_start_purchase_effect`, `_finish_purchase_effect` | 결제·지급·저장은 즉시, 구매 ID별 FX/tween을 즉시 병렬 시작하고 해당 결과만 완료. 음료 획득 알림은 표시하지 않으며 ability_toast는 골드 부족 알림만 발생 순서대로 모두 표시. 구매 중 입력 허용, 모달·pause 유지. 대기열은 저장하지 않으며 `inserting_coin`은 대기 여부 조회만 담당 |
+| 연속 구매·배출 | `game_session.purchase`, `finish_purchase`; `progress_state.pending_purchases`; Play `_start_purchase_effect`, `_finish_purchase_effect` | 결제·지급·저장은 즉시, 구매 ID별 FX/tween을 즉시 병렬 시작하고 해당 결과만 완료. finish_purchase는 queued_search_fevers/queued_punch_fevers에 횟수를 모아 pending_purchases가 비면 수색 시간을 추가하고 수색 종료 후 펀치 시간을 적용한다. start_*_fever는 개수별 강화 시간을 남은 시간에 누적하며 advance가 큰 delta의 순차 전환/펀치 종료 1초 지연을 처리한다. purchase와 Play는 punch_purchase_delay 동안 차감/구매를 막고 지연 종료에 기존 버튼 상태를 갱신한다. 음료 획득 알림은 표시하지 않으며 ability_toast는 골드 부족 알림만 발생 순서대로 모두 표시. 구매 중 입력 허용, 모달·pause 유지. 구매/피버 대기·피버 시간·구매 지연은 저장하지 않으며 `inserting_coin`은 배출 대기 여부 조회만 담당 |
 | 음료 해금 | `game_session.unlock`, `drink_screen._refresh_selection`; `drink_catalog.DATA.cost` | 선행 순서 없이 비용만 확인, 세션이 단일 차감·기록 소유; UI는 비용·현재 해금 상태만 표시 |
 | 음료 강화·추첨 | `drink_rules.enhancement_count`, `purchasable_drinks`, `draw_for_roll`; 세션 경유 | 원본 획득 수 보존·효과 상한·최대 강화 제외·피버 반복·황금 해금 후 별도 확률 |
 | 주차장 해금 상태 | `game_session.parking_unlocked` | 저장된 황금 획득 수로 판정; 새 플래그나 스테이지 씬은 없음 |
@@ -59,8 +67,8 @@
 | 메뉴·백업·저장 오류 | tests/features/menu_test.gd | A 프레임을 통과하는 실제 클릭·초기 포커스·고정 클릭 영역, 새 게임 백업·로드·ESC·수동 저장·실패 시 종료 차단·10억 초과 기존 pending 골드의 진입 복구와 즉시 저장 |
 | 순차 퀘스트 HUD | tests/features/quest_screen_test.gd | 중앙 카드 제거·현재 목표 하나만 노출·뒤 목표 조기 수령 차단·실제 받기 클릭 후 다음 목표 전환·모두 수령 후 숨김·중복/로드 재지급 방지·이전 독립 수령 저장 호환·시설 1회 집계·소비 후 진행 유지·배경 수색/구매/피버 지속·ESC 일시정지·4개 해상도의 배율·골드 낙하/흡입/정리·연출 중 수색 |
 | 음료·해금·표시 | tests/features/drink_screen_test.gd, drink_unlock_screen_test.gd, vending_display_test.gd | 클릭 선택·선택 음료의 상세 그림 전환·무반응 hover·독립 해금·콜라10/에너지15 비용·정확한 차감·강화 완료 후 해금 진열 유지·resize |
-| 수색·연출·피버 | tests/features/search_test.gd, coin_effect_test.gd, search_fever_test.gd, punch_fever_test.gd | 정확한 지급·꽝·이펙트·pause·기간·중첩·종료 |
-| 배출·구매 영역 | tests/features/drink_dispense_test.gd, purchase_area_test.gd | 입력 영역·구매 중 수색/능력·겹친 동전/음료·ID별 그림/피버·획득 알림 없음·반복 부족 알림 순서·pause·저장 재지급 방지 |
+| 수색·연출·피버 | tests/features/search_test.gd, coin_effect_test.gd, search_fever_test.gd, punch_fever_test.gd | 정확한 지급·꽝·이펙트·pause·개수별 누적·순차 전환·펀치 종료 1초 구매 지연 |
+| 배출·구매 영역 | tests/features/drink_dispense_test.gd, purchase_area_test.gd | 입력 영역·구매 중 수색/능력·겹친 동전/음료·ID별 그림·묶음 완료 후 수색→펀치 합산/역순·중복 완료·큰 delta·저장 재진입·획득 알림 없음·반복 부족 알림 순서·pause·저장 재지급 방지 |
 | 음료 상한·확률·추첨 | tests/features/expanded_skills_test.gd | cap 경계·초과 기록 저장/로드·정수 확률 합계/구간·황금 빈캔 해금/보장·피버 중복/반복·빈 후보 차감 방지 |
 | 시설·설정 상태 | tests/features/facilities_test.gd, settings_test.gd | 빈캔 단일 구매→골드 강화의 재화·현재/다음 값·단계·비용 즉시 갱신, 부족/최대/수집량 조건→구매창 복귀·본체 무동작·빈캔 별도 클릭과 모달 차단·골드 자동 수령·중첩 연출별 부분 지급·중간 종료 후 반복 로드 중복 방지, 음소거·선택 상태·슬라이더 범위 |
 | 저장 데이터 호환 | tests/integrations/progress_store_test.gd | 정수 키 획득량·독립 플래그·누락 필드·잘못된 타입/범위 정규화 |

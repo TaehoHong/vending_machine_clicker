@@ -38,12 +38,19 @@ func tap(point: Vector2) -> void:
 
 func run_checks() -> void:
 	var game = FIXTURE.create_game(root, PunchGame.new())
+	var hit_audio: AudioStreamPlayer = game.get_node("PunchHit")
+	var hit_stream: AudioStreamWAV = hit_audio.stream
+	assert(hit_audio.bus == &"Effects" and hit_audio.max_polyphony == 8)
+	assert(hit_audio.volume_db == 0 and hit_stream.loop_mode == AudioStreamWAV.LOOP_DISABLED)
+	game._on_punch_button_pressed()
+	assert(not hit_audio.playing, "Non-fever clicks must not play punch audio")
 	game.session.money = 1000
 	game._on_shop_button_pressed()
 	assert(game.session.punch_fever_pending and game.session.punch_fever_remaining == 0)
 	await FIXTURE.wait_for_purchase_effects(game)
 	assert(game.session.punch_fever_remaining == 5 and game.punch_button.visible)
 	assert(root.get_node("CursorTheme").punch_mode)
+	assert(not hit_audio.playing, "Fever activation alone must not play a hit")
 	await process_frame
 	var rect: Rect2 = game.punch_button.get_rect()
 	for ratio in [Vector2(0.1, 0.1), Vector2(0.5, 0.5), Vector2(0.5, 0.84), Vector2(0.9, 0.95)]:
@@ -57,6 +64,7 @@ func run_checks() -> void:
 			game.session.drinks == 1 and not game.session.inserting_coin,
 			"Punching must not buy drinks"
 		)
+		assert(hit_audio.playing, "Every accepted cabinet hit plays punch audio")
 		assert(not game.punch_fever_fx.hits.is_empty())
 		assert(
 			game.last_punch_point.distance_to(rect.position + rect.size * ratio) < 1,
@@ -74,24 +82,31 @@ func run_checks() -> void:
 		origins.size.x > rect.size.x * 0.7 and origins.size.y > rect.size.y * 0.7,
 		"Coins must originate around the whole machine"
 	)
+	hit_audio.stop()
 	game.session.forced_empty = true
 	var before: int = game.session.money
 	game._on_punch_button_pressed()
 	assert(game.session.money == before and get_nodes_in_group("search_coin_effects").is_empty())
+	assert(hit_audio.playing, "Misses still make contact and play the punch sound")
+	hit_audio.stop()
 	game.session.forced_empty = false
 	game.pause_menu.set_open(true)
 	var time: float = game.session.punch_fever_remaining
 	await create_timer(0.08).timeout
 	game._on_punch_button_pressed()
 	assert(game.session.money == before and game.session.punch_fever_remaining == time)
+	assert(not hit_audio.playing, "Paused punches are silent")
 	game.pause_menu.set_open(false)
 	game.info_overlay.show()
+	game._on_punch_button_pressed()
+	assert(not hit_audio.playing, "Modal-blocked punches are silent")
 	game._process(1)
 	assert(game.session.punch_fever_remaining == time and not game.punch_button.visible)
 	game.info_overlay.hide()
 	game.session.extra_counts[5] = 100
+	var before_extension: float = game.session.punch_fever_total
 	game._start_punch_fever()
-	assert(game.session.punch_fever_total == 15)
+	assert(game.session.punch_fever_total == before_extension + 15)
 	game._start_search_fever()
 	assert(not game.search_fever_fx.hud.visible and game.punch_fever_fx.hud.visible)
 	before = game.session.money
@@ -100,6 +115,7 @@ func run_checks() -> void:
 		game.session.money == before + game.session.calculate_reward(10) * 3,
 		"Both fever multipliers must stack"
 	)
+	hit_audio.stop()
 	game.session.punch_fever_remaining = 0.01
 	game._process(0.02)
 	assert(game.session.punch_fever_remaining == 0 and not game.punch_button.visible)
@@ -108,13 +124,26 @@ func run_checks() -> void:
 	assert(game.get_node("VendingMachine").position == game.machine_home)
 	game.session.search_fever_remaining = 0
 	game.session.forced_drink = 0
+	var before_purchase: int = game.session.drinks
+	game._on_shop_button_pressed()
+	assert(game.session.drinks == before_purchase and game.shop_button.disabled)
+	var delay: float = game.session.punch_purchase_delay
+	assert(is_equal_approx(delay, 0.99))
+	game.info_overlay.show()
+	game._process(3.0)
+	assert(game.session.punch_purchase_delay == delay)
+	game.info_overlay.hide()
+	game._process(1.0)
+	assert(game.session.punch_purchase_delay == 0 and not game.shop_button.disabled)
 	game._on_shop_button_pressed()
 	assert(
 		game.session.inserting_coin and game.session.drinks == 2,
-		"Regular purchases must return after punch fever"
+		"Regular purchases return one second after punch fever"
 	)
+	assert(not hit_audio.playing, "Normal buying after fever does not play punch audio")
 	await FIXTURE.wait_for_purchase_effects(game)
 	game.free()
+	await create_timer(0.15).timeout
 	assert(not root.get_node("CursorTheme").punch_mode)
 	print(
 		"Energy trigger, whole-cabinet clicks, reward, miss, radial coins, size, pause, stacking, duration and normal restoration passed."

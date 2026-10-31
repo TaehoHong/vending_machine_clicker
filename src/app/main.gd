@@ -11,9 +11,17 @@ var last_backup_path: String = ""
 var store: RefCounted
 var session: SESSION
 var view: Control
+var background_music: AudioStreamPlayer
 
 
 func _ready() -> void:
+	background_music = AudioStreamPlayer.new()
+	background_music.name = "BackgroundMusic"
+	background_music.stream = preload("res://assets/audio/neon_stroll_loop.wav")
+	background_music.bus = &"Music"
+	background_music.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(background_music)
+	background_music.play()
 	store = STORE.new(save_path)
 	view = MENU.instantiate()
 	view.start_game_requested.connect(_start_game)

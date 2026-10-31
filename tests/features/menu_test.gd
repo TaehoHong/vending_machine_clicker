@@ -43,6 +43,15 @@ func make_menu():
 
 func run_checks() -> void:
 	var menu = make_menu()
+	var music: AudioStreamPlayer = menu.get_node("BackgroundMusic")
+	check(music.bus == &"Music" and music.playing, "Title BGM uses the existing Music bus")
+	var track: AudioStreamWAV = music.stream
+	check(track.loop_mode == AudioStreamWAV.LOOP_FORWARD, "Imported BGM loops forward")
+	check(is_equal_approx(track.get_length(), 920348.0 / 44100), "BGM keeps its 32-beat loop")
+	await create_timer(0.1).timeout
+	music.seek(track.get_length() - 0.04)
+	await create_timer(0.3).timeout
+	check(music.playing and music.get_playback_position() < 1.0, "BGM wraps at the loop end")
 	check(menu.view.load_button.disabled, "Load disabled without saved game")
 	check(
 		menu.view.new_game_button.get_global_rect().position.y
@@ -73,6 +82,8 @@ func run_checks() -> void:
 	root.push_input(press, true)
 	await process_frame
 	check(menu.view.has_node("VendingMachine"), "Click passes through the A frame and starts play")
+	check(menu.get_node("BackgroundMusic") == music and music.playing,
+		"The same BGM player survives menu to Play without restarting")
 	menu.free()
 	menu = make_menu()
 	var saved := ConfigFile.new()
@@ -153,6 +164,12 @@ func run_checks() -> void:
 	press_escape()
 	await process_frame
 	check(paused and game.pause_menu.overlay.visible, "ESC opens pause menu and pauses game")
+	var pause_music: AudioStreamPlayer = menu.get_node("BackgroundMusic")
+	var before_pause_music: float = pause_music.get_playback_position()
+	await create_timer(0.15).timeout
+	check(pause_music.playing and not pause_music.stream_paused
+		and pause_music.get_playback_position() > before_pause_music,
+		"BGM continues advancing under the ESC menu")
 	game.pause_menu.show_save_status("저장하지 못했습니다. 다시 시도해주세요.", true)
 	check(
 		game.pause_menu.status.text == "저장하지 못했습니다.\n다시 시도해주세요."
@@ -222,5 +239,7 @@ func run_checks() -> void:
 	menu.free()
 	DirAccess.remove_absolute(test_path)
 	DirAccess.remove_absolute(backup_path)
+	# The audio mix thread releases stopped playback after the app node is freed.
+	await create_timer(0.15).timeout
 	print("Menu checks: %d failures" % failures)
 	quit(1 if failures else 0)
