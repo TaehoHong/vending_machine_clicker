@@ -90,8 +90,9 @@ func run_checks() -> void:
 	assert(game.session.punch_fever_remaining == time and not game.punch_button.visible)
 	game.info_overlay.hide()
 	game.session.extra_counts[5] = 100
+	var before_extension: float = game.session.punch_fever_total
 	game._start_punch_fever()
-	assert(game.session.punch_fever_total == 15)
+	assert(game.session.punch_fever_total == before_extension + 15)
 	game._start_search_fever()
 	assert(not game.search_fever_fx.hud.visible and game.punch_fever_fx.hud.visible)
 	before = game.session.money
@@ -108,10 +109,21 @@ func run_checks() -> void:
 	assert(game.get_node("VendingMachine").position == game.machine_home)
 	game.session.search_fever_remaining = 0
 	game.session.forced_drink = 0
+	var before_purchase: int = game.session.drinks
+	game._on_shop_button_pressed()
+	assert(game.session.drinks == before_purchase and game.shop_button.disabled)
+	var delay: float = game.session.punch_purchase_delay
+	assert(is_equal_approx(delay, 0.99))
+	game.info_overlay.show()
+	game._process(3.0)
+	assert(game.session.punch_purchase_delay == delay)
+	game.info_overlay.hide()
+	game._process(1.0)
+	assert(game.session.punch_purchase_delay == 0 and not game.shop_button.disabled)
 	game._on_shop_button_pressed()
 	assert(
 		game.session.inserting_coin and game.session.drinks == 2,
-		"Regular purchases must return after punch fever"
+		"Regular purchases return one second after punch fever"
 	)
 	await FIXTURE.wait_for_purchase_effects(game)
 	game.free()

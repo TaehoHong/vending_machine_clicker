@@ -112,11 +112,15 @@ func _process(delta: float) -> void:
 	)
 	var search_was_active: bool = session.search_fever_remaining > 0
 	var punch_was_active: bool = session.punch_fever_remaining > 0
+	var purchase_was_delayed: bool = session.punch_purchase_delay > 0
 	session.advance(delta, blocked)
 	if search_was_active and session.search_fever_remaining == 0:
 		_refresh_ui()
 	if punch_was_active and session.punch_fever_remaining == 0:
 		_restore_machine_position()
+		_refresh_ui()
+	if purchase_was_delayed and session.punch_purchase_delay == 0:
+		_refresh_ui()
 	search_fever_fx.set("simultaneous", session.punch_fever_remaining > 0)
 	search_fever_fx.call(
 		"update_state",
@@ -552,6 +556,8 @@ func _on_shop_button_pressed() -> void:
 	if session.punch_fever_remaining > 0:
 		_on_punch_button_pressed()
 		return
+	if session.punch_purchase_delay > 0:
+		return
 	if (
 		get_tree().paused
 		or result_overlay.visible
@@ -669,6 +675,7 @@ func _refresh_ui() -> void:
 		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)
 		or is_instance_valid(quest_screen)
 		or session.purchasable_drinks().is_empty()
+		or session.punch_purchase_delay > 0
 	)
 	earn_button.disabled = (
 		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)

@@ -130,6 +130,8 @@ func _apply_drink(drink_index: int) -> void:
 
 
 func purchase() -> bool:
+	if punch_fever_remaining > 0 or punch_purchase_delay > 0:
+		return false
 	var price: int = current_draw_price()
 	if money < price or purchasable_drinks().is_empty():
 		return false
@@ -212,14 +214,16 @@ func claim_quest(quest_id: String) -> bool:
 	return true
 
 
-func start_search_fever() -> void:
-	search_fever_total = search_fever_duration()
-	search_fever_remaining = search_fever_total
+func start_search_fever(count: int = 1) -> void:
+	var duration: float = search_fever_duration() * count
+	search_fever_total = (search_fever_total if search_fever_remaining > 0 else 0.0) + duration
+	search_fever_remaining += duration
 
 
-func start_punch_fever() -> void:
-	punch_fever_total = punch_fever_duration()
-	punch_fever_remaining = punch_fever_total
+func start_punch_fever(count: int = 1) -> void:
+	var duration: float = punch_fever_duration() * count
+	punch_fever_total = (punch_fever_total if punch_fever_remaining > 0 else 0.0) + duration
+	punch_fever_remaining += duration
 
 
 func finish_purchase(purchase_id: int) -> bool:
@@ -228,17 +232,49 @@ func finish_purchase(purchase_id: int) -> bool:
 	var completed: int = pending_purchases[purchase_id]
 	pending_purchases.erase(purchase_id)
 	if completed == 6:
-		start_search_fever()
+		queued_search_fevers += 1
 	if completed == 14:
-		start_punch_fever()
+		queued_punch_fevers += 1
+	_flush_fever_queue()
 	return true
+
+
+func _flush_fever_queue() -> void:
+	if not pending_purchases.is_empty():
+		return
+	if punch_fever_remaining > 0:
+		if queued_punch_fevers > 0:
+			start_punch_fever(queued_punch_fevers)
+			queued_punch_fevers = 0
+		return
+	if queued_search_fevers > 0:
+		start_search_fever(queued_search_fevers)
+		queued_search_fevers = 0
+	if search_fever_remaining <= 0 and queued_punch_fevers > 0:
+		start_punch_fever(queued_punch_fevers)
+		queued_punch_fevers = 0
 
 
 func advance(delta: float, blocked: bool) -> void:
 	if blocked:
 		return
-	search_fever_remaining = maxf(0, search_fever_remaining - delta)
-	punch_fever_remaining = maxf(0, punch_fever_remaining - delta)
+	_flush_fever_queue()
+	var remaining_delta: float = maxf(delta, 0.0)
+	while remaining_delta > 0:
+		var step: float = remaining_delta
+		for timer: float in [
+			search_fever_remaining, punch_fever_remaining, punch_purchase_delay
+		]:
+			if timer > 0:
+				step = minf(step, timer)
+		var punch_was_active: bool = punch_fever_remaining > 0
+		search_fever_remaining = maxf(0, search_fever_remaining - step)
+		punch_fever_remaining = maxf(0, punch_fever_remaining - step)
+		punch_purchase_delay = maxf(0, punch_purchase_delay - step)
+		if punch_was_active and punch_fever_remaining == 0:
+			punch_purchase_delay = 1.0
+		remaining_delta = maxf(0, remaining_delta - step)
+		_flush_fever_queue()
 
 
 func facility_roll() -> float:

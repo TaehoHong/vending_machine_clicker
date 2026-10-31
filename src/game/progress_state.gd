@@ -24,14 +24,17 @@ var inserting_coin: bool:
 		return not pending_purchases.is_empty()
 var search_fever_remaining: float = 0.0
 var search_fever_total: float = 10.0
+var queued_search_fevers: int = 0
+var queued_punch_fevers: int = 0
+var punch_purchase_delay: float = 0.0
 var search_fever_pending: bool:
 	get:
-		return pending_purchases.values().has(6)
+		return queued_search_fevers > 0 or pending_purchases.values().has(6)
 var punch_fever_remaining: float = 0.0
 var punch_fever_total: float = 5.0
 var punch_fever_pending: bool:
 	get:
-		return pending_purchases.values().has(14)
+		return queued_punch_fevers > 0 or pending_purchases.values().has(14)
 
 var facilities: Dictionary = {
 	"alley": preload("res://src/game/automation/facility_rules.gd").DEFAULT.duplicate(true),

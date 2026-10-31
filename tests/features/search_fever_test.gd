@@ -60,7 +60,7 @@ func run_checks() -> void:
 	assert(game.session.money == before and game.session.click_stack == 0)
 	game.session.extra_counts[12] = 25
 	game._start_search_fever()
-	assert(game.session.search_fever_remaining == 20)
+	assert(game.session.search_fever_remaining == 29.5 and game.session.search_fever_duration() == 20)
 	game.session.water_count = 30
 	game.session.extra_counts[3] = 6
 	assert(game.session.clicks_required() == 3)
