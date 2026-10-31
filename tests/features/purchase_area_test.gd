@@ -65,11 +65,11 @@ func run_checks() -> void:
 	await process_frame
 	await process_frame
 	var quest_hud: Control = game.get_node("QuestHud")
-	assert(quest_hud.scale.is_equal_approx(design.scale * 0.8))
+	assert(quest_hud.scale.is_equal_approx(design.scale))
 	assert(quest_hud.position.is_equal_approx(
-		design.position + Vector2(1086.4, 11.2) * design.scale
-	), "Memo HUD keeps its original corner placement after resizing")
-	assert(not game.DESIGN.shape(quest_hud, "Badge / Claimable").visible)
+		design.position + Vector2(832, 16) * design.scale
+	), "Permanent quests keep their upper-right margin after resizing")
+	assert(game.DESIGN.shape(quest_hud, "Quest / Coin").visible)
 	game.session.money = 15550
 	game._refresh_ui()
 	var hover := InputEventMouseMotion.new()
@@ -82,6 +82,10 @@ func run_checks() -> void:
 	root.push_input(hover, true)
 	await process_frame
 	assert(not game.wallet_tooltip.visible)
+	hover.position = game.can_count_label.get_global_rect().get_center()
+	root.push_input(hover, true)
+	await process_frame
+	assert(not game.wallet_tooltip.visible, "Can balance has no hover popup")
 	while game.ability_toast.visible:
 		await process_frame
 	game.session.money = 0

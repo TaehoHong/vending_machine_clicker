@@ -109,7 +109,7 @@ func run_checks() -> void:
 	check(
 		(
 			game.session.money == 5000
-			and game.quest_button.visible
+			and game.get_node("QuestHud").visible
 			and not game.session.can_quest_reward_claimed
 		),
 		"First quest pays once without claiming the other row"

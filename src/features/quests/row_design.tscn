@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://src/shared/ui/icons/gold_icon.tscn" id="r0"]
 
-[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/icons/can.svg" id="r1"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/can_icon.svg" id="r1"]
 
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/136x56_normal.svg" id="r2"]
 
@@ -34,7 +34,7 @@ layout_mode = 0
 mouse_filter = 2
 metadata/penpot_name = "Goal / Gold"
 position = Vector2(24, 36)
-scale = Vector2(1.3903135982662789, 1.2307692307692308)
+scale = Vector2(1.2307692307692308, 1.2307692307692308)
 
 [node name="Can" parent="." type="TextureRect"]
 layout_mode = 0
@@ -46,7 +46,7 @@ offset_bottom = 64
 metadata/penpot_name = "Goal / Can"
 texture = ExtResource("r1")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 5
 texture_filter = 1
 visible = false
 
@@ -128,7 +128,7 @@ layout_mode = 0
 mouse_filter = 2
 metadata/penpot_name = "Reward / Icon"
 position = Vector2(26, 13)
-scale = Vector2(0.7820513990247818, 0.6923076923076923)
+scale = Vector2(0.6923076923076923, 0.6923076923076923)
 
 [node name="Amount" parent="Claim" type="Label"]
 layout_mode = 0
@@ -172,7 +172,7 @@ layout_mode = 0
 mouse_filter = 2
 metadata/penpot_name = "Reward / Icon"
 position = Vector2(26, 10)
-scale = Vector2(0.7820513990247818, 0.6923076923076923)
+scale = Vector2(0.6923076923076923, 0.6923076923076923)
 
 [node name="Amount" parent="Static" type="Label"]
 layout_mode = 0

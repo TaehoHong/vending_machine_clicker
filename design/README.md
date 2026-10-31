@@ -4,9 +4,11 @@
 
 [게임 화면·애니메이션 재생](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&index=3)에서 상단 화면 목록이나 플로우를 선택해 확인한다.
 
-HUD 정렬은 기본 게임 영역의 보이는 가장자리·버튼 사이 간격 16px, 정사각 프레임 외곽 44.8px, 아이콘 높이 24px를 적용한다. [공통 HUD 원본](hud-buttons/README.md)과 퀘스트 열기 HUD를 사용하며 화면 크기에 맞춰 내부 그림·상태 프레임·입력 영역을 함께 확대한다.
+HUD 정렬은 기본 게임 영역의 보이는 가장자리·버튼 사이 간격 16px, 정사각 조작 프레임 외곽 44.8px, 아이콘 높이 24px를 적용한다. [공통 HUD 원본](hud-buttons/README.md)과 퀘스트 상시 진행 HUD를 사용하며 화면 크기에 맞춰 내부 그림·상태 프레임·입력 영역을 함께 확대한다.
 
-메모지 크기는 02의 [열기 HUD](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=790bd3fd-c08b-804e-8008-dc86331ca4af&layout=layers), 재화·일시정지는 [공통 HUD 원본](hud-buttons/README.md)에서 편집한다. 00의 상태 견본과 01의 [퀘스트·골드 시연](#퀘스트-ui)은 같은 공통 원본의 연결을 유지한다. 크기를 바꿀 때는 컨테이너와 내부 벡터를 함께 조정한다.
+퀘스트는 02의 [상시 진행 HUD](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=790bd3fd-c08b-804e-8008-dc86331ca4af&layout=layers)와 [공통 행](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=280ac456-7a93-8056-8008-df7b5ff31a45&layout=layers)에서 편집한다. 크기를 바꿀 때는 컨테이너·그림·글자·받기 입력 영역을 함께 조정한다.
+
+재화는 02의 [골드](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=57cf90e6-1346-80ff-8008-d2e7c0912fc5)·[빈캔](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=57cf90e6-1346-80ff-8008-d2e7c092588e) 공통 원본을 사용한다. HUD·비용·퀘스트·보상·투입에서 같은 그림과 비율을 재사용하고 금액별 코인은 색상만 바꾼다. 게임용 내보내기는 `src/shared/ui/icons/coin_*.svg`, `can_icon.svg`이며 연결 소유자는 [코드 안내](../docs/07-codebase-guide.md)에서 확인한다.
 
 수색 클릭 영역은 [수색 시작 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=b1fb0fb9-8b3e-80e3-8008-d39cd4a94a32)의 투명 클릭 도형에서 편집한다. 투명 여백을 제외한 자판기 높이의 하단 2%부터 기존 바닥 영역까지 포함하며, 이어지는 수색 상태도 같은 경계를 사용한다.
 
@@ -45,12 +47,14 @@ HUD 정렬은 기본 게임 영역의 보이는 가장자리·버튼 사이 간�
 
 ## 퀘스트 UI
 
-[열기·보상 수령 시연](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=790bd3fd-c08b-804e-8008-dc86cb7edd26&zoom=fit) · [목록창 편집](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=790bd3fd-c08b-804e-8008-dc86ccd331b6&layout=layers).
+[상시 진행·보상 수령 시연](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=790bd3fd-c08b-804e-8008-dc86c6a2af83&zoom=fit)에서 진행 → 보상 가능 → 동전/빈캔 독립 수령 → 완료를 확인한다. [보상 가능 화면](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=790bd3fd-c08b-804e-8008-dc86ccd331b6&layout=layers)은 같은 공통 HUD의 연결 인스턴스다.
 
-고양이와 스프의 목록형 정보 배치를 참고한 퀘스트 UI다. 01의 퀘스트 v1 구역에서 진행 중·수령 가능·수령 후 화면을 비교한다. 열기 HUD는 기존 정사각 픽셀 버튼에 메모지·체크 아이콘을 표시하고 수령 가능 상태는 작은 골드 알림 점으로 구분한다. 목표·보상 수치는 기존 구현의 임시 견본을 유지한다.
+우측 상단에 두 목표를 작은 두 줄로 상시 표시한다. 각 줄은 공통 코인·빈캔 아이콘, 짧은 목표명, 현재/목표를 묶고 달성 후 ‘받기’, 수령 후 체크·완료를 표시한다. 메모지 열기 버튼·목록창·배경 음영·퀘스트 모달은 사용하지 않는다. 기존 크림 패널·픽셀 버튼·공유 글자 스타일을 재사용하며 글자는 네이티브 Text로 유지한다. 목표·보상 수치는 기존 구현의 임시 견본이다.
 
-[20초 달성 알림·골드 수령 시연](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=f9a292a6-d0a9-8009-8008-dca1ee034db6&zoom=fit)에서 상단 카드의 받기 → 골드 폭발 → 바닥 낙하·대기 → 골드 HUD 흡입을 확인한다. 달성 카드 원본은 544×96이며 게임 배치에는 0.6 균등 배율을 사용해 약 326×58로 표시한다. 글자·아이콘·버튼을 함께 축소한다. 종류 문구는 생략하고 퀘스트명 아래에 골드 아이콘과 +보상 금액을 표시하며 오른쪽 버튼에는 ‘받기’만 둔다. 카드는 20초 후 사라지며 미수령 보상은 목록에 유지한다. 수색·시설 보상과 시각적으로 구별하기 위한 별도 제한은 두지 않는다.
-
-공통 편집 원본은 02의 [퀘스트 목록창](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=790bd3fd-c08b-804e-8008-dc86345ae2d3&layout=layers)과 인접한 목록 행, [열기 HUD](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=790bd3fd-c08b-804e-8008-dc86331ca4af&layout=layers), [메모지 아이콘](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=2bbc87bd-07a3-80a9-8008-dc8e62aa4aea&layout=layers)과 [달성 카드](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=febdd74e-ff21-8006-8008-dc9ed7671440&layout=layers)다. 기존 공유 오버레이·버튼·재화 아이콘·색상·타이포그래피를 재사용하며 문구는 네이티브 Text로 편집한다.
+[20초 달성 알림·골드 수령 시연](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&frame-id=f9a292a6-d0a9-8009-8008-dca1ee034db6&zoom=fit)과 02의 [달성 카드 원본](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=78528b83-c102-8057-8008-cec032c8f181&board-id=febdd74e-ff21-8006-8008-dc9ed7671440&layout=layers)은 유지한다. 544×96 원본을 0.6 균등 배율로 표시하고 이름 아래 골드 아이콘·보상 금액, 오른쪽 ‘받기’를 배치한다. 20초 후 카드가 사라져도 상시 HUD에서 미수령 보상을 받을 수 있다. 수령 시 골드 폭발 → 바닥 낙하·대기 → 골드 HUD 흡입을 재생하며 상시 HUD와 연출은 배경 수색·구매·피버를 차단하지 않는다.
 
 시설 보상 연출은 손님 발밑을 기준으로 한다. 골드는 기존 수색 동전 아트와 금액 표기로 튀어오르며 각 생산분만 자동 수령한다. 빈캔은 발밑 높이의 바닥에 떨어져 한 번 튄 뒤 옆으로 굴러 누우며 직접 클릭해 수령한다. 모션 감소 시 같은 착지 상태를 즉시 표시하고, 일시정지·모달 입력 차단·15초 소멸·쓰레기통 자동 수집 규칙을 유지한다.
+
+## 미동기화·검수 대기
+
+Penpot 공통 재화·상시 HUD 원본과 핵심 퀘스트 상태 화면은 수정했다. 전체 플레이·애니메이션 보드의 HUD 배치·기존 퀘스트 창 제거와 독립 수령 프로토타입의 최종 저장·동작 재검수는 미완료다. 편집 탭이 반복 비정상 종료되고 새 편집 탭·내장 MCP·기존 플러그인 재연결이 실패하여 전체 동기화를 완료로 처리하지 않는다. 대상은 연결 파일 `cd444aaf-0d8c-801b-8008-cda246e18650`의 01 게임 화면·02 재화/퀘스트 공통 원본이다. 연결 복구 후 해당 사용처를 재확인하고 이 대기 항목을 해소한다.

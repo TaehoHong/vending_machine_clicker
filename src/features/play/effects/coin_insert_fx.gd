@@ -1,6 +1,6 @@
 extends Control
 
-const COIN_TEXTURE = preload("res://assets/penpot/86d07029-2be7-815f-8008-d253f280eb68.png")
+const COIN_TEXTURE = preload("res://src/shared/ui/icons/coin_gold.svg")
 var elapsed: float = 0.0
 var target: Vector2
 var coin_position: Vector2
@@ -43,5 +43,5 @@ func _draw() -> void:
 	if opacity <= 0:
 		return
 	draw_set_transform(coin_position, tilt, coin_scale)
-	draw_texture_rect(COIN_TEXTURE, Rect2(-12, -16, 24, 32), false, Color(1, 1, 1, opacity))
+	draw_texture_rect(COIN_TEXTURE, Rect2(-12, -12, 24, 24), false, Color(1, 1, 1, opacity))
 	draw_set_transform(Vector2.ZERO)

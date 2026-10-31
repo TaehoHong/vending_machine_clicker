@@ -22,16 +22,23 @@ func run_checks() -> void:
 	root.size = Vector2i(1152, 648)
 	var game = FIXTURE.create_game(root)
 	await process_frame
-	var hud := DESIGN.shape(game, "Action / Open Quests")
-	check(hud != null, "Memo HUD opens the quest list instead of a permanent goal panel")
+	var progress_hud := DESIGN.shape(game.get_node("QuestHud"), "Quest / Coin")
+	check(progress_hud != null and progress_hud.is_visible_in_tree(),
+		"Quest progress is permanently visible without opening a window")
+	if progress_hud == null:
+		game.free()
+		quit(1)
+		return
+	var hud = game.get_node("QuestHud")
+	var coin_row := DESIGN.shape(hud, "Quest / Coin")
+	var can_row := DESIGN.shape(hud, "Quest / Can")
+	check(DESIGN.shape(coin_row, "Text / Count").text == "0/10",
+		"Coin progress is visible on entry")
+	check(DESIGN.shape(can_row, "Text / Count").text == "0/5",
+		"Can progress is visible on entry")
 	game.session.facilities.alley.collected_cans = 3
 	game.session.cans = 3
 	check(game.session.collected_cans() == 3, "Facility cans count once towards the quest")
-	if hud == null:
-		game.free()
-		print("Quest screen checks: %d failures" % failures)
-		quit(1)
-		return
 	game.session.facilities.alley.collected_cans = 0
 	game.session.cans = 0
 	game.session.drinks = 5
@@ -42,19 +49,16 @@ func run_checks() -> void:
 	check(game.session.money == 0, "Achievement alone does not pay a reward")
 	game._claim_quest("coin")
 	check(game.session.money == 0, "The session rejects an incomplete goal even outside its button")
-	await tap(game.quest_button.get_global_rect().get_center())
-	check(is_instance_valid(game.quest_screen), "Clicking the memo opens the list")
-	if not is_instance_valid(game.quest_screen):
-		quit(1)
-		return
-	check(not game.quest_screen.actions["can"].disabled, "The second row is independently ready")
-	check(game.quest_screen.actions["coin"].disabled, "An incomplete goal cannot be claimed")
-	await tap(game.quest_screen.actions["can"].get_global_rect().get_center())
+	check(not hud.actions["can"].disabled, "The second goal is independently ready")
+	check(hud.actions["coin"].disabled, "An incomplete goal cannot be claimed")
+	await tap(hud.actions["can"].get_global_rect().get_center())
 	check(game.session.money == 100 and game.session.can_quest_reward_claimed,
-		"The second row pays exactly its own reward")
-	check(not game.session.quest_reward_claimed and is_instance_valid(game.quest_screen),
-		"Claiming keeps the list open and leaves the other goal untouched")
-	check(not game.quest_toast.visible, "A list claim immediately removes its achievement card")
+		"The permanent HUD pays exactly its own reward")
+	check(not game.session.quest_reward_claimed and hud.is_visible_in_tree(),
+		"Claiming preserves the other goal and the HUD")
+	check(DESIGN.shape(can_row, "Label / Status").visible,
+		"Claimed goals remain visible as completed")
+	check(not game.quest_toast.visible, "A HUD claim immediately removes its achievement card")
 	game._claim_quest("can")
 	check(game.session.money == 100, "Repeated claims do not pay twice")
 	var restored = FIXTURE.SESSION.new()
@@ -87,18 +91,21 @@ func run_checks() -> void:
 	check(not is_instance_valid(effect), "Reward particles are removed after absorption")
 	game.session.start_search_fever()
 	var fever_before: float = game.session.search_fever_remaining
-	var clicks_before: int = game.session.click_stack
 	game._process(1.0)
-	game._on_earn_button_pressed()
+	check(game.session.search_fever_remaining < fever_before,
+		"The permanent HUD permits fever time to advance")
+	var clicks_before: int = game.session.click_stack
+	await tap(game.earn_button.get_global_rect().get_center())
+	check(game.session.click_stack > clicks_before,
+		"The permanent HUD permits background search")
+	var paid_before: int = game.session.money
 	game._on_shop_button_pressed()
-	check(game.session.search_fever_remaining == fever_before,
-		"The quest list pauses fever time")
-	check(game.session.click_stack == clicks_before and game.session.money == 100,
-		"The quest list blocks background search and purchases")
+	check(game.session.money < paid_before, "The permanent HUD permits purchases")
+	await FIXTURE.wait_for_purchase_effects(game)
 	await press_escape()
-	check(not is_instance_valid(game.quest_screen) and not paused,
-		"Escape closes the list before opening pause")
-	check(game.quest_button.has_focus(), "Closing the list returns focus to the memo")
+	check(game.pause_menu.overlay.visible,
+		"Escape opens pause without an intermediate quest window")
+	await press_escape()
 	game.session.quest_clicks = 10
 	game._refresh_ui()
 	check(game.quest_toast.visible and game.quest_toast.current_id == "coin",
@@ -110,14 +117,14 @@ func run_checks() -> void:
 		"At 20 seconds only the card expires, never the unclaimed reward")
 	game._refresh_ui()
 	check(not game.quest_toast.visible, "Refreshing UI does not restart an expired card")
-	check(DESIGN.shape(hud, "Badge / Claimable").visible, "The memo keeps unclaimed rewards visible")
-	await tap(game.quest_button.get_global_rect().get_center())
-	await tap(game.quest_screen.actions["coin"].get_global_rect().get_center())
-	check(game.session.money == 5100, "An expired card's reward remains claimable in the list")
-	check(not DESIGN.shape(hud, "Badge / Claimable").visible,
-		"The notification dot clears when all rewards have been claimed")
-	await tap(DESIGN.shape(game.quest_screen.canvas, "Action / Close").get_global_rect().get_center())
-	check(not is_instance_valid(game.quest_screen), "The original X button closes the list")
+	check(not hud.actions["coin"].disabled,
+		"Expired achievement cards leave rewards available in the permanent HUD")
+	var money_before: int = game.session.money
+	await tap(hud.actions["coin"].get_global_rect().get_center())
+	check(game.session.money == money_before + 5000,
+		"An expired card's reward remains claimable from the HUD")
+	check(hud.actions["coin"].disabled and hud.actions["can"].disabled,
+		"Both completed goals prevent repeat claims")
 	for resolution: Vector2i in [
 		Vector2i(1152, 648), Vector2i(1280, 720), Vector2i(1600, 900), Vector2i(1440, 900),
 	]:
@@ -131,26 +138,26 @@ func run_checks() -> void:
 		]:
 			var source: String = entry[1]
 			var artwork := DESIGN.shape(entry[0], source)
-			check(artwork.get_global_rect().size.is_equal_approx(hud.get_global_rect().size),
+			check(artwork.get_global_rect().size.is_equal_approx(
+				DESIGN.shape(game.get_node("MenuButton"), "HUD / 메뉴 / normal").get_global_rect().size
+			),
 				"All HUD artwork scales together after resizing: " + source)
 			var button: Button = artwork.get_parent() if artwork.get_parent() is Button else (
 				artwork.get_node("Action")
 			)
 			check(button.get_global_rect().is_equal_approx(artwork.get_global_rect()),
 				"The HUD artwork and input area keep the same bounds: " + source)
-		check(hud.get_global_rect().end.x < resolution.x,
-			"The uniformly scaled memo stays inside the resized viewport")
-		game.quest_button.pressed.emit()
-		var rect: Rect2 = game.quest_screen.canvas.get_global_rect()
-		check(rect.get_center().is_equal_approx(Vector2(resolution) * 0.5),
-			"The quest list remains centered after resizing")
-		game.quest_screen.close()
-		await process_frame
+		var factor: float = minf(resolution.x / 1152.0, resolution.y / 648.0)
+		var origin: Vector2 = (Vector2(resolution) - Vector2(1152, 648) * factor) * 0.5
+		check(hud.get_global_rect().end.is_equal_approx(origin + Vector2(1136, 108) * factor),
+			"The permanent HUD keeps the game area's 16px upper-right margin")
+		check(hud.scale.is_equal_approx(Vector2.ONE * factor),
+			"Quest art, text and input scale uniformly after resizing")
 	var path: String = FIXTURE.store_for(game).path
 	game.free()
 	DirAccess.remove_absolute(path)
 	await _check_toast_claim()
-	print("Quest screen checks: %d failures" % failures)
+	print("Quest HUD checks: %d failures" % failures)
 	quit(1 if failures else 0)
 
 

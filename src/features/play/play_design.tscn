@@ -1,5 +1,9 @@
 [gd_scene format=3]
 
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/can_icon.svg" id="currency_can"]
+
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/coin_gold.svg" id="currency_gold"]
+
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/56x56_normal.svg" id="hud_frame"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/cd444aaf-0d8c-801b-8008-ce975c423d25.png" id="r0"]
@@ -15,12 +19,6 @@
 [ext_resource type="Texture2D" path="res://assets/penpot/5180211c7d86be9ba954.svg" id="r9"]
 
 [ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="r10"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/06882d254e743d02e474.svg" id="r11"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/ddf5af1d67fc18f33e82.svg" id="r12"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/1bed63fe83a13cab7c0b.svg" id="r13"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/5d81ecc80794e3d425ca.svg" id="r18"]
 
@@ -72,76 +70,6 @@ border_width_left = 2
 border_width_right = 2
 border_width_top = 2
 border_width_bottom = 2
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s2"]
-bg_color = Color(0.8470588, 0.5294118, 0.1803922, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s3"]
-bg_color = Color(0.972549, 0.8117647, 0.4823529, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s4"]
-bg_color = Color(0.7176471, 0.4039216, 0.172549, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s5"]
-bg_color = Color(0.5921569, 0.6784314, 0.7019608, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s6"]
-bg_color = Color(0.8588235, 0.9019608, 0.8352941, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s7"]
-bg_color = Color(0.3843137, 0.4862745, 0.5411765, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s8"]
-bg_color = Color(0.8980392, 0.9098039, 0.8627451, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s9"]
-bg_color = Color(0.2980392, 0.372549, 0.4392157, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s10"]
-bg_color = Color(0.8784314, 0.8901961, 0.7960784, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s11"]
-bg_color = Color(0.2980392, 0.372549, 0.4392157, 1)
 corner_radius_top_left = 0
 corner_radius_top_right = 0
 corner_radius_bottom_right = 0
@@ -374,98 +302,21 @@ theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 0
 vertical_alignment = 1
 
-[node name="Shape22" type="Control" parent="Shape18"]
+[node name="Shape22" type="TextureRect" parent="Shape18"]
 layout_mode = 0
 offset_left = 13.34679
 offset_top = 10
-offset_right = 36.36318
+offset_right = 39.3468
 offset_bottom = 36
 mouse_filter = 2
 metadata/penpot_name = "Icon / 골드 / 원본 연결"
 metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e5"
 scale = Vector2(0.9230769, 0.9230769)
-
-[node name="Shape23" type="Control" parent="Shape18/Shape22"]
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0
-offset_right = 23.01639
-offset_bottom = 26
-mouse_filter = 2
-metadata/penpot_name = "재화 / 골드 아이콘 / 기본"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e6"
-
-[node name="Shape24" type="Control" parent="Shape18/Shape22/Shape23"]
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0
-offset_right = 23.01639
-offset_bottom = 26
-mouse_filter = 2
-metadata/penpot_name = "base-background"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e7"
-visible = false
-
-[node name="Shape25" type="TextureRect" parent="Shape18/Shape22/Shape23"]
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0
-offset_right = 23.01639
-offset_bottom = 26
-mouse_filter = 2
-metadata/penpot_name = "svg-path"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e8"
-texture = ExtResource("r11")
+texture = ExtResource("currency_gold")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 5
 
-[node name="Shape26" type="TextureRect" parent="Shape18/Shape22/Shape23"]
-layout_mode = 0
-offset_left = 2.55738
-offset_top = 2.88889
-offset_right = 20.45902
-offset_bottom = 23.11111
-mouse_filter = 2
-metadata/penpot_name = "svg-path"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e9"
-texture = ExtResource("r12")
-expand_mode = 1
-stretch_mode = 0
-
-[node name="Shape27" type="Panel" parent="Shape18/Shape22/Shape23"]
-layout_mode = 0
-offset_left = 5.7541
-offset_top = 6.5
-offset_right = 17.2623
-offset_bottom = 20.22222
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ea"
-theme_override_styles/panel = SubResource("s2")
-
-[node name="Shape28" type="Panel" parent="Shape18/Shape22/Shape23"]
-layout_mode = 0
-offset_left = 6.39344
-offset_top = 7.22222
-offset_right = 10.86885
-offset_bottom = 18.05556
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8eb"
-theme_override_styles/panel = SubResource("s3")
-
-[node name="Shape29" type="Panel" parent="Shape18/Shape22/Shape23"]
-layout_mode = 0
-offset_left = 15.98361
-offset_top = 6.5
-offset_right = 18.54098
-offset_bottom = 18.05556
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ec"
-theme_override_styles/panel = SubResource("s4")
-
-[node name="Shape30" type="Control" parent="Shape18"]
+[node name="Shape30" type="TextureRect" parent="Shape18"]
 layout_mode = 0
 offset_left = 140.0391
 offset_top = 10
@@ -475,117 +326,9 @@ mouse_filter = 2
 metadata/penpot_name = "Icon / 빈캔 / 원본 연결"
 metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ed"
 scale = Vector2(0.9230769, 0.9230769)
-
-[node name="Shape31" type="Control" parent="Shape18/Shape30"]
-layout_mode = 0
-offset_left = 4.69722
-offset_top = 0
-offset_right = 18.31917
-offset_bottom = 26
-mouse_filter = 2
-metadata/penpot_name = "svg"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ee"
-
-[node name="Shape32" type="Control" parent="Shape18/Shape30/Shape31"]
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0
-offset_right = 13.62195
-offset_bottom = 26
-mouse_filter = 2
-metadata/penpot_name = "base-background"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ef"
-visible = false
-
-[node name="Shape33" type="TextureRect" parent="Shape18/Shape30/Shape31"]
-layout_mode = 0
-offset_left = -1e-05
-offset_top = 0
-offset_right = 13.62196
-offset_bottom = 25.99998
-mouse_filter = 2
-metadata/penpot_name = "svg-path"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f0"
-texture = ExtResource("r13")
+texture = ExtResource("currency_can")
 expand_mode = 1
-stretch_mode = 0
-
-[node name="Shape34" type="Panel" parent="Shape18/Shape30/Shape31"]
-layout_mode = 0
-offset_left = 1.87889
-offset_top = 3.18367
-offset_right = 11.74306
-offset_bottom = 22.81633
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f1"
-theme_override_styles/panel = SubResource("s5")
-
-[node name="Shape35" type="Panel" parent="Shape18/Shape30/Shape31"]
-layout_mode = 0
-offset_left = 1.87889
-offset_top = 3.71429
-offset_right = 4.2275
-offset_bottom = 20.69388
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f2"
-theme_override_styles/panel = SubResource("s6")
-
-[node name="Shape36" type="Panel" parent="Shape18/Shape30/Shape31"]
-layout_mode = 0
-offset_left = 9.39445
-offset_top = 4.2449
-offset_right = 11.74306
-offset_bottom = 21.7551
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f3"
-theme_override_styles/panel = SubResource("s7")
-
-[node name="Shape37" type="Panel" parent="Shape18/Shape30/Shape31"]
-layout_mode = 0
-offset_left = 2.34861
-offset_top = 1.06122
-offset_right = 11.27334
-offset_bottom = 3.71429
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f4"
-theme_override_styles/panel = SubResource("s8")
-
-[node name="Shape38" type="Panel" parent="Shape18/Shape30/Shape31"]
-layout_mode = 0
-offset_left = 4.69722
-offset_top = 1.59184
-offset_right = 8.92472
-offset_bottom = 2.65306
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f5"
-theme_override_styles/panel = SubResource("s9")
-
-[node name="Shape39" type="Panel" parent="Shape18/Shape30/Shape31"]
-layout_mode = 0
-offset_left = 3.75778
-offset_top = 9.55102
-offset_right = 10.80361
-offset_bottom = 15.91837
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f6"
-theme_override_styles/panel = SubResource("s10")
-
-[node name="Shape40" type="Panel" parent="Shape18/Shape30/Shape31"]
-layout_mode = 0
-offset_left = 2.34861
-offset_top = 22.81633
-offset_right = 10.80361
-offset_bottom = 24.40816
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8f7"
-theme_override_styles/panel = SubResource("s11")
+stretch_mode = 5
 
 [node name="Shape41" type="Control" parent="."]
 layout_mode = 0

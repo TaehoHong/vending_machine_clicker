@@ -6,7 +6,7 @@
 
 [ext_resource type="PackedScene" path="res://src/shared/ui/icons/gold_icon.tscn" id="r2"]
 
-[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/icons/can.svg" id="r3"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/can_icon.svg" id="r3"]
 
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/icons/close.svg" id="r4"]
 
@@ -120,7 +120,7 @@ vertical_alignment = 0
 
 [node name="Shape8" parent="." instance=ExtResource("r2")]
 position = Vector2(820, 119)
-scale = Vector2(1.042735198699709, 0.9230769230769231)
+scale = Vector2(0.9230769230769231, 0.9230769230769231)
 mouse_filter = 2
 metadata/penpot_name = "Decoration / 6"
 
@@ -151,7 +151,7 @@ mouse_filter = 2
 metadata/penpot_name = "Decoration / 8"
 texture = ExtResource("r3")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 5
 texture_filter = 1
 
 [node name="Shape11" type="Label" parent="."]
@@ -236,7 +236,7 @@ vertical_alignment = 0
 
 [node name="Shape17" parent="." instance=ExtResource("r2")]
 position = Vector2(220, 473)
-scale = Vector2(0.8689459989164243, 0.7692307692307693)
+scale = Vector2(0.7692307692307693, 0.7692307692307693)
 mouse_filter = 2
 metadata/penpot_name = "Decoration / 14"
 
@@ -267,7 +267,7 @@ mouse_filter = 2
 metadata/penpot_name = "Decoration / 16"
 texture = ExtResource("r3")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 5
 texture_filter = 1
 
 [node name="Shape20" type="Label" parent="."]
@@ -425,7 +425,7 @@ texture_filter = 1
 
 [node name="Shape30" parent="Shape27" instance=ExtResource("r2")]
 position = Vector2(49, 19)
-scale = Vector2(1.042735198699709, 0.9230769230769231)
+scale = Vector2(0.9230769230769231, 0.9230769230769231)
 mouse_filter = 2
 metadata/penpot_name = "Price / Currency"
 metadata/penpot_id = "ab3ae66f-886e-80f5-8008-dbae482e09b8"
@@ -614,7 +614,7 @@ texture_filter = 1
 
 [node name="Shape43" parent="Shape40" instance=ExtResource("r2")]
 position = Vector2(49, 19)
-scale = Vector2(1.042735198699709, 0.9230769230769231)
+scale = Vector2(0.9230769230769231, 0.9230769230769231)
 mouse_filter = 2
 metadata/penpot_name = "Price / Currency"
 metadata/penpot_id = "ab3ae66f-886e-80f5-8008-dbae482e09c6"
@@ -803,7 +803,7 @@ texture_filter = 1
 
 [node name="Shape56" parent="Shape53" instance=ExtResource("r2")]
 position = Vector2(49, 19)
-scale = Vector2(1.042735198699709, 0.9230769230769231)
+scale = Vector2(0.9230769230769231, 0.9230769230769231)
 mouse_filter = 2
 metadata/penpot_name = "Price / Currency"
 metadata/penpot_id = "ab3ae66f-886e-80f5-8008-dbae482e09d4"

@@ -16,9 +16,7 @@ var _purchase_effects: Dictionary = {}
 var display_products: Dictionary[int, Control] = {}
 var display_shadows: Dictionary[int, Control] = {}
 var facilities_screen: Control
-var quest_screen: Control
 var quest_toast: Control
-var quest_button: Button
 var facility_world: Control
 var ability_toast: Control
 var wallet_tooltip: Control
@@ -103,7 +101,6 @@ func _process(delta: float) -> void:
 	facility_world.advance(delta)
 	var blocked: bool = (
 		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)
-		or is_instance_valid(quest_screen)
 	)
 	quest_toast.advance(delta, blocked)
 	search_hint.set(
@@ -151,7 +148,6 @@ func _on_punch_button_pressed() -> void:
 		get_tree().paused
 		or result_overlay.visible
 		or info_overlay.visible or is_instance_valid(facilities_screen)
-		or is_instance_valid(quest_screen)
 		or session.punch_fever_remaining <= 0
 	):
 		return
@@ -197,7 +193,6 @@ func _on_earn_button_pressed() -> void:
 		get_tree().paused
 		or result_overlay.visible
 		or info_overlay.visible or is_instance_valid(facilities_screen)
-		or is_instance_valid(quest_screen)
 	):
 		return
 	search_hint.call("notify_search_click")
@@ -463,8 +458,6 @@ func _claim_quest(quest_id: String) -> void:
 	if not session.claim_quest(quest_id):
 		return
 	_finish_action("")
-	if is_instance_valid(quest_screen):
-		quest_screen.refresh()
 	var effect := preload("res://src/features/quests/reward_fx.gd").new()
 	effect.name = "QuestRewardFX"
 	effect.z_index = 110
@@ -554,7 +547,6 @@ func _on_shop_button_pressed() -> void:
 		get_tree().paused
 		or result_overlay.visible
 		or info_overlay.visible or is_instance_valid(facilities_screen)
-		or is_instance_valid(quest_screen)
 	):
 		return
 	var price: int = session.current_draw_price()
@@ -661,30 +653,26 @@ func _refresh_ui() -> void:
 	can_count_label.tooltip_text = ""
 	DESIGN.fit_text(can_count_label, 36)
 	if wallet_tooltip.visible:
-		_show_wallet_tooltip(wallet_tooltip.get_meta("currency", "gold"))
+		_show_wallet_tooltip()
 	_refresh_quests()
 	shop_button.disabled = (
 		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)
-		or is_instance_valid(quest_screen)
 		or session.purchasable_drinks().is_empty()
 	)
 	earn_button.disabled = (
 		result_overlay.visible or info_overlay.visible or is_instance_valid(facilities_screen)
-		or is_instance_valid(quest_screen)
 	)
 	$Navigation/AbilityButton.disabled = result_overlay.visible
 	shop_button.tooltip_text = ""
 
 
 func _on_menu_button_pressed() -> void:
-	if not is_instance_valid(quest_screen):
-		pause_menu.set_open(true)
+	pause_menu.set_open(true)
 
 
 func _setup_quests() -> void:
-	quest_button = DESIGN.action($QuestHud, "Action / Open Quests", _open_quests)
-	quest_button.accessibility_name = "퀘스트"
-	quest_button.tooltip_text = "퀘스트"
+	$QuestHud.setup(session)
+	$QuestHud.claim_requested.connect(_claim_quest)
 	quest_toast = preload("res://src/features/quests/toast_design.tscn").instantiate()
 	quest_toast.session = session
 	add_child(quest_toast)
@@ -695,8 +683,8 @@ func _setup_quests() -> void:
 func _layout_quests() -> void:
 	var factor := minf(size.x / 1152.0, size.y / 648.0)
 	var origin := (size - Vector2(1152, 648) * factor) * 0.5
-	$QuestHud.position = origin + Vector2(1086.4, 11.2) * factor
-	$QuestHud.scale = Vector2.ONE * 0.8 * factor
+	$QuestHud.position = origin + Vector2(832, 16) * factor
+	$QuestHud.scale = Vector2.ONE * factor
 	if is_instance_valid(quest_toast):
 		quest_toast.position = origin + Vector2(412.8, 20) * factor
 		quest_toast.scale = Vector2.ONE * 0.6 * factor
@@ -705,30 +693,9 @@ func _layout_quests() -> void:
 func _refresh_quests() -> void:
 	if not is_instance_valid(quest_toast):
 		return
-	var ready: bool = false
-	for id: String in session.QUEST_IDS:
-		ready = ready or session.quest_status(id).ready
-	DESIGN.shape($QuestHud, "Badge / Claimable").visible = ready
+	$QuestHud.refresh()
 	quest_toast.sync()
 	_layout_quests()
-
-
-func _open_quests() -> void:
-	if (
-		get_tree().paused or result_overlay.visible or info_overlay.visible
-		or is_instance_valid(facilities_screen) or is_instance_valid(quest_screen)
-	):
-		return
-	quest_button.grab_focus()
-	quest_screen = preload("res://src/features/quests/quest_screen.tscn").instantiate()
-	add_child(quest_screen)
-	quest_screen.claim_requested.connect(_claim_quest)
-	quest_screen.closed.connect(func() -> void:
-		quest_screen = null
-		_refresh_ui()
-	)
-	quest_screen.open(session)
-	_refresh_ui()
 
 
 func _on_ability_button_pressed() -> void:
@@ -736,7 +703,7 @@ func _on_ability_button_pressed() -> void:
 
 
 func _on_skill_button_pressed() -> void:
-	if get_tree().paused or result_overlay.visible or is_instance_valid(quest_screen):
+	if get_tree().paused or result_overlay.visible:
 		return
 	_set_info_layout(true)
 	$InfoOverlay/Card/Title.text = "음료수 추가"
@@ -905,9 +872,6 @@ func _exit_tree() -> void:
 
 
 func _on_escape_requested() -> void:
-	if is_instance_valid(quest_screen):
-		quest_screen.close()
-		return
 	if is_instance_valid(facilities_screen):
 		facilities_screen.go_back()
 		return
@@ -952,29 +916,22 @@ func _setup_design() -> void:
 	wallet_tooltip.position = Vector2(16, 68)
 	$Design.add_child(wallet_tooltip)
 	wallet_tooltip.hide()
-	for entry in [[money_label, "gold"], [can_count_label, "cans"]]:
-		var label: Label = entry[0]
-		label.mouse_filter = Control.MOUSE_FILTER_PASS
-		label.mouse_entered.connect(_show_wallet_tooltip.bind(entry[1]))
-		label.mouse_exited.connect(wallet_tooltip.hide)
+	money_label.mouse_filter = Control.MOUSE_FILTER_PASS
+	money_label.mouse_entered.connect(_show_wallet_tooltip)
+	money_label.mouse_exited.connect(wallet_tooltip.hide)
 
 
-func _show_wallet_tooltip(currency: String) -> void:
-	wallet_tooltip.set_meta("currency", currency)
+func _show_wallet_tooltip() -> void:
 	var caption: Label = DESIGN.shape(wallet_tooltip, "Text / Caption")
 	var amount: Label = DESIGN.shape(wallet_tooltip, "Text / Amount")
-	caption.text = "빈캔" if currency == "cans" else "보유 골드"
-	amount.text = (
-		"%d개" % session.cans if currency == "cans"
-		else "%s 골드" % AMOUNTS.format_amount(session.money)
-	)
+	caption.text = "보유 골드"
+	amount.text = "%s 골드" % AMOUNTS.format_amount(session.money)
 	wallet_tooltip.show()
 
 
 func _open_facilities() -> void:
 	if (
 		get_tree().paused or info_overlay.visible or is_instance_valid(facilities_screen)
-		or is_instance_valid(quest_screen)
 	):
 		return
 	facilities_screen = preload("res://src/features/facilities/facilities_screen.tscn").instantiate()

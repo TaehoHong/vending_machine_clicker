@@ -1,1 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40"><rect x="5" y="5" width="22" height="31" rx="5" fill="#a6b3bf"/><ellipse cx="16" cy="5" rx="11" ry="3" fill="#e0e7ec"/><rect x="13" y="3" width="8" height="3" rx="1.5" fill="#718391"/><path d="M9 12V30M23 12V30" stroke="#e0e7ec" stroke-width="2" opacity=".6"/><ellipse cx="16" cy="35" rx="10" ry="2" fill="#718391"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="18.938775510204096" height="32" viewBox="646.530612244898 1650 18.938775510204096 32" style="-webkit-print-color-adjust::exact" fill="none" version="1.1">
+  <g id="shape-57cf90e6-1346-80ff-8008-d2e7c092588e">
+    <defs>
+      <clipPath id="frame-clip-57cf90e6-1346-80ff-8008-d2e7c092588e-render-29900" class="frame-clip frame-clip-def">
+        <rect rx="0" ry="0" x="640" y="1650" width="32" height="32" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)">
+        </rect>
+      </clipPath>
+    </defs>
+    <g class="frame-container-wrapper">
+      <g class="frame-container-blur">
+        <g class="frame-container-shadows">
+          <g clip-path="url(#frame-clip-57cf90e6-1346-80ff-8008-d2e7c092588e-render-29900)" fill="none">
+            <g class="fills" id="fills-57cf90e6-1346-80ff-8008-d2e7c092588e">
+              <rect rx="0" ry="0" x="640" y="1650" width="32" height="32" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" class="frame-background">
+              </rect>
+            </g>
+            <g class="frame-children">
+              <g id="shape-57cf90e6-1346-80ff-8008-d2e7c0954e54" style="fill:#000000" rx="0" ry="0">
+                <g id="shape-57cf90e6-1346-80ff-8008-d2e7c095e2c2" style="display:none">
+                  <g class="fills" id="fills-57cf90e6-1346-80ff-8008-d2e7c095e2c2">
+                    <rect rx="0" ry="0" x="646.530612244898" y="1650" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" width="18.938775510204096" height="32" fill="none" style="fill:none">
+                    </rect>
+                  </g>
+                </g>
+                <g id="shape-57cf90e6-1346-80ff-8008-d2e7c095e2c3">
+                  <g class="fills" id="fills-57cf90e6-1346-80ff-8008-d2e7c095e2c3">
+                    <path d="M649.1428833007812,1650L662.8571166992188,1650L662.8571166992188,1652.6123046875L665.4694213867188,1652.6123046875L665.4694213867188,1679.3876953125L662.8571166992188,1679.3876953125L662.8571166992188,1682L649.1428833007812,1682L649.1428833007812,1679.3876953125L646.5305786132812,1679.3876953125L646.5305786132812,1652.6123046875L649.1428833007812,1652.6123046875Z" style="fill:#132433">
+                    </path>
+                  </g>
+                </g>
+                <g id="shape-57cf90e6-1346-80ff-8008-d2e7c095e2c4">
+                  <g class="fills" id="fills-57cf90e6-1346-80ff-8008-d2e7c095e2c4">
+                    <rect rx="0" ry="0" x="649.1428571428571" y="1653.9183673469388" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" width="13.71428571428578" height="24.163265306122412" style="fill:#97adb3">
+                    </rect>
+                  </g>
+                </g>
+                <g id="shape-57cf90e6-1346-80ff-8008-d2e7c095e2c5">
+                  <g class="fills" id="fills-57cf90e6-1346-80ff-8008-d2e7c095e2c5">
+                    <rect rx="0" ry="0" x="649.1428571428571" y="1654.5714285714284" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" width="3.265306122449033" height="20.89795918367372" style="fill:#dbe6d5">
+                    </rect>
+                  </g>
+                </g>
+                <g id="shape-57cf90e6-1346-80ff-8008-d2e7c095e2c6">
+                  <g class="fills" id="fills-57cf90e6-1346-80ff-8008-d2e7c095e2c6">
+                    <rect rx="0" ry="0" x="659.5918367346939" y="1655.2244897959185" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" width="3.265306122449033" height="21.551020408162913" style="fill:#627c8a">
+                    </rect>
+                  </g>
+                </g>
+                <g id="shape-57cf90e6-1346-80ff-8008-d2e7c095e2c7">
+                  <g class="fills" id="fills-57cf90e6-1346-80ff-8008-d2e7c095e2c7">
+                    <rect rx="0" ry="0" x="649.795918367347" y="1651.3061224489797" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" width="12.40816326530603" height="3.265306122448692" style="fill:#e5e8dc">
+                    </rect>
+                  </g>
+                </g>
+                <g id="shape-57cf90e6-1346-80ff-8008-d2e7c095e2c8">
+                  <g class="fills" id="fills-57cf90e6-1346-80ff-8008-d2e7c095e2c8">
+                    <rect rx="0" ry="0" x="653.0612244897959" y="1651.9591836734694" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" width="5.877551020408191" height="1.3061224489797496" style="fill:#4c5f70">
+                    </rect>
+                  </g>
+                </g>
+                <g id="shape-57cf90e6-1346-80ff-8008-d2e7c095e2c9">
+                  <g class="fills" id="fills-57cf90e6-1346-80ff-8008-d2e7c095e2c9">
+                    <rect rx="0" ry="0" x="651.7551020408164" y="1661.7551020408164" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" width="9.795918367346985" height="7.836734693877588" style="fill:#e0e3cb">
+                    </rect>
+                  </g>
+                </g>
+                <g id="shape-57cf90e6-1346-80ff-8008-d2e7c0963133">
+                  <g class="fills" id="fills-57cf90e6-1346-80ff-8008-d2e7c0963133">
+                    <rect rx="0" ry="0" x="649.795918367347" y="1678.0816326530612" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" width="11.755102040816269" height="1.959183673469397" style="fill:#4c5f70">
+                    </rect>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  </svg>

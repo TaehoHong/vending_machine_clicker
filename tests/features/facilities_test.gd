@@ -122,6 +122,7 @@ func run_checks() -> void:
 	RULES.state(game.session).drops = [{"id": 1, "amount": 2, "remaining": 15.0}]
 	game.facility_world.refresh()
 	var drop: Button = game.facility_world.drops[1]
+	assert(drop.get_tooltip().is_empty(), "Dropped cans have no hover popup")
 	var drop_start: Vector2 = drop.position
 	game.pause_menu.set_open(true)
 	await create_timer(0.05).timeout

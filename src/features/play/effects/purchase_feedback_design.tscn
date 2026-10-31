@@ -1,12 +1,10 @@
 [gd_scene format=3]
 
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/coin_gold.svg" id="currency_gold"]
+
 [ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="r0"]
 
 [ext_resource type="FontVariation" path="res://assets/fonts/noto_sans_kr_regular.tres" id="r1"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/f4a97317e559f450bc8e.svg" id="r2"]
-
-[ext_resource type="Texture2D" path="res://assets/penpot/0c4b0209ae23234b79d6.svg" id="r3"]
 
 [sub_resource type="StyleBoxFlat" id="s0"]
 bg_color = Color(0.0705882, 0.0705882, 0.1137255, 0.5490196078431373)
@@ -38,27 +36,6 @@ corner_radius_bottom_left = 0
 
 [sub_resource type="StyleBoxFlat" id="s4"]
 bg_color = Color(0.345098, 0.6862745, 0.854902, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s5"]
-bg_color = Color(0.8470588, 0.5294118, 0.1803922, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s6"]
-bg_color = Color(0.972549, 0.8117647, 0.4823529, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s7"]
-bg_color = Color(0.7176471, 0.4039216, 0.172549, 1)
 corner_radius_top_left = 0
 corner_radius_top_right = 0
 corner_radius_bottom_right = 0
@@ -164,7 +141,7 @@ theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Shape9" type="Control" parent="."]
+[node name="Shape9" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 16
 offset_top = 16
@@ -173,83 +150,6 @@ offset_bottom = 52
 mouse_filter = 2
 metadata/penpot_name = "Clicker / UI / Currency / 골드"
 metadata/penpot_id = "dce37255-a491-80bc-8008-d4ffe8aa4b4a"
-
-[node name="Shape10" type="Control" parent="Shape9"]
-layout_mode = 0
-offset_left = 0
-offset_top = 0
-offset_right = 36
-offset_bottom = 36
-mouse_filter = 2
-metadata/penpot_name = "재화 / 골드 아이콘 / 기본"
-metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e1"
-
-[node name="Shape11" type="Control" parent="Shape9/Shape10"]
-layout_mode = 0
-offset_left = 0
-offset_top = 0
-offset_right = 36
-offset_bottom = 36
-mouse_filter = 2
-metadata/penpot_name = "base-background"
-metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e2"
-visible = false
-
-[node name="Shape12" type="TextureRect" parent="Shape9/Shape10"]
-layout_mode = 0
-offset_left = 0
-offset_top = 0
-offset_right = 36
-offset_bottom = 36
-mouse_filter = 2
-metadata/penpot_name = "svg-path"
-metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e3"
-texture = ExtResource("r2")
+texture = ExtResource("currency_gold")
 expand_mode = 1
-stretch_mode = 0
-
-[node name="Shape13" type="TextureRect" parent="Shape9/Shape10"]
-layout_mode = 0
-offset_left = 4
-offset_top = 4
-offset_right = 32
-offset_bottom = 32
-mouse_filter = 2
-metadata/penpot_name = "svg-path"
-metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e4"
-texture = ExtResource("r3")
-expand_mode = 1
-stretch_mode = 0
-
-[node name="Shape14" type="Panel" parent="Shape9/Shape10"]
-layout_mode = 0
-offset_left = 9
-offset_top = 9
-offset_right = 27
-offset_bottom = 28
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e5"
-theme_override_styles/panel = SubResource("s5")
-
-[node name="Shape15" type="Panel" parent="Shape9/Shape10"]
-layout_mode = 0
-offset_left = 10
-offset_top = 10
-offset_right = 17
-offset_bottom = 25
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e6"
-theme_override_styles/panel = SubResource("s6")
-
-[node name="Shape16" type="Panel" parent="Shape9/Shape10"]
-layout_mode = 0
-offset_left = 25
-offset_top = 9
-offset_right = 29
-offset_bottom = 25
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "eae97b8f-2fed-8075-8008-d505e33cf7e7"
-theme_override_styles/panel = SubResource("s7")
+stretch_mode = 5

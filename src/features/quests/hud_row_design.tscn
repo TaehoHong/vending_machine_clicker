@@ -1,0 +1,107 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://src/shared/ui/icons/gold_icon.tscn" id="gold"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/can_icon.svg" id="can"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/frames/136x56_normal.svg" id="frame"]
+[ext_resource type="Theme" path="res://src/shared/ui/themes/play_theme.tres" id="theme"]
+
+[node name="QuestHudRow" type="Control"]
+offset_right = 304.0
+offset_bottom = 44.0
+mouse_filter = 2
+theme = ExtResource("theme")
+metadata/penpot_name = "Quest / HUD Row"
+metadata/penpot_id = "280ac456-7a93-8056-8008-df7b5ff31a45"
+
+[node name="Surface" parent="." type="Panel"]
+offset_right = 304.0
+offset_bottom = 44.0
+mouse_filter = 2
+theme_type_variation = &"QuestRow"
+metadata/penpot_name = "Surface / Cream"
+
+[node name="Gold" parent="." instance=ExtResource("gold")]
+position = Vector2(8, 10)
+scale = Vector2(0.9230769, 0.9230769)
+metadata/penpot_name = "Goal / Gold"
+
+[node name="Can" parent="." type="TextureRect"]
+visible = false
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 32.0
+offset_bottom = 36.0
+mouse_filter = 2
+texture_filter = 1
+texture = ExtResource("can")
+expand_mode = 1
+stretch_mode = 5
+metadata/penpot_name = "Goal / Can"
+
+[node name="Goal" parent="." type="Label"]
+offset_left = 40.0
+offset_top = 8.0
+offset_right = 168.0
+offset_bottom = 36.0
+mouse_filter = 2
+theme_type_variation = &"InfoTitle"
+theme_override_font_sizes/font_size = 16
+text = "동전 발견"
+vertical_alignment = 1
+metadata/penpot_name = "Text / Goal"
+
+[node name="Count" parent="." type="Label"]
+offset_left = 172.0
+offset_top = 8.0
+offset_right = 220.0
+offset_bottom = 36.0
+mouse_filter = 2
+theme_type_variation = &"InfoTitle"
+theme_override_font_sizes/font_size = 16
+text = "0/10"
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/penpot_name = "Text / Count"
+
+[node name="Claim" parent="." type="Control"]
+offset_left = 228.0
+offset_top = 8.0
+offset_right = 296.0
+offset_bottom = 36.0
+mouse_filter = 2
+metadata/penpot_name = "Action / Claim"
+
+[node name="Frame" parent="Claim" type="TextureRect"]
+offset_right = 68.0
+offset_bottom = 28.0
+mouse_filter = 2
+texture_filter = 1
+texture = ExtResource("frame")
+expand_mode = 1
+metadata/penpot_name = "Frame / normal"
+metadata/penpot_frame_family = "136x56"
+metadata/penpot_frame_state = "normal"
+
+[node name="Label" parent="Claim" type="Label"]
+offset_right = 68.0
+offset_bottom = 28.0
+mouse_filter = 2
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 14
+text = "받기"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/penpot_name = "Label / Claim"
+
+[node name="Status" parent="." type="Label"]
+offset_left = 228.0
+offset_top = 8.0
+offset_right = 296.0
+offset_bottom = 36.0
+mouse_filter = 2
+theme_type_variation = &"InfoBody"
+theme_override_font_sizes/font_size = 14
+text = "✓ 완료"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/penpot_name = "Label / Status"
