@@ -8,6 +8,8 @@
 
 BGM은 `src/app/main.gd`의 `background_music`이 소유하고 `assets/audio/neon_stroll_loop.wav`의 import 반복 설정을 사용한다. 메뉴→Play에서 재생기를 교체하지 않으며 `PROCESS_MODE_ALWAYS`로 ESC에서도 재생을 유지한다. 볼륨/음소거는 기존 Preferences의 Music/Master 버스가 소유한다. `menu_test.gd`는 실제 루프 경계·재생기 유지·pause 진행을, `settings_test.gd`는 Music 음소거·게인을 검증한다.
 
+수색 클릭음은 `play.tscn`의 `SearchClick`이 `assets/audio/mixkit_arrow_whoosh_1491.wav`를 Effects 버스로 재생한다. `_on_earn_button_pressed`의 기존 차단/펀치 분기 이후에만 재생하며 최대 8개 중첩을 허용한다. 원본/라이선스는 `assets/audio/LICENSES.md`를 따른다. `search_test.gd`는 허용 입력·정보창/일시정지/펀치 차단을 보호하며, 오디오를 재생한 회귀는 종료 전 믹서 정리를 기다린다.
+
 ## 모듈 맵
 
 | 영역 | 경로·진입점 | 책임·호출 방향 | 관련 검증 | Evidence paths |

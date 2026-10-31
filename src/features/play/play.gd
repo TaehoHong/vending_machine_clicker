@@ -201,6 +201,7 @@ func _on_earn_button_pressed() -> void:
 	):
 		return
 	search_hint.call("notify_search_click")
+	$SearchClick.play()
 	var earned: int = session.search()
 	if earned < 0:
 		_refresh_ui()

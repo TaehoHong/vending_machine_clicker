@@ -76,6 +76,7 @@ func run_checks() -> void:
 		)
 	)
 	game.free()
+	await create_timer(0.15).timeout
 	print(
 		"Cola trigger, timed fever, stacking, miss, pause, duration cap and expiry checks passed."
 	)
