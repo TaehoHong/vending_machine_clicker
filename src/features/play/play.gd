@@ -163,6 +163,7 @@ func _on_punch_button_pressed() -> void:
 		last_punch_point = get_local_mouse_position()
 		if not punch_button.get_rect().has_point(last_punch_point):
 			last_punch_point = punch_button.get_rect().get_center()
+	$PunchHit.play()
 	punch_fever_fx.call("add_hit", last_punch_point)
 	_restore_machine_position()
 	machine_hit_tween = $VendingMachine.create_tween()

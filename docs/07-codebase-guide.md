@@ -12,6 +12,8 @@ BGM은 `src/app/main.gd`의 `background_music`이 소유하고 `assets/audio/neo
 
 수색 성공음은 같은 씬의 `SearchCoin`이 `assets/audio/mixkit_coins_handling_1939.wav`를 Effects 버스로 단발 재생한다. `_on_earn_button_pressed`의 양수 결과 분기에서만 호출하고 펀치와 공유하는 `_show_coin_reward`에는 연결하지 않는다. `search_test.gd`는 진행/꽝/공유 연출의 무재생·성공 재생·차단/펀치 무재생을 확인한다.
 
+펀치 타격음은 `play.tscn`의 `PunchHit`이 `assets/audio/mixkit_soft_quick_punch_2151.wav`를 Effects 버스로 단발 재생한다. `_on_punch_button_pressed`의 피버/모달/pause 차단 검사 뒤에만 호출하므로 꽝도 재생하고 일반 구매·수색은 재생하지 않는다. 기존 SearchClick과 동일한 최대 8중첩·기본 게인을 사용한다. `punch_fever_test.gd`가 실제 자판기 영역 타격·꽝 재생과 비피버/차단 무재생을 보호한다. 원본 24비트 WAV는 Godot 호환 16비트 PCM으로 변환하며 출처는 audio/LICENSES.md를 따른다.
+
 ## 모듈 맵
 
 | 영역 | 경로·진입점 | 책임·호출 방향 | 관련 검증 | Evidence paths |

@@ -29,6 +29,8 @@
 [ext_resource type="AudioStream" path="res://assets/audio/mixkit_arrow_whoosh_1491.wav" id="search_click"]
 [ext_resource type="AudioStream" path="res://assets/audio/mixkit_coins_handling_1939.wav" id="search_coin"]
 
+[ext_resource type="AudioStream" path="res://assets/audio/mixkit_soft_quick_punch_2151.wav" id="punch_hit"]
+
 [node name="Game" type="Control" unique_id=1636176972]
 layout_mode = 3
 anchors_preset = 15
@@ -46,6 +48,11 @@ bus = &"Effects"
 
 [node name="SearchCoin" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("search_coin")
+max_polyphony = 8
+bus = &"Effects"
+
+[node name="PunchHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("punch_hit")
 max_polyphony = 8
 bus = &"Effects"
 

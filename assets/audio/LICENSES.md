@@ -25,3 +25,13 @@
 
 `neon_stroll_loop.wav` is the project's original synthesized BGM, selected by the
 user. It contains no external recordings or sample-library material.
+
+## Mixkit soft quick punch
+
+- Runtime file: `mixkit_soft_quick_punch_2151.wav`
+- Original file supplied by the user: `mixkit-soft-quick-punch-2151.wav`
+- Source: Mixkit, sound effect 2151 (Soft quick punch).
+- License reference: [Mixkit Sound Effects Free License](https://mixkit.co/license/modal/sfxFree/).
+- The supplied 24-bit WAV is converted to standard 16-bit PCM for Godot import,
+  preserving sample rate, channels, duration and gain. Playback follows Effects/Master settings,
+  permits overlapping hits, and explicitly disables looping in Godot import.
