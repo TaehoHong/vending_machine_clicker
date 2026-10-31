@@ -2,17 +2,20 @@ extends Node2D
 
 const ACTOR = preload("res://src/features/facilities/effects/customer_animation.gd")
 const RULES = preload("res://src/game/automation/facility_rules.gd")
-const ARRIVAL_LEAD: float = 4.72
-const DEPARTURE_END: float = 4.8
-const PASS_DURATION: float = 4.0
+const WALK_SPEED: float = 160.0
+const LEFT_X: float = -192.0
+const RIGHT_X: float = 1190.0
+const MACHINE_X: float = 774.0
+const ARRIVAL_WAIT: float = 1.92
 var session: RefCounted
 var customers: Array[Dictionary] = []
 var passers: Array[Dictionary] = []
 var passer_remaining: float = 1.0
 var next_passer_variant: int = 0
+var next_passer_direction: int = 1
 var pending: Dictionary = {}
 var next_variant: int = 0
-var spawned_for_cycle: bool = false
+var next_direction: int = -1
 
 
 func _process(delta: float) -> void:
@@ -22,31 +25,51 @@ func _process(delta: float) -> void:
 	if not state.auto_owned:
 		return
 	_advance_passers(delta)
-	if state.remaining > ARRIVAL_LEAD:
-		spawned_for_cycle = false
-	if state.remaining <= ARRIVAL_LEAD and not spawned_for_cycle:
-		_spawn()
-		spawned_for_cycle = true
-	for entry: Dictionary in customers.duplicate():
-		var actor: Node2D = entry.actor
+	var cycle: float = RULES.cycle(session)
+	var waiting: int = 0
+	for entry: Dictionary in customers:
 		if entry.departure < 0:
-			_arrive(actor, ARRIVAL_LEAD - float(state.remaining))
+			waiting += 1
+	# 보행이 생산 주기보다 길면 다음 생산의 손님도 미리 출발한다.
+	while float(state.remaining) + waiting * cycle <= _arrival_lead(next_direction):
+		var entry := _spawn(waiting)
+		if waiting == 0:
+			pending = entry
+		waiting += 1
+	for entry: Dictionary in customers.duplicate():
+		var actor: AnimatedSprite2D = entry.actor
+		if entry.departure < 0:
+			var remaining: float = float(state.remaining) + int(entry.cycles_ahead) * cycle
+			_arrive(actor, _arrival_lead(entry.direction) - remaining, entry.direction)
 		else:
 			entry.departure += delta
-			_depart(actor, entry.departure)
-			if entry.departure >= DEPARTURE_END:
+			_depart(actor, entry.departure, entry.direction)
+			if entry.departure >= 1.8 + absf(_exit_x(entry.direction) - MACHINE_X) / WALK_SPEED:
 				actor.queue_free()
 				customers.erase(entry)
 
 
-func _spawn() -> void:
+func _spawn(cycles_ahead: int = 0) -> Dictionary:
 	var actor := _create_actor(next_variant)
 	next_variant = (next_variant + 1) % ACTOR.APPEARANCES.size()
-	pending = {"actor": actor, "departure": -1.0}
-	customers.append(pending)
+	var entry := {
+		"actor": actor, "departure": -1.0, "direction": next_direction,
+		"cycles_ahead": cycles_ahead,
+	}
+	next_direction *= -1
+	customers.append(entry)
+	return entry
 
 
-func _create_actor(variant: int) -> Node2D:
+func _exit_x(direction: int) -> float:
+	return RIGHT_X if direction > 0 else LEFT_X
+
+
+func _arrival_lead(direction: int) -> float:
+	return absf(_exit_x(-direction) - MACHINE_X) / WALK_SPEED + ARRIVAL_WAIT
+
+
+func _create_actor(variant: int) -> AnimatedSprite2D:
 	var actor := ACTOR.new()
 	actor.variant = variant
 	add_child(actor)
@@ -56,19 +79,23 @@ func _create_actor(variant: int) -> Node2D:
 func _advance_passers(delta: float) -> void:
 	for entry: Dictionary in passers.duplicate():
 		entry.elapsed += delta
-		var actor: Node2D = entry.actor
+		var actor: AnimatedSprite2D = entry.actor
 		actor.show_clip(&"walk", entry.elapsed)
-		actor.position.x = lerpf(-192, 1190, clampf(entry.elapsed / PASS_DURATION, 0, 1))
-		if entry.elapsed >= PASS_DURATION:
+		actor.position.x = move_toward(
+			_exit_x(-entry.direction), _exit_x(entry.direction), entry.elapsed * WALK_SPEED
+		)
+		if entry.elapsed >= (RIGHT_X - LEFT_X) / WALK_SPEED:
 			actor.queue_free()
 			passers.erase(entry)
 	passer_remaining -= delta
 	if passer_remaining <= 0:
 		var actor := _create_actor(next_passer_variant)
 		next_passer_variant = (next_passer_variant + 1) % ACTOR.APPEARANCES.size()
-		actor.position = Vector2(-192, 261)
+		actor.position = Vector2(_exit_x(-next_passer_direction), 261)
+		actor.flip_h = next_passer_direction < 0
 		actor.z_index = 1
-		passers.append({"actor": actor, "elapsed": 0.0})
+		passers.append({"actor": actor, "elapsed": 0.0, "direction": next_passer_direction})
+		next_passer_direction *= -1
 		passer_remaining = randf_range(4.5, 7.5)
 
 
@@ -84,28 +111,36 @@ func reward_origin() -> Vector2:
 
 func produced() -> void:
 	if pending.is_empty():
-		_spawn()
-	pending.actor.position = Vector2(774, 261)
+		pending = _spawn()
+	pending.actor.position = Vector2(MACHINE_X, 261)
+	pending.actor.flip_h = false
 	pending.actor.show_clip(&"rear_idle", 0.0)
 	pending.departure = 0.0
 	pending = {}
-	spawned_for_cycle = false
+	for entry: Dictionary in customers:
+		if entry.departure < 0:
+			entry.cycles_ahead -= 1
+			if entry.cycles_ahead == 0:
+				pending = entry
 
 
-func _arrive(actor: Node2D, elapsed: float) -> void:
-	if elapsed < 2.8:
+func _arrive(actor: AnimatedSprite2D, elapsed: float, direction: int) -> void:
+	var walk_duration := _arrival_lead(direction) - ARRIVAL_WAIT
+	actor.flip_h = direction < 0 and elapsed < walk_duration + 0.36
+	actor.position = Vector2(
+		move_toward(_exit_x(-direction), MACHINE_X, maxf(elapsed, 0) * WALK_SPEED), 261
+	)
+	if elapsed < walk_duration:
 		actor.show_clip(&"walk", elapsed)
-		actor.position = Vector2(lerpf(-192, 774, clampf(elapsed / 2.8, 0, 1)), 261)
-	elif elapsed < 3.16:
-		actor.position = Vector2(774, 261)
+	elif elapsed < walk_duration + 0.36:
 		actor.show_clip(&"side_idle", 0.0)
-	elif elapsed < 3.52:
+	elif elapsed < walk_duration + 0.72:
 		actor.show_clip(&"rear_idle", 0.0)
 	else:
-		actor.show_clip(&"operate", elapsed - 3.52)
+		actor.show_clip(&"operate", elapsed - walk_duration - 0.72)
 
 
-func _depart(actor: Node2D, elapsed: float) -> void:
+func _depart(actor: AnimatedSprite2D, elapsed: float, direction: int) -> void:
 	if elapsed < 0.36:
 		actor.show_clip(&"rear_idle", 0.0)
 	elif elapsed < 1.08:
@@ -113,5 +148,6 @@ func _depart(actor: Node2D, elapsed: float) -> void:
 	elif elapsed < 1.8:
 		actor.show_clip(&"hold", 0.0)
 	else:
+		actor.flip_h = direction < 0
 		actor.show_clip(&"carry_walk", elapsed - 1.8)
-		actor.position.x = lerpf(774, 1190, smoothstep(1.8, DEPARTURE_END, elapsed))
+		actor.position.x = move_toward(MACHINE_X, _exit_x(direction), (elapsed - 1.8) * WALK_SPEED)

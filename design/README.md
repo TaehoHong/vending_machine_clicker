@@ -43,7 +43,7 @@ HUD 정렬은 기본 게임 영역의 보이는 가장자리·버튼 사이 간�
 
 음료 구매의 [획득 단계](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=51ff814c-57a3-802e-8008-d25b59048df7)와 [능력 버튼 강조 복귀 단계](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=b1fb0fb9-8b3e-80e3-8008-d3a32e8c5197)는 상단 획득 배너를 사용하지 않는다. 황금 음료에도 같은 기준을 적용하며 골드 부족 안내와 능력 버튼 강조는 유지한다.
 
-[구매하지 않는 행인 통과](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=f6962d3e-df95-808a-8008-dc89cf2e13a7)는 01 게임 화면의 편집 가능한 이동 견본이다. 진입·자판기 통과·퇴장의 위치를 자동으로 연결하며 자판기 앞에서도 멈춤·조작·수령을 넣지 않는다. 기존 4종 외형과 빈손 보행은 `customer_animation.gd`·`customer_frames.tres`를 재사용하고, 별도 등장·퇴장은 `src/features/facilities/effects/customer_flow.gd`가 담당한다. 구매 손님의 생산 연동과 보상은 유지한다.
+[구매하지 않는 행인 통과](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&board-id=f6962d3e-df95-808a-8008-dc89cf2e13a7)는 01 게임 화면의 편집 가능한 이동 견본이다. 왼쪽·오른쪽 진입 → 자판기 통과 → 반대편 퇴장을 걷는 속도에 맞춘 시간으로 번갈아 재생하며 자판기 앞에서도 멈춤·조작·수령을 넣지 않는다. 구매 손님도 같은 보행·수령 원본과 반대편 퇴장을 사용하며, 구매 손님 원본의 저장 확인은 아래 대기 항목을 따른다. 기존 4종 외형과 빈손 보행은 `customer_animation.gd`·`customer_frames.tres`를 재사용하고, 별도 등장·퇴장은 `src/features/facilities/effects/customer_flow.gd`가 담당한다. 구매 손님의 생산 연동과 보상은 유지한다.
 
 ## 퀘스트 UI
 
@@ -56,6 +56,8 @@ HUD 정렬은 기본 게임 영역의 보이는 가장자리·버튼 사이 간�
 시설 보상 연출은 손님 발밑을 기준으로 한다. 골드는 기존 수색 동전 아트와 금액 표기로 튀어오르며 각 생산분만 자동 수령한다. 빈캔은 발밑 높이의 바닥에 떨어져 한 번 튄 뒤 옆으로 굴러 누우며 직접 클릭해 수령한다. 모션 감소 시 같은 착지 상태를 즉시 표시하고, 일시정지·모달 입력 차단·15초 소멸·쓰레기통 자동 수집 규칙을 유지한다.
 
 ## 미동기화·검수 대기
+
+2026-10-31 보행 속도·좌우 등장: 01의 행인 통과 왼쪽·오른쪽 원본과 지연 연결은 새 편집 탭에서 저장을 확인했다. 구매 손님 원본의 같은 변경은 MCP 편집 응답 후 연결이 끊겼으며, 새 편집 탭에서는 저장된 변경을 확인하지 못했다. 기존 탭·새 Chrome 편집 탭과 Connect here로 재연결을 시도했으나 MCP가 연결되지 않아 구매 손님 동기화와 보기 재생 검수는 대기다. 대상은 01의 기존 ‘손님 이용’ 진입·음료 보행·퇴장 보드와 좌우 재생 연결이다. 로컬 구현과 요약을 Penpot 원본으로 간주하지 않는다.
 
 연결 복구 후 순차 퀘스트 공통 원본·플레이/애니메이션의 한 줄 HUD와 중앙 카드·목표 상세 패널 제거를 저장했다. 새 보기 탭에서 동전 → 빈캔 → 모두 완료 후 HUD 숨김을 확인했으며 이전 독립 수령 시연은 대체했다.
 
