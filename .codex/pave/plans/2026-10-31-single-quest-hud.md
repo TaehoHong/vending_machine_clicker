@@ -14,7 +14,7 @@
 - [x] 실제 씬 테스트로 중앙 카드 없음·한 목표만 노출·뒤 목표 조기 수령 차단·첫 수령 후 다음 목표 표시·모두 수령 후 숨김·기존 저장 호환을 검증한다. 변경 전 실패를 확인한다.
 - [x] 기존 HUD/Play 소유자에만 순차 표시와 입력 경계를 적용하고 상단 카드 전용 코드·리소스를 정리한다.
 - [x] Notion 규칙·로컬 문서·Penpot 공통 HUD와 상태/프로토타입을 갱신하고 저장·렌더링을 재확인한다. 지난 작업 대기 항목은 실제 확인한 범위만 해소한다.
-- [ ] Godot 4.7 import·parse, quest_screen·gameplay·abilities·drink_screen·purchase_area·menu·progress_store 중심 회귀와 실제 화면, git diff --check·품질 검토. 검증된 변경을 커밋하고 로컬 main에 머지한다. push·PR 없음.
+- [x] Godot 4.7 import·parse, quest_screen·gameplay·abilities·drink_screen·purchase_area·menu·progress_store 중심 회귀와 실제 화면, git diff --check·품질 검토. 검증된 변경을 커밋하고 로컬 main에 머지한다. push·PR 없음.
 
 테스트 가치: 두 목표가 동시에 표시되거나 숨겨진 목표를 수령하는 회귀, 저장 후 완료 목표가 다시 나타나거나 재지급되는 결함을 실제 입력과 세션 상태로 잡는다. 재화 그림·폰트의 정적 문자열 검사는 추가하지 않고 기존 씬과 실제 렌더링으로 확인한다.
 
@@ -25,3 +25,4 @@
 - 실제 diff에서 HUD만 표시 순서를 소유하고 Play는 현재 ID의 입력만 연결함을 확인했다. 지급·저장·누적량 규칙과 공통 테마·버튼·재화·골드 연출을 재사용했다. 새 런타임 파일·저장 필드·스타일 override는 없다. 제거한 row/toast 리소스의 남은 런타임 참조는 없다.
 - Knowledge Delta: 사용자 확정 단일 순차 표시를 PRODUCT·Notion·DESIGN에 반영하고, 확인된 표시 소유자·304×44 크기·회귀 경계를 docs/06·07에 갱신했다. 별도 장애 기록은 만들지 않는다.
 - Penpot 파일 ID를 대조하고 공통 HUD를 304×44로 갱신했다. 직접 재화 HUD가 있는 화면과 중첩 Main 배치 화면을 함께 확인하여 플레이·애니메이션 보드 81개의 HUD 연결·한 행 표시/완료 숨김·중앙 카드와 큰 목표 상세 제거를 확인했다. 저장됨 표시·새 보기 탭에서 동전 받기 → 빈캔 받기 → 모두 완료 후 숨김을 실제 클릭으로 확인했다. 지난 재화 전체 사용처의 시각 대조 대기는 별도로 유지했다.
+- 기능 커밋 `2df5dcb`를 로컬 main에 fast-forward 머지한 뒤 main의 parse·quest_screen 검사를 다시 통과했다. main 포함 여부·작업 트리와 `git diff --check`를 확인했다. 임시 캡처 실행기·중간 이미지를 제거했고 게임 화면 결과와 검증 로그만 작업 산출물로 남겼다. push·PR은 수행하지 않았다.
