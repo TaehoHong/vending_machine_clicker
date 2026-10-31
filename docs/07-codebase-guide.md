@@ -6,11 +6,13 @@
 
 관련 행의 근거 경로에 커밋·staged·unstaged 변경이 있는지 먼저 확인한다. 대상 소유자·직접 호출자/피호출자·공유 예시·테스트를 읽고 소유권이 없거나 모순될 때만 검색을 넓힌다. 예: 구매 가격은 `game_session.purchase` → `economy_rules.current_draw_price` → Play 구매 요청 → 구매/저장 테스트 순서로 확인한다. 예전 루트 game.gd·ui/ 경로에 새 기능을 만들지 않는다. 게임에 연결된 A HUD SVG는 `src/shared/ui/icons/hud_buttons/`에 있으며 연결 안내는 `design/hud-buttons/README.md`다.
 
+BGM은 `src/app/main.gd`의 `background_music`이 소유하고 `assets/audio/neon_stroll_loop.wav`의 import 반복 설정을 사용한다. 메뉴→Play에서 재생기를 교체하지 않으며 `PROCESS_MODE_ALWAYS`로 ESC에서도 재생을 유지한다. 볼륨/음소거는 기존 Preferences의 Music/Master 버스가 소유한다. `menu_test.gd`는 실제 루프 경계·재생기 유지·pause 진행을, `settings_test.gd`는 Music 음소거·게인을 검증한다.
+
 ## 모듈 맵
 
 | 영역 | 경로·진입점 | 책임·호출 방향 | 관련 검증 | Evidence paths |
 | --- | --- | --- | --- | --- |
-| 실행·연결 | src/app/main.tscn, main.gd `_ready`, `_start_game`, `_save_game` | 메뉴·Play·세션·저장 생성/연결, 백업·저장 결과 처리 | menu_test.gd | project.godot, src/app/ |
+| 실행·연결 | src/app/main.tscn, main.gd `_ready`, `_start_game`, `_save_game` | 메뉴·Play·세션·저장 생성/연결, 백업·저장 결과 처리, 앱 수명의 BackgroundMusic 한 개를 Music 버스에서 연속 재생 | menu_test.gd | project.godot, src/app/ |
 | 메뉴 | src/features/main_menu/main_menu.tscn, main_menu.gd `update_save_status` | 저장 가능 상태 표시, 시작/종료 signal | menu_test.gd | src/features/main_menu/, src/app/main.gd |
 | 실제 진행 | src/game/game_session.gd, progress_state.gd | 구매·수색·해금·퀘스트·피버 상태 변경; UI/I/O 없음 | gameplay, purchase_price, search, search_fever, punch_fever | src/game/, src/features/play/play.gd |
 | 계산·상품 규칙 | src/game/economy/economy_rules.gd, progression/drink_rules.gd, search/search_rules.gd | 세션 상태를 읽는 가격·보너스·상품·클릭·기간 계산 | purchase_price, expanded_skills, search_fever | src/game/, src/data/drink_catalog.gd |
