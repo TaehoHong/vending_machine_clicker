@@ -38,6 +38,7 @@ func tap(point: Vector2) -> void:
 
 func run_checks() -> void:
 	var game = FIXTURE.create_game(root, PunchGame.new())
+	var miss_audio: AudioStreamPlayer = game.get_node("MissResult")
 	var hit_audio: AudioStreamPlayer = game.get_node("PunchHit")
 	var hit_stream: AudioStreamWAV = hit_audio.stream
 	assert(hit_audio.bus == &"Effects" and hit_audio.max_polyphony == 8)
@@ -64,6 +65,7 @@ func run_checks() -> void:
 			game.session.drinks == 1 and not game.session.inserting_coin,
 			"Punching must not buy drinks"
 		)
+		assert(not miss_audio.playing, "Successful punches do not play miss audio")
 		assert(hit_audio.playing, "Every accepted cabinet hit plays punch audio")
 		assert(not game.punch_fever_fx.hits.is_empty())
 		assert(
@@ -87,6 +89,8 @@ func run_checks() -> void:
 	var before: int = game.session.money
 	game._on_punch_button_pressed()
 	assert(game.session.money == before and get_nodes_in_group("search_coin_effects").is_empty())
+	assert(miss_audio.playing, "A punch miss plays the result sound too")
+	miss_audio.stop()
 	assert(hit_audio.playing, "Misses still make contact and play the punch sound")
 	hit_audio.stop()
 	game.session.forced_empty = false
@@ -95,10 +99,12 @@ func run_checks() -> void:
 	await create_timer(0.08).timeout
 	game._on_punch_button_pressed()
 	assert(game.session.money == before and game.session.punch_fever_remaining == time)
+	assert(not miss_audio.playing, "Paused punches cannot play miss audio")
 	assert(not hit_audio.playing, "Paused punches are silent")
 	game.pause_menu.set_open(false)
 	game.info_overlay.show()
 	game._on_punch_button_pressed()
+	assert(not miss_audio.playing, "Modal-blocked punches cannot play miss audio")
 	assert(not hit_audio.playing, "Modal-blocked punches are silent")
 	game._process(1)
 	assert(game.session.punch_fever_remaining == time and not game.punch_button.visible)

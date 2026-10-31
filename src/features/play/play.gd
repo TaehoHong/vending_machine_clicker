@@ -183,6 +183,7 @@ func _on_punch_button_pressed() -> void:
 	machine_hit_tween.parallel().tween_property($VendingMachine, "modulate", Color.WHITE, 0.08)
 	var earned: int = session.punch()
 	if earned == 0:
+		$MissResult.play()
 		_show_empty_search()
 	else:
 		_show_coin_reward(earned)
@@ -212,6 +213,7 @@ func _on_earn_button_pressed() -> void:
 		_refresh_ui()
 		return
 	if earned == 0:
+		$MissResult.play()
 		_show_empty_search()
 	else:
 		$SearchCoin.play()

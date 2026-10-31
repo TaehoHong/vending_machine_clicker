@@ -35,3 +35,13 @@ user. It contains no external recordings or sample-library material.
 - The supplied 24-bit WAV is converted to standard 16-bit PCM for Godot import,
   preserving sample rate, channels, duration and gain. Playback follows Effects/Master settings,
   permits overlapping hits, and explicitly disables looping in Godot import.
+
+## Mixkit losing bleeps
+
+- Runtime file: `mixkit_losing_bleeps_2026.wav`
+- Source: [Mixkit Lose sound effects](https://mixkit.co/free-sound-effects/lose/),
+  “Losing bleeps”, sound effect 2026, downloaded 2026-10-31.
+- License reference: [Mixkit Sound Effects Free License](https://mixkit.co/license/modal/sfxFree/).
+- Original 16-bit stereo PCM is unchanged; Godot import disables looping,
+  normalization, trimming and compression. The player uses 80% linear gain
+  before Effects/Master settings, as requested by the user.

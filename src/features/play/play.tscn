@@ -31,6 +31,8 @@
 
 [ext_resource type="AudioStream" path="res://assets/audio/mixkit_soft_quick_punch_2151.wav" id="punch_hit"]
 
+[ext_resource type="AudioStream" path="res://assets/audio/mixkit_losing_bleeps_2026.wav" id="miss_result"]
+
 [node name="Game" type="Control" unique_id=1636176972]
 layout_mode = 3
 anchors_preset = 15
@@ -53,6 +55,12 @@ bus = &"Effects"
 
 [node name="PunchHit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("punch_hit")
+max_polyphony = 8
+bus = &"Effects"
+
+[node name="MissResult" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("miss_result")
+volume_db = -1.938200260161128
 max_polyphony = 8
 bus = &"Effects"
 
