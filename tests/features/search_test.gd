@@ -35,6 +35,11 @@ func capture(name: String) -> void:
 func run_checks() -> void:
 	var game = FIXTURE.create_game(root, SearchGame.new())
 	var click_audio: AudioStreamPlayer = game.get_node("SearchClick")
+	var coin_audio: AudioStreamPlayer = game.get_node("SearchCoin")
+	var coin_stream: AudioStreamWAV = coin_audio.stream
+	check(coin_audio.bus == &"Effects" and not coin_audio.playing
+		and coin_stream.loop_mode == AudioStreamWAV.LOOP_DISABLED,
+		"Coin audio waits for a successful search and never loops")
 	var click_stream: AudioStreamWAV = click_audio.stream
 	check(click_audio.bus == &"Effects" and not click_audio.playing,
 		"Search audio uses the effects bus and waits for a click")
@@ -56,6 +61,7 @@ func run_checks() -> void:
 	await process_frame
 	check(click_audio.playing and click_audio.max_polyphony > 1,
 		"Accepted rapid search clicks play overlapping sounds")
+	check(not coin_audio.playing, "Incomplete searches do not play coin audio")
 	await create_timer(0.22).timeout
 	check(
 		is_equal_approx(game.search_glow.modulate.a, 0.8) and game.session.money == 0,
@@ -76,11 +82,13 @@ func run_checks() -> void:
 		"An empty search resets progress and grants nothing"
 	)
 	var misses: Array[Node] = get_nodes_in_group("empty_search_popups")
+	check(not coin_audio.playing, "A miss does not play coin audio")
 	check(
 		misses.size() == 1 and misses[0] is TextureRect and game.feedback_label.text.is_empty(),
 		"Empty search shows crying icon without bottom text"
 	)
 	game._show_coin_reward(1)
+	check(not coin_audio.playing, "Shared coin visuals do not trigger search-only audio")
 	game._show_empty_search()
 	check(
 		get_nodes_in_group("coin_reward_popups").is_empty(),
@@ -112,6 +120,7 @@ func run_checks() -> void:
 		),
 		"Finding a coin returns the area to darkness"
 	)
+	check(coin_audio.playing, "A successful search plays the chosen coin sound")
 	await capture("reward")
 	var popups: Array[Node] = get_nodes_in_group("coin_reward_popups")
 	check(
@@ -132,18 +141,22 @@ func run_checks() -> void:
 		"Expired coin and crying popups are removed"
 	)
 	click_audio.stop()
+	coin_audio.stop()
 	game.pause_menu.set_open(true)
 	game._on_earn_button_pressed()
 	check(game.session.click_stack == 0, "Pause blocks hidden search button")
 	check(not click_audio.playing, "Paused clicks cannot start search audio")
+	check(not coin_audio.playing, "Paused clicks cannot start coin audio")
 	game.pause_menu.set_open(false)
 	game.info_overlay.show()
 	game._on_earn_button_pressed()
 	check(not click_audio.playing, "Drink information blocks background search audio")
+	check(not coin_audio.playing, "Information blocks background coin audio")
 	game.info_overlay.hide()
 	game.session.punch_fever_remaining = 1.0
 	game._on_earn_button_pressed()
 	check(not click_audio.playing, "Punch clicks do not play the search whoosh")
+	check(not coin_audio.playing, "Punch rewards do not play search coin audio")
 	game.session.punch_fever_remaining = 0.0
 	var old_position: Vector2 = game.earn_button.position
 	game.size = Vector2(1280, 720)

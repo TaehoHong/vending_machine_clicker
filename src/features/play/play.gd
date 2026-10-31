@@ -209,6 +209,7 @@ func _on_earn_button_pressed() -> void:
 	if earned == 0:
 		_show_empty_search()
 	else:
+		$SearchCoin.play()
 		_show_coin_reward(earned)
 	_finish_action("")
 

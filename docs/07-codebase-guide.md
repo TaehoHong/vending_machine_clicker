@@ -10,6 +10,8 @@ BGM은 `src/app/main.gd`의 `background_music`이 소유하고 `assets/audio/neo
 
 수색 클릭음은 `play.tscn`의 `SearchClick`이 `assets/audio/mixkit_arrow_whoosh_1491.wav`를 Effects 버스로 재생한다. `_on_earn_button_pressed`의 기존 차단/펀치 분기 이후에만 재생하며 최대 8개 중첩을 허용한다. 원본/라이선스는 `assets/audio/LICENSES.md`를 따른다. `search_test.gd`는 허용 입력·정보창/일시정지/펀치 차단을 보호하며, 오디오를 재생한 회귀는 종료 전 믹서 정리를 기다린다.
 
+수색 성공음은 같은 씬의 `SearchCoin`이 `assets/audio/mixkit_coins_handling_1939.wav`를 Effects 버스로 단발 재생한다. `_on_earn_button_pressed`의 양수 결과 분기에서만 호출하고 펀치와 공유하는 `_show_coin_reward`에는 연결하지 않는다. `search_test.gd`는 진행/꽝/공유 연출의 무재생·성공 재생·차단/펀치 무재생을 확인한다.
+
 ## 모듈 맵
 
 | 영역 | 경로·진입점 | 책임·호출 방향 | 관련 검증 | Evidence paths |
