@@ -4,7 +4,7 @@
 
 [ext_resource type="PackedScene" path="res://src/shared/ui/icons/gold_icon.tscn" id="r1"]
 
-[ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/icons/can.svg" id="r2"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/can_icon.svg" id="r2"]
 
 [ext_resource type="Texture2D" path="res://src/shared/ui/icons/hud_buttons/icons/close.svg" id="r3"]
 
@@ -99,7 +99,7 @@ vertical_alignment = 0
 
 [node name="Shape6" parent="." instance=ExtResource("r1")]
 position = Vector2(820, 119)
-scale = Vector2(1.042735198699709, 0.9230769230769231)
+scale = Vector2(0.9230769230769231, 0.9230769230769231)
 mouse_filter = 2
 metadata/penpot_name = "Decoration / 5"
 
@@ -130,7 +130,7 @@ mouse_filter = 2
 metadata/penpot_name = "Decoration / 7"
 texture = ExtResource("r2")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 5
 texture_filter = 1
 
 [node name="Shape9" type="Label" parent="."]
@@ -236,7 +236,7 @@ metadata/penpot_name = "Price / Currency"
 metadata/penpot_id = "ab3ae66f-886e-80f5-8008-dbae482dc856"
 texture = ExtResource("r2")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 5
 texture_filter = 1
 
 [node name="Shape17" type="Label" parent="Shape12"]
@@ -337,7 +337,7 @@ metadata/penpot_name = "Price / Currency"
 metadata/penpot_id = "ab3ae66f-886e-80f5-8008-dbae482dc86e"
 texture = ExtResource("r2")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 5
 texture_filter = 1
 
 [node name="Shape24" type="Label" parent="Shape19"]
@@ -429,7 +429,7 @@ vertical_alignment = 0
 
 [node name="Shape30" parent="Shape27" instance=ExtResource("r1")]
 position = Vector2(170, 57)
-scale = Vector2(0.8689459989164243, 0.7692307692307693)
+scale = Vector2(0.7692307692307693, 0.7692307692307693)
 mouse_filter = 2
 metadata/penpot_name = "Decoration / 12"
 
@@ -460,7 +460,7 @@ mouse_filter = 2
 metadata/penpot_name = "Decoration / 14"
 texture = ExtResource("r2")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 5
 texture_filter = 1
 
 [node name="Shape33" type="Label" parent="Shape27"]
@@ -625,7 +625,7 @@ visible = false
 
 [node name="Shape45" parent="Shape44" instance=ExtResource("r1")]
 position = Vector2(0, 0)
-scale = Vector2(1.042735198699709, 0.9230769230769231)
+scale = Vector2(0.9230769230769231, 0.9230769230769231)
 mouse_filter = 2
 metadata/penpot_name = "Icon"
 
@@ -649,7 +649,7 @@ mouse_filter = 2
 metadata/penpot_name = "Icon"
 texture = ExtResource("r2")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 5
 texture_filter = 1
 
 [node name="Shape48" type="Control" parent="."]
@@ -672,5 +672,5 @@ mouse_filter = 2
 metadata/penpot_name = "Icon"
 texture = ExtResource("r2")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 5
 texture_filter = 1

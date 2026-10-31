@@ -42,9 +42,8 @@ func run_checks() -> void:
 	var quest_game = FIXTURE.create_game(root)
 	quest_game.session.quest_clicks = 10
 	quest_game._refresh_ui()
-	quest_game.quest_button.pressed.emit()
 	await process_frame
-	var coin_claim: Button = quest_game.quest_screen.actions["coin"]
+	var coin_claim: Button = quest_game.get_node("QuestHud").actions["coin"]
 	var quest_frame: Control = coin_claim.get("source_frame")
 	assert(not coin_claim.disabled and quest_frame.visible,
 		"The coin row keeps the original ready frame")
@@ -52,19 +51,19 @@ func run_checks() -> void:
 	await process_frame
 	await process_frame
 	assert(quest_game.session.quest_reward_claimed and coin_claim.disabled)
-	assert(not quest_frame.visible, "Claimed rows hide their action frame")
+	assert(not coin_claim.is_visible_in_tree(), "Claimed rows hide their action frame")
 	quest_game.session.cans = 5
 	quest_game._refresh_ui()
 	await process_frame
-	var can_claim: Button = quest_game.quest_screen.actions["can"]
+	var can_claim: Button = quest_game.get_node("QuestHud").actions["can"]
 	quest_frame = can_claim.get("source_frame")
 	assert(not can_claim.disabled and quest_frame.visible,
-		"The independent can row keeps the same original ready frame")
+		"The next can row keeps the same original ready frame")
 	can_claim.pressed.emit()
 	await process_frame
 	await process_frame
 	assert(quest_game.session.can_quest_reward_claimed and can_claim.disabled)
-	assert(not quest_frame.visible, "Completed rows hide their action frame")
+	assert(not can_claim.is_visible_in_tree(), "Completed rows hide their action frame")
 	var quest_save_path: String = FIXTURE.store_for(quest_game).path
 	quest_game.free()
 	DirAccess.remove_absolute(quest_save_path)

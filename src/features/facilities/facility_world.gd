@@ -112,7 +112,6 @@ func refresh() -> void:
 			_animate_can_drop(item)
 			drops[id] = item
 		var item: Button = drops[id]
-		item.tooltip_text = "빈캔 %d개 · %.1f초 후 소멸" % [drop.amount, drop.remaining]
 		item.modulate.a = 0.45 if drop.remaining < 3 and fmod(drop.remaining, 0.5) < 0.25 else 1.0
 	for id: int in drops.keys():
 		if not live.has(id):

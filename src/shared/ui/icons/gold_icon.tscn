@@ -1,116 +1,14 @@
 [gd_scene format=3]
 
-[ext_resource type="Texture2D" path="res://assets/penpot/06882d254e743d02e474.svg" id="r0"]
+[ext_resource type="Texture2D" path="res://src/shared/ui/icons/coin_gold.svg" id="gold"]
 
-[ext_resource type="Texture2D" path="res://assets/penpot/ddf5af1d67fc18f33e82.svg" id="r1"]
-
-[sub_resource type="StyleBoxFlat" id="s0"]
-bg_color = Color(0.8470588, 0.5294118, 0.1803922, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s1"]
-bg_color = Color(0.972549, 0.8117647, 0.4823529, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[sub_resource type="StyleBoxFlat" id="s2"]
-bg_color = Color(0.7176471, 0.4039216, 0.172549, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-[node name="Design" type="Control"]
-layout_mode = 0
-offset_left = 0
-offset_top = 0
-offset_right = 23.01639
-offset_bottom = 26
+[node name="GoldIcon" type="TextureRect"]
+offset_right = 26.0
+offset_bottom = 26.0
 mouse_filter = 2
+texture_filter = 1
+texture = ExtResource("gold")
+expand_mode = 1
+stretch_mode = 5
 metadata/penpot_name = "Icon / 골드 / 원본 연결"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e5"
-
-[node name="Shape2" type="Control" parent="."]
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0
-offset_right = 23.01639
-offset_bottom = 26
-mouse_filter = 2
-metadata/penpot_name = "재화 / 골드 아이콘 / 기본"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e6"
-
-[node name="Shape3" type="Control" parent="Shape2"]
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0
-offset_right = 23.01639
-offset_bottom = 26
-mouse_filter = 2
-metadata/penpot_name = "base-background"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e7"
-visible = false
-
-[node name="Shape4" type="TextureRect" parent="Shape2"]
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0
-offset_right = 23.01639
-offset_bottom = 26
-mouse_filter = 2
-metadata/penpot_name = "svg-path"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e8"
-texture = ExtResource("r0")
-expand_mode = 1
-stretch_mode = 0
-
-[node name="Shape5" type="TextureRect" parent="Shape2"]
-layout_mode = 0
-offset_left = 2.55738
-offset_top = 2.88889
-offset_right = 20.45902
-offset_bottom = 23.11111
-mouse_filter = 2
-metadata/penpot_name = "svg-path"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8e9"
-texture = ExtResource("r1")
-expand_mode = 1
-stretch_mode = 0
-
-[node name="Shape6" type="Panel" parent="Shape2"]
-layout_mode = 0
-offset_left = 5.7541
-offset_top = 6.5
-offset_right = 17.2623
-offset_bottom = 20.22222
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ea"
-theme_override_styles/panel = SubResource("s0")
-
-[node name="Shape7" type="Panel" parent="Shape2"]
-layout_mode = 0
-offset_left = 6.39344
-offset_top = 7.22222
-offset_right = 10.86885
-offset_bottom = 18.05556
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8eb"
-theme_override_styles/panel = SubResource("s1")
-
-[node name="Shape8" type="Panel" parent="Shape2"]
-layout_mode = 0
-offset_left = 15.98361
-offset_top = 6.5
-offset_right = 18.54098
-offset_bottom = 18.05556
-mouse_filter = 2
-metadata/penpot_name = "svg-rect"
-metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7fdafc8ec"
-theme_override_styles/panel = SubResource("s2")
+metadata/penpot_id = "57cf90e6-1346-80ff-8008-d2e7c0912fc5"
