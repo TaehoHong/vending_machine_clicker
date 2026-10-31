@@ -48,6 +48,12 @@ func run_checks() -> void:
 	assert(session.money == 0 and session.cans == 1)
 	assert(session.collect_facility_gold() == 10)
 	assert(session.collect_facility_gold() == 0 and session.money == 10)
+	var partial := SESSION.new()
+	RULES.state(partial).gold = 30
+	assert(partial.collect_facility_gold(10) == 10)
+	assert(partial.money == 10 and RULES.state(partial).gold == 20)
+	assert(partial.collect_facility_gold(50) == 20)
+	assert(partial.collect_facility_gold(10) == 0 and partial.money == 30)
 	session.rolls = [0.1, 0.9]
 	session.advance_facilities(10.0)
 	var data: Dictionary = RULES.state(session)

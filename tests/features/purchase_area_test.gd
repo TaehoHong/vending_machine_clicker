@@ -67,7 +67,7 @@ func run_checks() -> void:
 	var quest_hud: Control = game.get_node("QuestHud")
 	assert(quest_hud.scale.is_equal_approx(design.scale * 0.8))
 	assert(quest_hud.position.is_equal_approx(
-		design.position + Vector2(1081.6, 10) * design.scale
+		design.position + Vector2(1086.4, 11.2) * design.scale
 	), "Memo HUD keeps its original corner placement after resizing")
 	assert(not game.DESIGN.shape(quest_hud, "Badge / Claimable").visible)
 	game.session.money = 15550

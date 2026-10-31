@@ -7,19 +7,13 @@ const AMOUNTS = preload("res://src/shared/formatting/amount_format.gd")
 const DESIGN = preload("res://src/shared/ui/design_view.gd")
 var session: RefCounted
 var customer_flow: Node2D
-var gold: Control
-var gold_animation: Tween
 var drops: Dictionary = {}
+var _gold_effects: Dictionary[Control, int] = {}
 
 func _ready() -> void:
 	customer_flow = preload("res://src/features/facilities/effects/customer_flow.gd").new()
 	customer_flow.session = session
 	add_child(customer_flow)
-	gold = Control.new()
-	gold.name = "FacilityGoldFX"
-	gold.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(gold)
-	gold.hide()
 	refresh()
 
 
@@ -27,8 +21,60 @@ func advance(delta: float) -> void:
 	var event: Dictionary = session.advance_facilities(delta)
 	refresh()
 	if event.produced > 0:
+		_start_gold_effect(event.produced)
 		customer_flow.produced()
 	if event.produced > 0 or event.collected > 0 or event.expired > 0:
+		changed.emit()
+
+
+func _start_gold_effect(amount: int) -> void:
+	var coin := Control.new()
+	coin.name = "FacilityGoldEffect"
+	coin.position = customer_flow.reward_origin()
+	var origin: Vector2 = coin.position
+	coin.z_index = 20
+	coin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(coin)
+	var counts: Array[int] = COIN.breakdown(amount)
+	var index: int = 0
+	for tier in range(counts.size()):
+		# Old saves can contain very large pending amounts; only visual particles are bounded.
+		for _piece in range(mini(counts[tier], 8)):
+			var particle: Control = COIN.new()
+			particle.tier = tier
+			particle.size = Vector2(26, 26)
+			particle.position = Vector2((index % 5) * 12 - 24, (index / 5) * -8)
+			particle.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			coin.add_child(particle)
+			index += 1
+	var amount_label := Label.new()
+	amount_label.text = "+" + AMOUNTS.format_amount(amount)
+	amount_label.theme_type_variation = &"AccentLabel"
+	amount_label.position = Vector2(-32, -34)
+	amount_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	coin.add_child(amount_label)
+	_gold_effects[coin] = amount
+	var motion := coin.create_tween()
+	if get_node("/root/Preferences").values.reduce_motion:
+		motion.tween_property(coin, "modulate:a", 0.0, 0.15)
+	else:
+		motion.tween_property(coin, "position:y", origin.y - 36.0, 0.22).set_trans(
+			Tween.TRANS_QUAD
+		).set_ease(Tween.EASE_OUT)
+		motion.tween_property(coin, "position:y", origin.y, 0.28).set_trans(
+			Tween.TRANS_QUAD
+		).set_ease(Tween.EASE_IN)
+		motion.parallel().tween_property(coin, "modulate:a", 0.0, 0.28)
+	motion.tween_callback(_finish_gold_effect.bind(coin))
+
+
+func _finish_gold_effect(coin: Control) -> void:
+	if not _gold_effects.has(coin):
+		return
+	var amount: int = _gold_effects[coin]
+	_gold_effects.erase(coin)
+	coin.queue_free()
+	if session.collect_facility_gold(amount) > 0:
 		changed.emit()
 
 
@@ -45,8 +91,6 @@ func refresh() -> void:
 			child.visible = data.auto_owned
 		elif source_name.contains("쓰레기통"):
 			child.visible = data.trash_owned
-	if data.gold > 0 and gold_animation == null:
-		_show_gold_reward(data.gold)
 	var live: Array[int] = []
 	for drop: Dictionary in data.drops:
 		var id: int = drop.id
@@ -97,51 +141,3 @@ func _animate_can_drop(item: Button) -> void:
 	fall.parallel().tween_property(item, "rotation", -TAU - PI * 0.5, 0.32).set_trans(
 		Tween.TRANS_QUAD
 	).set_ease(Tween.EASE_OUT)
-
-
-func _show_gold_reward(amount: int) -> void:
-	gold.position = customer_flow.reward_origin()
-	var origin: Vector2 = gold.position
-	gold.modulate = Color.WHITE
-	gold.show()
-	var counts: Array[int] = COIN.breakdown(amount)
-	var index: int = 0
-	for tier in range(counts.size()):
-		# Old saves can contain very large pending amounts; only visual particles are bounded.
-		for _piece in range(mini(counts[tier], 8)):
-			var coin: Control = COIN.new()
-			coin.tier = tier
-			coin.size = Vector2(26, 26)
-			coin.position = Vector2((index % 5) * 12 - 24, (index / 5) * -8)
-			coin.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			gold.add_child(coin)
-			index += 1
-	var amount_label := Label.new()
-	amount_label.text = "+" + AMOUNTS.format_amount(amount)
-	amount_label.theme_type_variation = &"AccentLabel"
-	amount_label.position = Vector2(-32, -34)
-	amount_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	gold.add_child(amount_label)
-	var reduced: bool = get_node("/root/Preferences").values.reduce_motion
-	gold_animation = create_tween()
-	gold_animation.tween_property(
-		gold, "position:y", origin.y if reduced else origin.y - 36.0, 0.18
-	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	gold_animation.tween_property(gold, "modulate:a", 0.0, 0.16)
-	gold_animation.tween_callback(_complete_gold_reward)
-
-
-func _complete_gold_reward() -> void:
-	if gold_animation == null:
-		return
-	gold_animation = null
-	gold.hide()
-	for child: Node in gold.get_children():
-		child.queue_free()
-	if session.collect_facility_gold() > 0:
-		changed.emit()
-
-
-func _exit_tree() -> void:
-	if gold_animation != null:
-		gold_animation.kill()

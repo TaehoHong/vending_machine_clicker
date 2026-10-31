@@ -102,6 +102,9 @@ func run_checks() -> void:
 	assert(art.texture == load(screen.DATA[6].asset))
 	assert(screen.detail_status.text == "해금 후 자판기에서 등장")
 	assert(screen.unlock_labels[6].text == "10개로 해금")
+	await process_frame
+	assert(screen.detail_effect.get_rect().end.y <= screen.detail_status.position.y,
+		"줄바꿈한 효과 본문과 상태 안내는 겹치지 않아야 합니다.")
 	await tap(screen.products[5])
 	assert(not screen.buttons[5].disabled and screen.unlock_labels[5].text == "15개로 해금")
 	assert(not game.session.drink_unlocked(8), "Orange is available before lime unlock")

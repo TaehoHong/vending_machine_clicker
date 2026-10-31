@@ -230,6 +230,7 @@ text = "닫기"
 
 [node name="InfoOverlay" type="ColorRect" parent="." unique_id=1754094824]
 visible = false
+z_index = 100
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -119,31 +119,8 @@ func run_checks() -> void:
 	assert(game.facilities_screen == null)
 	await tap(trash_body)
 	assert(game.facilities_screen == null)
-	RULES.state(game.session).gold = 10
 	RULES.state(game.session).drops = [{"id": 1, "amount": 2, "remaining": 15.0}]
 	game.facility_world.refresh()
-	assert(not game.facility_world.gold is Button, "Facility Gold needs no click")
-	assert(game.session.money == 2000, "Gold remains pending until the pop finishes")
-	game.facility_world.gold_animation.pause()
-	var start: Vector2 = game.facility_world.gold.position
-	game.facility_world.gold_animation.custom_step(0.1)
-	assert(game.facility_world.gold.position.y < start.y)
-	if DisplayServer.get_name() != "headless":
-		await process_frame
-		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("res://.godot/test_artifacts/facility-gold-pop.png")
-	var origin: Vector2 = game.facility_world.gold.position
-	game.facility_world.gold_animation.play()
-	game.pause_menu.set_open(true)
-	await create_timer(0.05).timeout
-	assert(game.facility_world.gold.position == origin and game.session.money == 2000)
-	game.pause_menu.set_open(false)
-	game.facility_world.gold_animation.pause()
-	game.facility_world.gold_animation.custom_step(1.0)
-	assert(game.session.money == 2010 and RULES.state(game.session).gold == 0)
-	game.facility_world._complete_gold_reward()
-	assert(game.session.money == 2010, "Completion cannot pay twice")
-	assert(game.session.cans == 0, "A dropped can needs a click without trash collection")
 	var drop: Button = game.facility_world.drops[1]
 	var drop_start: Vector2 = drop.position
 	game.pause_menu.set_open(true)
@@ -155,65 +132,89 @@ func run_checks() -> void:
 	assert(is_equal_approx(drop.rotation, -TAU - PI * 0.5), "The can settles lying down")
 	var bottom: float = drop.position.y + drop.pivot_offset.y + drop.size.x * 0.5
 	assert(is_equal_approx(bottom, game.facility_world.customer_flow.reward_origin().y))
-	if DisplayServer.get_name() != "headless":
-		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("res://.godot/test_artifacts/facility-can-roll.png")
+	game._open_facilities()
+	await tap(drop)
+	assert(game.session.cans == 0 and RULES.state(game.session).drops.size() == 1,
+		"시설창 뒤에 있는 빈캔은 모달 위에서 클릭해도 수령하지 않아야 합니다.")
+	game.facilities_screen.close()
+	await process_frame
 	await tap(drop)
 	assert(game.session.cans == 2 and game.session.drinks == 0)
 	assert(game.session.collect_facility_item(1) == 0)
 	assert(game.session.cans == 2)
-	var preferences: Node = root.get_node("Preferences")
-	var reduced: bool = preferences.values.reduce_motion
-	preferences.values.reduce_motion = true
+	var can_preferences: Node = root.get_node("Preferences")
+	var can_reduced_before: bool = can_preferences.values.reduce_motion
+	can_preferences.values.reduce_motion = true
 	RULES.state(game.session).drops = [{"id": 2, "amount": 1, "remaining": 15.0}]
 	game.facility_world.refresh()
 	var still_drop: Button = game.facility_world.drops[2]
 	assert(is_equal_approx(still_drop.rotation, -PI * 0.5))
 	assert(still_drop.position.y > 450, "Reduced motion uses the same floor without falling")
-	preferences.values.reduce_motion = reduced
+	can_preferences.values.reduce_motion = can_reduced_before
 	RULES.state(game.session).drops.clear()
 	game.facility_world.refresh()
-	# Interrupted pops keep pending Gold in the existing save contract.
-	RULES.state(game.session).gold = 30
-	game.facility_world.refresh()
-	game._save_progress()
-	var store: RefCounted = FIXTURE.store_for(game)
-	game.free()
-	game = FIXTURE.create_game(root)
-	store.load_into(game.session)
-	game.facility_world.refresh()
-	assert(game.session.money == 2010 and game.facility_world.gold.visible)
-	await game.facility_world.gold_animation.finished
-	assert(game.session.money == 2040 and RULES.state(game.session).gold == 0)
-	var restored: RefCounted = SESSION.new()
-	FIXTURE.store_for(game).load_into(restored)
-	assert(restored.money == 2040 and RULES.state(restored).gold == 0)
-	DirAccess.remove_absolute(store.path)
+	game.set_process(false)
+	var receipts: Array[Vector2i] = []
+	game.facility_world.changed.connect(func() -> void:
+		if game.session.money > 2000:
+			receipts.append(Vector2i(game.session.money, RULES.state(game.session).gold))
+	)
+	game.facility_world.advance(10.0)
+	game.facility_world.advance(10.0)
+	assert(game.session.money == 2000 and RULES.state(game.session).gold == 40)
+	await create_timer(1.0).timeout
+	assert(game.session.money == 2040, "생산 골드는 클릭 없이 연출 후 자동 수령해야 합니다.")
+	assert(receipts == [Vector2i(2020, 20), Vector2i(2040, 0)],
+		"각 연출은 뒤 생산분을 먼저 수령하지 않고 자신의 금액만 지급해야 합니다.")
+	var saved := ConfigFile.new()
 	var save_path: String = FIXTURE.store_for(game).path
+	assert(saved.load(save_path) == OK)
+	assert(saved.get_value("progress", "money") == 2040)
+	assert(saved.get_value("progress", "facilities").alley.gold == 0)
+	game.facility_world.advance(10.0)
+	assert(saved.load(save_path) == OK)
+	assert(saved.get_value("progress", "money") == 2040)
+	assert(saved.get_value("progress", "facilities").alley.gold == 20)
 	game.free()
+	var app: Control = preload("res://src/app/main.tscn").instantiate()
+	app.save_path = save_path
+	root.add_child(app)
+	app._start_game(false)
+	assert(app.session.money == 2060 and RULES.state(app.session).gold == 0,
+		"연출 중 종료한 골드는 재진입 때 한 번 자동 수령해야 합니다.")
+	app.free()
+	app = preload("res://src/app/main.tscn").instantiate()
+	app.save_path = save_path
+	root.add_child(app)
+	app._start_game(false)
+	assert(app.session.money == 2060 and RULES.state(app.session).gold == 0,
+		"복구 후 다시 재진입해도 같은 골드를 중복 지급하지 않아야 합니다.")
+	var preferences: Node = root.get_node("Preferences")
+	var reduced_before: bool = preferences.values.reduce_motion
+	preferences.values.reduce_motion = true
+	app.view.set_process(false)
+	app.view.facility_world.advance(10.0)
+	await create_timer(1.0).timeout
+	assert(app.session.money == 2080 and RULES.state(app.session).gold == 0,
+		"모션 감소에서도 같은 생산액을 클릭 없이 한 번만 지급해야 합니다.")
+	app.view.facility_world.advance(10.0)
+	paused = true
+	await create_timer(0.3).timeout
+	assert(app.session.money == 2080 and RULES.state(app.session).gold == 20,
+		"ESC 일시정지 중에는 진행 중인 골드 연출과 수령을 보류해야 합니다.")
+	paused = false
+	await create_timer(1.0).timeout
+	assert(app.session.money == 2100 and RULES.state(app.session).gold == 0,
+		"재개한 골드 연출은 같은 보상을 한 번만 지급해야 합니다.")
+	preferences.values.reduce_motion = reduced_before
+	app.free()
 	DirAccess.remove_absolute(save_path)
-	var production_game = FIXTURE.create_game(root)
-	var production: Dictionary = RULES.state(production_game.session)
-	production.auto_owned = true
-	production.remaining = 0.01
-	production_game.facility_world.advance(0.01)
-	assert(production.gold == 10 and production_game.session.money == 0)
-	assert(production_game.facility_world.gold.visible)
-	await production_game.facility_world.gold_animation.finished
-	assert(production_game.session.money == 10 and production.gold == 0)
-	production_game.facility_world.advance(20.0)
-	assert(production.gold == 20, "Multiple elapsed cycles share the existing pending amount")
-	await production_game.facility_world.gold_animation.finished
-	assert(production_game.session.money == 30 and production.gold == 0)
-	var production_path: String = FIXTURE.store_for(production_game).path
-	production_game.free()
-	DirAccess.remove_absolute(production_path)
-	print("Facility item purchase, gold upgrades, return and separate world collection passed.")
+	print("Facility purchase, upgrades, automatic gold, overlapping payouts and reload passed.")
 	quit()
 
 
 func tap(control: Control) -> void:
-	var point: Vector2 = control.get_global_transform() * (control.size * 0.5)
+	var point := control.get_global_transform_with_canvas() * (control.size * 0.5)
 	for down in [true, false]:
 		var event := InputEventMouseButton.new()
 		event.position = point

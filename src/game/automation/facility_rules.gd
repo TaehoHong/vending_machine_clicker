@@ -76,10 +76,12 @@ static func upgrade(session: RefCounted, key: String) -> bool:
 	return true
 
 
-static func collect_gold(session: RefCounted) -> int:
+static func collect_gold(session: RefCounted, requested_amount: int = -1) -> int:
 	var data := state(session)
-	var amount: int = data.gold
-	data.gold = 0
+	var amount: int = (
+		int(data.gold) if requested_amount < 0 else mini(int(data.gold), requested_amount)
+	)
+	data.gold = int(data.gold) - amount
 	session.money += amount
 	return amount
 
