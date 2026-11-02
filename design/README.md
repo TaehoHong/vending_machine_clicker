@@ -2,6 +2,8 @@
 
 디자인 SSOT는 [Penpot](https://design.penpot.app/#/workspace?team-id=ce180602-f36b-8035-8008-cda23f0a1b46&file-id=cd444aaf-0d8c-801b-8008-cda246e18650), 기획 SSOT는 [Notion](https://app.notion.com/p/3fcb6b9ead24800aa7bce8a1e1b045de)이다. 편집·검수는 [DESIGN.md](../DESIGN.md)를 따른다.
 
+화면에는 조작·비용·효과·오류 복구에 필요한 안내만 남긴다. 캔버스의 퀘스트·시설 메모는 편집·시연 주의사항으로 제한하고, 상세 기획과 작업 이력을 중복 기재하지 않는다.
+
 [게임 화면·애니메이션 재생](https://design.penpot.app/#/view?file-id=cd444aaf-0d8c-801b-8008-cda246e18650&page-id=55aeaacb-aa46-80be-8008-cdca4fa29ef0&section=interactions&index=3)에서 상단 화면 목록이나 플로우를 선택해 확인한다.
 
 HUD 정렬은 기본 게임 영역의 보이는 가장자리·버튼 사이 간격 16px, 정사각 조작 프레임 외곽 44.8px, 아이콘 높이 24px를 적용한다. [공통 HUD 원본](hud-buttons/README.md)과 퀘스트 상시 진행 HUD를 사용하며 화면 크기에 맞춰 내부 그림·상태 프레임·입력 영역을 함께 확대한다.
