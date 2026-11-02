@@ -95,10 +95,7 @@ func _refresh_values() -> void:
 	if page == "sound":
 		var muted: bool = preferences.master == 0.0
 		var description: Label = DESIGN.shape(canvas, "설정 / 설명")
-		description.text = (
-			"전체 음량이 0이면 모든 소리가 꺼져요." if muted
-			else "게임 소리를 편안한 크기로 조절하세요."
-		)
+		description.visible = muted
 		for entry in [["전체 음량", "master"], ["배경음", "music"], ["효과음", "effects"]]:
 			var amount: Label = DESIGN.shape(canvas, "소리 / %s / 값" % entry[0])
 			amount.text = "%d%%" % int(preferences[entry[1]])

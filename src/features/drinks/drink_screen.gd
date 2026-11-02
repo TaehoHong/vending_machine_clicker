@@ -255,7 +255,7 @@ func _refresh_selection() -> void:
 		and int(applied_counts.get(selected_index, 0)) >= int(data.max_enhancements)
 	):
 		detail_count.text = "MAX · 최대 강화"
-		detail_effect.text = "능력 강화가 완료됐어요."
+		detail_effect.text = ""
 		detail_status.text = "획득 %d개 · 강화 %d/%d\n능력 유지 · 추첨 제외" % [
 			int(counts.get(selected_index, 0)), int(applied_counts.get(selected_index, 0)),
 			int(data.max_enhancements),

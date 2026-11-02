@@ -144,24 +144,6 @@ metadata/penpot_name = "Panel / surface"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4443e0f3cea"
 theme_override_styles/panel = SubResource("s1")
 
-[node name="Shape6" type="Label" parent="Shape2"]
-layout_mode = 0
-offset_left = 408.0
-offset_top = 94.0
-offset_right = 744.0
-offset_bottom = 118.0
-mouse_filter = 2
-metadata/penpot_name = "설정 / 오버라인"
-metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4443e0f3ce0"
-theme_override_fonts/font = ExtResource("r0")
-theme_override_font_sizes/font_size = 14
-theme_override_constants/outline_size = 1
-text = "SETTINGS"
-theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
-horizontal_alignment = 1
-vertical_alignment = 1
-theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
-
 [node name="Shape7" type="Label" parent="Shape2"]
 layout_mode = 0
 offset_left = 408.0
@@ -179,23 +161,6 @@ theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
-
-[node name="Shape8" type="Label" parent="Shape2"]
-layout_mode = 0
-offset_left = 408.0
-offset_top = 178.0
-offset_right = 744.0
-offset_bottom = 206.0
-mouse_filter = 2
-metadata/penpot_name = "설정 / 설명"
-metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4443e0f3ce2"
-theme_override_fonts/font = ExtResource("r1")
-theme_override_font_sizes/font_size = 16
-theme_override_constants/outline_size = 0
-text = "화면 모드와 연출을 설정하세요."
-theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Shape9" type="Control" parent="Shape2"]
 layout_mode = 0
@@ -902,24 +867,6 @@ theme_override_font_sizes/font_size = 18
 theme_override_constants/outline_size = 0
 text = "전체 화면"
 theme_override_colors/font_color = Color(0.0745098, 0.1411765, 0.2, 1)
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Shape63" type="Label" parent="Shape2"]
-layout_mode = 0
-offset_left = 400.0
-offset_top = 462.0
-offset_right = 752.0
-offset_bottom = 510.0
-mouse_filter = 2
-metadata/penpot_name = "설정 / 도움말"
-metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4443e0f3ce8"
-visible = false
-theme_override_fonts/font = ExtResource("r1")
-theme_override_font_sizes/font_size = 16
-theme_override_constants/outline_size = 0
-text = "소리·화면·언어를 조절하세요."
-theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 

@@ -66,7 +66,7 @@ func run_checks() -> void:
 	game._refresh_skill_tree()
 	await tap(tree.products[0])
 	assert(tree.detail_count.text == "MAX · 최대 강화")
-	assert(tree.detail_effect.text == "능력 강화가 완료됐어요.")
+	assert(tree.detail_effect.text.is_empty())
 	assert(tree.detail_status.text.contains("획득 12개 · 강화 10/10"))
 	assert(tree.detail_status.text.contains("능력 유지") and tree.detail_status.text.contains("추첨 제외"))
 	var escape := InputEventKey.new()

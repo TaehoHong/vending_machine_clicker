@@ -54,7 +54,8 @@ func run_checks() -> void:
 	assert(not korean.get_node("Action").get("selected"))
 	screen._show_page("sound")
 	assert(
-		DESIGN.shape(screen.canvas, "설정 / 설명").text
+		DESIGN.shape(screen.canvas, "설정 / 설명").visible
+		and DESIGN.shape(screen.canvas, "설정 / 설명").text
 		== "전체 음량이 0이면 모든 소리가 꺼져요."
 	)
 	var music := DESIGN.shape(screen.canvas, "소리 / 배경음 / 슬라이더")
@@ -63,10 +64,7 @@ func run_checks() -> void:
 	var master := DESIGN.shape(screen.canvas, "소리 / 전체 음량 / 슬라이더")
 	var master_input: HSlider = master.find_children("*", "HSlider", false, false)[0]
 	master_input.value = 70
-	assert(
-		DESIGN.shape(screen.canvas, "설정 / 설명").text
-		== "게임 소리를 편안한 크기로 조절하세요."
-	)
+	assert(not DESIGN.shape(screen.canvas, "설정 / 설명").visible)
 	assert(music_fill.get_theme_stylebox("panel").bg_color.is_equal_approx(Color("#559e9a")))
 	assert(DESIGN.shape(master, "Thumb / border").position.x == 192.0)
 	assert(DESIGN.shape(master, "Track / fill").size.x == 196.0)
