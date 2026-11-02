@@ -36,6 +36,13 @@ func run_checks() -> void:
 	var game = FIXTURE.create_game(root, SearchGame.new())
 	var click_audio: AudioStreamPlayer = game.get_node("SearchClick")
 	var coin_audio: AudioStreamPlayer = game.get_node("SearchCoin")
+	var miss_audio: AudioStreamPlayer = game.get_node("MissResult")
+	var miss_stream: AudioStreamWAV = miss_audio.stream
+	check(miss_audio.bus == &"Effects" and not miss_audio.playing,
+		"Miss audio waits for a result and uses the effects bus")
+	check(is_equal_approx(db_to_linear(miss_audio.volume_db), 0.8)
+		and miss_stream.loop_mode == AudioStreamWAV.LOOP_DISABLED,
+		"Miss audio uses 80 percent gain and never loops")
 	var coin_stream: AudioStreamWAV = coin_audio.stream
 	check(coin_audio.bus == &"Effects" and not coin_audio.playing
 		and coin_stream.loop_mode == AudioStreamWAV.LOOP_DISABLED,
@@ -61,6 +68,7 @@ func run_checks() -> void:
 	await process_frame
 	check(click_audio.playing and click_audio.max_polyphony > 1,
 		"Accepted rapid search clicks play overlapping sounds")
+	check(not miss_audio.playing, "Progress clicks do not play the miss sound")
 	check(not coin_audio.playing, "Incomplete searches do not play coin audio")
 	await create_timer(0.22).timeout
 	check(
@@ -82,6 +90,8 @@ func run_checks() -> void:
 		"An empty search resets progress and grants nothing"
 	)
 	var misses: Array[Node] = get_nodes_in_group("empty_search_popups")
+	check(miss_audio.playing, "A completed miss plays the chosen sound")
+	miss_audio.stop()
 	check(not coin_audio.playing, "A miss does not play coin audio")
 	check(
 		misses.size() == 1 and misses[0] is TextureRect and game.feedback_label.text.is_empty(),
@@ -90,6 +100,7 @@ func run_checks() -> void:
 	game._show_coin_reward(1)
 	check(not coin_audio.playing, "Shared coin visuals do not trigger search-only audio")
 	game._show_empty_search()
+	check(not miss_audio.playing, "Shared miss visuals do not replay result audio")
 	check(
 		get_nodes_in_group("coin_reward_popups").is_empty(),
 		"A miss clears previous yen popups so only the crying icon remains"
@@ -110,8 +121,10 @@ func run_checks() -> void:
 		get_nodes_in_group("empty_search_popups").size() == 1,
 		"Miss icon appears only once per completed search"
 	)
+	check(not miss_audio.playing, "Clicks after a miss do not replay it")
 	game.earn_button.pressed.emit()
 	await create_timer(0.22).timeout
+	check(not miss_audio.playing, "A successful search does not play miss audio")
 	check(
 		(
 			game.session.money > 0
@@ -140,17 +153,26 @@ func run_checks() -> void:
 		),
 		"Expired coin and crying popups are removed"
 	)
+	game.session.empty_search = true
+	game._start_search_fever()
+	for i in range(game.session.clicks_required()):
+		game._on_earn_button_pressed()
+	check(miss_audio.playing, "Search fever misses also play the result sound")
+	miss_audio.stop()
+	game.session.empty_search = false
 	click_audio.stop()
 	coin_audio.stop()
 	game.pause_menu.set_open(true)
 	game._on_earn_button_pressed()
 	check(game.session.click_stack == 0, "Pause blocks hidden search button")
 	check(not click_audio.playing, "Paused clicks cannot start search audio")
+	check(not miss_audio.playing, "Paused clicks cannot play miss audio")
 	check(not coin_audio.playing, "Paused clicks cannot start coin audio")
 	game.pause_menu.set_open(false)
 	game.info_overlay.show()
 	game._on_earn_button_pressed()
 	check(not click_audio.playing, "Drink information blocks background search audio")
+	check(not miss_audio.playing, "Information blocks miss audio")
 	check(not coin_audio.playing, "Information blocks background coin audio")
 	game.info_overlay.hide()
 	game.session.punch_fever_remaining = 1.0
