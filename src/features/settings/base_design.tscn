@@ -47,18 +47,6 @@ corner_radius_top_right = 0
 corner_radius_bottom_right = 0
 corner_radius_bottom_left = 0
 
-[sub_resource type="StyleBoxFlat" id="s1"]
-bg_color = Color(0.1254902, 0.2156863, 0.2784314, 1)
-border_color = Color(0.2745098, 0.6, 0.7843137, 1)
-border_width_left = 4
-border_width_right = 4
-border_width_top = 4
-border_width_bottom = 4
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
 [node name="Design" type="Control"]
 layout_mode = 0
 offset_left = 0
@@ -110,7 +98,7 @@ offset_bottom = 496
 mouse_filter = 2
 metadata/penpot_name = "Panel / surface"
 metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c9d"
-theme_override_styles/panel = SubResource("s1")
+theme_type_variation = &"MenuPanel"
 
 [node name="Shape7" type="Label" parent="Shape2"]
 layout_mode = 0
@@ -123,7 +111,7 @@ metadata/penpot_name = "설정 / 제목"
 metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c96"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 27
-theme_override_constants/outline_size = 2
+theme_override_constants/outline_size = 0
 text = "설정"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 1
@@ -517,18 +505,15 @@ theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278
 
 [node name="Shape39" type="Label" parent="Shape2"]
 layout_mode = 0
-offset_left = 400.0
+offset_left = 408.0
 offset_top = 524.0
-offset_right = 752.0
+offset_right = 744.0
 offset_bottom = 552.0
 mouse_filter = 2
+theme_type_variation = &"MenuCaption"
 metadata/penpot_name = "키보드 조작 / 돌아가기"
 metadata/penpot_id = "03693e9a-af4d-8035-8008-d43c3c450c9c"
-theme_override_fonts/font = ExtResource("r0")
-theme_override_font_sizes/font_size = 16
-theme_override_constants/outline_size = 1
 text = "ESC  일시정지로 돌아가기"
 theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)

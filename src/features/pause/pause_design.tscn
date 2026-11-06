@@ -2,8 +2,6 @@
 
 [ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="r0"]
 
-[ext_resource type="FontVariation" path="res://assets/fonts/noto_sans_kr_regular.tres" id="r1"]
-
 [ext_resource type="Texture2D" path="res://assets/penpot/c06b058d4c9ff2c8d5d1.svg" id="r2"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/1bdc333af61cda1ecaaf.svg" id="r3"]
@@ -67,18 +65,6 @@ corner_radius_top_right = 0
 corner_radius_bottom_right = 0
 corner_radius_bottom_left = 0
 
-[sub_resource type="StyleBoxFlat" id="s1"]
-bg_color = Color(0.1254902, 0.2156863, 0.2784314, 1)
-border_color = Color(0.2745098, 0.6, 0.7843137, 1)
-border_width_left = 4
-border_width_right = 4
-border_width_top = 4
-border_width_bottom = 4
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
 [node name="Design" type="Control"]
 layout_mode = 0
 offset_left = 0
@@ -130,7 +116,7 @@ offset_bottom = 496
 mouse_filter = 2
 metadata/penpot_name = "Panel / surface"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c119d9b6a"
-theme_override_styles/panel = SubResource("s1")
+theme_type_variation = &"MenuPanel"
 
 [node name="Shape7" type="Label" parent="Shape2"]
 layout_mode = 0
@@ -143,7 +129,7 @@ metadata/penpot_name = "일시정지 / 제목"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c11cfe3a5"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 27
-theme_override_constants/outline_size = 2
+theme_override_constants/outline_size = 0
 text = "일시정지"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 1
@@ -445,11 +431,9 @@ offset_top = 438.0
 offset_right = 860.0
 offset_bottom = 486.0
 mouse_filter = 2
+theme_type_variation = &"MenuCaption"
 metadata/penpot_name = "저장 상태 / pause"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c123d7e12"
-theme_override_fonts/font = ExtResource("r1")
-theme_override_font_sizes/font_size = 16
-theme_override_constants/outline_size = 0
 text = "끝내기를 누르면 저장 후 종료합니다."
 theme_override_colors/font_color = Color(0.7960784, 0.8666667, 0.8862745, 1)
 horizontal_alignment = 1
@@ -458,20 +442,17 @@ vertical_alignment = 1
 [node name="Shape32" type="Label" parent="Shape2"]
 layout_mode = 0
 offset_left = 292.0
-offset_top = 518.0
+offset_top = 524.0
 offset_right = 860.0
-offset_bottom = 546.0
+offset_bottom = 552.0
 mouse_filter = 2
+theme_type_variation = &"MenuCaption"
 metadata/penpot_name = "키보드 조작 / 돌아가기"
 metadata/penpot_id = "5c99363e-0205-8089-8008-d26c1253a43e"
-theme_override_fonts/font = ExtResource("r0")
-theme_override_font_sizes/font_size = 16
-theme_override_constants/outline_size = 1
 text = "ESC  게임으로 돌아가기"
 theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
 
 [node name="Shape33" type="Control" parent="Shape2"]
 layout_mode = 0

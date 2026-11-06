@@ -2,8 +2,6 @@
 
 [ext_resource type="FontFile" path="res://assets/fonts/Cafe24PROUP.ttf" id="r0"]
 
-[ext_resource type="FontVariation" path="res://assets/fonts/noto_sans_kr_regular.tres" id="r1"]
-
 [ext_resource type="Texture2D" path="res://assets/penpot/0c78ca90792e33e1fb6d.svg" id="r2"]
 
 [ext_resource type="Texture2D" path="res://assets/penpot/796b8379141e0f57c42e.svg" id="r3"]
@@ -79,18 +77,6 @@ corner_radius_top_right = 0
 corner_radius_bottom_right = 0
 corner_radius_bottom_left = 0
 
-[sub_resource type="StyleBoxFlat" id="s1"]
-bg_color = Color(0.1254902, 0.2156863, 0.2784314, 1)
-border_color = Color(0.2745098, 0.6, 0.7843137, 1)
-border_width_left = 4
-border_width_right = 4
-border_width_top = 4
-border_width_bottom = 4
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
 [node name="Design" type="Control"]
 layout_mode = 0
 offset_left = 0
@@ -142,20 +128,20 @@ offset_bottom = 496
 mouse_filter = 2
 metadata/penpot_name = "Panel / surface"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4443e0f3cea"
-theme_override_styles/panel = SubResource("s1")
+theme_type_variation = &"MenuPanel"
 
 [node name="Shape7" type="Label" parent="Shape2"]
 layout_mode = 0
-offset_left = 408.0
+offset_left = 292.0
 offset_top = 128.0
-offset_right = 744.0
+offset_right = 860.0
 offset_bottom = 172.0
 mouse_filter = 2
 metadata/penpot_name = "설정 / 제목"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4443e0f3ce1"
 theme_override_fonts/font = ExtResource("r0")
 theme_override_font_sizes/font_size = 27
-theme_override_constants/outline_size = 2
+theme_override_constants/outline_size = 0
 text = "화면"
 theme_override_colors/font_color = Color(1.0, 0.9490196, 0.8509804, 1)
 horizontal_alignment = 1
@@ -428,11 +414,9 @@ offset_top = 0
 offset_right = 528
 offset_bottom = 32
 mouse_filter = 2
+theme_type_variation = &"MenuCaption"
 metadata/penpot_name = "Label"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4443e0f3d19"
-theme_override_fonts/font = ExtResource("r1")
-theme_override_font_sizes/font_size = 16
-theme_override_constants/outline_size = 0
 text = "기준 해상도 · 1280 × 720"
 theme_override_colors/font_color = Color(0.8627451, 0.9215686, 0.9490196, 1)
 horizontal_alignment = 1
@@ -872,18 +856,15 @@ vertical_alignment = 1
 
 [node name="Shape64" type="Label" parent="Shape2"]
 layout_mode = 0
-offset_left = 400.0
+offset_left = 292.0
 offset_top = 524.0
-offset_right = 752.0
+offset_right = 860.0
 offset_bottom = 552.0
 mouse_filter = 2
+theme_type_variation = &"MenuCaption"
 metadata/penpot_name = "키보드 조작 / 돌아가기"
 metadata/penpot_id = "eb1d83d1-2566-809d-8008-d4443e0f3ce9"
-theme_override_fonts/font = ExtResource("r0")
-theme_override_font_sizes/font_size = 16
-theme_override_constants/outline_size = 1
 text = "←  설정으로 돌아가기"
 theme_override_colors/font_color = Color(0.972549, 0.8117647, 0.4823529, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_colors/font_outline_color = Color(0.101960784, 0.207843137, 0.278431373, 1)
