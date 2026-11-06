@@ -83,14 +83,13 @@ func _ready() -> void:
 	detail_count = _label(
 		detail_panel, Rect2(76, 54, 160, 26), "", 16, secondary, &"InfoBody"
 	)
-	detail_count.add_theme_font_override("font", FONT)
 	detail_count.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	detail_effect = _label(
 		detail_panel, Rect2(20, 96, 258, 64), "", 18, foreground, &"InfoBody"
 	)
 	detail_effect.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	detail_status = _label(
-		detail_panel, Rect2(20, 168, 258, 28), "", 15, secondary, &"InfoBody"
+		detail_panel, Rect2(20, 168, 258, 28), "", 16, secondary, &"InfoBody"
 	)
 	detail_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var dismiss_art: Control = preload("res://src/features/drinks/detail_close.tscn").instantiate()
@@ -231,8 +230,6 @@ func _refresh_selection() -> void:
 	var data: Dictionary = DATA[selected_index]
 	var acquired: bool = selected_index < 2 or unlocked_indices.has(selected_index)
 	detail_title.text = data.name
-	detail_effect.add_theme_font_size_override("font_size", 18 if acquired else 16)
-	detail_status.add_theme_font_size_override("font_size", 15 if acquired else 16)
 	detail_art.texture = load(data.asset)
 	detail_title.add_theme_font_size_override("font_size",20 if data.name.length() > 10 else 24)
 	detail_count.text = "미해금"
