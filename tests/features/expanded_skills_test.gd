@@ -109,9 +109,7 @@ func run_checks() -> void:
 	var dispense: Control = preload("res://src/features/play/effects/drink_dispense_fx.gd").new()
 	game.add_child(dispense)
 	for i in range(3, 15):
-		dispense.call(
-			"begin", load(game.session.DRINK_DATA[i].asset), Color(game.session.DRINK_DATA[i].color)
-		)
+		dispense.call("begin", load(game.session.DRINK_DATA[i].asset))
 		check(
 			dispense.art.texture != null,
 			"Every drink has its own dispensing illustration"
