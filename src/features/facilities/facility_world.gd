@@ -5,10 +5,12 @@ signal changed
 const COIN = preload("res://src/features/play/effects/search_coin.gd")
 const AMOUNTS = preload("res://src/shared/formatting/amount_format.gd")
 const DESIGN = preload("res://src/shared/ui/design_view.gd")
+const CAN = preload("res://src/shared/ui/icons/can_icon.svg")
 var session: RefCounted
 var customer_flow: Node2D
 var drops: Dictionary = {}
 var _gold_effects: Dictionary[Control, int] = {}
+var _can_elapsed: float = 0.0
 
 func _ready() -> void:
 	customer_flow = preload("res://src/features/facilities/effects/customer_flow.gd").new()
@@ -18,6 +20,7 @@ func _ready() -> void:
 
 
 func advance(delta: float) -> void:
+	_can_elapsed += delta
 	var event: Dictionary = session.advance_facilities(delta)
 	refresh()
 	if event.produced > 0:
@@ -98,13 +101,13 @@ func refresh() -> void:
 		if not drops.has(id):
 			var item := Button.new()
 			item.position = Vector2(908 + (id % 3) * 10, 404)
-			item.size = Vector2(28, 39)
-			item.icon = preload("res://src/shared/ui/icons/can_icon.svg")
-			item.expand_icon = true
-			item.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			item.size = Vector2(28, 44)
+			item.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			item.set_meta("born_at", _can_elapsed)
 			for state in ["normal", "hover", "pressed", "focus"]:
 				item.add_theme_stylebox_override(state, StyleBoxEmpty.new())
 			add_child(item)
+			item.draw.connect(_draw_can.bind(item))
 			item.pressed.connect(
 				func() -> void:
 					if session.collect_facility_item(id) > 0:
@@ -114,10 +117,44 @@ func refresh() -> void:
 			drops[id] = item
 		var item: Button = drops[id]
 		item.modulate.a = 0.45 if drop.remaining < 3 and fmod(drop.remaining, 0.5) < 0.25 else 1.0
+		item.queue_redraw()
 	for id: int in drops.keys():
 		if not live.has(id):
 			drops[id].queue_free()
 			drops.erase(id)
+
+
+func _can_art_size() -> Vector2:
+	return CAN.get_size() * (39.0 / CAN.get_height())
+
+
+func _draw_can(item: Button) -> void:
+	var landed: bool = item.get_meta("landed", false)
+	var highlighted: bool = landed and (item.is_hovered() or item.has_focus())
+	var reduced: bool = get_node("/root/Preferences").values.reduce_motion
+	var feedback_scale := 1.0
+	if landed and not reduced:
+		feedback_scale = 0.94 if item.is_pressed() else (1.08 if highlighted else 1.0)
+	var art_size := _can_art_size()
+	# 눕힌 캔의 바닥 쪽 가장자리를 고정해 호버 확대에도 접지를 유지한다.
+	var center := item.pivot_offset + Vector2((feedback_scale - 1.0) * art_size.x * 0.5, 0)
+	var tint := Color(1.18, 1.18, 1.12) if highlighted else Color.WHITE
+	if landed and item.is_pressed():
+		tint = Color(0.82, 0.87, 0.90)
+	item.draw_texture_rect(
+		CAN, Rect2(center - art_size * feedback_scale * 0.5, art_size * feedback_scale),
+		false, tint
+	)
+	if not landed or reduced:
+		return
+	var phase := fmod(_can_elapsed - float(item.get_meta("born_at")) - 0.84, 2.8)
+	if phase < 0.0 or phase > 0.5:
+		return
+	var sparkle := item.get_theme_color("font_color", "AccentLabel")
+	sparkle.a = sin(phase / 0.5 * PI)
+	for point: Vector2 in [Vector2(28, 8), Vector2(20, 35)]:
+		item.draw_rect(Rect2(point - Vector2(1, 3), Vector2(2, 6)), sparkle)
+		item.draw_rect(Rect2(point - Vector2(3, 1), Vector2(6, 2)), sparkle)
 
 
 func _animate_can_drop(item: Button) -> void:
@@ -151,9 +188,11 @@ func _set_can_drop_pose(time: float, item: Button, start: Vector2, floor_y: floa
 		x = lerpf([-24.0, -36.0, -42.0][phase], [-36.0, -42.0, -44.0][phase], q)
 		angle = lerpf([-105.0, -82.0, -94.0][phase], [-82.0, -94.0, -90.0][phase], q)
 	item.rotation = deg_to_rad(angle)
+	var settle := clampf((time - 0.72) / 0.12, 0.0, 1.0)
+	item.scale = Vector2.ONE * lerpf(1.0, 2.0, settle)
+	item.set_meta("landed", time >= 0.84)
 	# 버튼 여백 대신 실제 아이콘의 회전된 외곽으로 바닥 높이를 맞춘다.
-	var art_size := item.icon.get_size()
-	art_size *= minf(item.size.x / art_size.x, item.size.y / art_size.y)
+	var art_size := _can_art_size() * item.scale
 	var half_extent := (
 		absf(cos(item.rotation)) * art_size.y + absf(sin(item.rotation)) * art_size.x
 	) * 0.5

@@ -103,6 +103,6 @@ Steam Cloud·모바일 인증·번역 리소스·릴리스 export·CI는 아직 
 | [검증 안내](05-quality-rules.md) | 명령·실행 결과·한계 | 새 기능 승인 | tests/ |
 | [자료 안내](../design/README.md) | Penpot 연결·채택 원본 위치 | 런타임 코드 원본 | DESIGN.md, design/README.md |
 
-시설 빈캔 연출은 기존 facility_world._animate_can_drop이 소유하며 customer_flow.reward_origin의 바닥 높이에 맞춰 낙하·튐·수평 굴림·회전을 표현한다. 모션 감소는 동일 착지 상태를 즉시 표시한다. 골드는 _start_gold_effect에서 기존 search_coin 아트를 사용하되 _gold_effects의 생산분별 부분 지급·중복 방지 계약은 유지한다. facilities_test는 모달 차단·빈캔 착지·회전·모션 감소·일시정지와 골드의 중첩 지급·저장 복구를 함께 검증한다.
+시설 빈캔 연출은 기존 facility_world._animate_can_drop이 소유하며 customer_flow.reward_origin의 바닥 높이에 맞춰 낙하·튐·수평 굴림·회전을 표현한다. _set_can_drop_pose는 정착할 때 그림·입력 영역을 2배로 확대하고 실제 아트 경계로 접지를 맞춘다. Button은 입력·포커스를 유지하고 draw signal의 _draw_can이 공통 can_icon.svg·AccentLabel 색으로 호버·누름 반응과 간헐적 반짝임을 그린다. 호버는 고정 입력 영역 안에서 아트만 바꾼다. advance의 표현 시계를 사용하므로 일시정지에 멈추고 모션 감소는 같은 2배 착지 상태와 밝기만 표시한다. 골드는 _start_gold_effect에서 기존 search_coin 아트를 사용하되 _gold_effects의 생산분별 부분 지급·중복 방지 계약은 유지한다. facilities_test는 확대된 가장자리의 실제 클릭 수령·접지·모달 차단·회전·모션 감소·일시정지와 골드의 중첩 지급·저장 복구를 함께 검증한다.
 
 재화 아트는 `src/shared/ui/icons/coin_{bronze,silver,gold,emerald}.svg`와 `can_icon.svg`가 공유한다. Penpot Currency 원본을 내보낸 벡터이며 `gold_icon.tscn`·HUD·비용·해금·퀘스트·search_coin·coin_insert_fx에서 재사용한다. 빈캔 드롭과 보유량의 hover 정보는 제거했고 골드 정확한 금액 tooltip은 Play가 유지한다.

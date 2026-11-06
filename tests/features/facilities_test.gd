@@ -131,9 +131,10 @@ func run_checks() -> void:
 	await create_timer(0.85).timeout
 	assert(drop.position.x < drop_start.x, "The can rolls sideways after falling")
 	assert(is_equal_approx(drop.rotation, -PI * 0.5), "The can settles without an extra turn")
+	assert(drop.scale == Vector2(2, 2), "착지한 빈캔은 그림과 클릭 영역을 두 배로 표시해야 합니다.")
 	var floor_y: float = game.facility_world.customer_flow.reward_origin().y
-	var art_size := drop.icon.get_size()
-	art_size *= minf(drop.size.x / art_size.x, drop.size.y / art_size.y)
+	var art_size := preload("res://src/shared/ui/icons/can_icon.svg").get_size()
+	art_size *= 39.0 / art_size.y
 	for time: float in [0.28, 0.48, 0.54, 0.60, 0.66, 0.72, 0.78, 0.84]:
 		game.facility_world._set_can_drop_pose(time, drop, drop_start, floor_y)
 		var center: Vector2 = drop.position + drop.pivot_offset
@@ -141,7 +142,7 @@ func run_checks() -> void:
 		for corner: Vector2 in [
 			Vector2(-1, -1), Vector2(1, -1), Vector2(-1, 1), Vector2(1, 1),
 		]:
-			var point := center + (corner * art_size * 0.5).rotated(drop.rotation)
+			var point := center + (corner * art_size * drop.scale * 0.5).rotated(drop.rotation)
 			bottom = maxf(bottom, point.y)
 		assert(is_equal_approx(bottom, floor_y), "The rocking can keeps its art on the floor")
 	game._open_facilities()
@@ -150,7 +151,7 @@ func run_checks() -> void:
 		"시설창 뒤에 있는 빈캔은 모달 위에서 클릭해도 수령하지 않아야 합니다.")
 	game.facilities_screen.close()
 	await process_frame
-	await tap(drop)
+	await tap(drop, Vector2(0.15, 0.5))
 	assert(game.session.cans == 2 and game.session.drinks == 0)
 	assert(game.session.collect_facility_item(1) == 0)
 	assert(game.session.cans == 2)
@@ -161,6 +162,7 @@ func run_checks() -> void:
 	game.facility_world.refresh()
 	var still_drop: Button = game.facility_world.drops[2]
 	assert(is_equal_approx(still_drop.rotation, -PI * 0.5))
+	assert(still_drop.scale == Vector2(2, 2), "모션 감소에서도 두 배 크기로 정착해야 합니다.")
 	assert(still_drop.position.y > 450, "Reduced motion uses the same floor without falling")
 	can_preferences.values.reduce_motion = can_reduced_before
 	RULES.state(game.session).drops.clear()
@@ -225,8 +227,8 @@ func run_checks() -> void:
 	quit()
 
 
-func tap(control: Control) -> void:
-	var point := control.get_global_transform_with_canvas() * (control.size * 0.5)
+func tap(control: Control, ratio: Vector2 = Vector2(0.5, 0.5)) -> void:
+	var point := control.get_global_transform_with_canvas() * (control.size * ratio)
 	for down in [true, false]:
 		var event := InputEventMouseButton.new()
 		event.position = point
