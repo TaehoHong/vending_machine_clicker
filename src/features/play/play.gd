@@ -585,7 +585,7 @@ func _start_purchase_effect(purchase_id: int, drink_index: int) -> void:
 	animation.tween_callback(coin.hide)
 	animation.tween_callback(
 		func() -> void:
-			drink.call("begin", load(DRINK_DATA[drink_index].asset), Color(DRINK_DATA[drink_index].color))
+			drink.call("begin", load(DRINK_DATA[drink_index].asset))
 	)
 	animation.tween_method(Callable(drink, "advance"), 0.0, 1.32, 1.32)
 	animation.tween_callback(_finish_purchase_effect.bind(purchase_id))
