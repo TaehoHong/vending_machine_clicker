@@ -127,7 +127,18 @@ func run_checks() -> void:
 	var ion_art: Control = preload("res://src/shared/ui/design_view.gd").shape(
 		screen.products[2].get_parent(), "진열 슬롯 / 1행 4열 / 이온음료"
 	)
-	assert(ion_art.modulate.a < 1.0, "Locked drinks keep the source dimming")
+	assert(is_equal_approx(ion_art.modulate.a, 1.0), "Selected locked drink is clear")
+	var design := preload("res://src/shared/ui/design_view.gd")
+	assert(design.shape(screen.slot_states[2], "State / 선택").visible)
+	assert(design.shape(screen.slot_states[2], "State / 미해금").visible,
+		"Selection must not imply that the drink is unlocked")
+	await tap(screen.products[4])
+	assert(ion_art.modulate.a < 1.0, "Unselected locked drink returns to its source dimming")
+	assert(not design.shape(screen.slot_states[2], "State / 선택").visible)
+	await tap(screen.products[2])
+	assert(screen.detail_rule_rows[0].text == "1 Gold")
+	assert(screen.detail_rule_rows[1].text == "−1%p")
+	assert(screen.detail_rule_rows[7].text == "+0.1%p")
 	await tap(screen.buttons[2])
 	assert(is_equal_approx(ion_art.modulate.a, 1.0), "Unlock immediately restores full opacity")
 	await capture("unlocked-clear")

@@ -18,6 +18,8 @@ var summary_label: Label
 var detail_title: Label
 var detail_art: TextureRect
 var detail_effect: Label
+var detail_rules: Label
+var detail_rule_rows: Array[Label] = []
 var detail_status: Label
 var detail_count: Label
 var buttons: Dictionary = {}
@@ -45,6 +47,12 @@ func _ready() -> void:
 	balance = design.shape(canvas, "Label")
 	summary_button = design.action(canvas, "능력 요약 / normal", _toggle_summary)
 	close_button = design.action(canvas, "음료 화면 닫기 / normal", close_requested.emit)
+	for button in [summary_button, close_button]:
+		for label in button.get_parent().find_children("*", "Label", true, false):
+			label.theme_type_variation = &"MenuBody"
+			label.remove_theme_font_override("font")
+			label.remove_theme_font_size_override("font_size")
+			label.remove_theme_constant_override("outline_size")
 	var machine: Control = design.shape(
 		canvas, "Clicker / World / Vending / 조작부 확대 · 진열 15종"
 	)
@@ -52,6 +60,13 @@ func _ready() -> void:
 	for i in DATA.size():
 		var slot: int = DATA[i].display_slot
 		slot_states[i] = DESIGN.shape(machine, "진열 상태 / %02d" % (slot + 1))
+		var selected: Control = DESIGN.shape(slot_states[i], "State / 선택")
+		selected.z_index = 2
+		for corner in selected.get_children():
+			if corner is Panel:
+				var style: StyleBoxFlat = corner.get_theme_stylebox("panel").duplicate()
+				style.bg_color = get_theme_color("font_color", "InfoTitle")
+				corner.add_theme_stylebox_override("panel", style)
 		var prefix := "진열 슬롯 / %d행 %d열" % [slot / 5 + 1, slot % 5 + 1]
 		for child: Control in machine.get_children():
 			if str(child.get_meta("penpot_name", "")).begins_with(prefix):
@@ -67,10 +82,10 @@ func _ready() -> void:
 				product_artwork[i] = child
 				locked_opacity[i] = child.modulate.a
 				break
-	detail_panel = _panel(Rect2(756, 196, 306, 278), "DrinkDetail", &"InfoPanel")
+	detail_panel = _panel(Rect2(680, 160, 400, 430), "DrinkDetail", &"InfoPanel")
 	detail_art = TextureRect.new()
 	detail_art.name = "DrinkArt"
-	detail_art.position = Vector2(20, 16)
+	detail_art.position = Vector2(24, 20)
 	detail_art.size = Vector2(40, 60)
 	detail_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	detail_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -78,40 +93,53 @@ func _ready() -> void:
 	detail_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	detail_panel.add_child(detail_art)
 	detail_title = _label(
-		detail_panel, Rect2(76, 18, 160, 36), "", 24, foreground, &"InfoTitle"
+		detail_panel, Rect2(76, 22, 246, 36), "", 24, foreground, &"InfoTitle"
 	)
 	detail_count = _label(
-		detail_panel, Rect2(76, 54, 160, 26), "", 16, secondary, &"InfoBody"
+		detail_panel, Rect2(76, 62, 300, 26), "", 16, secondary, &"InfoBody"
 	)
 	detail_count.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	detail_effect = _label(
-		detail_panel, Rect2(20, 96, 258, 64), "", 18, foreground, &"InfoBody"
+		detail_panel, Rect2(24, 110, 352, 60), "", 18, foreground, &"InfoBody"
 	)
 	detail_effect.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	detail_rules = _label(
+		detail_panel, Rect2(24, 174, 352, 130), "", 18, foreground, &"InfoBody"
+	)
+	detail_rules.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	for row in 4:
+		for column in 2:
+			var label := _label(
+				detail_panel, Rect2(24 + 172 * column, 204 + 26 * row, 180, 26),
+				"", 18, foreground, &"InfoBody"
+			)
+			if column == 1:
+				label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+			detail_rule_rows.append(label)
 	detail_status = _label(
-		detail_panel, Rect2(20, 168, 258, 28), "", 16, secondary, &"InfoBody"
+		detail_panel, Rect2(24, 320, 352, 76), "", 16, secondary, &"InfoBody"
 	)
 	detail_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var dismiss_art: Control = preload("res://src/features/drinks/detail_close.tscn").instantiate()
-	dismiss_art.position = Vector2(234, 2)
+	dismiss_art.position = Vector2(330, 4)
 	detail_panel.add_child(dismiss_art)
 	DESIGN.action(dismiss_art, "음료 상세 닫기 / normal", dismiss_details)
 	for i in ORDER:
 		var artwork: Control = preload("res://src/features/drinks/unlock_button.tscn").instantiate()
-		artwork.position = Vector2(51, 196)
+		artwork.position = Vector2(98, 348)
 		detail_panel.add_child(artwork)
 		var unlock := DESIGN.action(
 			artwork, "음료 추가 / normal", func() -> void: unlock_requested.emit(i)
 		)
 		buttons[i] = unlock
 		unlock_labels[i] = DESIGN.shape(artwork, "Label")
-	summary_panel = _panel(Rect2(796, 92, 306, 230), "AbilitySummary", &"InfoPanel")
+	summary_panel = _panel(Rect2(680, 160, 400, 430), "AbilitySummary", &"InfoPanel")
 	_label(
-		summary_panel, Rect2(18, 14, 270, 36), "현재 적용된 능력", 23,
+		summary_panel, Rect2(24, 22, 352, 36), "현재 적용된 능력", 24,
 		foreground, &"InfoTitle"
 	)
 	summary_label = _label(
-		summary_panel, Rect2(18, 64, 270, 146), "", 18, secondary, &"InfoBody"
+		summary_panel, Rect2(24, 78, 352, 328), "", 18, secondary, &"InfoBody"
 	)
 	summary_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	resized.connect(_layout)
@@ -211,13 +239,16 @@ func _refresh_selection() -> void:
 		for state in ["normal", "hover", "pressed", "focus"]:
 			products[i].add_theme_stylebox_override(state, StyleBoxEmpty.new())
 		var acquired: bool = i < 2 or unlocked_indices.has(i)
-		product_artwork[i].modulate.a = 1.0 if acquired else locked_opacity[i]
+		product_artwork[i].modulate.a = (
+			1.0 if acquired or selected_index == i else locked_opacity[i]
+		)
 		var badge: Control = slot_states.get(i)
 		if badge != null:
 			var locked := DESIGN.shape(badge, "State / 미해금")
 			var unlocked := DESIGN.shape(badge, "State / 해금됨")
 			locked.visible = not acquired
 			unlocked.visible = acquired
+			DESIGN.shape(badge, "State / 선택").visible = selected_index == i
 	for i in buttons:
 		var acquired: bool = unlocked_indices.has(i)
 		buttons[i].get_parent().visible = selected_index == i and not acquired
@@ -239,10 +270,23 @@ func _refresh_selection() -> void:
 			int(data.max_enhancements),
 		]
 	detail_count.tooltip_text = detail_count.text
-	detail_effect.text = str(data.effect).replace(" · ", "\n")
+	detail_effect.text = data.description
+	var probability_rows: PackedStringArray = (
+		str(data.effect).split("\n") if data.has("effect_heading") else PackedStringArray()
+	)
+	detail_rules.text = str(data.get("effect_heading", data.effect)).replace(" · ", "\n")
+	detail_rules.size.y = 26 if data.has("effect_heading") else 130
+	detail_rules.add_theme_font_size_override("font_size", 16 if data.has("effect_heading") else 18)
+	for index in detail_rule_rows.size():
+		var label := detail_rule_rows[index]
+		label.visible = index / 2 < probability_rows.size()
+		if label.visible:
+			label.text = probability_rows[index / 2].rsplit(" ", true, 1)[index % 2]
 	if acquired:
+		detail_status.size.y = 76
 		detail_status.text = str(cumulative_effects.get(selected_index,"획득한 음료의 능력이 적용됩니다"))
 	else:
+		detail_status.size.y = 26
 		detail_status.text = (
 			"빈캔이 %d개 부족합니다" % (int(data.cost) - current_cans)
 			if current_cans < int(data.cost) else "해금 후 자판기에서 등장"
@@ -253,6 +297,11 @@ func _refresh_selection() -> void:
 	):
 		detail_count.text = "MAX · 최대 강화"
 		detail_effect.text = ""
+		detail_rules.text = str(cumulative_effects.get(selected_index, "")).replace(
+			"\n최대 강화 · 추첨 제외", ""
+		)
+		for label in detail_rule_rows:
+			label.hide()
 		detail_status.text = "획득 %d개 · 강화 %d/%d\n능력 유지 · 추첨 제외" % [
 			int(counts.get(selected_index, 0)), int(applied_counts.get(selected_index, 0)),
 			int(data.max_enhancements),

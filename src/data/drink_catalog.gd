@@ -4,6 +4,7 @@ extends RefCounted
 const DATA: Array[Dictionary] = [
 	{
 		"key": "Water",
+		"description": "수색으로 찾는 골드가 늘어납니다",
 		"name": "물",
 		"asset": "res://assets/penpot/eaccfa4c-8a01-81ad-8008-d3e77d23692a.png",
 		"color": "#77CEE5",
@@ -14,6 +15,7 @@ const DATA: Array[Dictionary] = [
 	},
 	{
 		"key": "Tea",
+		"description": "수색으로 찾는 골드가 늘어납니다",
 		"name": "녹차",
 		"asset": "res://assets/penpot/eaccfa4c-8a01-81ad-8008-d3e78fe02866.png",
 		"color": "#B4D581",
@@ -24,16 +26,19 @@ const DATA: Array[Dictionary] = [
 	},
 	{
 		"key": "Ion",
+		"effect_heading": "강화 1회당 확률 변화",
+		"description": "큰 금액의 동전을\n찾을 확률이 올라갑니다",
 		"name": "이온음료",
 		"asset": "res://assets/penpot/eaccfa4c-8a01-81ad-8008-d3e7a7eab0f8.png",
 		"color": "#B7B9FF",
 		"cost": 5,
-		"effect": "1 Gold −1%p → 5/10/50 Gold +0.6/0.3/0.1%p",
+		"effect": "1 Gold −1%p\n5 Gold +0.6%p\n10 Gold +0.3%p\n50 Gold +0.1%p",
 		"display_slot": 3,
 		"max_enhancements": 5
 	},
 	{
 		"key": "Vitamin",
+		"description": "더 적은 클릭으로 수색을 완료합니다",
 		"name": "비타민 음료",
 		"asset": "res://assets/penpot/8af72ccb-2daf-802c-8008-d3e806baa070.png",
 		"color": "#FFE475",
@@ -44,16 +49,19 @@ const DATA: Array[Dictionary] = [
 	},
 	{
 		"key": "Apple",
+		"effect_heading": "강화 1회당 확률 변화",
+		"description": "큰 금액의 동전을\n찾을 확률이 올라갑니다",
 		"name": "사과 주스",
 		"asset": "res://assets/penpot/da05d154-084a-817e-8008-d3e7af514d73.png",
 		"color": "#F09589",
 		"cost": 8,
-		"effect": "1 Gold −2%p → 5/10/50 Gold +1.2/0.6/0.2%p",
+		"effect": "1 Gold −2%p\n5 Gold +1.2%p\n10 Gold +0.6%p\n50 Gold +0.2%p",
 		"display_slot": 4,
 		"max_enhancements": 5
 	},
 	{
 		"key": "Orange",
+		"description": "펀치 피버가 더 오래 지속됩니다",
 		"name": "오렌지 주스",
 		"asset": "res://assets/penpot/da05d154-084a-817e-8008-d3e7f0fd12e3.png",
 		"color": "#FFBF70",
@@ -64,6 +72,7 @@ const DATA: Array[Dictionary] = [
 	},
 	{
 		"key": "Cola",
+		"description": "획득하면 수색 피버가 시작됩니다",
 		"name": "콜라",
 		"asset": "res://assets/penpot/da05d154-084a-817e-8008-d3e60bfc5275.png",
 		"color": "#EF858D",
@@ -74,6 +83,7 @@ const DATA: Array[Dictionary] = [
 	},
 	{
 		"key": "Fanta",
+		"description": "획득하면 주차장이 해금됩니다",
 		"name": "황금음료 · 오로라 골드",
 		"asset": "res://assets/penpot/8af72ccb-2daf-802c-8008-d3e81cf53195.png",
 		"color": "#D3A4FF",
@@ -84,6 +94,7 @@ const DATA: Array[Dictionary] = [
 	},
 	{
 		"key": "Sprite",
+		"description": "한 번의 수색 클릭이\n두 번으로 인정될 확률이 올라갑니다",
 		"name": "레몬라임 소다",
 		"asset": "res://assets/penpot/eaccfa4c-8a01-81ad-8008-d3e7e2950264.png",
 		"color": "#92E7AE",
@@ -94,6 +105,7 @@ const DATA: Array[Dictionary] = [
 	},
 	{
 		"key": "Barley",
+		"description": "수색으로 찾는 골드가 늘어납니다",
 		"name": "보리차",
 		"asset": "res://assets/penpot/eaccfa4c-8a01-81ad-8008-d3e797016df3.png",
 		"color": "#D9A44A",
@@ -104,6 +116,7 @@ const DATA: Array[Dictionary] = [
 	},
 	{
 		"key": "Ginger",
+		"description": "수색 보상을 두 배로\n받을 확률이 올라갑니다",
 		"name": "진저에일",
 		"asset": "res://assets/penpot/8af72ccb-2daf-802c-8008-d3e7b6c86894.png",
 		"color": "#75BB6B",
@@ -114,6 +127,7 @@ const DATA: Array[Dictionary] = [
 	},
 	{
 		"key": "Lemonade",
+		"description": "수색에서 꽝이 나올 확률이 줄어듭니다",
 		"name": "레모네이드",
 		"asset": "res://assets/penpot/eaccfa4c-8a01-81ad-8008-d3e7be1af9eb.png",
 		"color": "#F4DA52",
@@ -124,6 +138,7 @@ const DATA: Array[Dictionary] = [
 	},
 	{
 		"key": "Peach",
+		"description": "수색 피버가 더 오래 지속됩니다",
 		"name": "복숭아 주스",
 		"asset": "res://assets/penpot/eaccfa4c-8a01-81ad-8008-d3e7e9d8e565.png",
 		"color": "#F7A1AC",
@@ -134,6 +149,7 @@ const DATA: Array[Dictionary] = [
 	},
 	{
 		"key": "Melon",
+		"description": "황금 음료수를 뽑을 확률이 올라갑니다",
 		"name": "멜론 소다",
 		"asset": "res://assets/penpot/eaccfa4c-8a01-81ad-8008-d3e80e0a1590.png",
 		"color": "#9DDC68",
@@ -144,6 +160,7 @@ const DATA: Array[Dictionary] = [
 	},
 	{
 		"key": "Energy",
+		"description": "획득하면 펀치 피버가 시작됩니다",
 		"name": "에너지 드링크",
 		"asset": "res://assets/penpot/8af72ccb-2daf-802c-8008-d3e837867ccc.png",
 		"color": "#BCE638",
