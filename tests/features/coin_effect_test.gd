@@ -64,6 +64,16 @@ func run_checks() -> void:
 	assert(counts == [4, 2, 0, 0], "245 Gold must spawn four bronze and two silver coins")
 	for coin in get_nodes_in_group("search_coin_effects"):
 		assert(coin.scale == Vector2.ONE, "Normal search coin size must stay unchanged")
+	await create_timer(0.92).timeout
+	var settled := get_nodes_in_group("search_coin_effects")
+	assert(settled.size() == 6, "Normal coins must remain visible after the roll")
+	var rest: Vector2 = settled[0].position
+	await create_timer(0.06).timeout
+	assert(settled[0].position.is_equal_approx(rest), "Normal coins stop before fading")
+	assert(is_equal_approx(settled[0].modulate.a, 1.0), "Settled coins stay opaque before fading")
+	await create_timer(0.30).timeout
+	assert(get_nodes_in_group("search_coin_effects").is_empty(), "Normal coins clean up at 1.20s")
+	game._show_search_coin(245)
 	game._clear_search_popups("search_coin_effects")
 	game._start_search_fever()
 	game._show_search_coin(245)

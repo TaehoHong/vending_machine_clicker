@@ -101,6 +101,7 @@ func refresh() -> void:
 			item.size = Vector2(28, 39)
 			item.icon = preload("res://src/shared/ui/icons/can_icon.svg")
 			item.expand_icon = true
+			item.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			for state in ["normal", "hover", "pressed", "focus"]:
 				item.add_theme_stylebox_override(state, StyleBoxEmpty.new())
 			add_child(item)
@@ -122,21 +123,41 @@ func refresh() -> void:
 func _animate_can_drop(item: Button) -> void:
 	item.pivot_offset = item.size * 0.5
 	var floor_y: float = customer_flow.reward_origin().y
-	var landing := Vector2(item.position.x - 44, floor_y - item.size.y * 0.5 - item.size.x * 0.5)
+	var start := item.position
+	start.y = floor_y - 85.5 - item.pivot_offset.y
 	if get_node("/root/Preferences").values.reduce_motion:
-		item.position = landing
-		item.rotation = -PI * 0.5
+		_set_can_drop_pose(0.84, item, start, floor_y)
 		return
 	var fall: Tween = item.create_tween()
-	fall.tween_property(item, "position:y", landing.y, 0.28).set_trans(
-		Tween.TRANS_QUAD
-	).set_ease(Tween.EASE_IN)
-	fall.parallel().tween_property(item, "rotation", -PI / 3, 0.28)
-	fall.tween_property(item, "position:y", landing.y - 10, 0.07).set_ease(Tween.EASE_OUT)
-	fall.tween_property(item, "position:y", landing.y, 0.09).set_ease(Tween.EASE_IN)
-	fall.tween_property(item, "position:x", landing.x, 0.32).set_trans(
-		Tween.TRANS_QUAD
-	).set_ease(Tween.EASE_OUT)
-	fall.parallel().tween_property(item, "rotation", -TAU - PI * 0.5, 0.32).set_trans(
-		Tween.TRANS_QUAD
-	).set_ease(Tween.EASE_OUT)
+	_set_can_drop_pose(0.0, item, start, floor_y)
+	fall.tween_method(_set_can_drop_pose.bind(item, start, floor_y), 0.0, 0.84, 0.84)
+
+
+func _set_can_drop_pose(time: float, item: Button, start: Vector2, floor_y: float) -> void:
+	var x := 0.0
+	var angle: float
+	var lift := 0.0
+	if time < 0.28:
+		angle = -18.0 * time / 0.28
+	elif time < 0.48:
+		var q := (time - 0.28) / 0.20
+		x = -24.0 * q
+		angle = lerpf(-18.0, -105.0, q)
+		lift = 18.0 * sin(PI * q)
+	else:
+		var phase := mini(int((time - 0.48) / 0.12), 2)
+		var q := clampf((time - 0.48 - phase * 0.12) / 0.12, 0.0, 1.0)
+		q = 1.0 - pow(1.0 - q, 2)
+		x = lerpf([-24.0, -36.0, -42.0][phase], [-36.0, -42.0, -44.0][phase], q)
+		angle = lerpf([-105.0, -82.0, -94.0][phase], [-82.0, -94.0, -90.0][phase], q)
+	item.rotation = deg_to_rad(angle)
+	# 버튼 여백 대신 실제 아이콘의 회전된 외곽으로 바닥 높이를 맞춘다.
+	var art_size := item.icon.get_size()
+	art_size *= minf(item.size.x / art_size.x, item.size.y / art_size.y)
+	var half_extent := (
+		absf(cos(item.rotation)) * art_size.y + absf(sin(item.rotation)) * art_size.x
+	) * 0.5
+	var center_y := floor_y - half_extent - lift
+	if time < 0.28:
+		center_y = lerpf(start.y + item.pivot_offset.y, center_y, pow(time / 0.28, 2))
+	item.position = Vector2(start.x + x, center_y - item.pivot_offset.y)

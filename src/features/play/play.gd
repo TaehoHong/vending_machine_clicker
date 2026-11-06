@@ -285,33 +285,51 @@ func _spawn_search_coin(tier: int, index: int, total: int) -> void:
 		_animate_fever_coin(coin, start, index, total)
 		return
 	var direction := -1.0 if index % 2 == 0 else 1.0
-	var height := randf_range(22, 48)
 	var distance := randf_range(45, 90)
 	var motion := coin.create_tween()
-	(
-		motion
-		. tween_property(coin, "position", start + Vector2(direction * 12, -height), 0.16)
-		. set_trans(Tween.TRANS_QUAD)
-		. set_ease(Tween.EASE_OUT)
-	)
-	(
-		motion
-		. tween_property(coin, "position", start + Vector2(direction * 28, 18), 0.22)
-		. set_trans(Tween.TRANS_QUAD)
-		. set_ease(Tween.EASE_IN)
-	)
-	(
-		motion
-		. tween_property(coin, "position", start + Vector2(direction * distance, 22), 0.38)
-		. set_trans(Tween.TRANS_QUAD)
-		. set_ease(Tween.EASE_OUT)
+	motion.tween_method(
+		_set_search_coin_pose.bind(coin, start, direction, distance), 0.0, 1.20, 1.20
 	)
 	motion.tween_callback(coin.queue_free)
-	var spin := coin.create_tween()
-	spin.tween_property(coin, "rotation", direction * TAU, 0.76)
-	var fade := coin.create_tween()
-	fade.tween_interval(0.48)
-	fade.tween_property(coin, "modulate:a", 0.0, 0.28)
+
+
+func _set_search_coin_pose(
+	time: float, coin: Control, start: Vector2, direction: float, distance: float
+) -> void:
+	var x: float
+	var y: float
+	var angle: float
+	if time < 0.12:
+		var q := 1.0 - pow(1.0 - time / 0.12, 2)
+		x = 8.0 * q
+		y = -22.0 * q
+		angle = deg_to_rad(100.0 * q)
+	elif time < 0.30:
+		var q := (time - 0.12) / 0.18
+		x = lerpf(8.0, 22.0, q)
+		y = -22.0 + 44.0 * q * q
+		angle = deg_to_rad(lerpf(100.0, 180.0, q))
+	else:
+		y = 22.0
+		if time < 0.48:
+			var q := (time - 0.30) / 0.18
+			x = lerpf(22.0, 46.0, q)
+			y -= 22.0 * sin(PI * q)
+		elif time < 0.60:
+			var q := (time - 0.48) / 0.12
+			x = lerpf(46.0, 58.0, q)
+			y -= 6.0 * sin(PI * q)
+		else:
+			var q := clampf((time - 0.60) / 0.28, 0.0, 1.0)
+			x = lerpf(58.0, 90.0, 1.0 - pow(1.0 - q, 2))
+		# 굴림 회전은 실제 좌우 이동 거리와 코인 반지름을 따른다.
+		angle = PI + (x - 22.0) * distance / 90.0 / (coin.size.x * 0.5)
+		if time >= 0.88 and time < 1.04:
+			var q := (time - 0.88) / 0.16
+			angle += deg_to_rad(sin(TAU * q) * 8.0 * (1.0 - q))
+	coin.position = start + Vector2(direction * x * distance / 90.0, y)
+	coin.rotation = direction * angle
+	coin.modulate.a = 1.0 - clampf((time - 1.08) / 0.12, 0.0, 1.0)
 
 
 func _animate_fever_coin(coin: Control, start: Vector2, index: int, total: int) -> void:

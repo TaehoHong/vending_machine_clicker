@@ -130,9 +130,20 @@ func run_checks() -> void:
 	game.pause_menu.set_open(false)
 	await create_timer(0.85).timeout
 	assert(drop.position.x < drop_start.x, "The can rolls sideways after falling")
-	assert(is_equal_approx(drop.rotation, -TAU - PI * 0.5), "The can settles lying down")
-	var bottom: float = drop.position.y + drop.pivot_offset.y + drop.size.x * 0.5
-	assert(is_equal_approx(bottom, game.facility_world.customer_flow.reward_origin().y))
+	assert(is_equal_approx(drop.rotation, -PI * 0.5), "The can settles without an extra turn")
+	var floor_y: float = game.facility_world.customer_flow.reward_origin().y
+	var art_size := drop.icon.get_size()
+	art_size *= minf(drop.size.x / art_size.x, drop.size.y / art_size.y)
+	for time: float in [0.28, 0.48, 0.54, 0.60, 0.66, 0.72, 0.78, 0.84]:
+		game.facility_world._set_can_drop_pose(time, drop, drop_start, floor_y)
+		var center: Vector2 = drop.position + drop.pivot_offset
+		var bottom := -INF
+		for corner: Vector2 in [
+			Vector2(-1, -1), Vector2(1, -1), Vector2(-1, 1), Vector2(1, 1),
+		]:
+			var point := center + (corner * art_size * 0.5).rotated(drop.rotation)
+			bottom = maxf(bottom, point.y)
+		assert(is_equal_approx(bottom, floor_y), "The rocking can keeps its art on the floor")
 	game._open_facilities()
 	await tap(drop)
 	assert(game.session.cans == 0 and RULES.state(game.session).drops.size() == 1,
