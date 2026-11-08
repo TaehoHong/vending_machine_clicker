@@ -59,7 +59,7 @@ func _start_gold_effect(amount: int) -> void:
 	_gold_effects[coin] = amount
 	var motion := coin.create_tween()
 	if get_node("/root/Preferences").values.reduce_motion:
-		motion.tween_property(coin, "modulate:a", 0.0, 0.15)
+		motion.tween_interval(1.7)
 	else:
 		motion.tween_property(coin, "position:y", origin.y - 36.0, 0.22).set_trans(
 			Tween.TRANS_QUAD
@@ -67,7 +67,8 @@ func _start_gold_effect(amount: int) -> void:
 		motion.tween_property(coin, "position:y", origin.y, 0.28).set_trans(
 			Tween.TRANS_QUAD
 		).set_ease(Tween.EASE_IN)
-		motion.parallel().tween_property(coin, "modulate:a", 0.0, 0.28)
+		motion.tween_interval(1.2)
+	motion.tween_property(coin, "modulate:a", 0.0, 0.3)
 	motion.tween_callback(_finish_gold_effect.bind(coin))
 
 
@@ -136,8 +137,14 @@ func _draw_can(item: Button) -> void:
 	if landed and not reduced:
 		feedback_scale = 0.94 if item.is_pressed() else (1.08 if highlighted else 1.0)
 	var art_size := _can_art_size()
-	# 눕힌 캔의 바닥 쪽 가장자리를 고정해 호버 확대에도 접지를 유지한다.
+	# 부유는 그림에만 적용하여 클릭 영역을 고정한다.
+	var idle_time := _can_elapsed - float(item.get_meta("born_at")) - 0.84
+	var float_offset := Vector2.ZERO
+	if landed and not reduced:
+		var lift := 2.0 * (1.0 - cos(idle_time * TAU / 2.4))
+		float_offset = Vector2(0, -lift).rotated(-item.rotation) / item.scale
 	var center := item.pivot_offset + Vector2((feedback_scale - 1.0) * art_size.x * 0.5, 0)
+	center += float_offset
 	var tint := Color(1.18, 1.18, 1.12) if highlighted else Color.WHITE
 	if landed and item.is_pressed():
 		tint = Color(0.82, 0.87, 0.90)
@@ -147,12 +154,13 @@ func _draw_can(item: Button) -> void:
 	)
 	if not landed or reduced:
 		return
-	var phase := fmod(_can_elapsed - float(item.get_meta("born_at")) - 0.84, 2.8)
+	var phase := fmod(idle_time, 2.8)
 	if phase < 0.0 or phase > 0.5:
 		return
 	var sparkle := item.get_theme_color("font_color", "AccentLabel")
 	sparkle.a = sin(phase / 0.5 * PI)
 	for point: Vector2 in [Vector2(28, 8), Vector2(20, 35)]:
+		point += float_offset
 		item.draw_rect(Rect2(point - Vector2(1, 3), Vector2(2, 6)), sparkle)
 		item.draw_rect(Rect2(point - Vector2(3, 1), Vector2(6, 2)), sparkle)
 

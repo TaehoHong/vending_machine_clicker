@@ -8,7 +8,7 @@ const DESIGN = preload("res://src/shared/ui/design_view.gd")
 
 func _initialize() -> void:
 	call_deferred("run_checks")
-	create_timer(15).timeout.connect(func() -> void: quit(1))
+	create_timer(20).timeout.connect(func() -> void: quit(1))
 
 
 func run_checks() -> void:
@@ -176,7 +176,12 @@ func run_checks() -> void:
 	game.facility_world.advance(10.0)
 	game.facility_world.advance(10.0)
 	assert(game.session.money == 2000 and RULES.state(game.session).gold == 40)
-	await create_timer(1.0).timeout
+	var gold_effect: Control = game.facility_world.get_node("FacilityGoldEffect")
+	await create_timer(0.8).timeout
+	assert(game.session.money == 2000, "골드는 짧은 튐이 끝나도 읽을 시간 동안 남아야 합니다.")
+	assert(is_instance_valid(gold_effect) and gold_effect.modulate.a == 1.0,
+		"대기 중인 골드와 금액은 선명하게 표시해야 합니다.")
+	await create_timer(1.4).timeout
 	assert(game.session.money == 2040, "생산 골드는 클릭 없이 연출 후 자동 수령해야 합니다.")
 	assert(receipts == [Vector2i(2020, 20), Vector2i(2040, 0)],
 		"각 연출은 뒤 생산분을 먼저 수령하지 않고 자신의 금액만 지급해야 합니다.")
@@ -208,7 +213,9 @@ func run_checks() -> void:
 	preferences.values.reduce_motion = true
 	app.view.set_process(false)
 	app.view.facility_world.advance(10.0)
-	await create_timer(1.0).timeout
+	await create_timer(0.8).timeout
+	assert(app.session.money == 2060, "모션 감소에서도 골드 표시를 읽을 시간을 줘야 합니다.")
+	await create_timer(1.4).timeout
 	assert(app.session.money == 2080 and RULES.state(app.session).gold == 0,
 		"모션 감소에서도 같은 생산액을 클릭 없이 한 번만 지급해야 합니다.")
 	app.view.facility_world.advance(10.0)
@@ -217,12 +224,14 @@ func run_checks() -> void:
 	assert(app.session.money == 2080 and RULES.state(app.session).gold == 20,
 		"ESC 일시정지 중에는 진행 중인 골드 연출과 수령을 보류해야 합니다.")
 	paused = false
-	await create_timer(1.0).timeout
+	await create_timer(2.2).timeout
 	assert(app.session.money == 2100 and RULES.state(app.session).gold == 0,
 		"재개한 골드 연출은 같은 보상을 한 번만 지급해야 합니다.")
 	preferences.values.reduce_motion = reduced_before
 	app.free()
 	DirAccess.remove_absolute(save_path)
+	# 앱의 BGM을 해제한 뒤 기존 메뉴 회귀처럼 오디오 믹서 정리를 기다린다.
+	await create_timer(0.15).timeout
 	print("Facility purchase, upgrades, automatic gold, overlapping payouts and reload passed.")
 	quit()
 
