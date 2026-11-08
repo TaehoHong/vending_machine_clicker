@@ -38,7 +38,7 @@
 - [x] `docs/07-codebase-guide.md`의 기존 시설 빈캔·골드 표현 계약만 갱신하고 검증된 지식만 반영한다. 새 런타임 파일·새 troubleshooting 문서는 필요 없다.
 - [x] Godot 4.7 import/parse, `facilities_test.gd`·`facility_rules_test.gd`·`customer_animation_test.gd`·`menu_test.gd`·`progress_store_test.gd` 등 `docs/05-quality-rules.md`의 선언된 회귀 21개와 `git diff --check`를 실행한다. 실행 파일은 `/Applications/Godot.app/Contents/MacOS/Godot`이며 `4.7.stable.official.5b4e0cb0f`를 확인했다.
 - [x] 실제 diff의 재사용·책임·스타일·추가 파일 필요성을 검토하고 임시 검수 산출물은 Git에 포함하지 않는다.
-- [ ] 작업 브랜치 `codex/facility-reward-motion`에서 검증한 변경만 로컬 커밋하고 `main`으로 머지한 뒤 포함 여부·통합 검사를 확인한다. push/PR은 하지 않는다.
+- [x] 작업 브랜치 `codex/facility-reward-motion`에서 검증한 변경만 로컬 커밋하고 `main`으로 머지한 뒤 포함 여부·통합 검사를 확인한다. push/PR은 하지 않는다.
 
 ## 테스트 가치·완료 기준
 
@@ -56,3 +56,5 @@
 - 동시 작업이 같은 체크아웃의 브랜치를 전환하여 관리 worktree로 이 작업의 테스트 수정과 계획만 옮겼다. 원래 체크아웃의 다른 변경을 보존했다.
 - 기존 facility_world·공유 coin/can 아트·AccentLabel·표현 시계·세션 지급/저장 경계를 재사용했다. 새 런타임 파일·테마·에셋·저장 필드는 없다. 새 파일은 저장소가 요구하는 이 체크리스트 계획뿐이다.
 - Knowledge Delta: 사용자 확정한 골드 읽기 시간과 빈캔 부유 규칙을 Notion/PRODUCT/DESIGN/design 안내에, 검증된 표현 소유권과 회귀 정리를 코드 안내에 반영했다. 조정값은 검수값으로 유지했다. 원인이 명확한 국소 표현 변경이므로 별도 troubleshooting 문서는 만들지 않았다.
+
+- 로컬 main에 기능 커밋 `7407cdd`와 최신 기획 문서 통합 `4df64cb`를 반영했다. 원래 main 체크아웃에서 editor parse·시설 회귀·git diff --check를 다시 통과했다. 다른 작업의 미커밋 문서 3줄은 autostash 복원 후 같은 추가 줄로 남았음을 대조했다. push/PR은 하지 않았다.
