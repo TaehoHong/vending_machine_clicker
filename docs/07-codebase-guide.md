@@ -2,6 +2,8 @@
 
 2026-10-20 승인된 구조 전환의 실제 소스를 기준으로 갱신했다. 2026-10-28 Penpot 전체 화면 대조와 시설 구매·강화 동선을 반영했다. 폴더·책임·의존성은 [아키텍처](06-architecture.md), 작성 전/후 검사는 [개발 규칙](02-development-rules.md#코드-품질-필수-검사)를 따른다.
 
+기획의 공통 용어는 [PRODUCT의 도메인 용어](../PRODUCT.md#도메인-용어)와 Notion 원문을 따른다. 상품은 음료·라면·잡지·피자·피규어를 포괄하고, 빈캔은 해금 재료다. 현재 `src/data/drink_catalog.gd`, `src/game/progression/drink_rules.gd`, `src/features/drinks/`와 `drink_*` 식별자는 첫 스테이지 음료 구현을 가리키며 게임 전체의 상품 범위를 뜻하지 않는다. 기존 저장 키·상품 인덱스는 호환 계약이므로 용어 정리만으로 바꾸지 않는다.
+
 ## 탐색 순서
 
 관련 행의 근거 경로에 커밋·staged·unstaged 변경이 있는지 먼저 확인한다. 대상 소유자·직접 호출자/피호출자·공유 예시·테스트를 읽고 소유권이 없거나 모순될 때만 검색을 넓힌다. 예: 구매 가격은 `game_session.purchase` → `economy_rules.current_draw_price` → Play 구매 요청 → 구매/저장 테스트 순서로 확인한다. 예전 루트 game.gd·ui/ 경로에 새 기능을 만들지 않는다. 게임에 연결된 A HUD SVG는 `src/shared/ui/icons/hud_buttons/`에 있으며 연결 안내는 `design/hud-buttons/README.md`다.
